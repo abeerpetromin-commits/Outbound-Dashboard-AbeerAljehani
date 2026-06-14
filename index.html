@@ -24,6 +24,9 @@
   /* Stellantis */
   --st:#1558b0;--st-light:#1a6fcc;--st-bg:#eaf2fd;--st-bg2:#d5e8fb;--st-muted:#5a9ae0;
 
+  /* BAIC */
+  --baic:#c41230;--baic-bg:#fdeaed;--baic-muted:#d95070;
+
   /* Nissan */
   --ni:#a01515;--ni-light:#c41e1e;--ni-bg:#fdeaea;--ni-bg2:#fbd5d5;--ni-muted:#d96060;
 
@@ -82,7 +85,7 @@ body{font-family:'Inter','IBM Plex Sans Arabic',system-ui,sans-serif;background:
 .nav-item:hover{background:var(--surface2);color:var(--text)}
 .nav-item.active{background:var(--surface2);color:var(--text);font-weight:600}
 .nav-item.active.stellantis{background:var(--st-bg);color:var(--st)}
-.nav-item.active.nissan{background:var(--ni-bg);color:var(--ni)}
+.nav-item.active.baic{background:var(--baic-bg);color:var(--baic);border-right-color:var(--baic)}
 .nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;opacity:.5}
 .nav-item.active .nav-dot{opacity:1}
 .nav-icon{width:15px;height:15px;flex-shrink:0;opacity:.5}
@@ -90,6 +93,7 @@ body{font-family:'Inter','IBM Plex Sans Arabic',system-ui,sans-serif;background:
 .nav-group:nth-child(1) .nav-icon{color:var(--text2)}
 .nav-group:nth-child(2) .nav-icon{color:var(--st)}
 .nav-group:nth-child(3) .nav-icon{color:var(--ni)}
+.nav-group:nth-child(4) .nav-icon{color:var(--baic)}
 .nav-badge{
   margin-left:auto;font-size:10px;font-weight:700;
   background:var(--surface3);color:var(--text3);
@@ -646,7 +650,7 @@ tr.row-done .task-check{pointer-events:none}
       </div>
       <div class="brand-name">Outbound Reference</div>
     </div>
-    <div class="brand-tagline">Nissan &amp; Stellantis</div>
+    <div class="brand-tagline">Nissan · Stellantis · BAIC</div>
   </div>
 
   <div class="nav-group">
@@ -660,6 +664,10 @@ tr.row-done .task-check{pointer-events:none}
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Daily Tasks
     </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Knowledge Hub</div>
   </div>
 
   <div class="nav-group">
@@ -727,6 +735,27 @@ tr.row-done .task-check{pointer-events:none}
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       Body &amp; Paint
       <span class="nav-badge">6</span>
+    </div>
+  <div class="nav-group">
+    <div class="nav-group-label" style="color:var(--baic-muted)">BAIC</div>
+    <div class="nav-item" onclick="show('vehicles-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5"/><circle cx="15" cy="17" r="2"/><circle cx="7" cy="17" r="2"/><path d="M13 17H9"/></svg>
+      Vehicles
+      <span class="nav-badge">12</span>
+    </div>
+    <div class="nav-item" onclick="show('warranty-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Warranty & Service
+    </div>
+    <div class="nav-item" onclick="show('branches-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Branches
+      <span class="nav-badge">21</span>
+    </div>
+    <div class="nav-item" onclick="show('whatsapp-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Call Scripts
+      <span class="nav-badge">2</span>
     </div>
   </div>
 </nav>
@@ -863,21 +892,14 @@ tr.row-done .task-check{pointer-events:none}
       </div>
     </div>
     <div class="card">
-      <div class="card-title">All Branches</div>
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>All Branches</span>
+        <span class="live-badge" id="stBranchesStatus"><span class="live-dot"></span>Loading...</span>
+      </div>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>#</th><th>Code</th><th>Branch</th><th>Services</th><th>Region</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td class="num muted">1</td><td class="num">701</td><td><strong>Automall</strong></td><td class="muted">PMS · Recall · Suspension</td><td><span class="badge b-west">Western</span></td><td class="muted">طريق الملك عبدالعزيز</td></tr>
-            <tr><td class="num muted">2</td><td class="num">711</td><td><strong>Al-Nakhil</strong></td><td class="muted">—</td><td><span class="badge b-west">Western</span></td><td class="muted">حي النخيل، طريق ابو عمرو الأوزاعي</td></tr>
-            <tr><td class="num muted">3</td><td class="num">704</td><td><strong>Makkah</strong></td><td class="muted">—</td><td><span class="badge b-west">Western</span></td><td class="muted">طريق الليث، مكة المكرمة</td></tr>
-            <tr><td class="num muted">4</td><td class="num">706</td><td><strong>Madinah Road — Jeddah</strong></td><td class="muted">PMS · Recall · Suspension</td><td><span class="badge b-west">Western</span></td><td class="muted">طريق المدينة، البوادي، جدة</td></tr>
-            <tr><td class="num muted">5</td><td class="num">801</td><td><strong>Khurias</strong></td><td class="muted">Jeep: Saqib/Ihab/Mahmoud/Abdulsattar · MB: Osama/Tamer/Salah/Izzuldeen</td><td><span class="badge b-center">Central</span></td><td class="muted">طريق خريص الفرعي، النهضة، الرياض</td></tr>
-            <tr><td class="num muted">6</td><td class="num">805</td><td><strong>Hail</strong></td><td class="muted">PMS · Recall · Suspension</td><td><span class="badge b-north">North</span></td><td class="muted">طريق الملك عبدالله، حي الخماشية</td></tr>
-            <tr><td class="num muted">7</td><td class="num">901</td><td><strong>Dammam</strong></td><td class="muted">—</td><td><span class="badge b-east">Eastern</span></td><td class="muted">طريق الملك فهد، الدمام</td></tr>
-            <tr><td class="num muted">8</td><td class="num">902</td><td><strong>Khobar</strong></td><td class="muted">PMS · Recall · Suspension (No RAMs)</td><td><span class="badge b-east">Eastern</span></td><td class="muted">الخبر - الراكة الشمالية</td></tr>
-            <tr><td class="num muted">9</td><td class="num">903</td><td><strong>Jubail</strong></td><td class="muted">—</td><td><span class="badge b-east">Eastern</span></td><td class="muted">الطريق السريع، قسم عبد اللطيف جميل، الجبيل</td></tr>
-          </tbody>
+          <tbody id="stBranchesBody"><tr class="loading-row"><td colspan="6">Loading data from Google Sheets...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -893,29 +915,137 @@ tr.row-done .task-check{pointer-events:none}
       </div>
     </div>
     <div class="card">
-      <div class="card-title">All Branches</div>
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>All Branches</span>
+        <span class="live-badge" id="niBranchesStatus"><span class="live-dot"></span>Loading...</span>
+      </div>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>SN</th><th>Code</th><th>Branch</th><th>Booking Hours (PMS)</th><th>Booking Hours (GR)</th><th>Address</th></tr></thead>
-          <tbody>
-            <tr><td class="num muted">1</td><td class="num">101</td><td><strong>Jeddah Auto Mall (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الملك</td></tr>
-            <tr><td class="num muted">2</td><td class="num">104</td><td><strong>Jeddah Daleel (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق المدينه النازل بعد تقاطع التحليه</td></tr>
-            <tr><td class="num muted">3</td><td class="num">105</td><td><strong>Jeddah Sabaeen (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الامير ماجد امام عزيز مول</td></tr>
-            <tr><td class="num muted">4</td><td class="num">109</td><td><strong>Madinah Munowa</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الملك عبد العزيز بجانب محطه نفط</td></tr>
-            <tr><td class="num muted">5</td><td class="num">121</td><td><strong>Makkah Kakia</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">الكعكيه</td></tr>
-            <tr><td class="num muted">6</td><td class="num">351</td><td><strong>Riyadh Qurtoba (3S)</strong></td><td><span class="hours-badge hours-late">8 AM – 6 PM</span></td><td><span class="hours-badge hours-late">8 AM – 4 PM</span></td><td class="muted">طريق الدمام</td></tr>
-            <tr><td class="num muted">7</td><td class="num">354</td><td><strong>Riyadh Khurais Road (3S)</strong></td><td><span class="hours-badge hours-late">8 AM – 6 PM</span></td><td><span class="hours-badge hours-late">8 AM – 4 PM</span></td><td class="muted">مخرج 13 تقاطع مكه مع النهضه</td></tr>
-            <tr><td class="num muted">8</td><td class="num">364</td><td><strong>Riyadh Exit 15 (3S)</strong></td><td><span class="hours-badge hours-late">8 AM – 6 PM</span></td><td><span class="hours-badge hours-late">8 AM – 4 PM</span></td><td class="muted">الدائري الشرقي مقابل مسجد الراجحي</td></tr>
-            <tr><td class="num muted">9</td><td class="num">369</td><td><strong>Exit 28 (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">البديعه - الدائري الغربي السويدي خلف مركز الهرم</td></tr>
-            <tr><td class="num muted">10</td><td class="num">370</td><td><strong>Qassim</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">بريده في المنتزة طريق الملك عبدالعزيز</td></tr>
-            <tr><td class="num muted">11</td><td class="num">601</td><td><strong>Dammam (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الملك فهد</td></tr>
-            <tr><td class="num muted">12</td><td class="num">602</td><td><strong>Alkhobar (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق خادم الحرمين الشريفين</td></tr>
-            <tr><td class="num muted">13</td><td class="num">603</td><td><strong>AL Hassa (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الظهران بجانب الغرفه التجاريه</td></tr>
-            <tr><td class="num muted">14</td><td class="num">611</td><td><strong>Jubail (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق أبوعلي، مخطط عبداللطيف جميل</td></tr>
-            <tr><td class="num muted">15</td><td class="num">122</td><td><strong>Jizan (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الملك عبدالعزيز جوار معرض نايس هوم</td></tr>
-            <tr><td class="num muted">16</td><td class="num">373</td><td><strong>Hail (3S)</strong></td><td><span class="hours-badge">8 AM – 3:30 PM</span></td><td><span class="hours-badge">8 AM – 1 PM</span></td><td class="muted">طريق الملك عبدالله</td></tr>
-          </tbody>
+          <tbody id="niBranchesBody"><tr class="loading-row"><td colspan="6">Loading data from Google Sheets...</td></tr></tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WARRANTY BAIC ── -->
+  <div id="tab-warranty-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Warranty &amp; Service Schedule</div>
+        <div class="page-sub" style="margin-top:4px">BAIC Vehicles — Service Standard</div>
+      </div>
+    </div>
+
+    <!-- Warranty card -->
+    <div class="card" style="border-top:3px solid var(--baic);margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--baic-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--baic)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:4px">BAIC Vehicles Warranty</div>
+          <div style="font-size:28px;font-weight:700;color:var(--baic);letter-spacing:-1px">10 Years / 150,000 KM</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px">أيهما أسبق</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service schedule -->
+    <div class="card">
+      <div class="card-title">الصيانة الدورية لسيارة بايك</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:var(--baic-bg);border-radius:var(--rl);padding:16px;border:1px solid var(--baic)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--baic);margin-bottom:8px">First Service</div>
+          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px">5,000 KM</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">or 6 months · whichever comes first</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">أول صيانة دورية على ممشى 5000 أو 6 أشهر أيهما أسبق</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--rl);padding:16px;border:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:8px">Subsequent Services</div>
+          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px">7,500 KM</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">or 6 months · whichever comes first</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">بعد ذلك صيانة دورية كل 7500 أو 6 أشهر أيهما أسبق</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRANCHES BAIC ── -->
+  <div id="tab-branches-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Branches</div>
+        <div class="page-title" style="color:var(--baic)">Autocare Branches</div>
+        <div class="page-sub" style="margin-top:4px">21 Branches · Sat–Thu 8:00 AM – 9:00 PM · Closed Friday</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--baic-bg);border-color:var(--baic);margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:10px;color:var(--baic)">
+        <span style="font-size:20px">🕗</span>
+        <div>
+          <div style="font-size:13px;font-weight:700">Working Hours</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px">Sat – Thu &nbsp;·&nbsp; 8:00 AM – 9:00 PM &nbsp;·&nbsp; Closed Friday</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:1px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">من السبت إلى الخميس من الساعة 8:00 صباحًا حتى 9:00 مساءً · مغلق يوم الجمعة</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>All Branches</span>
+        <span class="live-badge" id="baicBranchesStatus"><span class="live-dot"></span>Loading...</span>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>SN</th><th>Code</th><th>Branch</th><th>City</th><th>Region</th></tr></thead>
+          <tbody id="baicBranchesBody"><tr class="loading-row"><td colspan="5">Loading data from Google Sheets...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WHATSAPP BAIC ── -->
+  <div id="tab-whatsapp-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Call Scripts</div>
+        <div class="page-sub" style="margin-top:4px">D+1 Follow-up · Arabic &amp; English</div>
+      </div>
+    </div>
+    <div class="script-list" id="whatsappBaicContent"></div>
+  </div>
+
+  <!-- ── VEHICLES BAIC ── -->
+  <div id="tab-vehicles-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Vehicles Lineup</div>
+        <div class="page-sub" style="margin-top:4px">BAIC Service Standard Schedule — 12 Models</div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--baic)">🔴 SUV</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X3</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">U5Plus</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X55 Mo fun</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X7</div><div class="vehicle-sub">BAIC</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--baic)">🔴 BJ Series</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ40C</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⛽</span><div class="vehicle-name">BJ40 Diesel</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ40Pro</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⛽</span><div class="vehicle-name">BJ40Pro Diesel</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⚡</span><div class="vehicle-name">BJ30e</div><div class="vehicle-sub">Electric</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ30</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ60</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⛽</span><div class="vehicle-name">BJ60 Diesel</div><div class="vehicle-sub">BAIC</div></div>
       </div>
     </div>
   </div>
@@ -1120,8 +1250,12 @@ function show(id,el,brand){
   if(id==='sms-nissan')renderSMS('nissan');
   if(id==='script-stellantis')renderScript('stellantis');
   if(id==='script-nissan')renderScript('nissan');
+  if(id==='branches-stellantis')loadStBranches();
+  if(id==='branches-nissan')loadNiBranches();
+  if(id==='branches-baic')loadBaicBranches();
+  if(id==='whatsapp-baic')renderWhatsAppBaic();
   if(id==='whatsapp-stellantis')renderWhatsApp();
-  if(id==='recalls-stellantis')renderRecalls();
+  if(id==='recalls-stellantis')loadRecalls();
 }
 
 // ── CSV ──
@@ -1651,38 +1785,251 @@ function toggleWA(i){
   document.getElementById('wa-'+i).classList.toggle('open');
 }
 
-// ── RECALLS ──
-const RECALLS=[
-  {no:'20A', brand:'Dodge', model:'Durango', year:'2021–2023', desc:'اوضحت الشركة الصانعة ان الجناح الخلفي لبعض السيارات قد يكون مثبت قريبا جدا من سقف السيارة مما يؤدي الى احتكاكه/ملامسته بالسقف اثناء عمل/تشغيل الباب الخلفي. قد يسمع الركاب صوت احتكاك الجناح الخلفي بجسم السيارة اثناء فتح/قفل الباب الخلفي وقد يهتز الجناح اثناء القيادة مما قد يؤدي الى تضرر الجناح وانفصاله جزئيا من السيارة.'},
-  {no:'58A', brand:'Jeep', model:'Grand Cherokee', year:'2021–2023', desc:'Incorrectly assembled steering column intermediate shaft which may potentially disconnect from the U-joint. Driver may notice play in steering and/or noise when turning. A disconnected intermediate shaft may result in a loss of steering control which can cause a vehicle crash without prior warning.'},
-  {no:'37A', brand:'Ram', model:'1500 Pickup', year:'2021', desc:'Engine shut down caused by an over rich fuel condition under certain operating conditions. An engine shut down may result in an unexpected loss of motive power while driving, which can cause a vehicle crash without prior warning.'},
-  {no:'28A', brand:'Jeep', model:'Wrangler', year:'2020–2022', desc:'Unnecessary and unused stud. This frame stud may contact the fuel tank in a crash which can cause a fuel leak. A fuel leak in the presence of a competent ignition source may result in a fire, increasing the risk of occupant injury.'},
-  {no:'217', brand:'Jeep', model:'Wagoneer', year:'2022–2024', desc:'خلل في وحدة تثبيت حزام امان مقاعد الصف الثالث قد يعرض الركاب لخطر الاصابة حال وقوع حادث.'},
-  {no:'O1B', brand:'Chrysler / Dodge', model:'300 · Charger · Challenger', year:'2023', desc:'The parking brake on the above vehicles may have been built out of adjustment. Improperly adjusted parking brakes may lead to a vehicle roll-away increasing the likelihood of a vehicle crash without prior warning.'},
-  {no:'10B', brand:'Jeep', model:'Grand Cherokee', year:'2021–2023', desc:'The Upper Control Arm (UCA) pinch bolt may have been damaged during vehicle assembly. A damaged pinch bolt may break and result in the loss of clamp load between the UCA ball joint and the knuckle, which can cause a vehicle crash without prior warning.'},
-  {no:'55B', brand:'Dodge / Ram', model:'Durango 2500', year:'2022', desc:'اوضحت الشركة الصانعة باحتمالية وجود خلل في برمجة وحدة نظام الفرامل المانعة للانغلاق (ABS) وقد يؤدي ذلك لعطل في نظام التحكم الإلكتروني بالثبات (ESC). في ظروف قيادة معينة قد يتسبب عطل نظام التحكم الالكتروني بالثبات (ESC) بحصول حادث.'},
-  {no:'38B', brand:'Dodge', model:'Challenger', year:'2023', desc:'اوضحت الشركة الصانعة باحتمالية عدم محاذاة قفل ظهر المقعد الخلفي الايسر بالشكل الصحيح اثناء التصنيع وقد يؤدي ذلك لعدم ثباته في مكانه. عدم ثبات ظهر المقعد الخلفي عند حصول حادث قد يتسبب باصابة الراكب.'},
-  {no:'36B', brand:'Jeep', model:'Grand Cherokee · Wagoneer', year:'2023', desc:'The above vehicles may have been built with a steering column control module (SCCM) with an insufficient weld. The SCCM may not allow a deployment signal to reach the driver airbag module, preventing airbag deployment. An airbag that does not deploy when intended may result in increased risk of injury to the driver in a crash.'},
-  {no:'33B', brand:'RAM', model:'1500 Pickup', year:'2023', desc:'The above vehicles may have been built with a steering column control module (SCCM) with an insufficient weld. The SCCM may not allow a deployment signal to reach the driver airbag module, preventing airbag deployment.'},
-  {no:'75B', brand:'RAM', model:'1500 Pickup', year:'2019 / 2021 / 2024', desc:'اوضحت الشركة الصانعة باحتمالية وجود خلل في نظام الفرامل المانع للانغلاق (ABS) وقد يتسبب ذلك بتعطل نظام التحكم الالكتروني بالثبات (ESC). الاصلاح: تحديث كمبيوتر نظام الفرامل المانع للانغلاق (ABS).'},
-  {no:'D5B', brand:'Jeep', model:'Grand Cherokee / Grand Wagoneer', year:'2024', desc:'The Rearview Camera Module (RVCM) may have been incorrectly programmed during production. The vehicle operator will notice that the rearview image is not displayed if attempting to reference the image while backing. الاصلاح: اعادة برمجة وحدة كاميرا الرؤية الخلفية (RVCM) مجانا.'},
-  {no:'19B', brand:'Dodge / Chrysler', model:'Charger · 300', year:'2018–2021', desc:'The Side Airbag Inflator Curtain (SABIC) may have been built with an inflator that may rupture. A SABIC inflator rupture may result in compressed gas rapidly escaping and material potentially being propelled into the vehicle. Repair: Replace the left and right SABICs.'},
-  {no:'U79', brand:'Dodge', model:'Charger', year:'2018', desc:'2018 SASO LABEL — اضافة ملصق على الكفر الاضافي (الاسبير الموجود بالشنطه).'},
-  {no:'D2B', brand:'Jeep', model:'Wrangler', year:'2024', desc:'قد يحصل اتصال كهربائي متقطع لمصابيح الضباب الخلفية. ادت عملية تشكيل الموصل الكهربائي لمصباح الضباب الى انشاء تجاويف كبيرة مما ادى الى اتصال غير ثابت. الاصلاح: تغيير الموصل الكهربائي ولمبة مصابيح الضباب الخلفية للجهتين مجانا.'},
-  {no:'01B', brand:'Dodge', model:'Charger', year:'2023', desc:'2023 L Car Parking Brake Adjuster — ضبط مكبح الفرامل.'},
-  {no:'U13', brand:'Dodge', model:'Charger', year:'2010–2018', desc:'خلل في المقبض البلاستيكي لطفاية الحريق Kidde قد يؤدي إلى عدم عمل الطفاية في حالات الطوارئ مما يزيد من خطر الإصابة حال نشوب حريق.'},
-  {no:'A1B', brand:'Jeep', model:'Grand Cherokee', year:'2021–2023', desc:'The Upper Control Arm (UCA) pinch bolt may have been damaged during vehicle assembly. A damaged pinch bolt may break and result in the UCA separating from the knuckle and the wheel falling outboard, which can cause a vehicle crash without prior warning. Repair: Replace the front UCA to steering knuckle pinch bolt on both sides.'},
-  {no:'20C', brand:'Jeep', model:'Grand Cherokee L', year:'2023–2024', desc:'The 2nd row head restraints may have been built containing an internal locking mechanism which can prevent the headrest from locking upright. A head restraint that does not lock may increase the risk of injury. Repair: Inspect both second row outboard headrests. If either fails, replace the headrest.'},
-  {no:'80C', brand:'Ram', model:'Ram 1500/2500/3500/4500/5500', year:'2023–2024', desc:'قد تُعرَض اللغة العربية في لوحة عداد المعلومات (IPC) بشكل معكوس، مما قد يؤدي إلى إرباك السائقين عند قراءة بعض الرسائل والتنبيهات. الاصلاح: تحديث برمجة وحدة لوحة عداد المعلومات (IPC) مجانا.'},
-  {no:'16C', brand:'Jeep', model:'Wrangler · Gladiator', year:'2018–2022', desc:'قد تحتوي لوحة عداد المعلومات على لمبة فحص المحرك (CEL/MIL) لا تعمل. في مركبات JL لن يعمل مؤشر CEL/MIL ولن يضيء. الاصلاح: تحديث برمجة لوحة عداد المعلومات (IPC) بأحدث إصدار مجانا.'},
-  {no:'C3C', brand:'Ram', model:'Ram', year:'2025', desc:'قد ينتقل جهاز التحكم في تقييد الركاب (ORC) إلى وضعية غير فعّالة أثناء القيادة. وعند دخول وحدة الـORC في هذه الوضعية قد يتعطّل نظام التحكم الإلكتروني بالثبات (ESC)، وقد لا تُفعَّل الوسائد الهوائية أو مشدّات أحزمة الأمان. الاصلاح: تحديث برمجة وحدة ORC مجانا.'},
-  {no:'B4C', brand:'Ram', model:'Ram 1500/2500/3500/4500/5500', year:'2025–2026', desc:'قد تحتوي المركبات على لوحة عدادات رقمية مزودة ببرنامج قد يتسبب في تعطل شاشة العرض (تحولها إلى شاشة سوداء) عند تشغيل المركبة أو أثناء القيادة. الاصلاح: إعادة برمجة وحدة لوحة العدادات (IPC) مجانا.'},
-  {no:'94B', brand:'Jeep / Dodge', model:'Grand Cherokee · Durango', year:'2018–2019', desc:'قد تواجه وحدة التحكم الهيدروليكية (HCU) / وحدة نظام منع انغلاق المكابح (ABS) قراءة خاطئة لضغط الدائرة الأساسية مما قد يؤدي إلى إضاءة مصابيح المكابح وتعطيل نظام ABS وESC. الاصلاح: تغيير حساس الضغط المدمج (IPT) مجانا. يحتاج ساعة ونصف.'},
-  {no:'30B', brand:'Jeep', model:'Wrangler · Gladiator', year:'2022–2024', desc:'قد تصبح لوحة العدادات (IPC) في المركبات المذكورة فارغة. إن تعطل لوحة العدادات عن عرض معلومات السلامة الأساسية قد يؤدي إلى وقوع حادث سير. الاصلاح: استبدال لوحة العدادات (IPC) مجانا. يحتاج ساعة واحدة.'},
-  {no:'35D', brand:'Jeep/Ram', model:'Ram 1500/2500/4500/5500', year:'2025', desc:'قد تحتوي شاشة لوحة العدادات (IPC) بقياس 3.5 بوصة على برنامج قد يتسبب في عدم عمل الشاشة عند بدء التشغيل وأثناء القيادة. إن عدم عرض تحذيرات BRAKE وESC وTPMS ومؤشر وضع ناقل الحركة قد يؤدي إلى قيادة المركبة في حالة غير آمنة. الاصلاح: إعادة برمجة IPC مجانا.'},
-  {no:'90C', brand:'RAM', model:'Ram 1500 Pickup', year:'2025', desc:'قد ينفصل خرطوم صمام تبخير البنزين عن مشعب السحب أو عن صمام تبخير البنزين ويمكن أن يتسبب في خلل بعمل المحرك وصعوبة في بدء التشغيل. الاصلاح: تغيير خرطوم صمام تبخير البنزين مجانا.'},
-  {no:'77C', brand:'Jeep', model:'Grand Wagoneer', year:'2022–2025', desc:'قد يكون الاطار العلوي (النيكل) للباب الامامي غير مؤمن بالشكل الصحيح اثناء التجميع في المصنع وقد ينفصل عن السيارة. خروج الاطار العلوي وانفصاله عن المركبة على الطريق قد يسبب خطرا على السائقين الاخرين. الاصلاح: فحص وتغيير الاطار العلوي للباب الامامي اذا لزم مجانا. يحتاج إلى ثلاث ساعات.'},
+// ── STELLANTIS BRANCHES (LIVE) ──
+const ST_BRANCHES_FALLBACK=[
+  {sn:1, code:701, branch:'Automall', services:'PMS · Recall · Suspension', region:'Western', address:'طريق الملك عبدالعزيز'},
+  {sn:2, code:711, branch:'Al-Nakhil', services:'—', region:'Western', address:'حي النخيل، طريق ابو عمرو الأوزاعي'},
+  {sn:3, code:704, branch:'Makkah', services:'—', region:'Western', address:'طريق الليث، ولي العهد، مكة المكرمة'},
+  {sn:8, code:706, branch:'Madinah Road - Jeddah', services:'PMS · Recall · Suspension', region:'Western', address:'طريق المدينة، البوادي، جدة'},
+  {sn:4, code:801, branch:'Khurias', services:'Jeep: Saqib/Ihab/Mahmoud/Abdulsattar · MB: Osama/Tamer/Salah/Izzuldeen', region:'Central', address:'طريق خريص الفرعي، النهضة، الرياض'},
+  {sn:9, code:805, branch:'Hail', services:'PMS · Recall · Suspension', region:'Central', address:'طريق الملك عبدالله، حي الخماشية'},
+  {sn:5, code:901, branch:'Dammam', services:'—', region:'Eastern', address:'طريق الملك فهد، الدمام'},
+  {sn:6, code:902, branch:'Khobar', services:'PMS · Recall · Suspension (No RAMs)', region:'Eastern', address:'الخبر - الراكة الشمالية'},
+  {sn:7, code:903, branch:'Jubail', services:'—', region:'Eastern', address:'الطريق السريع، قسم عبد اللطيف جميل، الجبيل'},
 ];
+async function loadStBranches(){
+  const statusEl=document.getElementById('stBranchesStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  let rows=[];
+  try{
+    const raw=await fetchSheet('625673316');
+    let lastRegion='';
+    rows=raw.slice(1).filter(r=>r[0]&&r[0].trim()&&r[2]&&r[2].trim()).map(r=>{
+      const region=(r[4]||'').trim()||lastRegion;
+      lastRegion=region;
+      return{sn:(r[0]||'').trim(), code:(r[1]||'').trim(), branch:(r[2]||'').trim(), services:(r[3]||'').trim()||'—', region, address:(r[5]||'').trim()};
+    });
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    rows=ST_BRANCHES_FALLBACK;
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  document.getElementById('stBranchesBody').innerHTML=rows.map(r=>`
+    <tr><td class="num muted">${r.sn}</td><td class="num">${r.code}</td><td><strong>${r.branch}</strong></td><td class="muted">${r.services}</td><td>${regionBadge(r.region)}</td><td class="muted">${r.address}</td></tr>
+  `).join('');
+}
+
+// ── NISSAN BRANCHES (LIVE) ──
+const NI_BRANCHES_FALLBACK=[
+  {sn:1, code:4101, branch:'Jeddah Auto Mall (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك', late:false},
+  {sn:2, code:4104, branch:'Jeddah Daleel (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق المدينه النازل بعد تقاطع التحليه', late:false},
+  {sn:3, code:4105, branch:'Jeddah Sabaeen (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الامير ماجد امام عزيز مول', late:false},
+  {sn:4, code:4109, branch:'Madinah Munowa', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك عبد العزيز بجانب محطه نفط', late:false},
+  {sn:5, code:4121, branch:'Makkah Kakia', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'الكعكيه', late:false},
+  {sn:6, code:4351, branch:'Riyadh Qurtoba (3S)', pms:'8 AM – 6 PM', gr:'8 AM – 4 PM', address:'طريق الدمام', late:true},
+  {sn:7, code:4354, branch:'Riyadh Khurais Road (3S)', pms:'8 AM – 6 PM', gr:'8 AM – 4 PM', address:'مخرج 13 تقاطع مكه مع النهضه', late:true},
+  {sn:8, code:4364, branch:'Riyadh Exit 15 (3S)', pms:'8 AM – 6 PM', gr:'8 AM – 4 PM', address:'الدائري الشرقي مقابل مسجد الراجحي', late:true},
+  {sn:9, code:4369, branch:'Exit 28 (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'البديعه - الدائري الغربي السويدي خلف مركز الهرم', late:false},
+  {sn:10, code:4370, branch:'Qassim', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'بريده في المنتزة طريق الملك عبدالعزيز', late:false},
+  {sn:11, code:4601, branch:'Dammam (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك فهد', late:false},
+  {sn:12, code:4602, branch:'Alkhobar (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق خادم الحرمين الشريفين', late:false},
+  {sn:13, code:4603, branch:'AL Hassa (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الظهران بجانب الغرفه التجاريه', late:false},
+  {sn:14, code:4611, branch:'Jubail (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق أبوعلي، مخطط عبداللطيف جميل', late:false},
+  {sn:15, code:4122, branch:'Jizan (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك عبدالعزيز جوار معرض نايس هوم', late:false},
+  {sn:16, code:4373, branch:'Hail (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك عبدالله', late:false},
+];
+async function loadNiBranches(){
+  const statusEl=document.getElementById('niBranchesStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  let rows=[];
+  try{
+    const raw=await fetchSheet('446600632');
+    let sn=0;
+    rows=raw.slice(2).filter(r=>r[1]&&r[1].trim()&&r[3]&&r[3].trim()).map(r=>{
+      sn++;
+      const code=+r[1]||0;
+      const late=code===4351||code===4354||code===4364;
+      return{sn, code, branch:(r[3]||'').trim(), pms:late?'8 AM – 6 PM':'8 AM – 3:30 PM', gr:late?'8 AM – 4 PM':'8 AM – 1 PM', address:(r[4]||'').trim(), late};
+    });
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    rows=NI_BRANCHES_FALLBACK;
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  document.getElementById('niBranchesBody').innerHTML=rows.map(r=>`
+    <tr><td class="num muted">${r.sn}</td><td class="num">${r.code}</td><td><strong>${r.branch}</strong></td><td><span class="hours-badge${r.late?' hours-late':''}">${r.pms}</span></td><td><span class="hours-badge${r.late?' hours-late':''}">${r.gr}</span></td><td class="muted">${r.address}</td></tr>
+  `).join('');
+}
+
+// ── BAIC BRANCHES (LIVE) ──
+const BAIC_BRANCHES_FALLBACK=[
+  {sn:1, region:'West', city:'Jeddah', code:110, branch:'Rabea Workshop'},
+  {sn:2, region:'West', city:'Jeddah', code:114, branch:'Al Amal Workshop'},
+  {sn:4, region:'West', city:'Jeddah', code:118, branch:'Al Nahada Workshop'},
+  {sn:6, region:'West', city:'Jeddah', code:129, branch:'Hamdaniya Workshop'},
+  {sn:11, region:'West', city:'Madinah', code:115, branch:'Madinah Arbaeen Workshop'},
+  {sn:13, region:'West', city:'Madinah', code:120, branch:'Qwafil Workshop'},
+  {sn:16, region:'East', city:'Dammam', code:368, branch:'PAC Mazruiyah Workshop'},
+  {sn:25, region:'East', city:'Dammam', code:623, branch:'Sultaniya 2 Workshop'},
+  {sn:27, region:'Central', city:'Riyadh', code:352, branch:'Exit-14 Workshop'},
+  {sn:29, region:'Central', city:'Riyadh', code:358, branch:'PAC Kharj Workshop'},
+  {sn:30, region:'Central', city:'Riyadh', code:360, branch:'PAC Darb Workshop'},
+  {sn:31, region:'Central', city:'Riyadh', code:362, branch:'Thumama Workshop'},
+  {sn:34, region:'Central', city:'Riyadh', code:372, branch:'Al Massif Workshop'},
+  {sn:36, region:'Central', city:'Riyadh', code:380, branch:'Azeziah Station Workshop'},
+  {sn:37, region:'Central', city:'Riyadh', code:382, branch:'PAC Khurais Workshop'},
+  {sn:38, region:'Central', city:'Riyadh', code:615, branch:'Al Badia Workshop'},
+  {sn:39, region:'Central', city:'Buraida', code:139, branch:'QassimLand Workshop'},
+  {sn:40, region:'Central', city:'Unizah', code:376, branch:'Unaizah 2 Workshop'},
+  {sn:42, region:'North', city:'Tabuk', code:134, branch:'Olyia-1 Workshop'},
+  {sn:44, region:'North', city:'Sakaka', code:378, branch:'Al Tazij Workshop'},
+  {sn:46, region:'South', city:'Khamis Mushait', code:130, branch:'Aboor Workshop'},
+];
+function regionBadge(region){
+  const map={
+    'West':'<span class="badge b-west">Western</span>',
+    'Western':'<span class="badge b-west">Western</span>',
+    'East':'<span class="badge b-east">Eastern</span>',
+    'Eastern':'<span class="badge b-east">Eastern</span>',
+    'Central':'<span class="badge b-center">Central</span>',
+    'Center':'<span class="badge b-center">Central</span>',
+    'North':'<span class="badge b-north">North</span>',
+    'South':'<span class="badge b-south">Southern</span>',
+    'Southern':'<span class="badge b-south">Southern</span>',
+  };
+  return map[region]||`<span class="badge b-new">${region||''}</span>`;
+}
+async function loadBaicBranches(){
+  const statusEl=document.getElementById('baicBranchesStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  let rows=[];
+  try{
+    const raw=await fetchSheet('1341789474');
+    let lastRegion='', lastCity='';
+    rows=raw.slice(1).filter(r=>r[0]&&r[0].trim()&&r[4]&&r[4].trim()).map(r=>{
+      const region=(r[1]||'').trim()||lastRegion;
+      const city=(r[2]||'').trim()||lastCity;
+      lastRegion=region; lastCity=city;
+      return{sn:(r[0]||'').trim(), region, city, code:(r[3]||'').trim(), branch:(r[4]||'').trim()};
+    });
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    rows=BAIC_BRANCHES_FALLBACK;
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  document.getElementById('baicBranchesBody').innerHTML=rows.map(r=>`
+    <tr><td class="num muted">${r.sn}</td><td class="num">${r.code}</td><td><strong>${r.branch}</strong></td><td class="muted">${r.city}</td><td>${regionBadge(r.region)}</td></tr>
+  `).join('');
+}
+
+// ── BAIC WHATSAPP SCRIPTS ──
+const BAIC_WHATSAPP=[
+  { title:'D+1 Follow-up — العربي', lang:'ar', lines:[
+'الموظفة:',
+'أهلين، معك عبير من بترومين وكالة سيارات بايك',
+'أستاذ/ة [اسم العميل]، كان عندك موعد في البترومين أوتوكير وحبّينا نتأكد إذا حضرتك زرت الورشه؟',
+'',
+'┈ في حال حضر العميل الموعد ┈',
+'الموظفة: هل قمت بعمل الخدمة ؟',
+'إذا كان (لا) - يرجى توضيح السبب',
+'',
+'اذا كان (نعم):',
+'يهمنا نعرف رأيك في تجربتك معنا، وهل كان فيه أي ملاحظات أو اقتراحات ممكن تساعدنا نحسّن خدمتنا؟',
+'',
+'إذا العميل قدّم ملاحظات إيجابية أو شكر موظف:',
+'يسعدنا جداً سماع ذلك، وشكراً لك على مشاركتنا رأيك.',
+'أكيد راح ننقل شكرك للموظف/للفريق، ونتطلع دائماً لخدمتك بأفضل مستوى.',
+'',
+'إذا العميل ذكر ملاحظات أو شكوى:',
+'نشكر لك ملاحظتك، ونعتذر عن أي تجربة غير مرضية.',
+'ملاحظتك محل اهتمامنا، وسيتم رفعها ومتابعتها لتحسين الخدمة بشكل أفضل.',
+'',
+'┈ في حال لم يحضر العميل الموعد ┈',
+'الموظفة: ولا يهمك أبداً هل تحب نعيد جدولة الموعد في وقت يناسبك؟',
+'إذا (نعم): أكيد، متى الوقت المناسب لك؟',
+'بعد الحجز: تم حجز الموعد بنجاح، وراح توصلك رسالة نصية تحتوي على تفاصيل الموعد.',
+'',
+'إذا رفض إعادة الجدولة:',
+'ما في مشكلة أبداً، لكن إذا ممكن نعرف السبب، حتى نقدر نحسن خدماتنا ونخدمك بشكل أفضل مستقبلاً.',
+'',
+'┈ ختام المكالمة ┈',
+'هل يوجد أي إستفسار أخر أستطيع مساعدتك به ؟',
+'شكراً لك أستاذ/ة [اسم العميل] على وقتك.',
+'وإذا احتجت أي مساعدة، تقدر تتواصل معنا عن طريق الاتصال أو الواتساب مباشرة.',
+'نتمنى لك يوم سعيد'
+]},
+  { title:'D+1 Follow-up — English', lang:'en', lines:[
+'Employee:',
+'Hello, this is Abeer from Petromin BAIC Leadership',
+'Mr./Ms. [Customer Name], you had an appointment In Petromin Autocare Branch, and we wanted to check if you visited the workshop.',
+'',
+'─ If the Customer Attended the Appointment ─',
+'Employee: Did you complete the service?',
+'If the answer is (No): May I know the reason, please?',
+'',
+'If the answer is (Yes):',
+'We would love to know your feedback about your experience with us. Were there any comments or suggestions that could help us improve our service?',
+'',
+'If the Customer Gives Positive Feedback or Thanks an Employee:',
+'Thank you for your positive feedback. We will be happy to share your appreciation with the employee/team, and we look forward to serving you again with the highest level of service.',
+'',
+'If the Customer Mentions a Complaint or Negative Feedback:',
+'Thank you for sharing your feedback with us, and we apologize for any inconvenience you experienced. Your comments are highly valued and will be shared with the concerned team for review and improvement of our services.',
+'',
+'─ If the Customer Did Not Attend the Appointment ─',
+'Employee: No worries at all. Would you like us to reschedule the appointment at a more convenient time for you?',
+'If the answer is (Yes): May I know your preferred date and time for the appointment?',
+'After Booking: Your appointment has been successfully booked, and you will receive an SMS with the appointment details shortly.',
+'',
+'If the Customer Refuses Rescheduling:',
+'No worries at all. We would appreciate it if you could share the reason, as your feedback helps us enhance our services and provide a better experience in the future.',
+'',
+'─ Closing the call ─',
+'Is there anything else I can assist you with?',
+'Thank you, Mr./Ms. [Customer Name], for your time.',
+'If you need any further assistance, you can contact us anytime by phone or WhatsApp directly.',
+'Have a nice day.'
+]}
+];
+function renderWhatsAppBaic(){
+  const color='var(--baic)';
+  const chevron=`<svg class="script-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  document.getElementById('whatsappBaicContent').innerHTML=BAIC_WHATSAPP.map((s,i)=>`
+    <div class="script-item" style="--brand-color:${color}" id="wa-baic-${i}">
+      <button class="script-trigger" onclick="toggleWABaic(${i})">
+        <span class="script-trigger-num">${i+1}</span>
+        <span class="script-trigger-title">${s.title}</span>
+        ${chevron}
+      </button>
+      <div class="script-body" style="direction:${s.lang==='ar'?'rtl':'ltr'};text-align:${s.lang==='ar'?'right':'left'}">${s.lines.join('\n')}</div>
+    </div>`).join('');
+}
+function toggleWABaic(i){
+  document.getElementById('wa-baic-'+i).classList.toggle('open');
+}
+let RECALLS=[];
+async function loadRecalls(){
+  try{
+    const rows=await fetchSheet('1578154042');
+    RECALLS=rows.slice(1).filter(r=>r[0]&&r[0].trim()).map(r=>({
+      no:(r[0]||'').trim(),
+      brand:(r[1]||'').trim(),
+      model:(r[2]||'').trim(),
+      year:(r[3]||'').trim(),
+      desc:(r[4]||'').trim(),
+    }));
+  }catch(e){
+    console.warn('Recalls fallback',e);
+    // keep existing RECALLS array if already loaded
+  }
+  renderRecalls();
+}
 
 function renderRecalls(){
   const chevron=`<svg class="sms-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
