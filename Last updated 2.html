@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nissan & Stellantis Outbound Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f3f0;
+  --surface:#ffffff;
+  --surface2:#f0eee9;
+  --surface3:#e8e5de;
+  --border:#e2dfd8;
+  --border2:#d4d0c8;
+  --text:#181715;
+  --text2:#5c5a54;
+  --text3:#9c9890;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
+
+  /* Stellantis */
+  --st:#1558b0;--st-light:#1a6fcc;--st-bg:#eaf2fd;--st-bg2:#d5e8fb;--st-muted:#5a9ae0;
+
+  /* BAIC */
+  --baic:#c41230;--baic-bg:#fdeaed;--baic-muted:#d95070;
+
+  /* Nissan */
+  --ni:#a01515;--ni-light:#c41e1e;--ni-bg:#fdeaea;--ni-bg2:#fbd5d5;--ni-muted:#d96060;
+
+  /* Status */
+  --green:#0a7a56;--green-bg:#e0f2eb;
+  --amber:#7a5208;--amber-bg:#fef0d4;
+  --purple:#4835a8;--purple-bg:#eeedfa;
+  --teal:#0a6e70;--teal-bg:#e0f4f4;
+
+  --r:8px;--rl:12px;--rxl:16px;
+}
+
+body{font-family:'Inter','IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* ── LAYOUT ── */
+.shell{display:flex;min-height:100vh}
+.sidebar{
+  width:230px;flex-shrink:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+.main{flex:1;padding:32px 32px 56px;min-width:0;overflow-x:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar-header{
+  padding:20px 16px 16px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:8px;
+}
+.sidebar-brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.brand-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--st) 0%,var(--ni) 100%);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.brand-icon svg{width:16px;height:16px;fill:white}
+.brand-name{font-size:13px;font-weight:700;letter-spacing:-.2px;color:var(--text)}
+.brand-tagline{font-size:11px;color:var(--text3);margin-top:1px;padding-left:42px}
+
+.nav-group{padding:12px 8px 4px}
+.nav-group-label{
+  font-size:10px;font-weight:700;color:var(--text3);
+  text-transform:uppercase;letter-spacing:1px;
+  padding:0 8px 6px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 10px;border-radius:var(--r);
+  font-size:13px;color:var(--text2);cursor:pointer;
+  transition:all .12s;font-weight:500;
+  margin-bottom:1px;
+}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--surface2);color:var(--text);font-weight:600}
+.nav-item.active.stellantis{background:var(--st-bg);color:var(--st)}
+.nav-item.active.baic{background:var(--baic-bg);color:var(--baic);border-right-color:var(--baic)}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;opacity:.5}
+.nav-item.active .nav-dot{opacity:1}
+.nav-icon{width:15px;height:15px;flex-shrink:0;opacity:.5}
+.nav-item.active .nav-icon{opacity:1}
+.nav-group:nth-child(1) .nav-icon{color:var(--text2)}
+.nav-group:nth-child(2) .nav-icon{color:var(--st)}
+.nav-group:nth-child(3) .nav-icon{color:var(--ni)}
+.nav-group:nth-child(4) .nav-icon{color:var(--baic)}
+.nav-badge{
+  margin-left:auto;font-size:10px;font-weight:700;
+  background:var(--surface3);color:var(--text3);
+  padding:1px 6px;border-radius:10px;
+}
+
+/* ── HEADER ── */
+.page-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:24px;gap:16px;flex-wrap:wrap;
+}
+.page-eyebrow{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.8px;color:var(--text3);margin-bottom:4px;
+}
+.page-title{font-size:22px;font-weight:700;letter-spacing:-.4px;color:var(--text)}
+.page-title.stellantis{color:var(--st)}
+.page-title.nissan{color:var(--ni)}
+.page-sub{font-size:13px;color:var(--text2);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.contact-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--surface);border:1px solid var(--border);
+  padding:3px 8px;border-radius:20px;font-size:11px;color:var(--text2);font-weight:500;
+}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.live-badge{
+  display:flex;align-items:center;gap:5px;
+  background:var(--green-bg);color:var(--green);
+  padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--text2);padding:6px 14px;border-radius:var(--r);
+  font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;
+  transition:background .12s;
+}
+.btn:hover{background:var(--surface2)}
+
+/* Tabs */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── METRICS ── */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:22px}
+.metric{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:16px;
+  box-shadow:var(--shadow);
+}
+.metric.accent{border-left:3px solid var(--st)}
+.metric-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.metric-val{font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--text);line-height:1}
+.metric-sub{font-size:11px;color:var(--text3);margin-top:5px}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rxl);padding:20px 22px;margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.card-title{
+  font-size:12px;font-weight:700;color:var(--text3);
+  text-transform:uppercase;letter-spacing:.5px;
+  margin-bottom:14px;display:flex;align-items:center;gap:7px;
+}
+.card-title::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--border2)}
+
+/* ── TABLES ── */
+.tbl-wrap{overflow-x:auto;margin:-2px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+thead tr{background:var(--surface2)}
+th{
+  text-align:left;padding:10px 14px;
+  font-size:11px;font-weight:700;color:var(--text3);
+  text-transform:uppercase;letter-spacing:.5px;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+td{padding:13px 14px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:hover:not(.total-row) td{background:var(--surface2)}
+tr.total-row td{background:var(--surface2);font-weight:700;border-top:2px solid var(--border2)}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:500}
+.muted{color:var(--text2);font-size:12px}
+.sub-num{color:var(--text3);font-size:11px;font-weight:400}
+
+/* ── BADGES ── */
+.badge{
+  display:inline-flex;align-items:center;
+  padding:2px 8px;border-radius:20px;
+  font-size:10px;font-weight:700;white-space:nowrap;
+}
+.b-recall{background:var(--amber-bg);color:var(--amber)}
+.b-lost{background:var(--st-bg);color:var(--st)}
+.b-pms{background:var(--green-bg);color:var(--green)}
+.b-svc{background:var(--purple-bg);color:var(--purple)}
+.b-new{background:var(--surface2);color:var(--text3)}
+.b-west{background:#e8f1fb;color:#1558b0}
+.b-center{background:#fef0d4;color:#7a5208}
+.b-east{background:#e0f2eb;color:#0a7a56}
+.b-south{background:#fdeaea;color:#a01515}
+.b-north{background:#eeedfa;color:#4835a8}
+
+/* ── SMS ACCORDION ── */
+.sms-list{display:flex;flex-direction:column;gap:6px}
+.sms-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.sms-item.open{border-color:var(--brand-color,var(--border2))}
+.sms-trigger{
+  width:100%;display:flex;align-items:center;gap:12px;
+  padding:13px 16px;cursor:pointer;
+  background:none;border:none;font-family:inherit;text-align:left;
+  transition:background .12s;
+}
+.sms-trigger:hover{background:var(--surface2)}
+.sms-item.open .sms-trigger{background:var(--surface2)}
+.sms-trigger-num{
+  width:24px;height:24px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:white;
+  background:var(--brand-color,var(--border2));
+}
+.sms-trigger-title{font-size:13px;font-weight:600;color:var(--text);flex:1;text-align:left}
+.sms-trigger-chevron{
+  width:16px;height:16px;flex-shrink:0;color:var(--text3);
+  transition:transform .2s;
+}
+.sms-item.open .sms-trigger-chevron{transform:rotate(180deg)}
+.sms-content{
+  display:none;
+  border-top:1px solid var(--border);
+}
+.sms-item.open .sms-content{display:block}
+.sms-content-en{
+  padding:14px 16px 10px;
+  font-size:13px;color:var(--text);line-height:1.7;
+}
+.sms-content-ar{
+  padding:10px 16px 14px;
+  font-size:13.5px;color:var(--text2);
+  direction:rtl;text-align:right;line-height:2;
+  font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;
+  border-top:1px solid var(--border);
+  background:var(--surface2);
+}
+.sms-lang-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--text3);margin-bottom:5px;
+}
+
+/* ── SCRIPTS ACCORDION ── */
+.script-list{display:flex;flex-direction:column;gap:6px}
+.script-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.script-item.open{border-color:var(--brand-color,var(--border2))}
+.script-trigger{
+  width:100%;display:flex;align-items:center;gap:12px;
+  padding:13px 16px;cursor:pointer;
+  background:none;border:none;font-family:inherit;
+  text-align:left;
+}
+.script-trigger:hover{background:var(--surface2)}
+.script-item.open .script-trigger{background:var(--surface2)}
+.script-trigger-num{
+  width:24px;height:24px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:white;
+  background:var(--brand-color,var(--border2));
+}
+.script-trigger-title{font-size:13px;font-weight:600;color:var(--text);flex:1;text-align:left}
+.script-trigger-chevron{
+  width:16px;height:16px;flex-shrink:0;color:var(--text3);
+  transition:transform .2s;
+}
+.script-item.open .script-trigger-chevron{transform:rotate(180deg)}
+.script-body{
+  display:none;
+  padding:16px 18px;font-size:13px;line-height:1.9;
+  direction:rtl;text-align:right;color:var(--text);
+  white-space:pre-wrap;
+  border-top:1px solid var(--border);
+  background:var(--surface);
+}
+.script-item.open .script-body{display:block}
+.script-body::-webkit-scrollbar{width:4px}
+.script-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+td.muted, .muted{color:var(--text2);font-size:12px;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif}
+td.muted{text-align:center;direction:rtl}
+.sms-content-ar, .script-body{font-size:13.5px;line-height:2;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif}
+.hours-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--teal-bg);color:var(--teal);
+  padding:3px 9px;border-radius:20px;
+  font-size:11px;font-weight:600;white-space:nowrap;
+}
+.hours-badge.hours-late{
+  background:var(--purple-bg);color:var(--purple);
+}
+.section-divider{
+  display:flex;align-items:center;gap:12px;margin:20px 0 12px;
+}
+.section-divider-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.6px;white-space:nowrap;padding:3px 10px;
+  border-radius:20px;
+}
+.section-divider-label.stellantis{background:var(--st-bg);color:var(--st)}
+.section-divider-label.nissan{background:var(--ni-bg);color:var(--ni)}
+.section-divider-line{flex:1;height:1px;background:var(--border)}
+
+/* ── AGENT TABS ── */
+.agent-tabs-wrap{margin-bottom:16px}
+.agent-tab-btns{
+  display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;
+}
+.agent-tab-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 18px;border-radius:var(--rl);
+  border:1.5px solid var(--border);
+  background:var(--surface);cursor:pointer;
+  font-family:inherit;font-size:13px;font-weight:600;
+  color:var(--text2);transition:all .15s;
+}
+.agent-tab-btn:hover{background:var(--surface2);color:var(--text)}
+.agent-tab-btn.active{
+  background:var(--agent-color);
+  border-color:var(--agent-color);
+  color:white;
+}
+.agent-tab-btn .tab-avatar{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.agent-tab-btn:not(.active) .tab-avatar{
+  background:var(--agent-color);
+  color:white;
+}
+.agent-tab-btn .tab-count{
+  font-size:11px;opacity:.75;font-weight:500;
+}
+
+/* Agent panel */
+.agent-panel{display:none}
+.agent-panel.active{display:block}
+.agent-summary{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin-bottom:16px;
+}
+@media(max-width:500px){.agent-summary{grid-template-columns:repeat(3,1fr)}}
+.agent-sum-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:14px;text-align:center;
+  box-shadow:var(--shadow);
+}
+.agent-sum-val{font-size:26px;font-weight:700;letter-spacing:-0.5px;line-height:1}
+.agent-sum-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-top:4px}
+
+/* ── REMOTE LINK CARD ── */
+.remote-link-card{
+  display:flex;align-items:center;gap:14px;
+  background:linear-gradient(135deg,#0a7a56 0%,#0d9468 100%);
+  border-radius:var(--rl);padding:16px 20px;
+  margin-bottom:16px;text-decoration:none;
+  box-shadow:0 4px 14px rgba(10,122,86,.25);
+  transition:box-shadow .15s, transform .15s;
+}
+.remote-link-card:hover{
+  box-shadow:0 6px 20px rgba(10,122,86,.35);
+  transform:translateY(-1px);
+}
+.remote-link-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(255,255,255,.2);
+  color:white;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.remote-link-info{flex:1}
+.remote-link-title{font-size:14px;font-weight:700;color:white}
+.remote-link-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px;font-weight:500}
+.remote-link-arrow{color:rgba(255,255,255,.7);flex-shrink:0}
+.remote-link-card:hover .remote-link-arrow{color:white}
+
+/* ── SEARCH ── */
+.search-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.5);z-index:888;
+  align-items:flex-start;justify-content:center;
+  padding-top:80px;
+}
+.search-overlay.show{display:flex}
+.search-box{
+  background:var(--surface);border-radius:var(--rxl);
+  width:100%;max-width:580px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  overflow:hidden;
+}
+.search-input-wrap{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;border-bottom:1px solid var(--border);
+}
+.search-input-wrap svg{flex-shrink:0;color:var(--text3)}
+.search-input{
+  flex:1;border:none;background:none;font-size:15px;
+  font-family:inherit;color:var(--text);outline:none;
+}
+.search-input::placeholder{color:var(--text3)}
+.search-close-btn{
+  background:var(--surface2);border:none;border-radius:6px;
+  padding:4px 8px;cursor:pointer;font-size:11px;
+  color:var(--text2);font-family:inherit;
+}
+.search-results{max-height:400px;overflow-y:auto}
+.search-empty{padding:32px;text-align:center;color:var(--text3);font-size:13px}
+.search-result-item{
+  padding:12px 18px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .1s;
+}
+.search-result-item:last-child{border-bottom:none}
+.search-result-item:hover{background:var(--surface2)}
+.sr-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.4px;padding:2px 7px;border-radius:8px;
+  margin-bottom:5px;
+}
+.sr-tag.recall{background:var(--amber-bg);color:var(--amber)}
+.sr-tag.sms-st{background:var(--st-bg);color:var(--st)}
+.sr-tag.sms-ni{background:var(--ni-bg);color:var(--ni)}
+.sr-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.sr-preview{font-size:12px;color:var(--text2);line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sr-highlight{background:#fff3a3;border-radius:2px;padding:0 1px}
+
+/* ── TARGET METER ── */
+.target-meter{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:14px 16px;
+  margin-bottom:16px;box-shadow:var(--shadow);
+}
+.target-meter-title{font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--text3);margin-bottom:10px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.target-meter-val{font-size:13px;font-weight:700;color:var(--text)}
+.target-bars{display:flex;flex-direction:column;gap:8px}
+.target-bar-row{display:flex;align-items:center;gap:10px}
+.target-bar-name{
+  font-size:12px;font-weight:600;color:var(--text2);
+  width:60px;flex-shrink:0;text-align:right;
+}
+.target-bar-track{flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden}
+.target-bar-fill{height:100%;border-radius:5px;transition:width .8s ease}
+.target-bar-num{font-size:11px;font-weight:600;color:var(--text2);width:36px;flex-shrink:0}
+
+/* ── SEARCH BUTTON ── */
+.search-btn{
+  display:flex;align-items:center;gap:8px;
+  width:calc(100% - 32px);margin:0 16px 8px;
+  padding:8px 12px;border-radius:var(--r);
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text3);cursor:pointer;font-family:inherit;font-size:12px;
+  transition:background .12s;
+}
+.search-btn:hover{background:var(--border);color:var(--text2)}
+
+/* ── RECALLS ── */
+.recall-item{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  overflow:hidden;
+  margin-bottom:6px;
+  box-shadow:var(--shadow);
+  border-left:3px solid var(--rc,var(--border2));
+  transition:box-shadow .15s;
+}
+.recall-item.open{box-shadow:var(--shadow-md)}
+.recall-trigger{
+  width:100%;display:flex;align-items:center;gap:14px;
+  padding:14px 16px;cursor:pointer;
+  background:none;border:none;font-family:inherit;text-align:left;
+  transition:background .12s;
+}
+.recall-trigger:hover{background:var(--surface2)}
+.recall-item.open .recall-trigger{background:var(--surface2)}
+.recall-badge{
+  min-width:44px;height:44px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:white;
+  letter-spacing:.5px;padding:0 8px;
+}
+.recall-info{flex:1;text-align:left;min-width:0}
+.recall-header-line{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:3px}
+.recall-brand{font-size:14px;font-weight:700;color:var(--text)}
+.recall-sep{color:var(--text3);font-size:12px}
+.recall-model{font-size:13px;color:var(--text2);font-weight:500}
+.recall-year{
+  display:inline-flex;align-items:center;
+  background:var(--surface2);color:var(--text3);
+  font-size:11px;font-weight:600;
+  padding:2px 8px;border-radius:20px;
+}
+.sms-trigger-chevron{
+  width:18px;height:18px;flex-shrink:0;
+  color:var(--text3);transition:transform .2s;
+}
+.recall-item.open .sms-trigger-chevron{transform:rotate(180deg)}
+.recall-body{
+  display:none;
+  border-top:1px solid var(--border);
+}
+.recall-item.open .recall-body{display:block}
+.recall-desc{
+  padding:16px 18px;
+  font-size:13.5px;line-height:2;
+  color:var(--text);
+  font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;
+}
+
+.reset-btn{
+  font-size:11px;font-weight:600;font-family:inherit;
+  background:var(--red-bg);color:var(--red);
+  border:1px solid var(--red-bg);
+  padding:4px 10px;border-radius:6px;cursor:pointer;
+  transition:background .12s;
+}
+.reset-btn:hover{background:#f9d0d0}
+
+/* ── CELEBRATION ── */
+.celebrate-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.45);z-index:9999;
+  align-items:center;justify-content:center;
+}
+.celebrate-overlay.show{display:flex}
+.celebrate-box{
+  background:var(--surface);border-radius:20px;
+  padding:36px 40px;text-align:center;
+  max-width:340px;width:90%;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  animation:popIn .35s cubic-bezier(.34,1.56,.64,1);
+  position:relative;overflow:hidden;
+}
+@keyframes popIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.celebrate-emoji{font-size:52px;margin-bottom:10px;display:block;animation:bounce 1s infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+.celebrate-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px}
+.celebrate-name{font-size:16px;font-weight:700;margin-bottom:10px}
+.celebrate-msg{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:22px}
+.celebrate-close{
+  background:var(--text);color:white;
+  border:none;padding:10px 28px;border-radius:10px;
+  font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:opacity .15s;
+}
+.celebrate-close:hover{opacity:.8}
+.confetti-piece{
+  position:absolute;width:8px;height:8px;border-radius:2px;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  0%{transform:translateY(-20px) rotate(0deg);opacity:1}
+  100%{transform:translateY(420px) rotate(720deg);opacity:0}
+}
+
+/* ── CHECKBOXES ── */
+.task-check{
+  display:flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:6px;
+  border:2px solid var(--border2);
+  background:var(--surface);cursor:pointer;
+  flex-shrink:0;transition:all .15s;
+}
+.task-check.done{
+  background:var(--agent-done-color,#0a7a56);
+  border-color:var(--agent-done-color,#0a7a56);
+}
+.task-check.done svg{display:block}
+.task-check svg{display:none;width:12px;height:12px}
+tr.row-stellantis td{background:rgba(21,88,176,.04)}
+tr.row-stellantis:hover td{background:rgba(21,88,176,.08)}
+tr.row-nissan td{background:rgba(161,21,21,.04)}
+tr.row-nissan:hover td{background:rgba(161,21,21,.08)}
+tr.row-done.row-stellantis td,tr.row-done.row-nissan td{opacity:.4}
+tr.row-done .task-check{pointer-events:none}
+.progress-bar-wrap{margin-bottom:14px}
+.progress-bar-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-top:6px}
+.progress-bar-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.progress-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);font-weight:500}
+
+/* ── VEHICLES ── */
+.vehicles-section{margin-bottom:24px}
+.vehicles-cat-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.7px;color:var(--text3);
+  margin-bottom:10px;padding-bottom:6px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.vehicles-cat-label::before{
+  content:'';width:3px;height:14px;border-radius:2px;
+  background:var(--brand-color,var(--border2));
+}
+.vehicles-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:10px;
+}
+.vehicle-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:14px 12px;
+  text-align:center;box-shadow:var(--shadow);
+  transition:box-shadow .15s, transform .15s;
+  cursor:default;
+}
+.vehicle-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.vehicle-icon{font-size:28px;margin-bottom:8px;display:block}
+.vehicle-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
+.vehicle-sub{font-size:10px;color:var(--text3);margin-top:2px;font-weight:500}
+
+/* ── FOOTER ── */
+.page-footer{text-align:center;font-size:11px;color:var(--text3);margin-top:24px}
+
+/* ── LOADING ── */
+.loading-row td{text-align:center;padding:32px;color:var(--text3)}
+
+@media(max-width:720px){
+  .sidebar{display:none}
+  .main{padding:16px 14px 40px}
+  .sms-grid,.script-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h11v2H3v-2z"/></svg>
+      </div>
+      <div class="brand-name">Outbound Reference</div>
+    </div>
+    <div class="brand-tagline">Nissan · Stellantis · BAIC</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Operations</div>
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Quick Search...
+      <span style="margin-left:auto;font-size:10px;background:var(--border);padding:1px 5px;border-radius:4px">⌘K</span>
+    </button>
+    <div class="nav-item active" onclick="show('tasks',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Daily Tasks
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Knowledge Hub</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label" style="color:var(--st-muted)">Stellantis</div>
+    <div class="nav-item stellantis" onclick="show('sms-stellantis',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      SMS Templates
+      <span class="nav-badge">7</span>
+    </div>
+    <div class="nav-item stellantis" onclick="show('script-stellantis',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Call Scripts
+      <span class="nav-badge">5</span>
+    </div>
+    <div class="nav-item stellantis" onclick="show('whatsapp-stellantis',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp Scripts
+      <span class="nav-badge">2</span>
+    </div>
+    <div class="nav-item stellantis" onclick="show('vehicles-stellantis',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5"/><circle cx="15" cy="17" r="2"/><circle cx="7" cy="17" r="2"/><path d="M13 17H9"/></svg>
+      Vehicles
+      <span class="nav-badge">23</span>
+    </div>
+    <div class="nav-item stellantis" onclick="show('recalls-stellantis',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Recalls
+      <span class="nav-badge">29</span>
+    </div>
+    <div class="nav-item stellantis" onclick="show('branches-stellantis',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Branches
+      <span class="nav-badge">9</span>
+    </div>
+    <div class="nav-item stellantis" onclick="show('body-paint',this,'stellantis')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Body &amp; Paint
+      <span class="nav-badge">6</span>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label" style="color:var(--ni-muted)">Nissan</div>
+    <div class="nav-item nissan" onclick="show('sms-nissan',this,'nissan')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      SMS Templates
+      <span class="nav-badge">6</span>
+    </div>
+    <div class="nav-item nissan" onclick="show('script-nissan',this,'nissan')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Call Scripts
+      <span class="nav-badge">3</span>
+    </div>
+    <div class="nav-item nissan" onclick="show('branches-nissan',this,'nissan')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      PMS Branches
+      <span class="nav-badge">16</span>
+    </div>
+    <div class="nav-item nissan" onclick="show('vehicles-nissan',this,'nissan')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5"/><circle cx="15" cy="17" r="2"/><circle cx="7" cy="17" r="2"/><path d="M13 17H9"/></svg>
+      Vehicles
+      <span class="nav-badge">14</span>
+    </div>
+    <div class="nav-item nissan" onclick="show('body-paint-nissan',this,'nissan')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Body &amp; Paint
+      <span class="nav-badge">6</span>
+    </div>
+  <div class="nav-group">
+    <div class="nav-group-label" style="color:var(--baic-muted)">BAIC</div>
+    <div class="nav-item" onclick="show('vehicles-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5"/><circle cx="15" cy="17" r="2"/><circle cx="7" cy="17" r="2"/><path d="M13 17H9"/></svg>
+      Vehicles
+      <span class="nav-badge">12</span>
+    </div>
+    <div class="nav-item" onclick="show('warranty-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Warranty & Service
+    </div>
+    <div class="nav-item" onclick="show('branches-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Branches
+      <span class="nav-badge">21</span>
+    </div>
+    <div class="nav-item" onclick="show('whatsapp-baic',this,'baic')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Call Scripts
+      <span class="nav-badge">2</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- ── DAILY TASKS ── -->
+  <div id="tab-tasks" class="tab-panel active">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow">Operations</div>
+        <div class="page-title">Daily Task Distribution</div>
+        <div class="page-sub" id="tasksDate" style="margin-top:5px;color:var(--text3)">Loading...</div>
+      </div>
+      <div class="header-right">
+        <div class="live-badge"><span class="live-dot"></span><span id="taskStatus">Live</span></div>
+        <button class="btn" onclick="loadTasks()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Agent tabs -->
+    <div class="agent-tabs-wrap">
+      <div class="agent-tab-btns" id="agentTabBtns"></div>
+      <div id="agentTabContent"></div>
+    </div>
+
+    <div class="page-footer" id="taskFooter"></div>
+  </div>
+
+  <!-- ── SMS STELLANTIS ── -->
+  <div id="tab-sms-stellantis" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Reference</div>
+        <div class="page-title stellantis">SMS Templates</div>
+        <div class="page-sub" style="margin-top:6px;gap:6px">
+          <span class="contact-chip">📞 8003030040</span>
+          <span class="contact-chip">💬 WhatsApp 0558627733</span>
+        </div>
+      </div>
+    </div>
+    <div class="sms-list" id="smsStellantisGrid"></div>
+  </div>
+
+  <!-- ── SMS NISSAN ── -->
+  <div id="tab-sms-nissan" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--ni-muted)">Nissan · Reference</div>
+        <div class="page-title nissan">SMS Templates</div>
+        <div class="page-sub" style="margin-top:6px;gap:6px">
+          <span class="contact-chip">📞 8004420010</span>
+          <span class="contact-chip">💬 WhatsApp 920011795</span>
+        </div>
+      </div>
+    </div>
+    <div class="sms-list" id="smsNissanGrid"></div>
+  </div>
+
+  <!-- ── SCRIPT STELLANTIS ── -->
+  <div id="tab-script-stellantis" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Reference</div>
+        <div class="page-title stellantis">Call Scripts</div>
+        <div class="page-sub" style="margin-top:4px">Agent call guides for Petromin Stellantis</div>
+      </div>
+    </div>
+    <div class="script-list" id="scriptStellantisContent"></div>
+  </div>
+
+  <!-- ── SCRIPT NISSAN ── -->
+  <div id="tab-script-nissan" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--ni-muted)">Nissan · Reference</div>
+        <div class="page-title nissan">Call Scripts</div>
+        <div class="page-sub" style="margin-top:4px">Agent call guides for Petromin Nissan</div>
+      </div>
+    </div>
+    <div class="script-list" id="scriptNissanContent"></div>
+  </div>
+
+  <!-- ── WHATSAPP SCRIPTS STELLANTIS ── -->
+  <div id="tab-whatsapp-stellantis" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Reference</div>
+        <div class="page-title stellantis">WhatsApp Scripts</div>
+        <div class="page-sub" style="margin-top:4px">D+1 Follow-up · Arabic &amp; English</div>
+      </div>
+    </div>
+    <div class="script-list" id="whatsappStellantisContent"></div>
+  </div>
+
+  <!-- ── RECALLS STELLANTIS ── -->
+  <div id="tab-recalls-stellantis" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Reference</div>
+        <div class="page-title stellantis">Recalls</div>
+        <div class="page-sub" style="margin-top:4px">Dodge · Jeep · Ram · Chrysler — 29 Active Recalls</div>
+      </div>
+    </div>
+
+    <!-- Remote Areas link -->
+    <a href="https://petromincrm-my.sharepoint.com/:x:/r/personal/shahad_ammar_petromin_com/Documents/Stellantis%20Reference.xlsx?d=w8c34efa26e1b477189d0967452c776f4&csf=1&web=1&e=xfs199" target="_blank" class="remote-link-card">
+      <div class="remote-link-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="remote-link-info">
+        <div class="remote-link-title">Recall — Remote Areas</div>
+        <div class="remote-link-sub">Stellantis Reference · Excel · SharePoint</div>
+      </div>
+      <div class="remote-link-arrow">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </div>
+    </a>
+
+    <div class="sms-list" id="recallsList"></div>
+  </div>
+
+  <!-- ── BRANCHES STELLANTIS ── -->
+  <div id="tab-branches-stellantis" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Branches</div>
+        <div class="page-title stellantis">Service Centers</div>
+        <div class="page-sub" style="margin-top:4px">Mopar Authorized Service Centers · 9 Branches</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>All Branches</span>
+        <span class="live-badge" id="stBranchesStatus"><span class="live-dot"></span>Loading...</span>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Code</th><th>Branch</th><th>Services</th><th>Region</th><th>Address</th></tr></thead>
+          <tbody id="stBranchesBody"><tr class="loading-row"><td colspan="6">Loading data from Google Sheets...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRANCHES NISSAN ── -->
+  <div id="tab-branches-nissan" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--ni-muted)">Nissan · Branches</div>
+        <div class="page-title nissan">PMS Branches</div>
+        <div class="page-sub" style="margin-top:4px">3S Service Centers · 16 Branches</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>All Branches</span>
+        <span class="live-badge" id="niBranchesStatus"><span class="live-dot"></span>Loading...</span>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>SN</th><th>Code</th><th>Branch</th><th>Booking Hours (PMS)</th><th>Booking Hours (GR)</th><th>Address</th></tr></thead>
+          <tbody id="niBranchesBody"><tr class="loading-row"><td colspan="6">Loading data from Google Sheets...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WARRANTY BAIC ── -->
+  <div id="tab-warranty-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Warranty &amp; Service Schedule</div>
+        <div class="page-sub" style="margin-top:4px">BAIC Vehicles — Service Standard</div>
+      </div>
+    </div>
+
+    <!-- Warranty card -->
+    <div class="card" style="border-top:3px solid var(--baic);margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--baic-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--baic)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:4px">BAIC Vehicles Warranty</div>
+          <div style="font-size:28px;font-weight:700;color:var(--baic);letter-spacing:-1px">10 Years / 150,000 KM</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px">أيهما أسبق</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service schedule -->
+    <div class="card">
+      <div class="card-title">الصيانة الدورية لسيارة بايك</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:var(--baic-bg);border-radius:var(--rl);padding:16px;border:1px solid var(--baic)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--baic);margin-bottom:8px">First Service</div>
+          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px">5,000 KM</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">or 6 months · whichever comes first</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">أول صيانة دورية على ممشى 5000 أو 6 أشهر أيهما أسبق</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--rl);padding:16px;border:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:8px">Subsequent Services</div>
+          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px">7,500 KM</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">or 6 months · whichever comes first</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:2px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">بعد ذلك صيانة دورية كل 7500 أو 6 أشهر أيهما أسبق</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BRANCHES BAIC ── -->
+  <div id="tab-branches-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Branches</div>
+        <div class="page-title" style="color:var(--baic)">Autocare Branches</div>
+        <div class="page-sub" style="margin-top:4px">21 Branches · Sat–Thu 8:00 AM – 9:00 PM · Closed Friday</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--baic-bg);border-color:var(--baic);margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:10px;color:var(--baic)">
+        <span style="font-size:20px">🕗</span>
+        <div>
+          <div style="font-size:13px;font-weight:700">Working Hours</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px">Sat – Thu &nbsp;·&nbsp; 8:00 AM – 9:00 PM &nbsp;·&nbsp; Closed Friday</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:1px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">من السبت إلى الخميس من الساعة 8:00 صباحًا حتى 9:00 مساءً · مغلق يوم الجمعة</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>All Branches</span>
+        <span class="live-badge" id="baicBranchesStatus"><span class="live-dot"></span>Loading...</span>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>SN</th><th>Code</th><th>Branch</th><th>City</th><th>Region</th></tr></thead>
+          <tbody id="baicBranchesBody"><tr class="loading-row"><td colspan="5">Loading data from Google Sheets...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WHATSAPP BAIC ── -->
+  <div id="tab-whatsapp-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Call Scripts</div>
+        <div class="page-sub" style="margin-top:4px">D+1 Follow-up · Arabic &amp; English</div>
+      </div>
+    </div>
+    <div class="script-list" id="whatsappBaicContent"></div>
+  </div>
+
+  <!-- ── VEHICLES BAIC ── -->
+  <div id="tab-vehicles-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Vehicles Lineup</div>
+        <div class="page-sub" style="margin-top:4px">BAIC Service Standard Schedule — 12 Models</div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--baic)">🔴 SUV</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X3</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">U5Plus</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X55 Mo fun</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X7</div><div class="vehicle-sub">BAIC</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--baic)">🔴 BJ Series</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ40C</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⛽</span><div class="vehicle-name">BJ40 Diesel</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ40Pro</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⛽</span><div class="vehicle-name">BJ40Pro Diesel</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⚡</span><div class="vehicle-name">BJ30e</div><div class="vehicle-sub">Electric</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ30</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">BJ60</div><div class="vehicle-sub">BAIC</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⛽</span><div class="vehicle-name">BJ60 Diesel</div><div class="vehicle-sub">BAIC</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VEHICLES STELLANTIS ── -->
+  <div id="tab-vehicles-stellantis" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Reference</div>
+        <div class="page-title stellantis">Vehicles Lineup</div>
+        <div class="page-sub" style="margin-top:4px">Jeep · Dodge · RAM · Chrysler · Alfa Romeo · Fiat — 23 Models</div>
+      </div>
+    </div>
+    <div class="vehicles-section" style="--brand-color:var(--st)">
+      <div class="vehicles-cat-label" style="--brand-color:#0a7a56">🟢 Jeep</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Wrangler</div><div class="vehicle-sub">Jeep</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Grand Cherokee</div><div class="vehicle-sub">Jeep</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Commander</div><div class="vehicle-sub">Jeep</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Compass</div><div class="vehicle-sub">Jeep</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🛻</span><div class="vehicle-name">Gladiator</div><div class="vehicle-sub">Jeep</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--st)">🔵 Dodge</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🏎️</span><div class="vehicle-name">Charger</div><div class="vehicle-sub">Dodge</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🏎️</span><div class="vehicle-name">Challenger</div><div class="vehicle-sub">Dodge</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Durango</div><div class="vehicle-sub">Dodge</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--amber)">🟡 RAM</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🛻</span><div class="vehicle-name">1500</div><div class="vehicle-sub">RAM</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🛻</span><div class="vehicle-name">2500</div><div class="vehicle-sub">RAM</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--purple)">🟣 Chrysler</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">300</div><div class="vehicle-sub">Chrysler</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚐</span><div class="vehicle-name">Pacifica</div><div class="vehicle-sub">Chrysler</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:#b71c1c">🔴 Alfa Romeo</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Stelvio Veloce</div><div class="vehicle-sub">Alfa Romeo</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Tonale Ti</div><div class="vehicle-sub">Base Grade</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Tonale Ti</div><div class="vehicle-sub">High Grade</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Tonale Sprint</div><div class="vehicle-sub">Alfa Romeo</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">Giulia Tributo</div><div class="vehicle-sub">Alfa Romeo</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:#e65100">🟠 Fiat Professional</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚐</span><div class="vehicle-name">Doblo SWB</div><div class="vehicle-sub">Fiat Professional</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚐</span><div class="vehicle-name">Doblo LWB</div><div class="vehicle-sub">Fiat Professional</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⚡</span><div class="vehicle-name">eDoblo SWB</div><div class="vehicle-sub">Electric</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">⚡</span><div class="vehicle-name">eDoblo LWB</div><div class="vehicle-sub">Electric</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚐</span><div class="vehicle-name">Scudo Cargo Van</div><div class="vehicle-sub">Fiat Professional</div></div>
+      </div>
+    </div>
+  </div>
+  <div id="tab-vehicles-nissan" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--ni-muted)">Nissan · Reference</div>
+        <div class="page-title nissan">Vehicles Lineup</div>
+        <div class="page-sub" style="margin-top:4px">SUV · Sedan · Sports · Commercial — 14 Models</div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--ni)">🔴 SUV / Crossover</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Patrol</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Patrol Safari</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Pathfinder</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">X-Trail</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚙</span><div class="vehicle-name">Xterra</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">Kicks</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">Magnite</div><div class="vehicle-sub">Nissan</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--ni)">🔴 Sedan</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">Altima</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">Sunny</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚗</span><div class="vehicle-name">Sentra</div><div class="vehicle-sub">Nissan</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--ni)">🔴 Sports</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🏎️</span><div class="vehicle-name">Nissan Z</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🏎️</span><div class="vehicle-name">GT-R</div><div class="vehicle-sub">Nissan</div></div>
+      </div>
+    </div>
+    <div class="vehicles-section">
+      <div class="vehicles-cat-label" style="--brand-color:var(--ni)">🔴 Commercial</div>
+      <div class="vehicles-grid">
+        <div class="vehicle-card"><span class="vehicle-icon">🛻</span><div class="vehicle-name">Navara</div><div class="vehicle-sub">Nissan</div></div>
+        <div class="vehicle-card"><span class="vehicle-icon">🚐</span><div class="vehicle-name">Urvan</div><div class="vehicle-sub">Nissan</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BODY & PAINT STELLANTIS ── -->
+  <div id="tab-body-paint" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Branches</div>
+        <div class="page-title stellantis">Body &amp; Paint</div>
+        <div class="page-sub" style="margin-top:4px">6 Locations</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Branch</th><th>Region</th><th>Address</th></tr></thead>
+          <tbody>
+            <tr><td class="num">4102</td><td><strong>Asfan</strong></td><td><span class="badge b-west">Western</span></td><td class="muted">جدة عسفان المنطقة الصناعية بجانب مجموعة تاجير</td></tr>
+            <tr><td class="num">4140</td><td><strong>Al Nakheel</strong></td><td><span class="badge b-west">Western</span></td><td class="muted">حي النخيل، طريق ابو عمرو الأوزاعي</td></tr>
+            <tr><td class="num">4354</td><td><strong>Exit 18</strong></td><td><span class="badge b-center">Central</span></td><td class="muted">الرياض حي الفيصلية مخرج 18</td></tr>
+            <tr><td class="num">4361</td><td><strong>Sinaiyah Exit 17</strong></td><td><span class="badge b-center">Central</span></td><td class="muted">الرياض حي الصناعية مخرج 17</td></tr>
+            <tr><td class="num">4359</td><td><strong>Qassim (TS)</strong></td><td><span class="badge b-center">Central</span></td><td class="muted">بريدة، طريق الملك عبدالعزيز بجوار مسجد الفوزان</td></tr>
+            <tr><td class="num">4604</td><td><strong>Dammam (TS)</strong></td><td><span class="badge b-east">Eastern</span></td><td class="muted">Dhahran Jubail Expy, Al Khodaryah, Dammam</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BODY & PAINT NISSAN ── -->
+  <div id="tab-body-paint-nissan" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--ni-muted)">Nissan · Branches</div>
+        <div class="page-title nissan">Body &amp; Paint</div>
+        <div class="page-sub" style="margin-top:4px">6 Locations</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Branch</th><th>Region</th><th>Address</th></tr></thead>
+          <tbody>
+            <tr><td class="num">137</td><td><strong>Asfan Body Shop &amp; Paint</strong></td><td><span class="badge b-west">Western</span></td><td class="muted">جدة عسفان المنطقة الصناعية بجانب مجموعة تاجير</td></tr>
+            <tr><td class="num">140</td><td><strong>Al Nakheel</strong></td><td><span class="badge b-west">Western</span></td><td class="muted">حي النخيل، طريق ابو عمرو الأوزاعي</td></tr>
+            <tr><td class="num">366</td><td><strong>Body Shop Exit 18</strong></td><td><span class="badge b-center">Central</span></td><td class="muted">الرياض حي الفيصلية مخرج 18</td></tr>
+            <tr><td class="num">383</td><td><strong>Riyadh Sinaiyah Exit 17</strong></td><td><span class="badge b-center">Central</span></td><td class="muted">الرياض حي الصناعية مخرج 17</td></tr>
+            <tr><td class="num">359</td><td><strong>Qassim (TS)</strong></td><td><span class="badge b-center">Central</span></td><td class="muted">طريق الملك عبدالعزيز بجوار مسجد الفوزان</td></tr>
+            <tr><td class="num">622</td><td><strong>Dammam (TS)</strong></td><td><span class="badge b-east">Eastern</span></td><td class="muted">الدمام الخضرية</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<!-- Search overlay -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch()">
+  <div class="search-box" onclick="event.stopPropagation()">
+    <div class="search-input-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" id="searchInput" placeholder="Search recalls, SMS templates..." oninput="doSearch(this.value)" autocomplete="off">
+      <button class="search-close-btn" onclick="closeSearch()">ESC</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-empty">Type to search recalls and SMS templates...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Celebration overlay -->
+<div class="celebrate-overlay" id="celebrateOverlay" onclick="closeCelebrate()">
+  <div class="celebrate-box" onclick="event.stopPropagation()">
+    <span class="celebrate-emoji" id="celebrateEmoji">🌟</span>
+    <div class="celebrate-title">Way to go!</div>
+    <div class="celebrate-name" id="celebrateName"></div>
+    <div class="celebrate-msg">You've completed all your tasks for today!<br>Keep up the amazing work 💪</div>
+    <button class="celebrate-close" onclick="closeCelebrate()">Awesome! 🎉</button>
+  </div>
+</div>
+
+<script>
+const SHEET='1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg';
+
+// ── NAV ──
+function show(id,el,brand){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  if(el){el.classList.add('active');if(brand)el.classList.add(brand)}
+  if(id==='tasks')loadTasks();
+  if(id==='sms-stellantis')renderSMS('stellantis');
+  if(id==='sms-nissan')renderSMS('nissan');
+  if(id==='script-stellantis')renderScript('stellantis');
+  if(id==='script-nissan')renderScript('nissan');
+  if(id==='branches-stellantis')loadStBranches();
+  if(id==='branches-nissan')loadNiBranches();
+  if(id==='branches-baic')loadBaicBranches();
+  if(id==='whatsapp-baic')renderWhatsAppBaic();
+  if(id==='whatsapp-stellantis')renderWhatsApp();
+  if(id==='recalls-stellantis')loadRecalls();
+}
+
+// ── CSV ──
+function csv(t){
+  return t.trim().split('\n').map(r=>{
+    const c=[];let cur='',q=false;
+    for(const ch of r){if(ch==='"')q=!q;else if(ch===','&&!q){c.push(cur.trim());cur='';}else cur+=ch;}
+    c.push(cur.trim());return c;
+  });
+}
+async function fetchSheet(gid){
+  const r=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET}/export?format=csv&gid=${gid}&t=${Date.now()}`);
+  if(!r.ok)throw new Error(r.status);
+  return csv(await r.text());
+}
+
+// ── TASKS ──
+async function loadTasks(){
+  document.getElementById('taskStatus').textContent='Updating...';
+  try{const rows=await fetchSheet('42735240');renderTasks(rows);document.getElementById('taskStatus').textContent='Live ✓';}
+  catch{renderTasksFallback();document.getElementById('taskStatus').textContent='Cached';}
+  document.getElementById('taskFooter').textContent='Last updated: '+new Date().toLocaleTimeString()+' · Auto-refreshes every 60s';
+}
+function getBrand(n){
+  const l=n.toLowerCase();
+  // Explicit Stellantis
+  if(l.includes('stellantis')) return 'stellantis';
+  // Explicit Nissan
+  if(l.includes('nissan')) return 'nissan';
+  if(l.includes('pn queue')) return 'nissan';
+  // Website = Nissan
+  if(l.includes('website')) return 'nissan';
+  // Lost Customers = Nissan
+  if(l.includes('lost')) return 'nissan';
+  // 10k = Nissan
+  if(l.includes('10k')) return 'nissan';
+  // Recall = Stellantis
+  if(l.includes('recall')) return 'stellantis';
+  // PMS = both but default Stellantis
+  if(l.includes('pms')) return 'stellantis';
+  // Opportunities = both
+  if(l.includes('opportunit')) return 'stellantis';
+  return '';
+}
+function badge(n){
+  const l=n.toLowerCase();
+  if(l.includes('recall'))return'<span class="badge b-recall">Recall</span> ';
+  if(l.includes('lost'))return'<span class="badge b-lost">Lost</span> ';
+  if(l.includes('pms'))return'<span class="badge b-pms">PMS</span> ';
+  if(l.includes('10k'))return'<span class="badge b-svc">10k</span> ';
+  if(l.includes('1k'))return'<span class="badge b-svc">1k</span> ';
+  return'<span class="badge b-new">New</span> ';
+}
+function ac(r,t){return`<td class="num">${r} <span class="sub-num">(${t})</span></td>`}
+const AGENTS=[
+  {name:'Reem',   init:'R', color:'#1558b0'},
+  {name:'Ghufran',init:'G', color:'#a01515'},
+  {name:'Raghad', init:'Ra',color:'#0a7a56'},
+];
+const AGENT_ORDER=[
+  // Reem (0)
+  ['Opportunities (New)','Website Service Request','1k Service ( Nissan )','1k Service ( Stellantis )','Recall 30B','Recall 35D','Recall 90C','Recall 77C','PMS Priority List','Lost Customers ( Nissan )'],
+  // Ghufran (1)
+  ['PN Queue (New)','Website Service Request','1k Service ( Stellantis )','1k Service ( Nissan )','10k Service ( Nissan )','Recall 30B','Recall 90C','Recall 77C','PMS Priority List','Lost Customers ( Nissan )'],
+  // Raghad (2)
+  ['PN Queue (New)','Website Service Request','1k Service ( Nissan )','10k Service ( Nissan )','Recall 30B','Recall 90C','Recall 77C','PMS Priority List','Lost Customers ( Nissan )'],
+];
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('show');
+  setTimeout(()=>document.getElementById('searchInput').focus(),50);
+}
+function closeSearch(){
+  document.getElementById('searchOverlay').classList.remove('show');
+  document.getElementById('searchInput').value='';
+  document.getElementById('searchResults').innerHTML='<div class="search-empty">Type to search recalls and SMS templates...</div>';
+}
+document.addEventListener('keydown',e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}
+  if(e.key==='Escape') closeSearch();
+});
+function highlight(text, q){
+  if(!q) return text;
+  const re=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return text.replace(re,'<span class="sr-highlight">$1</span>');
+}
+function doSearch(q){
+  const res=document.getElementById('searchResults');
+  if(!q||q.length<2){res.innerHTML='<div class="search-empty">Type at least 2 characters...</div>';return;}
+  const ql=q.toLowerCase();
+  const hits=[];
+
+  // Search Recalls
+  RECALLS.forEach(r=>{
+    if(r.no.toLowerCase().includes(ql)||r.brand.toLowerCase().includes(ql)||r.model.toLowerCase().includes(ql)||r.desc.toLowerCase().includes(ql)){
+      hits.push({tag:'recall',tagLabel:'Recall',title:`${r.no} · ${r.brand} · ${r.model}`,preview:r.desc.substring(0,120)+'...',q});
+    }
+  });
+
+  // Search SMS Stellantis
+  SMS.stellantis.forEach(s=>{
+    if(s.type.toLowerCase().includes(ql)||s.en.toLowerCase().includes(ql)||s.ar.includes(q)){
+      hits.push({tag:'sms-st',tagLabel:'SMS · Stellantis',title:s.type,preview:s.en.substring(0,120)+'...',q});
+    }
+  });
+
+  // Search SMS Nissan
+  SMS.nissan.forEach(s=>{
+    if(s.type.toLowerCase().includes(ql)||s.en.toLowerCase().includes(ql)||s.ar.includes(q)){
+      hits.push({tag:'sms-ni',tagLabel:'SMS · Nissan',title:s.type,preview:s.en.substring(0,120)+'...',q});
+    }
+  });
+
+  if(hits.length===0){res.innerHTML='<div class="search-empty">No results found for "'+q+'"</div>';return;}
+  res.innerHTML=hits.map(h=>`
+    <div class="search-result-item">
+      <div class="sr-tag ${h.tag}">${h.tagLabel}</div>
+      <div class="sr-title">${highlight(h.title,h.q)}</div>
+      <div class="sr-preview">${highlight(h.preview,h.q)}</div>
+    </div>`).join('');
+}
+
+// ── CELEBRATION ──
+const EMOJIS=['🌟','⭐','🏆','🎊','🔥','💫','✨'];
+function showCelebrate(agentName, color){
+  const overlay=document.getElementById('celebrateOverlay');
+  const nameEl=document.getElementById('celebrateName');
+  const emojiEl=document.getElementById('celebrateEmoji');
+  nameEl.textContent=agentName;
+  nameEl.style.color=color;
+  emojiEl.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+  overlay.classList.add('show');
+  // Confetti
+  const box=overlay.querySelector('.celebrate-box');
+  for(let i=0;i<18;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.cssText=`
+      left:${Math.random()*100}%;
+      top:0;
+      background:${['#1558b0','#0a7a56','#f5a623','#e74c3c','#9b59b6','#f39c12'][Math.floor(Math.random()*6)]};
+      animation-duration:${0.8+Math.random()*1.2}s;
+      animation-delay:${Math.random()*0.4}s;
+    `;
+    box.appendChild(c);
+    setTimeout(()=>c.remove(),2500);
+  }
+}
+function closeCelebrate(){
+  document.getElementById('celebrateOverlay').classList.remove('show');
+}
+function checkAllDone(agentIdx){
+  const panel=document.getElementById('agent-panel-'+agentIdx);
+  if(!panel) return;
+  const rows=panel.querySelectorAll('tr[data-task]');
+  if(rows.length===0) return;
+  const allDone=[...rows].every(r=>isChecked(agentIdx,r.dataset.task));
+  if(allDone) showCelebrate(AGENTS[agentIdx].name, AGENTS[agentIdx].color);
+}
+
+// ── CHECKBOX STORAGE ──
+function getTodayKey(agentIdx,taskName){
+  const d=new Date();
+  const day=`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+  return `check_${day}_${agentIdx}_${taskName.replace(/\s+/g,'_')}`;
+}
+function isChecked(agentIdx,taskName){
+  return localStorage.getItem(getTodayKey(agentIdx,taskName))==='1';
+}
+function toggleCheck(agentIdx,taskName){
+  const key=getTodayKey(agentIdx,taskName);
+  const cur=localStorage.getItem(key)==='1';
+  if(cur) localStorage.removeItem(key);
+  else localStorage.setItem(key,'1');
+  refreshAgentPanel(agentIdx);
+  if(!cur) checkAllDone(agentIdx);
+}
+function refreshAgentPanel(agentIdx){
+  const panel=document.getElementById('agent-panel-'+agentIdx);
+  if(!panel) return;
+  panel.querySelectorAll('tr[data-task]').forEach(row=>{
+    const name=row.dataset.task;
+    const done=isChecked(agentIdx,name);
+    const box=row.querySelector('.task-check');
+    if(done){row.classList.add('row-done');if(box)box.classList.add('done');}
+    else{row.classList.remove('row-done');if(box)box.classList.remove('done');}
+  });
+  updateProgressBar(agentIdx);
+}
+function updateProgressBar(agentIdx){
+  const panel=document.getElementById('agent-panel-'+agentIdx);
+  if(!panel) return;
+  const rows=panel.querySelectorAll('tr[data-task]');
+  const total=rows.length;
+  const done=[...rows].filter(r=>isChecked(agentIdx,r.dataset.task)).length;
+  const pct=total>0?Math.round((done/total)*100):0;
+  const fill=panel.querySelector('.progress-bar-fill');
+  const lbl=panel.querySelector('.progress-bar-label span:last-child');
+  if(fill) fill.style.width=pct+'%';
+  if(lbl) lbl.textContent=`${done} / ${total} done`;
+}
+
+let lastTasks=[];
+function drawRows(tasks){
+  lastTasks=tasks;
+  let tR=0,tT=0;
+  const agD=[{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0}];
+  tasks.forEach(t=>{
+    tR+=t.req;tT+=t.tgt;
+    agD[0].req+=t.r;agD[0].tgt+=t.rt;
+    agD[1].req+=t.g;agD[1].tgt+=t.gt;
+    agD[2].req+=t.ra;agD[2].tgt+=t.rat;
+  });
+
+  // Agent tab buttons
+  document.getElementById('agentTabBtns').innerHTML=AGENTS.map((a,i)=>`
+    <button class="agent-tab-btn${i===0?' active':''}" style="--agent-color:${a.color}" onclick="switchAgent(${i})">
+      <span class="tab-avatar">${a.init}</span>
+      ${a.name}
+      <span class="tab-count">${agD[i].req} req</span>
+    </button>`).join('');
+
+  // Agent panels
+  document.getElementById('agentTabContent').innerHTML=AGENTS.map((a,i)=>{
+    const d=agD[i];
+    const pct=tT>0?Math.round((d.tgt/tT)*100):0;
+    const order=AGENT_ORDER[i];
+    const myTasks=tasks.filter(t=>{
+      const vals=[t.r,t.g,t.ra];
+      const tgts=[t.rt,t.gt,t.rat];
+      return vals[i]>0;
+    }).sort((a,b)=>{
+      if(order.length){
+        const ia=order.findIndex(o=>a.name.trim().includes(o)||o.includes(a.name.trim()));
+        const ib=order.findIndex(o=>b.name.trim().includes(o)||o.includes(b.name.trim()));
+        const ra2=ia===-1?999:ia;
+        const rb2=ib===-1?999:ib;
+        return ra2-rb2;
+      }
+      const ba=getBrand(a.name),bb=getBrand(b.name);
+      if(ba==='stellantis'&&bb!=='stellantis') return -1;
+      if(ba!=='stellantis'&&bb==='stellantis') return 1;
+      return 0;
+    });
+    const taskRows=myTasks.map(t=>{
+      const vals=[t.r,t.g,t.ra];
+      const tgts=[t.rt,t.gt,t.rat];
+      const done=isChecked(i,t.name);
+      const brand=getBrand(t.name);
+      const brandDot=brand==='stellantis'
+        ?'<span style="background:var(--st-bg);color:var(--st);font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;flex-shrink:0;letter-spacing:.3px">ST</span>'
+        :brand==='nissan'
+        ?'<span style="background:var(--ni-bg);color:var(--ni);font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;flex-shrink:0;letter-spacing:.3px">NI</span>'
+        :'';
+      return`<tr data-task="${t.name.replace(/"/g,'')}" class="${done?'row-done':''} ${brand?'row-'+brand:''}">
+        <td>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="task-check${done?' done':''}" style="--agent-done-color:${a.color}" onclick="toggleCheck(${i},'${t.name.replace(/'/g,"\\'").replace(/"/g,'')}')">
+              <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg>
+            </div>
+            ${brandDot}
+            ${badge(t.name)}${t.name}
+          </div>
+        </td>
+        <td class="num">${vals[i]}</td>
+      </tr>`;
+    }).join('');
+
+    const doneCount=myTasks.filter(t=>isChecked(i,t.name)).length;
+    const barPct=myTasks.length>0?Math.round((doneCount/myTasks.length)*100):0;
+
+    return`<div class="agent-panel${i===0?' active':''}" id="agent-panel-${i}">
+      <div class="agent-summary">
+        <div class="agent-sum-card">
+          <div class="agent-sum-val">${d.req}</div>
+          <div class="agent-sum-label">Requests</div>
+        </div>
+        <div class="agent-sum-card">
+          <div class="agent-sum-val" style="color:${a.color}">40</div>
+          <div class="agent-sum-label">Appts. Target</div>
+        </div>
+        <div class="agent-sum-card">
+          <div class="agent-sum-val" style="color:${a.color}">${pct}%</div>
+          <div class="agent-sum-label">of Team Target</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+          <span>${a.name}'s Task Breakdown</span>
+          <button class="reset-btn" onclick="resetAgent(${i})">↺ Reset</button>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-label">
+            <span>Daily Progress</span>
+            <span>${doneCount} / ${myTasks.length} done</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" style="width:${barPct}%;background:${a.color}"></div>
+          </div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Source</th><th>Requests</th></tr></thead>
+            <tbody>${taskRows||'<tr><td colspan="2" style="text-align:center;color:var(--text3);padding:20px">No tasks assigned</td></tr>'}</tbody>
+            <tfoot><tr style="background:var(--surface2);font-weight:700">
+              <td>Total</td>
+              <td class="num">${d.req}</td>
+            </tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function resetAgent(agentIdx){
+  const d=new Date();
+  const day=`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+  const prefix=`check_${day}_${agentIdx}_`;
+  Object.keys(localStorage).filter(k=>k.startsWith(prefix)).forEach(k=>localStorage.removeItem(k));
+  refreshAgentPanel(agentIdx);
+}
+function switchAgent(idx){
+  document.querySelectorAll('.agent-tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',i===idx);
+  });
+  document.querySelectorAll('.agent-panel').forEach((p,i)=>{
+    p.classList.toggle('active',i===idx);
+  });
+}
+function renderTasks(rows){
+  const date=rows[0]?.[0]||'';
+  document.getElementById('tasksDate').textContent=date?'Date: '+date:'Petromin Outbound';
+  const tasks=[];
+  for(let i=2;i<rows.length;i++){
+    const r=rows[i];if(!r[0])continue;
+    const n=r[0].toLowerCase();
+    if(n.includes('grand')||n.includes('total')||n.includes('sources')||n.includes('appts'))continue;
+    const req=+r[1]||0,tgt=+r[2]||0;if(!req&&!tgt)continue;
+    tasks.push({
+      name:r[0],req,tgt,
+      r:+r[3]||0,rt:+r[4]||0,
+      g:+r[5]||0,gt:+r[6]||0,
+      ra:+r[7]||0,rat:+r[8]||0,
+    });
+  }
+  drawRows(tasks);
+}
+function renderTasksFallback(){
+  document.getElementById('tasksDate').textContent='Date: 11/6/2026';
+  drawRows([
+    {name:'Opportunities (New)',      req:37,  tgt:33,  r:37, rt:11, g:0,  gt:11, ra:0,  rat:11},
+    {name:'PN Queue (New)',           req:9,   tgt:4,   r:0,  rt:0,  g:4,  gt:0,  ra:5,  rat:0},
+    {name:'Website Service Request',  req:3,   tgt:1,   r:1,  rt:0,  g:1,  gt:0,  ra:1,  rat:1},
+    {name:'Lost Customers ( Nissan )',req:374, tgt:114, r:20, rt:6,  g:40, gt:6,  ra:40, rat:6},
+    {name:'1k Service ( Stellantis )',req:0,   tgt:1,   r:1,  rt:0,  g:1,  gt:0,  ra:0,  rat:0},
+    {name:'1k Service ( Nissan )',    req:48,  tgt:19,  r:18, rt:3,  g:20, gt:3,  ra:20, rat:3},
+    {name:'10k Service ( Nissan )',   req:7,   tgt:22,  r:0,  rt:5,  g:4,  gt:5,  ra:3,  rat:5},
+    {name:'Recall 30B',               req:11,  tgt:3,   r:5,  rt:1,  g:3,  gt:1,  ra:3,  rat:1},
+    {name:'Recall 35D',               req:10,  tgt:3,   r:8,  rt:2,  g:0,  gt:1,  ra:0,  rat:0},
+    {name:'Recall 90C',               req:7,   tgt:2,   r:3,  rt:1,  g:2,  gt:1,  ra:2,  rat:0},
+    {name:'Recall 77C',               req:16,  tgt:5,   r:6,  rt:1,  g:5,  gt:1,  ra:5,  rat:1},
+    {name:'PMS Priority List',        req:387, tgt:149, r:21, rt:6,  g:40, gt:7,  ra:41, rat:8},
+  ]);
+}
+
+// ── SMS DATA ──
+const SMS={
+  nissan:[
+    {type:'Recall Repair Refusal',en:'Dear customer, We contacted you regarding an important recall for your vehicle, and you declined to proceed at this time. Please note this recall concerns your safety, and the company is not liable for any risks resulting from not completing it. For booking or inquiries, contact us at 8004420010 or via WhatsApp at 920011795. We wish you a safe drive.',ar:'عميلنا العزيز، نود إعلامكم بأنه تم التواصل معكم بخصوص استدعاء هام لمركبتكم، وأفدتم بعدم رغبتكم في إجراءه حاليًا. نؤكد أن الاستدعاء يتعلق بسلامتكم وسلامة مركبتكم، والشركة تُخلي مسؤوليتها عن أي أضرار ناتجة عن عدم إجراءه. للحجز أو الاستفسار، يمكنكم التواصل معنا عبر رقم خدمة عملاء نيسان: 8004420010 أو عبر الواتساب: 920011795. نتمنى لك قيادة امنه.'},
+    {type:'No Ans — Recall',en:'Dear customer, We tried to contact you regarding the recall of your vehicle at Petromin Nissan, but there was no response. For more details, please feel free to contact us at 8004420010 or via WhatsApp at 920011795. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معكم بخصوص استدعاء على مركبتكم في بترومين نيسان، ولم يتم الرد. لمزيد من التفاصيل، يمكنكم التواصل معنا عبر رقم خدمة عملاء نيسان: 8004420010 أو عبر الواتساب: 920011795. نتمنى لك قيادة امنه.'},
+    {type:'No Ans — 1k Service',en:'Dear customer, We tried to contact you regarding your free 1,000 km check up, but there was no response. For more details, please feel free to contact us at 8004420010 or via WhatsApp at 920011795. We wish you a safe drive.',ar:'عميلنا العزيز، لقد حاولنا التواصل معكم بخصوص موعد الفحص المجاني 1000 كيلومتر ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا التواصل معنا عبر رقم خدمة عملاء نيسان: 8004420010 أو عبر الواتساب: 920011795. نتمنى لك قياده امنه.'},
+    {type:'No Ans — Lost Customer',en:'Dear customer, We tried to contact you regarding a special discount available for you at Petromin Nissan, but there was no response. For more details, please feel free to contact us at 8004420010 or via WhatsApp at 920011795. We wish you a safe drive.',ar:'عميلنا العزيز، لقد حاولنا التواصل معكم بخصوص وجود خصم لكم في بترومين نيسان ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا التواصل معنا عبر رقم خدمة عملاء نيسان: 8004420010 أو عبر الواتساب: 920011795. نتمنى لك قياده امنه.'},
+    {type:'No Ans — 10k Service',en:'Dear customer, We tried to contact you regarding your free 10,000 km check up, but there was no response. For more details, please feel free to contact us at 8004420010 or via WhatsApp at 920011795. We wish you a safe drive.',ar:'عميلنا العزيز، لقد حاولنا التواصل معكم بخصوص موعد الفحص المجاني 10.000 كيلومتر ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يمكنكم التواصل معنا عبر رقم خدمة عملاء نيسان: 8004420010 أو عبر الواتساب: 920011795. نتمنى لك قياده امنه.'},
+    {type:'No Ans — Salesforce',en:'Dear Nissan Customer, we tried contacting you to reschedule your service as the requested slot is unavailable. Please WhatsApp us at 920011795 to book a new appointment. Thank you.',ar:'عميل نيسان العزيز، حاولنا التواصل معكم بخصوص جدولة موعد الصيانة حيث أن الموعد المطلوب غير متوفر حاليًا. يرجى التواصل معنا في أقرب فرصة عبر محادثة الواتساب: 920011795 لحجز موعد جديد. شكراً لكم.'},
+  ],
+  stellantis:[
+    {type:'Recall Repair Refusal',en:'Dear customer, We contacted you regarding an important recall for your vehicle, and you declined to proceed at this time. Please note this recall concerns your safety, and the company is not liable for any risks resulting from not completing it. For booking or inquiries, contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، نود إعلامكم بأنه تم التواصل معكم بخصوص استدعاء هام لمركبتكم، وأفدتم بعدم رغبتكم في إجراءه حاليًا. نؤكد أن الاستدعاء يتعلق بسلامتكم وسلامة مركبتكم، والشركة تُخلي مسؤوليتها عن أي أضرار ناتجة عن عدم إجراءه. للحجز أو الاستفسار، يمكنكم التواصل معنا على 8003030040 أو عبر واتساب 0558627733. مع تمنياتنا لكم بالسلامة.'},
+    {type:'No Ans — Booking / Service Request',en:'Dear Customer, We have tried to call you regarding your recent service request, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معكم بخصوص طلبكم لخدمة الصيانة ولم يتم الرد. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
+    {type:'No Ans — Recall',en:'Dear customer, We tried to contact you regarding the recall of your vehicle at Petromin Stellantis, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معكم بخصوص استدعاء مركبتكم في بترومين ستيلانتس، ولم يتم الرد. لمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
+    {type:'No Ans — No Show / D+1',en:'Dear customer, We tried to contact you regarding your service appointment at the Petromin Stellantis Mopar Center, but we were unable to reach you. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز حاولنا التواصل معك بخصوص موعد الصيانة في مركز بترومين ستيلانتس موبار، ولم يتم الرد. نرجو الاتصال بنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قيادة آمنة.'},
+    {type:'No Ans — PMS',en:'Dear customer, We tried to contact you regarding the upcoming scheduled maintenance for your vehicle, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معك بخصوص إقتراب موعد الصيانة الدورية لمركبتكم، ولم يتم الرد. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
+    {type:'No Ans — 1k Service',en:'Dear customer, We tried to contact you regarding your free 1,000 km check up, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، لقد حاولنا التواصل معكم بخصوص موعد الفحص المجاني 1000 كيلومتر ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
+    {type:'No Ans — Lost Customer',en:'Dear customer, We tried to contact you regarding a special discount available for you at Petromin Stellantis Mopar, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معكم بخصوص وجود خصم لكم في بترومين ستيلانتس موبار ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
+  ]
+};
+function renderSMS(brand){
+  const id='sms'+(brand==='stellantis'?'Stellantis':'Nissan')+'Grid';
+  const color=brand==='stellantis'?'var(--st)':'var(--ni)';
+  const chevron=`<svg class="sms-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  document.getElementById(id).innerHTML=SMS[brand].map((s,i)=>`
+    <div class="sms-item" style="--brand-color:${color}" id="sms-${brand}-${i}">
+      <button class="sms-trigger" onclick="toggleSMS('${brand}',${i})">
+        <span class="sms-trigger-num">${i+1}</span>
+        <span class="sms-trigger-title">${s.type}</span>
+        ${chevron}
+      </button>
+      <div class="sms-content">
+        <div class="sms-content-en">${s.en}</div>
+        <div class="sms-content-ar">${s.ar}</div>
+      </div>
+    </div>`).join('');
+}
+function toggleSMS(brand,idx){
+  document.getElementById('sms-'+brand+'-'+idx).classList.toggle('open');
+}
+
+// ── SCRIPT DATA ──
+const SCRIPTS={
+  stellantis:[
+    {title:'Salesforce / Website Script',lines:['الموظفة:','اهلين، معك عبير من بترومين ستلانتس','أستاذ[اسم العميل]، بأستاذي رفعت طلب موعد عن طريق الموقع حجز موعد للصيانة , تفضل كيف أقدر أساعدك ؟','','(في حالة مهتم لحجز موعد ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+    {title:'Lost Customers',lines:['الموظفة:','اهلين، معك عبير من بترومين ستلانتس','أستاذ[اسم العميل]، وصلتك مكالمة آليه توضح لك العرض الخاص فيك 25% على جميع الخدمات بالوكالة هل مهتم ؟','','(اذا نعم ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+    {title:'Recall Customers',lines:['الموظفة:','اهلين، معك عبير من بترومين ستلانتس','أستاذ[اسم العميل]، بتواصل معاك بخصوص الاستدعاء الموجود على مركبتك ( توضيح الاستدعاء ) هل حابب نحجز لك موعد ؟','','(اذا نعم ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+    {title:'14 Days PMS Reminder',lines:['الموظفة:','اهلين، معك عبير من بترومين ستلانتس','أستاذ[اسم العميل]، بتوصل معاك للتذكير بموعد الصيانة هل سويتها أو حابب نحجز موعد ؟','','(في حالة مهتم لحجز موعد ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','(إذا تم عمل الصيانة ):','ممكن أعرف بأي فرع أستاذي ؟','ندخل بيانات بالشيت','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+    {title:'1km Customers',lines:['الموظفة:','اهلين، معك عبير من بترومين ستلانتس','أستاذ[اسم العميل]، بتوصل معاك بخصوص فحص المجاني للألف كيلو، هل تم عمل الفحص او تحتاج نحجز لك موعد ؟','','(اذا نعم ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+  ],
+  nissan:[
+    {title:'Lost Customers',lines:['الموظفة:','اهلين، معك عبير من بترومين نيسان','أستاذ[اسم العميل]، وصلتك مكالمة آليه توضح لك العرض الخاص فيك فحص مجاني و خصومات على الزيت و الفلتر هل مهتم ؟','','(اذا نعم ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+    {title:'10km Customers',lines:['الموظفة:','اهلين، معك عبير من بترومين نيسان','أستاذ[اسم العميل]، بتوصل معاك بخصوص فحص المجاني للعشرة الالف كيلو، هل تم عمل الفحص او تحتاج نحجز لك موعد ؟','','(اذا نعم ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+    {title:'1km Customers',lines:['الموظفة:','اهلين، معك عبير من بترومين نيسان','أستاذ[اسم العميل]، بتوصل معاك بخصوص فحص المجاني للألف كيلو، هل تم عمل الفحص او تحتاج نحجز لك موعد ؟','','(اذا نعم ) متى الوقت الي يناسبك ؟','( عند حجز الموعد) تم حجز الموعد بنجاح ستصل رسالة الموعد بالتفاصيل عن طريق الرسائل النصية.','','(إذا لا):','ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل','','الموظفة ختام المحادثه:','شكراً لك استاذ (فلان) على وقتك.','إذا احتجت أي شيء ، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.','','يومك سعيد!']},
+  ]
+};
+function renderScript(brand){
+  const id='script'+(brand==='stellantis'?'Stellantis':'Nissan')+'Content';
+  const color=brand==='stellantis'?'var(--st)':'var(--ni)';
+  const chevron=`<svg class="script-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  document.getElementById(id).innerHTML=SCRIPTS[brand].map((s,i)=>`
+    <div class="script-item" style="--brand-color:${color}" id="si-${brand}-${i}">
+      <button class="script-trigger" onclick="toggleScript('${brand}',${i})">
+        <span class="script-trigger-num">${i+1}</span>
+        <span class="script-trigger-title">${s.title}</span>
+        ${chevron}
+      </button>
+      <div class="script-body">${s.lines.join('\n')}</div>
+    </div>`).join('');
+}
+function toggleScript(brand,idx){
+  const el=document.getElementById('si-'+brand+'-'+idx);
+  el.classList.toggle('open');
+}
+
+// ── WHATSAPP SCRIPTS ──
+const WHATSAPP_SCRIPTS=[
+  {
+    title:'D+1 Follow-up — العربي',
+    lang:'ar',
+    lines:[
+'أهلين، معك عبير من بترومين ستيلانتس.',
+'أستاذ/ة [اسم العميل]، كان عندك موعد في الوكالة وحبّينا نتأكد إذا حضرتك زرت الورشة؟',
+'',
+'┈ في حال حضر العميل ┈',
+'الموظفة: هل قمت بعمل الخدمة ؟',
+'إذا (لا): يرجى توضيح السبب',
+'',
+'إذا (نعم) — ملاحظات إيجابية:',
+'يسعدنا جداً سماع ذلك، وشكراً لك على مشاركتنا رأيك.',
+'أكيد راح ننقل شكرك للموظف/للفريق، ونتطلع دائماً لخدمتك بأفضل مستوى.',
+'',
+'إذا (نعم) — شكوى أو ملاحظة:',
+'نشكر لك ملاحظتك، ونعتذر عن أي تجربة غير مرضية.',
+'ملاحظتك محل اهتمامنا، وسيتم رفعها ومتابعتها لتحسين الخدمة.',
+'',
+'┈ في حال لم يحضر العميل ┈',
+'الموظفة: ولا يهمك أبداً، هل تحب نعيد جدولة الموعد في وقت يناسبك؟',
+'إذا (نعم): أكيد، متى الوقت المناسب لك؟',
+'بعد الحجز: تم حجز الموعد بنجاح، وراح توصلك رسالة نصية بالتفاصيل.',
+'',
+'إذا رفض إعادة الجدولة:',
+'ما في مشكلة أبداً، لكن إذا ممكن نعرف السبب حتى نقدر نحسن خدماتنا.',
+'',
+'┈ ختام المحادثة ┈',
+'هل يوجد أي إستفسار أخر أستطيع مساعدتك به؟',
+'شكراً لك أستاذ/ة [اسم العميل] على وقتك.',
+'وإذا احتجت أي مساعدة، تقدر تتواصل معنا عن طريق الاتصال أو الواتساب مباشرة.',
+'نتمنى لك يوم سعيد'
+]
+  },
+  {
+    title:'D+1 Follow-up — English',
+    lang:'en',
+    lines:[
+'Employee:',
+'Hello, this is Abeer from Petromin Stellantis.',
+'Mr./Ms. [Customer Name], you had an appointment at the Stellantis Mopar Branch, and we wanted to check if you visited the workshop.',
+'',
+'─ If the Customer Attended the Appointment ─',
+'Employee: Did you complete the service?',
+'If the answer is (No): May I know the reason, please?',
+'',
+'If the answer is (Yes) — Positive Feedback:',
+'Thank you for your positive feedback. We will be happy to share your appreciation with the employee/team, and we look forward to serving you again with the highest level of service.',
+'',
+'If the answer is (Yes) — Complaint or Negative Feedback:',
+'Thank you for sharing your feedback with us, and we apologize for any inconvenience you experienced.',
+'Your comments are highly valued and will be shared with the concerned team for review and improvement.',
+'',
+'─ If the Customer Did Not Attend the Appointment ─',
+'Employee: No worries at all. Would you like us to reschedule the appointment at a more convenient time for you?',
+'If the answer is (Yes): May I know your preferred date and time?',
+'After Booking: Your appointment has been successfully booked, and you will receive an SMS with the details shortly.',
+'',
+'If the Customer Refuses Rescheduling:',
+'No worries at all. We would appreciate it if you could share the reason, as your feedback helps us enhance our services.',
+'',
+'─ Closing the Conversation ─',
+'Is there anything else I can assist you with?',
+'Thank you, Mr./Ms. [Customer Name], for your time.',
+'If you need any further assistance, you can contact us anytime by phone or WhatsApp directly.',
+'Have a nice day.'
+]
+  }
+];
+
+function renderWhatsApp(){
+  const color='var(--st)';
+  const chevron=`<svg class="script-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  document.getElementById('whatsappStellantisContent').innerHTML=WHATSAPP_SCRIPTS.map((s,i)=>`
+    <div class="script-item" style="--brand-color:${color}" id="wa-${i}">
+      <button class="script-trigger" onclick="toggleWA(${i})">
+        <span class="script-trigger-num">${i+1}</span>
+        <span class="script-trigger-title">${s.title}</span>
+        ${chevron}
+      </button>
+      <div class="script-body" style="direction:${s.lang==='ar'?'rtl':'ltr'};text-align:${s.lang==='ar'?'right':'left'}">${s.lines.join('\n')}</div>
+    </div>`).join('');
+}
+function toggleWA(i){
+  document.getElementById('wa-'+i).classList.toggle('open');
+}
+
+// ── STELLANTIS BRANCHES (LIVE) ──
+const ST_BRANCHES_FALLBACK=[
+  {sn:1, code:701, branch:'Automall', services:'PMS · Recall · Suspension', region:'Western', address:'طريق الملك عبدالعزيز'},
+  {sn:2, code:711, branch:'Al-Nakhil', services:'—', region:'Western', address:'حي النخيل، طريق ابو عمرو الأوزاعي'},
+  {sn:3, code:704, branch:'Makkah', services:'—', region:'Western', address:'طريق الليث، ولي العهد، مكة المكرمة'},
+  {sn:8, code:706, branch:'Madinah Road - Jeddah', services:'PMS · Recall · Suspension', region:'Western', address:'طريق المدينة، البوادي، جدة'},
+  {sn:4, code:801, branch:'Khurias', services:'Jeep: Saqib/Ihab/Mahmoud/Abdulsattar · MB: Osama/Tamer/Salah/Izzuldeen', region:'Central', address:'طريق خريص الفرعي، النهضة، الرياض'},
+  {sn:9, code:805, branch:'Hail', services:'PMS · Recall · Suspension', region:'Central', address:'طريق الملك عبدالله، حي الخماشية'},
+  {sn:5, code:901, branch:'Dammam', services:'—', region:'Eastern', address:'طريق الملك فهد، الدمام'},
+  {sn:6, code:902, branch:'Khobar', services:'PMS · Recall · Suspension (No RAMs)', region:'Eastern', address:'الخبر - الراكة الشمالية'},
+  {sn:7, code:903, branch:'Jubail', services:'—', region:'Eastern', address:'الطريق السريع، قسم عبد اللطيف جميل، الجبيل'},
+];
+async function loadStBranches(){
+  const statusEl=document.getElementById('stBranchesStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  let rows=[];
+  try{
+    const raw=await fetchSheet('625673316');
+    let lastRegion='';
+    rows=raw.slice(1).filter(r=>r[0]&&r[0].trim()&&r[2]&&r[2].trim()).map(r=>{
+      const region=(r[4]||'').trim()||lastRegion;
+      lastRegion=region;
+      return{sn:(r[0]||'').trim(), code:(r[1]||'').trim(), branch:(r[2]||'').trim(), services:(r[3]||'').trim()||'—', region, address:(r[5]||'').trim()};
+    });
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    rows=ST_BRANCHES_FALLBACK;
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  document.getElementById('stBranchesBody').innerHTML=rows.map(r=>`
+    <tr><td class="num muted">${r.sn}</td><td class="num">${r.code}</td><td><strong>${r.branch}</strong></td><td class="muted">${r.services}</td><td>${regionBadge(r.region)}</td><td class="muted">${r.address}</td></tr>
+  `).join('');
+}
+
+// ── NISSAN BRANCHES (LIVE) ──
+const NI_BRANCHES_FALLBACK=[
+  {sn:1, code:4101, branch:'Jeddah Auto Mall (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك', late:false},
+  {sn:2, code:4104, branch:'Jeddah Daleel (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق المدينه النازل بعد تقاطع التحليه', late:false},
+  {sn:3, code:4105, branch:'Jeddah Sabaeen (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الامير ماجد امام عزيز مول', late:false},
+  {sn:4, code:4109, branch:'Madinah Munowa', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك عبد العزيز بجانب محطه نفط', late:false},
+  {sn:5, code:4121, branch:'Makkah Kakia', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'الكعكيه', late:false},
+  {sn:6, code:4351, branch:'Riyadh Qurtoba (3S)', pms:'8 AM – 6 PM', gr:'8 AM – 4 PM', address:'طريق الدمام', late:true},
+  {sn:7, code:4354, branch:'Riyadh Khurais Road (3S)', pms:'8 AM – 6 PM', gr:'8 AM – 4 PM', address:'مخرج 13 تقاطع مكه مع النهضه', late:true},
+  {sn:8, code:4364, branch:'Riyadh Exit 15 (3S)', pms:'8 AM – 6 PM', gr:'8 AM – 4 PM', address:'الدائري الشرقي مقابل مسجد الراجحي', late:true},
+  {sn:9, code:4369, branch:'Exit 28 (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'البديعه - الدائري الغربي السويدي خلف مركز الهرم', late:false},
+  {sn:10, code:4370, branch:'Qassim', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'بريده في المنتزة طريق الملك عبدالعزيز', late:false},
+  {sn:11, code:4601, branch:'Dammam (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك فهد', late:false},
+  {sn:12, code:4602, branch:'Alkhobar (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق خادم الحرمين الشريفين', late:false},
+  {sn:13, code:4603, branch:'AL Hassa (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الظهران بجانب الغرفه التجاريه', late:false},
+  {sn:14, code:4611, branch:'Jubail (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق أبوعلي، مخطط عبداللطيف جميل', late:false},
+  {sn:15, code:4122, branch:'Jizan (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك عبدالعزيز جوار معرض نايس هوم', late:false},
+  {sn:16, code:4373, branch:'Hail (3S)', pms:'8 AM – 3:30 PM', gr:'8 AM – 1 PM', address:'طريق الملك عبدالله', late:false},
+];
+async function loadNiBranches(){
+  const statusEl=document.getElementById('niBranchesStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  let rows=[];
+  try{
+    const raw=await fetchSheet('446600632');
+    let sn=0;
+    rows=raw.slice(2).filter(r=>r[1]&&r[1].trim()&&r[3]&&r[3].trim()).map(r=>{
+      sn++;
+      const code=+r[1]||0;
+      const late=code===4351||code===4354||code===4364;
+      return{sn, code, branch:(r[3]||'').trim(), pms:late?'8 AM – 6 PM':'8 AM – 3:30 PM', gr:late?'8 AM – 4 PM':'8 AM – 1 PM', address:(r[4]||'').trim(), late};
+    });
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    rows=NI_BRANCHES_FALLBACK;
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  document.getElementById('niBranchesBody').innerHTML=rows.map(r=>`
+    <tr><td class="num muted">${r.sn}</td><td class="num">${r.code}</td><td><strong>${r.branch}</strong></td><td><span class="hours-badge${r.late?' hours-late':''}">${r.pms}</span></td><td><span class="hours-badge${r.late?' hours-late':''}">${r.gr}</span></td><td class="muted">${r.address}</td></tr>
+  `).join('');
+}
+
+// ── BAIC BRANCHES (LIVE) ──
+const BAIC_BRANCHES_FALLBACK=[
+  {sn:1, region:'West', city:'Jeddah', code:110, branch:'Rabea Workshop'},
+  {sn:2, region:'West', city:'Jeddah', code:114, branch:'Al Amal Workshop'},
+  {sn:4, region:'West', city:'Jeddah', code:118, branch:'Al Nahada Workshop'},
+  {sn:6, region:'West', city:'Jeddah', code:129, branch:'Hamdaniya Workshop'},
+  {sn:11, region:'West', city:'Madinah', code:115, branch:'Madinah Arbaeen Workshop'},
+  {sn:13, region:'West', city:'Madinah', code:120, branch:'Qwafil Workshop'},
+  {sn:16, region:'East', city:'Dammam', code:368, branch:'PAC Mazruiyah Workshop'},
+  {sn:25, region:'East', city:'Dammam', code:623, branch:'Sultaniya 2 Workshop'},
+  {sn:27, region:'Central', city:'Riyadh', code:352, branch:'Exit-14 Workshop'},
+  {sn:29, region:'Central', city:'Riyadh', code:358, branch:'PAC Kharj Workshop'},
+  {sn:30, region:'Central', city:'Riyadh', code:360, branch:'PAC Darb Workshop'},
+  {sn:31, region:'Central', city:'Riyadh', code:362, branch:'Thumama Workshop'},
+  {sn:34, region:'Central', city:'Riyadh', code:372, branch:'Al Massif Workshop'},
+  {sn:36, region:'Central', city:'Riyadh', code:380, branch:'Azeziah Station Workshop'},
+  {sn:37, region:'Central', city:'Riyadh', code:382, branch:'PAC Khurais Workshop'},
+  {sn:38, region:'Central', city:'Riyadh', code:615, branch:'Al Badia Workshop'},
+  {sn:39, region:'Central', city:'Buraida', code:139, branch:'QassimLand Workshop'},
+  {sn:40, region:'Central', city:'Unizah', code:376, branch:'Unaizah 2 Workshop'},
+  {sn:42, region:'North', city:'Tabuk', code:134, branch:'Olyia-1 Workshop'},
+  {sn:44, region:'North', city:'Sakaka', code:378, branch:'Al Tazij Workshop'},
+  {sn:46, region:'South', city:'Khamis Mushait', code:130, branch:'Aboor Workshop'},
+];
+function regionBadge(region){
+  const map={
+    'West':'<span class="badge b-west">Western</span>',
+    'Western':'<span class="badge b-west">Western</span>',
+    'East':'<span class="badge b-east">Eastern</span>',
+    'Eastern':'<span class="badge b-east">Eastern</span>',
+    'Central':'<span class="badge b-center">Central</span>',
+    'Center':'<span class="badge b-center">Central</span>',
+    'North':'<span class="badge b-north">North</span>',
+    'South':'<span class="badge b-south">Southern</span>',
+    'Southern':'<span class="badge b-south">Southern</span>',
+  };
+  return map[region]||`<span class="badge b-new">${region||''}</span>`;
+}
+async function loadBaicBranches(){
+  const statusEl=document.getElementById('baicBranchesStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  let rows=[];
+  try{
+    const raw=await fetchSheet('1341789474');
+    let lastRegion='', lastCity='';
+    rows=raw.slice(1).filter(r=>r[0]&&r[0].trim()&&r[4]&&r[4].trim()).map(r=>{
+      const region=(r[1]||'').trim()||lastRegion;
+      const city=(r[2]||'').trim()||lastCity;
+      lastRegion=region; lastCity=city;
+      return{sn:(r[0]||'').trim(), region, city, code:(r[3]||'').trim(), branch:(r[4]||'').trim()};
+    });
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    rows=BAIC_BRANCHES_FALLBACK;
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  document.getElementById('baicBranchesBody').innerHTML=rows.map(r=>`
+    <tr><td class="num muted">${r.sn}</td><td class="num">${r.code}</td><td><strong>${r.branch}</strong></td><td class="muted">${r.city}</td><td>${regionBadge(r.region)}</td></tr>
+  `).join('');
+}
+
+// ── BAIC WHATSAPP SCRIPTS ──
+const BAIC_WHATSAPP=[
+  { title:'D+1 Follow-up — العربي', lang:'ar', lines:[
+'الموظفة:',
+'أهلين، معك عبير من بترومين وكالة سيارات بايك',
+'أستاذ/ة [اسم العميل]، كان عندك موعد في البترومين أوتوكير وحبّينا نتأكد إذا حضرتك زرت الورشه؟',
+'',
+'┈ في حال حضر العميل الموعد ┈',
+'الموظفة: هل قمت بعمل الخدمة ؟',
+'إذا كان (لا) - يرجى توضيح السبب',
+'',
+'اذا كان (نعم):',
+'يهمنا نعرف رأيك في تجربتك معنا، وهل كان فيه أي ملاحظات أو اقتراحات ممكن تساعدنا نحسّن خدمتنا؟',
+'',
+'إذا العميل قدّم ملاحظات إيجابية أو شكر موظف:',
+'يسعدنا جداً سماع ذلك، وشكراً لك على مشاركتنا رأيك.',
+'أكيد راح ننقل شكرك للموظف/للفريق، ونتطلع دائماً لخدمتك بأفضل مستوى.',
+'',
+'إذا العميل ذكر ملاحظات أو شكوى:',
+'نشكر لك ملاحظتك، ونعتذر عن أي تجربة غير مرضية.',
+'ملاحظتك محل اهتمامنا، وسيتم رفعها ومتابعتها لتحسين الخدمة بشكل أفضل.',
+'',
+'┈ في حال لم يحضر العميل الموعد ┈',
+'الموظفة: ولا يهمك أبداً هل تحب نعيد جدولة الموعد في وقت يناسبك؟',
+'إذا (نعم): أكيد، متى الوقت المناسب لك؟',
+'بعد الحجز: تم حجز الموعد بنجاح، وراح توصلك رسالة نصية تحتوي على تفاصيل الموعد.',
+'',
+'إذا رفض إعادة الجدولة:',
+'ما في مشكلة أبداً، لكن إذا ممكن نعرف السبب، حتى نقدر نحسن خدماتنا ونخدمك بشكل أفضل مستقبلاً.',
+'',
+'┈ ختام المكالمة ┈',
+'هل يوجد أي إستفسار أخر أستطيع مساعدتك به ؟',
+'شكراً لك أستاذ/ة [اسم العميل] على وقتك.',
+'وإذا احتجت أي مساعدة، تقدر تتواصل معنا عن طريق الاتصال أو الواتساب مباشرة.',
+'نتمنى لك يوم سعيد'
+]},
+  { title:'D+1 Follow-up — English', lang:'en', lines:[
+'Employee:',
+'Hello, this is Abeer from Petromin BAIC Leadership',
+'Mr./Ms. [Customer Name], you had an appointment In Petromin Autocare Branch, and we wanted to check if you visited the workshop.',
+'',
+'─ If the Customer Attended the Appointment ─',
+'Employee: Did you complete the service?',
+'If the answer is (No): May I know the reason, please?',
+'',
+'If the answer is (Yes):',
+'We would love to know your feedback about your experience with us. Were there any comments or suggestions that could help us improve our service?',
+'',
+'If the Customer Gives Positive Feedback or Thanks an Employee:',
+'Thank you for your positive feedback. We will be happy to share your appreciation with the employee/team, and we look forward to serving you again with the highest level of service.',
+'',
+'If the Customer Mentions a Complaint or Negative Feedback:',
+'Thank you for sharing your feedback with us, and we apologize for any inconvenience you experienced. Your comments are highly valued and will be shared with the concerned team for review and improvement of our services.',
+'',
+'─ If the Customer Did Not Attend the Appointment ─',
+'Employee: No worries at all. Would you like us to reschedule the appointment at a more convenient time for you?',
+'If the answer is (Yes): May I know your preferred date and time for the appointment?',
+'After Booking: Your appointment has been successfully booked, and you will receive an SMS with the appointment details shortly.',
+'',
+'If the Customer Refuses Rescheduling:',
+'No worries at all. We would appreciate it if you could share the reason, as your feedback helps us enhance our services and provide a better experience in the future.',
+'',
+'─ Closing the call ─',
+'Is there anything else I can assist you with?',
+'Thank you, Mr./Ms. [Customer Name], for your time.',
+'If you need any further assistance, you can contact us anytime by phone or WhatsApp directly.',
+'Have a nice day.'
+]}
+];
+function renderWhatsAppBaic(){
+  const color='var(--baic)';
+  const chevron=`<svg class="script-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  document.getElementById('whatsappBaicContent').innerHTML=BAIC_WHATSAPP.map((s,i)=>`
+    <div class="script-item" style="--brand-color:${color}" id="wa-baic-${i}">
+      <button class="script-trigger" onclick="toggleWABaic(${i})">
+        <span class="script-trigger-num">${i+1}</span>
+        <span class="script-trigger-title">${s.title}</span>
+        ${chevron}
+      </button>
+      <div class="script-body" style="direction:${s.lang==='ar'?'rtl':'ltr'};text-align:${s.lang==='ar'?'right':'left'}">${s.lines.join('\n')}</div>
+    </div>`).join('');
+}
+function toggleWABaic(i){
+  document.getElementById('wa-baic-'+i).classList.toggle('open');
+}
+let RECALLS=[];
+async function loadRecalls(){
+  try{
+    const rows=await fetchSheet('1578154042');
+    RECALLS=rows.slice(1).filter(r=>r[0]&&r[0].trim()).map(r=>({
+      no:(r[0]||'').trim(),
+      brand:(r[1]||'').trim(),
+      model:(r[2]||'').trim(),
+      year:(r[3]||'').trim(),
+      desc:(r[4]||'').trim(),
+    }));
+  }catch(e){
+    console.warn('Recalls fallback',e);
+    // keep existing RECALLS array if already loaded
+  }
+  renderRecalls();
+}
+
+function renderRecalls(){
+  const chevron=`<svg class="sms-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  const brandColors={
+    'Dodge':'#1558b0','Jeep':'#0a7a56','Ram':'#7a5208',
+    'Chrysler':'#4835a8','Grand':'#0a7a56'
+  };
+  const brandIcons={
+    'Dodge':'D','Jeep':'J','Ram':'R','Chrysler':'C','Grand':'J'
+  };
+  document.getElementById('recallsList').innerHTML=RECALLS.map((r,i)=>{
+    const c=Object.entries(brandColors).find(([k])=>r.brand.includes(k))?.[1]||'#555';
+    const hasAr=/[\u0600-\u06FF]/.test(r.desc);
+    const isAr=hasAr && r.desc.trim().match(/^[\u0600-\u06FF]/);
+    return`<div class="recall-item" style="--rc:${c}" id="recall-${i}">
+      <button class="recall-trigger" onclick="toggleRecall(${i})">
+        <div class="recall-badge" style="background:${c}">${r.no}</div>
+        <div class="recall-info">
+          <div class="recall-header-line">
+            <span class="recall-brand">${r.brand}</span>
+            <span class="recall-sep">·</span>
+            <span class="recall-model">${r.model}</span>
+          </div>
+          <div class="recall-year">${r.year}</div>
+        </div>
+        ${chevron}
+      </button>
+      <div class="recall-body">
+        <div class="recall-desc" style="direction:${hasAr?'rtl':'ltr'};text-align:${hasAr?'right':'left'}">
+          ${r.desc}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleRecall(i){
+  document.getElementById('recall-'+i).classList.toggle('open');
+}
+loadTasks();
+setInterval(loadTasks,60000);
+</script>
+</body>
+</html>
