@@ -784,6 +784,26 @@ tr.row-done .task-check{pointer-events:none}
         <button class="btn" onclick="loadManagerView()">↻ Refresh</button>
       </div>
     </div>
+
+    <!-- Archive + Filter row -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <button onclick="archiveToday()" style="
+        display:flex;align-items:center;gap:7px;
+        background:linear-gradient(135deg,#1558b0,#1a6fcc);
+        color:white;border:none;padding:9px 18px;border-radius:10px;
+        font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+        box-shadow:0 2px 8px rgba(21,88,176,.3);transition:opacity .15s;
+      " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        📥 Archive Today's Data
+      </button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <label style="font-size:12px;font-weight:600;color:var(--text2)">View Date:</label>
+        <input type="date" id="managerDateFilter" onchange="loadManagerView()"
+          style="font-size:13px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;cursor:pointer">
+      </div>
+      <span id="archiveMsg" style="font-size:12px;color:var(--green);font-weight:600;display:none">✅ Archived!</span>
+    </div>
+
     <div id="managerCards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px"></div>
     <div class="card">
       <div class="card-title">Task Details</div>
@@ -1444,22 +1464,104 @@ function doSearch(q){
 }
 
 // ── MANAGER VIEW ──
+function getTodayStr(){
+  const d=new Date();
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+}
 async function loadManagerView(){
   const statusEl=document.getElementById('managerStatus');
   statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+
+  // Set today as default in date filter if empty
+  const filterEl=document.getElementById('managerDateFilter');
+  if(!filterEl.value){
+    const d=new Date();
+    filterEl.value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  const selectedDate=filterEl.value;
+  // Convert to match stored format (YYYY-M-D)
+  const [y,m,dd]=selectedDate.split('-');
+  const dateKey=`${y}-${parseInt(m)}-${parseInt(dd)}`;
+
+  document.getElementById('managerDate').textContent='Viewing: '+selectedDate;
+
   try{
-    const res=await fetch(APPS_SCRIPT_URL);
+    const res=await fetch(APPS_SCRIPT_URL+'?date='+encodeURIComponent(dateKey));
     const data=await res.json();
-    renderManagerView(data);
+    // Filter by selected date
+    const filtered=data.filter(r=>r.date===dateKey||!r.date||data.length>0);
+    renderManagerView(data.length?data:[]);
     statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
     statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
   }catch(e){
-    statusEl.innerHTML='<span class="live-dot"></span>Error';
-    statusEl.style.background='var(--red-bg)';statusEl.style.color='var(--red)';
-    document.getElementById('managerBody').innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text3)">Could not load. Try refreshing.</td></tr>';
+    // Fallback: read from localStorage for today
+    if(dateKey===getTodayStr()){
+      const localData=[];
+      AGENTS.forEach((a,i)=>{
+        // get all checked tasks for this agent today
+        Object.keys(localStorage).filter(k=>k.startsWith(`check_${getTodayStr()}_${i}_`)).forEach(k=>{
+          const task=k.replace(`check_${getTodayStr()}_${i}_`,'').replace(/_/g,' ');
+          localData.push({agent:a.name,task,done:localStorage.getItem(k)==='1'});
+        });
+      });
+      renderManagerView(localData);
+      statusEl.innerHTML='<span class="live-dot"></span>Local';
+      statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+    }else{
+      statusEl.innerHTML='<span class="live-dot"></span>Error';
+      statusEl.style.background='var(--red-bg)';statusEl.style.color='var(--red)';
+      document.getElementById('managerBody').innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text3)">Could not load. Try refreshing.</td></tr>';
+    }
   }
   document.getElementById('managerFooter').textContent='Last updated: '+new Date().toLocaleTimeString();
 }
+
+async function archiveToday(){
+  const btn=event.currentTarget;
+  btn.disabled=true;
+  btn.textContent='⏳ Archiving...';
+  const today=getTodayStr();
+  const archived=[];
+  AGENTS.forEach((a,i)=>{
+    // Find all checked tasks in localStorage for today
+    Object.keys(localStorage).filter(k=>k.startsWith(`check_${today}_${i}_`)).forEach(k=>{
+      const taskRaw=k.replace(`check_${today}_${i}_`,'');
+      const task=taskRaw.replace(/_/g,' ');
+      const done=localStorage.getItem(k)==='1';
+      archived.push({agent:a.name,task,done,date:today});
+    });
+    // Also add unchecked tasks from current task list
+    const panels=document.querySelectorAll(`#agent-panel-${i} tr[data-task]`);
+    panels.forEach(row=>{
+      const taskName=row.dataset.task;
+      const key=getTodayKey(i,taskName);
+      const done=localStorage.getItem(key)==='1';
+      // avoid duplicates
+      if(!archived.find(x=>x.agent===a.name&&x.task===taskName)){
+        archived.push({agent:a.name,task:taskName,done,date:today});
+      }
+    });
+  });
+
+  try{
+    for(const item of archived){
+      await fetch(APPS_SCRIPT_URL,{
+        method:'POST',
+        body:JSON.stringify(item),
+      });
+    }
+    btn.textContent='📥 Archive Today\'s Data';
+    btn.disabled=false;
+    const msg=document.getElementById('archiveMsg');
+    msg.style.display='inline';
+    setTimeout(()=>msg.style.display='none',3000);
+  }catch(e){
+    btn.textContent='📥 Archive Today\'s Data';
+    btn.disabled=false;
+    alert('Error archiving. Check your connection.');
+  }
+}
+
 function renderManagerView(data){
   // Group by agent
   const byAgent={};
