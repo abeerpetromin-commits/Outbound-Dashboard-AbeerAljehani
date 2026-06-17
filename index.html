@@ -88,7 +88,8 @@ body{font-family:'Inter','IBM Plex Sans Arabic',system-ui,sans-serif;background:
 .nav-item:hover{background:var(--surface2);color:var(--text)}
 .nav-item.active{background:var(--surface2);color:var(--text);font-weight:600}
 .nav-item.active.stellantis{background:var(--st-bg);color:var(--st)}
-.nav-item.active.baic{background:var(--baic-bg);color:var(--baic);border-right-color:var(--baic)}
+.nav-item.active.nissan{background:var(--ni-bg);color:var(--ni)}
+.nav-item.active.baic{background:var(--baic-bg);color:var(--baic)}
 .nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;opacity:.5}
 .nav-item.active .nav-dot{opacity:1}
 .nav-icon{width:15px;height:15px;flex-shrink:0;opacity:.5}
@@ -2439,6 +2440,13 @@ function toggleRecall(i){
 }
 loadTasks();
 setInterval(loadTasks,60000);
+// Pre-render all static content
+renderSMS('stellantis');
+renderSMS('nissan');
+renderScript('stellantis');
+renderScript('nissan');
+renderWhatsApp();
+renderWhatsAppBaic();
 </script>
 </body>
 </html>
