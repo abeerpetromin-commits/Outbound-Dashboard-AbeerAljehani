@@ -1373,8 +1373,8 @@ function csv(t){
   });
 }
 async function fetchProgressSheet(){
-  const PROGRESS_GID='1866025058';
-  return await fetchSheet(PROGRESS_GID);
+  // Will be enabled after Progress sheet GID is confirmed
+  throw new Error('Progress sheet not configured');
 }
 async function fetchSheet(gid){
   const r=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET}/export?format=csv&gid=${gid}&t=${Date.now()}`);
