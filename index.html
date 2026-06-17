@@ -1709,6 +1709,7 @@ function updateProgressBar(agentIdx){
 let lastTasks=[];
 function drawRows(tasks){
   lastTasks=tasks;
+  if(!document.getElementById('agentTabBtns')) return;
   let tR=0,tT=0;
   const agD=[{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0}];
   tasks.forEach(t=>{
@@ -2440,13 +2441,6 @@ function toggleRecall(i){
 }
 loadTasks();
 setInterval(loadTasks,60000);
-// Pre-render all static content
-renderSMS('stellantis');
-renderSMS('nissan');
-renderScript('stellantis');
-renderScript('nissan');
-renderWhatsApp();
-renderWhatsAppBaic();
 </script>
 </body>
 </html>
