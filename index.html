@@ -717,11 +717,17 @@ tr.row-done .task-check{pointer-events:none}
     <div class="nav-group-label" style="color:var(--ni-muted)">Nissan</div>
     <div class="nav-item nissan" onclick="show('lost-offer-nissan',this,'nissan')">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Lost Customer Offer
+      Lost Offer
       <span class="nav-badge">34</span>
     </div>
+    <div class="nav-item nissan" onclick="show('sms-nissan',this,'nissan')">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       SMS Templates
+      <span class="nav-badge">6</span>
+    </div>
+    <div class="nav-item nissan" onclick="show('recalls-nissan',this,'nissan')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Recalls
       <span class="nav-badge">6</span>
     </div>
     <div class="nav-item nissan" onclick="show('script-nissan',this,'nissan')">
@@ -744,7 +750,7 @@ tr.row-done .task-check{pointer-events:none}
       Body &amp; Paint
       <span class="nav-badge">6</span>
     </div>
-  <div class="nav-group">
+  </div>
     <div class="nav-group-label" style="color:var(--baic-muted)">BAIC</div>
     <div class="nav-item" onclick="show('vehicles-baic',this,'baic')">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5"/><circle cx="15" cy="17" r="2"/><circle cx="7" cy="17" r="2"/><path d="M13 17H9"/></svg>
@@ -930,6 +936,21 @@ tr.row-done .task-check{pointer-events:none}
       </div>
     </div>
     <div class="script-list" id="whatsappStellantisContent"></div>
+  </div>
+
+  <!-- ── RECALLS NISSAN ── -->
+  <div id="tab-recalls-nissan" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--ni-muted)">Nissan · Reference</div>
+        <div class="page-title nissan">Recalls</div>
+        <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px">
+          Active Recalls
+          <span class="live-badge" id="niRecallsStatus"><span class="live-dot"></span>Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="sms-list" id="niRecallsList"></div>
   </div>
 
   <!-- ── RECALLS STELLANTIS ── -->
@@ -1335,6 +1356,7 @@ function show(id,el,brand){
   if(id==='branches-baic')loadBaicBranches();
   if(id==='whatsapp-baic')renderWhatsAppBaic();
   if(id==='whatsapp-stellantis')renderWhatsApp();
+  if(id==='recalls-nissan')loadNiRecalls();
   if(id==='recalls-stellantis')loadRecalls();
 }
 
@@ -1345,6 +1367,10 @@ function csv(t){
     for(const ch of r){if(ch==='"')q=!q;else if(ch===','&&!q){c.push(cur.trim());cur='';}else cur+=ch;}
     c.push(cur.trim());return c;
   });
+}
+async function fetchProgressSheet(){
+  const PROGRESS_GID='1866025058';
+  return await fetchSheet(PROGRESS_GID);
 }
 async function fetchSheet(gid){
   const r=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET}/export?format=csv&gid=${gid}&t=${Date.now()}`);
@@ -1479,39 +1505,27 @@ async function loadManagerView(){
     filterEl.value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   }
   const selectedDate=filterEl.value;
-  // Convert to match stored format (YYYY-M-D)
   const [y,m,dd]=selectedDate.split('-');
   const dateKey=`${y}-${parseInt(m)}-${parseInt(dd)}`;
-
   document.getElementById('managerDate').textContent='Viewing: '+selectedDate;
 
   try{
-    const res=await fetch(APPS_SCRIPT_URL+'?date='+encodeURIComponent(dateKey));
-    const data=await res.json();
-    // Filter by selected date
-    const filtered=data.filter(r=>r.date===dateKey||!r.date||data.length>0);
-    renderManagerView(data.length?data:[]);
+    // Read directly from Progress sheet via CSV (same way we read other sheets)
+    const PROGRESS_GID='';// Will be set after user creates Progress sheet
+    const rows=await fetchProgressSheet();
+    const data=rows.slice(1).filter(r=>r[0]&&String(r[0]).trim()===dateKey&&r[1]).map(r=>({
+      date:String(r[0]).trim(),
+      agent:(r[1]||'').trim(),
+      task:(r[2]||'').trim(),
+      done:r[3]==1||r[3]==='1'||r[3]===true
+    }));
+    renderManagerView(data);
     statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
     statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
   }catch(e){
-    // Fallback: read from localStorage for today
-    if(dateKey===getTodayStr()){
-      const localData=[];
-      AGENTS.forEach((a,i)=>{
-        // get all checked tasks for this agent today
-        Object.keys(localStorage).filter(k=>k.startsWith(`check_${getTodayStr()}_${i}_`)).forEach(k=>{
-          const task=k.replace(`check_${getTodayStr()}_${i}_`,'').replace(/_/g,' ');
-          localData.push({agent:a.name,task,done:localStorage.getItem(k)==='1'});
-        });
-      });
-      renderManagerView(localData);
-      statusEl.innerHTML='<span class="live-dot"></span>Local';
-      statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
-    }else{
-      statusEl.innerHTML='<span class="live-dot"></span>Error';
-      statusEl.style.background='var(--red-bg)';statusEl.style.color='var(--red)';
-      document.getElementById('managerBody').innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text3)">Could not load. Try refreshing.</td></tr>';
-    }
+    statusEl.innerHTML='<span class="live-dot"></span>Error';
+    statusEl.style.background='var(--red-bg)';statusEl.style.color='var(--red)';
+    document.getElementById('managerBody').innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text3);padding:20px">Could not load data. Make sure the Progress sheet exists.</td></tr>';
   }
   document.getElementById('managerFooter').textContent='Last updated: '+new Date().toLocaleTimeString();
 }
@@ -1651,11 +1665,14 @@ function toggleCheck(agentIdx,taskName){
   const cur=localStorage.getItem(key)==='1';
   if(cur) localStorage.removeItem(key);
   else localStorage.setItem(key,'1');
-  // Sync to Google Sheet
+  // Sync to Google Sheet via no-cors (fire and forget)
   const agentName=AGENTS[agentIdx]?AGENTS[agentIdx].name:'Unknown';
+  const today=getTodayStr();
   fetch(APPS_SCRIPT_URL,{
     method:'POST',
-    body:JSON.stringify({agent:agentName,task:taskName,done:!cur}),
+    mode:'no-cors',
+    headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({agent:agentName,task:taskName,done:!cur,date:today}),
   }).catch(()=>{});
   refreshAgentPanel(agentIdx);
   if(!cur) checkAllDone(agentIdx);
@@ -2316,6 +2333,52 @@ function renderWhatsAppBaic(){
 function toggleWABaic(i){
   document.getElementById('wa-baic-'+i).classList.toggle('open');
 }
+// ── NISSAN RECALLS (LIVE) ──
+async function loadNiRecalls(){
+  const statusEl=document.getElementById('niRecallsStatus');
+  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
+  const chevron=`<svg class="sms-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  let recalls=[];
+  try{
+    const rows=await fetchSheet('1767639185');
+    recalls=rows.slice(1).filter(r=>r[0]&&r[0].trim()).map(r=>({
+      no:(r[0]||'').trim(),
+      desc:(r[4]||'').trim(),
+    }));
+    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
+    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
+  }catch(e){
+    statusEl.innerHTML='<span class="live-dot"></span>Cached';
+    statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';
+  }
+  if(!recalls.length){
+    document.getElementById('niRecallsList').innerHTML='<div class="card" style="text-align:center;color:var(--text3);padding:20px">No recalls found.</div>';
+    return;
+  }
+  document.getElementById('niRecallsList').innerHTML=recalls.map((r,i)=>{
+    const arMatch=r.desc.match(/العربية[:\s]*([\s\S]*?)(?:English[:\s]|$)/i);
+    const enMatch=r.desc.match(/English[:\s]*([\s\S]*?)$/i);
+    const ar=arMatch?arMatch[1].trim():'';
+    const en=enMatch?enMatch[1].trim():r.desc;
+    return`<div class="recall-item" style="--rc:var(--ni)" id="ni-recall-${i}">
+      <button class="recall-trigger" onclick="document.getElementById('ni-recall-${i}').classList.toggle('open')">
+        <div class="recall-badge" style="background:var(--ni)">${r.no}</div>
+        <div class="recall-info">
+          <div class="recall-header-line">
+            <span class="recall-brand" style="color:var(--ni)">Nissan</span>
+          </div>
+          <div class="recall-year">${r.no}</div>
+        </div>
+        ${chevron}
+      </button>
+      <div class="recall-body">
+        ${ar?`<div class="recall-desc" style="direction:rtl;text-align:right;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--border)">${ar}</div>`:''}
+        ${en?`<div class="recall-desc" style="direction:ltr;text-align:left">${en}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
 let RECALLS=[];
 async function loadRecalls(){
   try{
