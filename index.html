@@ -1520,6 +1520,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 .nref-line{font-size:13px;color:var(--text2);line-height:1.9;margin:4px 0}
 .nref-link{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#c3002f,#9e0026);color:#fff!important;font-weight:800;font-size:12px;padding:5px 12px;border-radius:8px;text-decoration:none;font-family:var(--font-display)}
 .nref-link:hover{filter:brightness(1.07)}
+.nsms-sec-h{background:var(--ni-bg,rgba(195,0,47,.06));color:var(--ni);font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:.06em;padding:7px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
 </style>
 </head>
 <body data-brand="stellantis">
@@ -1850,6 +1851,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       <div class="ref-card brand-ni" onclick="openRef('nissan-ref','nissan','Instruction')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">Instruction</div><div class="ref-card-count">الضمان · الصيانة الدورية · PMS Services</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="ref-card brand-ni" onclick="openRef('nissan-smsloc','nissan','SMS &amp; Location')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">SMS &amp; Location</div><div class="ref-card-count">Appointment · Location · Live</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
       <div class="ref-card brand-ni" onclick="openRef('vehicles-nissan','nissan','Vehicles')">
@@ -2615,6 +2621,17 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div id="nissanRefBody"></div>
   </div>
 
+  <div id="tab-nissan-smsloc" class="tab-panel">
+    <div class="page-header"><div>
+      <div class="page-eyebrow" style="color:var(--ni)">Nissan</div>
+      <div class="page-title" style="color:var(--ni)">SMS &amp; Location</div>
+      <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px" dir="rtl">Appointment &amp; Location SMS — لكل فرع
+        <span class="live-badge" id="nissanSmsLocStatus"><span class="live-dot"></span>—</span>
+      </div>
+    </div></div>
+    <div id="nissanSmsLocBody"></div>
+  </div>
+
   <div id="tab-vehicles-nissan" class="tab-panel">
     <div class="page-header">
       <div>
@@ -2753,7 +2770,7 @@ const TAB_GROUPS={
   announcements:['announcements'],
   manager:['manager'],
   tasks:['tasks'],
-  nissan:['nissan-ref','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
+  nissan:['nissan-ref','nissan-smsloc','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','vehicles-stellantis','branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
   baic:['instruction-baic','warranty-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
 };
@@ -2765,6 +2782,7 @@ function runLoader(id){
   if(id==='social')loadSocial();
   if(id==='warranty-nissan')loadWarrantyNissan();
   if(id==='nissan-ref')loadNissanRef();
+  if(id==='nissan-smsloc')loadNissanSmsLoc();
   if(id==='lost-offer-nissan')loadLostOffer();
   if(id==='sms-stellantis')renderSMS('stellantis');
   if(id==='sms-nissan')renderSMS('nissan');
@@ -4535,6 +4553,29 @@ async function loadNissanRef(){
     if(host&&!host.innerHTML)host.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u062a\u062d\u0645\u064a\u0644</div>';
     if(st)st.innerHTML='<span class="live-dot"></span>Cached';
   }
+}
+/* ── NISSAN SMS & LOCATION (per-branch, from sheet) ── */
+var NISSAN_SMSLOC_SHEET='1lXDeN1iUosG_JSADgdWhnkT5J1t3hhwXoSJdbmb4B88';
+var NISSAN_SMSLOC_GID='0'; /* <-- REPLACE with the "SMS & Location" tab gid */
+function _nsmsCopy(i,field,btn){var s=(window._NSMS||[])[i];if(!s)return;var t=s[field]||'';function done(){var o=btn.innerHTML;btn.innerHTML='\u2713 Copied';setTimeout(function(){btn.innerHTML=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
+function _nissanSmsLocRender(rows){
+  var host=document.getElementById('nissanSmsLocBody'); if(!host)return;
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(rows.length>1)rows=rows.slice(1);
+  window._NSMS=rows.map(function(r){return {apptEn:(r[0]||'').trim(),apptAr:(r[1]||'').trim(),branch:(r[2]||'').trim(),locEn:(r[3]||'').trim(),locAr:(r[4]||'').trim()};});
+  if(!window._NSMS.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a</div>';return;}
+  function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_nsmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
+  host.innerHTML='<div class="smsc-grid" style="--sms-c:var(--ni);--sms-bg:var(--ni-bg)">'+window._NSMS.map(function(s,i){
+    var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';
+    var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';
+    return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.branch||('Branch '+(i+1)))+'</div>'+appt+loc+'</div>';
+  }).join('')+'</div>';
+}
+async function loadNissanSmsLoc(){
+  var st=document.getElementById('nissanSmsLocStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{var rows=await fetchSheetFrom(NISSAN_SMSLOC_SHEET,NISSAN_SMSLOC_GID);_nissanSmsLocRender(rows);if(st)st.innerHTML='<span class="live-dot"></span>Live \u2713';}
+  catch(e){var host=document.getElementById('nissanSmsLocBody');if(host&&!host.innerHTML)host.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u062a\u062d\u0645\u064a\u0644</div>';if(st)st.innerHTML='<span class="live-dot"></span>Cached';}
 }
 loadTasks();
 loadSocialStars();
