@@ -1513,10 +1513,12 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 /* ===== /SINGLE-ROW HORIZONTAL ANNOUNCEMENTS ===== */
 .recall-desc + .recall-desc{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
 
-.nref-item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(16,24,40,.03),0 8px 20px -14px rgba(16,24,40,.14);display:flex;flex-direction:column;gap:9px}
-.nref-title{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text);direction:rtl;text-align:right}
-.nref-desc{font-size:13px;color:var(--text2);direction:rtl;text-align:right;line-height:1.7}
-.nref-link{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:linear-gradient(135deg,#c3002f,#9e0026);color:#fff;font-weight:800;font-size:12.5px;padding:8px 15px;border-radius:9px;text-decoration:none;font-family:var(--font-display);box-shadow:0 6px 16px -8px rgba(195,0,47,.55)}
+.nref-group{color:#1f2733;font-family:var(--font-display);font-weight:800;font-size:14px;text-align:center;padding:10px 14px;border-radius:10px;margin:20px 0 12px;box-shadow:0 2px 8px -4px rgba(16,24,40,.22)}
+.nref-group:first-child{margin-top:2px}
+.nref-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(16,24,40,.03),0 8px 20px -14px rgba(16,24,40,.13)}
+.nref-label{font-family:var(--font-display);font-weight:800;font-size:14px;color:#c3002f;text-align:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.nref-line{font-size:13px;color:var(--text2);line-height:1.9;margin:4px 0}
+.nref-link{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#c3002f,#9e0026);color:#fff!important;font-weight:800;font-size:12px;padding:5px 12px;border-radius:8px;text-decoration:none;font-family:var(--font-display)}
 .nref-link:hover{filter:brightness(1.07)}
 </style>
 </head>
@@ -1845,9 +1847,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       <div class="page-sub">Select a section to view its full details</div>
     </div></div>
     <div class="ref-grid">
-      <div class="ref-card brand-ni" onclick="openRef('nissan-ref','nissan','Nissan Reference')">
+      <div class="ref-card brand-ni" onclick="openRef('nissan-ref','nissan','Instruction')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-        <div class="ref-card-body"><div class="ref-card-title">Nissan Reference</div><div class="ref-card-count">Live · Google Sheet</div></div>
+        <div class="ref-card-body"><div class="ref-card-title">Instruction</div><div class="ref-card-count">الضمان · الصيانة الدورية · PMS Services</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
       <div class="ref-card brand-ni" onclick="openRef('vehicles-nissan','nissan','Vehicles')">
@@ -2605,8 +2607,8 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <div id="tab-nissan-ref" class="tab-panel">
     <div class="page-header"><div>
       <div class="page-eyebrow" style="color:var(--ni)">Nissan</div>
-      <div class="page-title" style="color:var(--ni)">Nissan Reference</div>
-      <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px" dir="rtl">مراجع نيسان — مباشرة من Google Sheets
+      <div class="page-title" style="color:var(--ni)">Instruction</div>
+      <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px" dir="rtl">الضمان · الصيانة الدورية · PMS Services
         <span class="live-badge" id="nissanRefStatus"><span class="live-dot"></span>—</span>
       </div>
     </div></div>
@@ -4496,26 +4498,30 @@ function openLinks(el){var p=document.getElementById('tab-links');if(p&&p.classL
 /* ── NISSAN REFERENCE (external sheet, excludes Nissan App 25-26) ── */
 var NISSAN_REF_SHEET='1lXDeN1iUosG_JSADgdWhnkT5J1t3hhwXoSJdbmb4B88';
 function _niRefExcluded(r){return r.some(function(c){var s=(c||'').toLowerCase().replace(/\s+/g,' ');return /nissan\s*app/.test(s)&&/25\s*[-\u2013\/]?\s*26/.test(s);});}
+function _niSplit(t){var BUL=['\ud83d\udcc5','\u2705','\ud83d\udd27','\ud83d\udee0\ufe0f','\ud83d\udee0','\u26a0\ufe0f','\u26a0','\ud83d\udccd','\u27a4','\u25c6','\u2022','\ud83d\udd11','\ud83d\udccc','\ud83d\ude97','\ud83d\udca1','\ud83d\udd0d','\u2757','\u2611\ufe0f','\u2714\ufe0f'];var m=String(t||'').replace(/\r/g,'');m=m.split('\n').join('\u0001');for(var i=0;i<BUL.length;i++){m=m.split(BUL[i]).join('\u0001'+BUL[i]);}return m.split('\u0001').map(function(x){return x.trim();}).filter(Boolean);}
+function _niGroupColor(name){var s=(name||'').toLowerCase();if(/warranty|\u0636\u0645\u0627\u0646/.test(s))return '#9fc5e8';if(/pms|service|sercive|\u0635\u064a\u0627\u0646\u0629|\u062f\u0648\u0631\u064a|maintenance/.test(s))return '#c9ccd1';return '#f3b4bc';}
 function _niRefRender(rows){
   var host=document.getElementById('nissanRefBody'); if(!host)return;
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
-  if(rows.length>1&&!rows[0].some(function(c){return /https?:\/\//i.test(c||'');}))rows=rows.slice(1);
   rows=rows.filter(function(r){return !_niRefExcluded(r);});
   if(!rows.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a</div>';return;}
-  host.innerHTML=rows.map(function(r){
-    var cells=r.map(function(c){return (c||'').trim();}).filter(Boolean);
-    if(!cells.length)return '';
-    var title=cells[0], rest=cells.slice(1);
-    function urlBtn(u){return '<a class="nref-link" href="'+_annEsc(u)+'" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> \u0641\u062a\u062d</a>';}
-    var titleHtml=/^https?:\/\//i.test(title)?urlBtn(title):'<div class="nref-title">'+_annEsc(title)+'</div>';
-    var body=rest.map(function(c){
-      if(/^https?:\/\//i.test(c))return urlBtn(c);
-      var m=c.match(/(https?:\/\/\S+)/);
-      if(m){var txt=c.replace(m[1],'').trim();return '<div class="nref-desc">'+(txt?_annEsc(txt)+' ':'')+urlBtn(m[1])+'</div>';}
-      return '<div class="nref-desc">'+_annEsc(c)+'</div>';
+  var html='';
+  rows.forEach(function(r){
+    var a=(r[0]||'').trim(), b=(r[1]||'').trim();
+    if(!a&&!b)return;
+    if(b.toLowerCase()==='content'||(!b&&a&&a.length<=35)){
+      html+='<div class="nref-group" style="background:'+_niGroupColor(a)+'">'+_annEsc(a)+'</div>';return;
+    }
+    var lines=_niSplit(b);
+    var body=lines.map(function(L){
+      var ar=/[\u0600-\u06FF]/.test(L);var m=L.match(/(https?:\/\/\S+)/);var h2;
+      if(m){var txt=L.replace(m[1],'').trim();h2=(txt?_annEsc(txt)+' ':'')+'<a class="nref-link" href="'+_annEsc(m[1])+'" target="_blank" rel="noopener">\ud83d\udd17 \u0641\u062a\u062d</a>';}
+      else h2=_annEsc(L);
+      return '<div class="nref-line" style="direction:'+(ar?'rtl':'ltr')+';text-align:'+(ar?'right':'left')+'">'+h2+'</div>';
     }).join('');
-    return '<div class="nref-item">'+titleHtml+body+'</div>';
-  }).join('');
+    html+='<div class="nref-item"><div class="nref-label">'+_annEsc(a)+'</div><div class="nref-content">'+body+'</div></div>';
+  });
+  host.innerHTML=html||'<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a</div>';
 }
 async function loadNissanRef(){
   var st=document.getElementById('nissanRefStatus');
