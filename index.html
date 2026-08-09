@@ -3923,9 +3923,12 @@ async function loadNiBranches(){
     base=NI_BRANCHES_FALLBACK.map(function(r){return {code:String(r.code), name:r.branch, address:r.address};});
     if(statusEl){statusEl.innerHTML='<span class="live-dot"></span>Cached';statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';}
   }
+  var _NI3={}; Object.keys(NI_BR_DATA).forEach(function(k){_NI3[k.slice(-3)]={key:k,d:NI_BR_DATA[k]};});
   var list=base.map(function(b){
-    var d=NI_BR_DATA[String(b.code).trim()]||{};
-    return {code:b.code, name:(d.name||b.name), address:(b.address||d.address||''), region:(d.region||_niRegionByCode(b.code)), city:(d.city||''), hours:(d.hours||''), contacts:(d.contacts||[])};
+    var cs=String(b.code).trim();
+    var hit=NI_BR_DATA[cs]?{key:cs,d:NI_BR_DATA[cs]}:(_NI3[cs.slice(-3)]||{key:cs,d:{}});
+    var d=hit.d;
+    return {code:hit.key, name:(d.name||b.name), address:(b.address||d.address||''), region:(d.region||_niRegionByCode(hit.key)), city:(d.city||''), hours:(d.hours||''), contacts:(d.contacts||[])};
   });
   _nibrRender(list);
   _niPacRender();
