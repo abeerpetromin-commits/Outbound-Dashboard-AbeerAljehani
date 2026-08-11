@@ -2955,6 +2955,8 @@ const AGENTS=[
   {name:'Raghad', init:'Ra', color:'#7a5208'},
   {name:'Ghufran',init:'G',  color:'#a01515'},
   {name:'Faridah',init:'F',  color:'#4835a8'},
+  {name:'Manal',  init:'M',  color:'#0d7a6e'},
+  {name:'Wafaa',  init:'Wa', color:'#b0446a'},
 ];
 const AGENT_ORDER=[
   // Reem (0)
@@ -2966,6 +2968,10 @@ const AGENT_ORDER=[
   // Ghufran (3)
   ['PN Queue (New)','Website Service Request','1k Service ( Stellantis )','1k Service ( Nissan )','10k Service ( Nissan )','Recall 30B','Recall 90C','Recall 77C','PMS Priority List','Lost Customers ( Nissan )'],
   // Faridah (4)
+  [],
+  // Manal (5)
+  [],
+  // Wafaa (6)
   [],
 ];
 function openSearch(){
@@ -3241,7 +3247,7 @@ function drawRows(tasks){
   lastTasks=tasks;
   if(!document.getElementById('agentTabBtns')) return;
   let tR=0,tT=0;
-  const agD=[{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0}];
+  const agD=[{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0},{req:0,tgt:0}];
   tasks.forEach(t=>{
     tR+=t.req;tT+=t.tgt;
     agD[0].req+=t.r;  agD[0].tgt+=t.rt;
@@ -3249,6 +3255,8 @@ function drawRows(tasks){
     agD[2].req+=t.ra; agD[2].tgt+=t.rat;
     agD[3].req+=t.gh; agD[3].tgt+=t.ght;
     agD[4].req+=t.f;  agD[4].tgt+=t.ft;
+    agD[5].req+=t.m;  agD[5].tgt+=t.mt;
+    agD[6].req+=t.w;  agD[6].tgt+=t.wt;
   });
 
   // Agent tab buttons
@@ -3265,12 +3273,12 @@ function drawRows(tasks){
     const pct=tT>0?Math.round((d.tgt/tT)*100):0;
     const order=AGENT_ORDER[i];
     const myTasks=tasks.filter(t=>{
-      const vals=[t.r,t.g,t.ra,t.gh,t.f];
+      const vals=[t.r,t.g,t.ra,t.gh,t.f,t.m,t.w];
       return vals[i]>0;
     }); // keep the exact sheet row order (no re-sorting)
     const taskRows=myTasks.map(t=>{
-      const vals=[t.r,t.g,t.ra,t.gh,t.f];
-      const tgts=[t.rt,t.gt,t.rat,t.ght,t.ft];
+      const vals=[t.r,t.g,t.ra,t.gh,t.f,t.m,t.w];
+      const tgts=[t.rt,t.gt,t.rat,t.ght,t.ft,t.mt,t.wt];
       const done=isChecked(i,t.name);
       const brand=getBrand(t.name);
       const brandDot=brand==='stellantis'
@@ -3367,6 +3375,8 @@ function renderTasks(rows){
     (headerRow[7]||'').trim(),
     (headerRow[9]||'').trim(),
     (headerRow[11]||'').trim(),
+    (headerRow[12]||'').trim(),
+    (headerRow[13]||'').trim(),
   ];
   liveNames.forEach((nm,i)=>{
     if(nm){
@@ -3387,7 +3397,9 @@ function renderTasks(rows){
       g:+r[5]||0,gt:+r[6]||0,
       ra:+r[7]||0,rat:+r[8]||0,
       gh:+r[9]||0,ght:+r[10]||0,
-      f:+r[11]||0,ft:+r[12]||0,
+      f:+r[11]||0,ft:0,
+      m:+r[12]||0,mt:0,
+      w:+r[13]||0,wt:0,
     });
   }
   drawRows(tasks);
