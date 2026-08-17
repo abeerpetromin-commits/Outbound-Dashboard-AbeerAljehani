@@ -1910,11 +1910,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">Vehicles</div><div class="ref-card-count">14 models</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
-      <div class="ref-card brand-ni" onclick="openRef('warranty-nissan','nissan','Warranty & Services')">
-        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="ref-card-body"><div class="ref-card-title">Warranty &amp; Services</div><div class="ref-card-count">Warranty · PMS</div></div>
-        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
-      </div>
       <div class="ref-card brand-ni" onclick="openRef('branches-nissan','nissan','PMS Branches')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">PMS Branches</div><div class="ref-card-count">16 branches</div></div>
@@ -3986,7 +3981,6 @@ async function loadNiBranches(){
     return {code:hit.key, name:(d.name||b.name), address:(b.address||d.address||''), region:(d.region||_niRegionByCode(hit.key)), city:(d.city||''), hours:(d.hours||''), contacts:(d.contacts||[])};
   });
   _nibrRender(list);
-  _niPacRender();
 }
 // ── NISSAN · Auto Care Branches (Petromin Auto Care / PAC) ──
 const NI_PAC_RM=[
@@ -4587,7 +4581,8 @@ function _niRefRender(rows){
   groups=groups.filter(function(g){return g.items.length;});
   if(!groups.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a</div>';return;}
   function ic(n){n=(n||'').toLowerCase();if(/warranty|\u0636\u0645\u0627\u0646/.test(n))return '\ud83d\udee1\ufe0f';if(/pms|service|sercive|\u0635\u064a\u0627\u0646\u0629|\u062f\u0648\u0631\u064a|maintenance/.test(n))return '\ud83d\udd27';return '\ud83d\udcc4';}
-  var tabs=groups.map(function(g,i){return '<button type="button" class="niref-tab'+(i===0?' active':'')+'" onclick="_niRefTab('+i+')">'+ic(g.name)+' '+_annEsc(g.name||('Section '+(i+1)))+'</button>';}).join('');
+  function _grpNm(g,i){if(g.name)return g.name;var tx=g.items.map(function(it){return it.label+' '+it.content;}).join(' ').toLowerCase();if(/pms|service|maintenance|صيانة|دوري|زيت|جير/.test(tx))return 'PMS Services';if(/warranty|ضمان|battery|بطارية/.test(tx))return 'Warranty';return 'Section '+(i+1);}
+  var tabs=groups.map(function(g,i){var nm=_grpNm(g,i);return '<button type="button" class="niref-tab'+(i===0?' active':'')+'" onclick="_niRefTab('+i+')">'+ic(nm)+' '+_annEsc(nm)+'</button>';}).join('');
   var panels=groups.map(function(g,i){
     var cards=g.items.map(function(it){
       var lines=_niSplit(it.content);
@@ -4633,7 +4628,7 @@ function _nissanSmsLocRender(rows){
 async function loadNissanSmsLoc(){
   var st=document.getElementById('nissanSmsLocStatus');
   if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
-  try{var rows=await fetchSheetFrom(NISSAN_SMSLOC_SHEET,NISSAN_SMSLOC_GID);_nissanSmsLocRender(rows);if(st)st.innerHTML='<span class="live-dot"></span>Live \u2713';}
+  try{var rows=await fetchSheetByName(NISSAN_SMSLOC_SHEET,'SMS & Location');_nissanSmsLocRender(rows);if(st)st.innerHTML='<span class="live-dot"></span>Live \u2713';}
   catch(e){var host=document.getElementById('nissanSmsLocBody');if(host&&!host.innerHTML)host.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u062a\u062d\u0645\u064a\u0644</div>';if(st)st.innerHTML='<span class="live-dot"></span>Cached';}
 }
 loadTasks();
