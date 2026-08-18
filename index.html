@@ -1559,6 +1559,8 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 /* ===== /INSTRUCTION TABS ===== */
 .brand-tab.brand-ann.active{border-color:#b4a7d6;box-shadow:0 0 0 1px #b4a7d6,0 10px 24px -14px rgba(103,78,167,.5)}
 .brand-tab.brand-ann .brand-tab-name{color:#674ea7}
+.nsms-section-h{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--ni);text-align:center;margin:28px 0 14px;padding:12px 14px;background:linear-gradient(180deg,#ffffff,#fff5f7);border:1px solid #f3b4bc;border-radius:12px;box-shadow:0 6px 16px -12px rgba(195,0,47,.35)}
+.nsms-section-h:first-child{margin-top:2px}
 </style>
 </head>
 <body data-brand="stellantis">
@@ -4616,14 +4618,21 @@ function _nissanSmsLocRender(rows){
   var host=document.getElementById('nissanSmsLocBody'); if(!host)return;
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(rows.length>1)rows=rows.slice(1);
-  window._NSMS=rows.map(function(r){return {apptEn:(r[0]||'').trim(),apptAr:(r[1]||'').trim(),branch:(r[2]||'').trim(),locEn:(r[3]||'').trim(),locAr:(r[4]||'').trim()};});
+  var all=rows.map(function(r){return {apptEn:(r[0]||'').trim(),apptAr:(r[1]||'').trim(),branch:(r[2]||'').trim(),locEn:(r[3]||'').trim(),locAr:(r[4]||'').trim()};});
+  var before=[],after=[],inPac=false;
+  all.forEach(function(s){
+    var hasContent=!!(s.apptAr||s.apptEn||s.locAr||s.locEn);
+    var isDiv=/pac/i.test(s.branch)&&!hasContent;
+    if(isDiv){inPac=true;return;}
+    if(!s.branch&&!hasContent)return;
+    (inPac?after:before).push(s);
+  });
+  window._NSMS=before.concat(after);
   if(!window._NSMS.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a</div>';return;}
   function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_nsmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
-  host.innerHTML='<div class="smsc-grid" style="--sms-c:var(--ni);--sms-bg:var(--ni-bg)">'+window._NSMS.map(function(s,i){
-    var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';
-    var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';
-    return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.branch||('Branch '+(i+1)))+'</div>'+appt+loc+'</div>';
-  }).join('')+'</div>';
+  function card(s,i){var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.branch||('Branch '+(i+1)))+'</div>'+appt+loc+'</div>';}
+  function section(title,list,offset){if(!list.length)return '';var cards=list.map(function(s,k){return card(s,offset+k);}).join('');return '<div class="nsms-section-h">'+title+'</div><div class="smsc-grid" style="--sms-c:var(--ni);--sms-bg:var(--ni-bg)">'+cards+'</div>';}
+  host.innerHTML=section('\ud83c\udfe2 \u0641\u0631\u0648\u0639 \u0627\u0644\u0645\u0639\u0627\u0631\u0636 \u00b7 3S Showrooms',before,0)+section('\ud83d\udd27 \u0641\u0631\u0648\u0639 PAC \u00b7 Auto Care Branches',after,before.length);
 }
 async function loadNissanSmsLoc(){
   var st=document.getElementById('nissanSmsLocStatus');
