@@ -2053,22 +2053,24 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
   <!-- ── DAILY TASKS ── -->
   <div id="tab-tasks" class="tab-panel">
-    <div class="page-header">
-      <div style="display:none">
+    <div class="page-header" style="display:none">
+      <div>
         <div class="page-sub" id="tasksDate" style="margin-top:5px;color:var(--text3)">Loading...</div>
-      </div>
-      <div class="header-right">
-        <div class="live-badge"><span class="live-dot"></span><span id="taskStatus">Live</span></div>
-        <button class="btn" onclick="loadTasks()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
-          Refresh
-        </button>
       </div>
     </div>
 
     <!-- Agent tabs -->
     <div class="agent-tabs-wrap">
-      <div class="agent-tab-btns" id="agentTabBtns"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div class="agent-tab-btns" id="agentTabBtns" style="margin-bottom:0;flex:1 1 auto"></div>
+        <div class="header-right" style="flex:0 0 auto">
+          <div class="live-badge"><span class="live-dot"></span><span id="taskStatus">Live</span></div>
+          <button class="btn" onclick="loadTasks()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+            Refresh
+          </button>
+        </div>
+      </div>
       <div id="agentTabContent"></div>
     </div>
 
