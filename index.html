@@ -2111,9 +2111,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">Instruction</div><div class="ref-card-count">Warranty · PMS · Notes</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
-      <div class="ref-card brand-baic" onclick="openRef('warranty-baic','baic','Warranty & Service')">
-        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="ref-card-body"><div class="ref-card-title">Warranty & Service</div><div class="ref-card-count">Warranty</div></div>
+      <div class="ref-card brand-baic" onclick="openRef('appt-loc-sms-baic','baic','Appointment &amp; Location SMS')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">Appointment &amp; Location SMS</div><div class="ref-card-count">Per branch · Live</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
       <div class="ref-card brand-baic" onclick="openRef('vehicles-baic','baic','Vehicles')">
@@ -2402,49 +2402,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   </div>
 
   <!-- ── WARRANTY BAIC ── -->
-  <div id="tab-warranty-baic" class="tab-panel">
-    <div class="page-header">
-      <div>
-        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
-        <div class="page-title" style="color:var(--baic)">Warranty &amp; Service Schedule</div>
-        <div class="page-sub" style="margin-top:4px">BAIC Vehicles — Service Standard</div>
-      </div>
-    </div>
-
-    <!-- Warranty card -->
-    <div class="card" style="border-top:3px solid var(--baic);margin-bottom:14px">
-      <div style="display:flex;align-items:center;gap:14px">
-        <div style="width:52px;height:52px;border-radius:12px;background:var(--baic-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--baic)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div>
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:4px">BAIC Vehicles Warranty</div>
-          <div style="font-size:28px;font-weight:700;color:var(--baic);letter-spacing:-1px">10 Years / 150,000 KM</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:2px">أيهما أسبق</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Service schedule -->
-    <div class="card">
-      <div class="card-title">الصيانة الدورية لسيارة بايك</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div style="background:var(--baic-bg);border-radius:var(--rl);padding:16px;border:1px solid var(--baic)">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--baic);margin-bottom:8px">First Service</div>
-          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px">5,000 KM</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:4px">or 6 months · whichever comes first</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:2px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">أول صيانة دورية على ممشى 5000 أو 6 أشهر أيهما أسبق</div>
-        </div>
-        <div style="background:var(--surface2);border-radius:var(--rl);padding:16px;border:1px solid var(--border)">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:8px">Subsequent Services</div>
-          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px">7,500 KM</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:4px">or 6 months · whichever comes first</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:2px;direction:rtl;text-align:right;font-family:'IBM Plex Sans Arabic',sans-serif">بعد ذلك صيانة دورية كل 7500 أو 6 أشهر أيهما أسبق</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- ── WARRANTY & SERVICES NISSAN (live gid 1315452061) ── -->
   <div id="tab-warranty-nissan" class="tab-panel">
     <div class="page-header"><div>
@@ -2543,7 +2500,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       <div>
         <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
         <div class="page-title" style="color:var(--baic)">Instruction</div>
-        <div class="page-sub" style="margin-top:4px">الضمان · الصيانة الدورية · ملاحظات هامة</div>
+        <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px">الضمان · الصيانة الدورية · ملاحظات هامة
+          <span class="live-badge" id="baicInsStatus"><span class="live-dot"></span>—</span>
+        </div>
       </div>
     </div>
 
@@ -2650,6 +2609,20 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
     <div id="baicLocBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
+  <!-- ── BAIC APPOINTMENT & LOCATION SMS (live, per-branch) ── -->
+  <div id="tab-appt-loc-sms-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Appointment &amp; Location SMS</div>
+        <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px" dir="rtl">Appointment &amp; Location SMS — لكل فرع
+          <span class="live-badge" id="baicApptLocStatus"><span class="live-dot"></span>—</span>
+        </div>
+      </div>
+    </div>
+    <div id="baicApptLocBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── BRANCHES BAIC ── -->
@@ -2997,7 +2970,7 @@ const TAB_GROUPS={
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
-  baic:['instruction-baic','warranty-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
+  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
 };
 function runLoader(id){
   if(id==='manager')loadManagerView();
@@ -3011,6 +2984,8 @@ function runLoader(id){
   if(id==='appt-sms-stellantis')loadStAppointmentSms();
   if(id==='pac-branches-stellantis')loadStPacBranches();
   if(id==='pac-branches-nissan')loadNiPacBranches();
+  if(id==='instruction-baic')loadBaicIns();
+  if(id==='appt-loc-sms-baic')loadBaicApptLoc();
   if(id==='sales-stellantis')loadStSales();
   if(id==='lost-offer-nissan')loadLostOffer();
   if(id==='sms-stellantis')renderSMS('stellantis');
@@ -4805,6 +4780,46 @@ function _niRefRender(rows){
 }
 function _niRefTab(i){var host=document.getElementById('nissanRefBody');if(!host)return;host.querySelectorAll('.niref-tab').forEach(function(t,j){t.classList.toggle('active',j===i);});host.querySelectorAll('.niref-panel').forEach(function(p){p.classList.toggle('active',+p.dataset.idx===i);});}
 function _baicInsTab(i){var host=document.getElementById('baicInsWrap');if(!host)return;host.querySelectorAll('.niref-tab').forEach(function(t,j){t.classList.toggle('active',j===i);});host.querySelectorAll('.niref-panel').forEach(function(p){p.classList.toggle('active',+p.dataset.idx===i);});}
+var BAIC_INS_GID='208840535';
+function _baicInsRender(rows){
+  var host=document.getElementById('baicInsWrap'); if(!host)return;
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(!rows.length)return false;
+  var groups=[],cur=null;
+  rows.forEach(function(r){
+    var a=(r[0]||'').trim(), b=(r[1]||'').trim();
+    if(!a&&!b)return;
+    if(b.toLowerCase()==='content'||(!b&&a&&a.length<=35)){ cur={name:a,items:[]}; groups.push(cur); }
+    else { if(!cur){cur={name:'',items:[]};groups.push(cur);} cur.items.push({label:a,content:b}); }
+  });
+  groups=groups.filter(function(g){return g.items.length;});
+  if(!groups.length)return false;
+  function ic(n){n=(n||'').toLowerCase();if(/warranty|ضمان/.test(n))return '🛡️';if(/pms|service|sercive|صيانة|دوري|maintenance/.test(n))return '🔧';if(/appointment|script|موعد/.test(n))return '📄';return '📄';}
+  function _grpNm(g,i){if(g.name)return g.name;var tx=g.items.map(function(it){return it.label+' '+it.content;}).join(' ').toLowerCase();if(/pms|service|maintenance|صيانة|دوري|زيت|جير/.test(tx))return 'PMS Services';if(/warranty|ضمان|battery|بطارية/.test(tx))return 'Warranty';return 'Section '+(i+1);}
+  var tabs=groups.map(function(g,i){var nm=_grpNm(g,i);return '<button type="button" class="niref-tab baic-tab'+(i===0?' active':'')+'" onclick="_baicInsTab('+i+')">'+ic(nm)+' '+_annEsc(nm)+'</button>';}).join('');
+  var panels=groups.map(function(g,i){
+    var cards=g.items.map(function(it){
+      var lines=_niSplit(it.content);
+      var body=lines.map(function(L){var ar=/[؀-ۿ]/.test(L);var m=L.match(/(https?:\/\/\S+)/);var h2;if(m){var tx=L.replace(m[1],'').trim();h2=(tx?_annEsc(tx)+' ':'')+'<a class="nref-link" href="'+_annEsc(m[1])+'" target="_blank" rel="noopener">🔗 فتح</a>';}else h2=_annEsc(L);return '<div class="nref-line" style="direction:'+(ar?'rtl':'ltr')+';text-align:center">'+h2+'</div>';}).join('');
+      return '<div class="nref-item baic-item"><div class="nref-label">'+_annEsc(it.label)+'</div><div class="nref-content">'+body+'</div></div>';
+    }).join('');
+    return '<div class="niref-panel'+(i===0?' active':'')+'" data-idx="'+i+'"><div class="niref-cards">'+cards+'</div></div>';
+  }).join('');
+  host.innerHTML='<div class="niref-tabs">'+tabs+'</div>'+panels;
+  return true;
+}
+async function loadBaicIns(){
+  var st=document.getElementById('baicInsStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{
+    var rows=await fetchSheetFrom(BAIC_REF_SHEET,BAIC_INS_GID);
+    var ok=_baicInsRender(rows);
+    if(!ok)throw new Error('empty');
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+  }catch(e){
+    if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}
+  }
+}
 async function fetchSheetByName(sheetId,name){var url="https://docs.google.com/spreadsheets/d/"+sheetId+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent(name)+"&t="+Date.now();var r=await fetch(url);if(!r.ok)throw new Error(r.status);return csv(await r.text());}
 async function loadNissanRef(){
   var st=document.getElementById('nissanRefStatus');
@@ -4848,6 +4863,54 @@ async function loadNissanSmsLoc(){
   if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
   try{var rows=await fetchSheetByName(NISSAN_SMSLOC_SHEET,'SMS & Location');_nissanSmsLocRender(rows);if(st)st.innerHTML='<span class="live-dot"></span>Live \u2713';}
   catch(e){var host=document.getElementById('nissanSmsLocBody');if(host&&!host.innerHTML)host.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u062a\u062d\u0645\u064a\u0644</div>';if(st)st.innerHTML='<span class="live-dot"></span>Cached';}
+}
+/* \u2500\u2500 BAIC APPOINTMENT & LOCATION SMS (live, grouped by region) \u2500\u2500 */
+var BAICSMS_GID='260555768';
+function _baicSmsCopy(i,field,btn){var s=(window._BAICSMS||[])[i];if(!s)return;var t=s[field]||'';function done(){var o=btn.innerHTML;btn.innerHTML='\u2713 Copied';setTimeout(function(){btn.innerHTML=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
+function _baicApptLocParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(rows.length&&/^region$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
+  return rows.map(function(r){
+    return {region:(r[0]||'').trim(),city:(r[1]||'').trim(),branch:(r[2]||'').trim(),apptEn:(r[3]||'').trim(),apptAr:(r[4]||'').trim(),locEn:(r[5]||'').trim(),locAr:(r[6]||'').trim()};
+  }).filter(function(s){return s.branch||s.city;});
+}
+function _baicApptLocRender(list){
+  var host=document.getElementById('baicApptLocBody'); if(!host)return;
+  window._BAICSMS=list||[];
+  if(!window._BAICSMS.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a \u0628\u0639\u062f</div>';return;}
+  function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_baicSmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
+  function card(s,i){
+    var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';
+    var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';
+    return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.city||s.branch)+'</div>'+appt+loc+'</div>';
+  }
+  var rank={West:1,Western:1,Central:2,Center:2,East:3,Eastern:3,North:4,South:5}, groups={}, order=[];
+  window._BAICSMS.forEach(function(s,i){s._i=i; var k=s.region||'Other'; if(!groups[k]){groups[k]=[];order.push(k);} groups[k].push(s);});
+  order.sort(function(a,b){return (rank[a]||9)-(rank[b]||9);});
+  host.innerHTML=order.map(function(k){
+    var items=groups[k];
+    var cards=items.map(function(s){return card(s,s._i);}).join('');
+    return '<div class="brn-region" data-open="1" style="--rc:var(--baic);--rcbg:var(--baic-bg)">'+
+      '<button type="button" class="brn-region-head" onclick="_brnToggle(this)">'+
+        '<span class="brn-region-title">'+_baicEsc(k)+' <span class="brn-region-count">('+items.length+')</span></span>'+
+        '<span class="brn-chev">\u25be</span></button>'+
+      '<div class="smsc-grid" style="--sms-c:var(--baic);--sms-bg:var(--baic-bg);padding:16px">'+cards+'</div></div>';
+  }).join('');
+}
+async function loadBaicApptLoc(){
+  var st=document.getElementById('baicApptLocStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{
+    var rows=await fetchSheetFrom(BAIC_REF_SHEET,BAICSMS_GID);
+    var list=_baicApptLocParse(rows);
+    if(!list.length)throw new Error('empty');
+    _baicApptLocRender(list);
+    if(st){st.innerHTML='<span class="live-dot"></span>Live \u2713';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+  }catch(e){
+    var host=document.getElementById('baicApptLocBody');
+    if(host&&!host.innerHTML)host.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u062a\u062d\u0645\u064a\u0644</div>';
+    if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}
+  }
 }
 /* ── STELLANTIS APPOINTMENT SMS (per-branch, from sheet) ── */
 var STAPPT_SHEET='104CXGHd1raokgGijhvHgt6AI2gdsqzANBH74Ehm01dM';
