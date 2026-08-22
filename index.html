@@ -1337,7 +1337,10 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .stitk-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .stitk-item-title{font-size:12.5px;font-weight:700;color:#333}
 .stitk-item-badges{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
-.stitk-pill-stack{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}
+.stitk-pill-stack{display:flex;flex-direction:column;gap:10px;width:100%;max-width:520px}
+.stitk-offer-card{border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--surface);box-shadow:var(--shadow)}
+.stitk-offer-title{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--st);margin-bottom:5px}
+.stitk-offer-detail{font-size:12.5px;color:#444;line-height:1.7;white-space:pre-line}
 .stitk-pill-wide{width:100%;box-sizing:border-box;padding:8px 16px;font-size:13px}
 .stitk-item-badge{background:var(--st-bg);color:var(--st);border:1px solid rgba(18,87,196,.25);border-radius:10px;padding:3px 10px;font-size:11px;font-weight:700;white-space:pre-line;text-align:center}
 .stitk-item-link{text-decoration:none;cursor:pointer;border-radius:8px;padding:7px 26px;font-size:13px}
@@ -4831,7 +4834,10 @@ function _stitkChips(list,cls){
   return list.map(function(c){return '<span class="stitk-chip'+(cls&&cls[c]?(' '+cls[c]):'')+'">'+_baicEsc(c)+'</span>';}).join('');
 }
 function _stitkCopy(idx,btn){var t=(window._STITK_EX||[])[idx]||'';function done(){var o=btn.innerHTML;btn.innerHTML='✓';setTimeout(function(){btn.innerHTML=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
-function _stitkPillStack(list){return '<div class="stitk-pill-stack">'+list.map(function(t){return '<div class="stitk-item-badge stitk-pill-wide">'+_baicEsc(t)+'</div>';}).join('')+'</div>';}
+function _stitkPillStack(list){return '<div class="stitk-pill-stack">'+list.map(function(o){
+  if(typeof o==='string')return '<div class="stitk-item-badge stitk-pill-wide">'+_baicEsc(o)+'</div>';
+  return '<div class="stitk-offer-card"><div class="stitk-offer-title">'+_baicEsc(o.title)+'</div>'+(o.detail?'<div class="stitk-offer-detail" dir="rtl">'+_baicEsc(o.detail)+'</div>':'')+'</div>';
+}).join('')+'</div>';}
 function _stitkCard(title,status,items,depts,cats,catCls,desc,example,deptLabel,catLabel,pillStack){
   window._STITK_EX=window._STITK_EX||[];
   var exIdx=window._STITK_EX.length;
@@ -4848,8 +4854,11 @@ function _stitkCard(title,status,items,depts,cats,catCls,desc,example,deptLabel,
 function _stSalesRender(rows){
   var host=document.getElementById('stSalesBody'); if(!host)return;
   window._STITK_EX=[];
-  var offerRows=(rows||[]).slice(2).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
-  var offersList=offerRows.map(function(r){return (r[0]||'').trim();}).filter(Boolean);
+  rows=rows||[];
+  var priceRow=rows.filter(function(r){return (r[0]||'').trim().toLowerCase()==='price list';})[0];
+  var priceHref=priceRow?(priceRow[1]||'').trim():'';
+  var offerRows=rows.filter(function(r){var a=(r[0]||'').trim();return a&&a.toLowerCase()!=='price list';});
+  var offersList=offerRows.map(function(r){return {title:(r[0]||'').trim(),detail:(r[1]||'').trim()};}).filter(function(o){return o.title;});
   var cardInquiry=_stitkCard('Request','Closed Satisfied',
     [{title:'Sales (Social Media)',badge:'New Lead Salesforce Source ( Insta or Tiktok , facebook )'},
      {title:'Contact the customer',badge:'Share the price list inforamation'},
@@ -4859,7 +4868,7 @@ function _stSalesRender(rows){
     'كتابة راتب العميل - المدينة - كاش او أقساط','Salary : 6000\nCity: Jeddah\nCash / Finance','Transfer the opportunity to');
   var cardAppointment=_stitkCard('Appointment','Closed Satisfied',
     [{title:'Price List',badges:[
-       {label:'📄 File',href:'https://petromincrm-my.sharepoint.com/:x:/r/personal/sali_aljehani_petromin_com/_layouts/15/Doc.aspx?sourcedoc=%7B9C84F16B-DAC4-414C-B307-8CB3A74F0D2E%7D&file=Sales%20Price%20List.xlsx&action=default&mobileredirect=true'}
+       {label:'📄 File',href:priceHref||'https://petromincrm-my.sharepoint.com/:x:/r/personal/sali_aljehani_petromin_com/_layouts/15/Doc.aspx?sourcedoc=%7B9C84F16B-DAC4-414C-B307-8CB3A74F0D2E%7D&file=Sales%20Price%20List.xlsx&action=default&mobileredirect=true'}
      ]}],
     null,
     [],{},
