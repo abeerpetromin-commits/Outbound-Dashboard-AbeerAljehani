@@ -4804,8 +4804,21 @@ function _baicInsRender(rows){
     if(/appointment|script|موعد/.test(tx))return 'Appointment Script';
     return 'Section '+(i+1);
   }
-  groups.forEach(function(g,i){g._nm=_grpNm(g,i);});
+  groups.forEach(function(g,i){
+    var nm=_grpNm(g,i);
+    nm=String(nm).replace(/^[\s·•∙\-–—:.,]+|[\s·•∙\-–—:.,]+$/g,'').trim();
+    g._nm=nm||('Section '+(i+1));
+  });
   groups=groups.filter(function(g){return !/vehicle\s*model/i.test(g._nm);});
+  if(!groups.length)return false;
+  /* merge groups that resolved to the same name (or ended up with no real content) instead of showing duplicate/empty tabs */
+  var merged=[], byName={};
+  groups.forEach(function(g){
+    var key=g._nm.toLowerCase();
+    if(byName[key]){ byName[key].items=byName[key].items.concat(g.items); return; }
+    byName[key]=g; merged.push(g);
+  });
+  groups=merged;
   if(!groups.length)return false;
   groups.forEach(function(g){
     g.items.sort(function(a,b){
