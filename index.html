@@ -1165,7 +1165,7 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .cs-card{border:1px solid var(--border);border-radius:13px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow);display:flex;flex-direction:column}
 .cs-title{background:var(--csc);color:#fff;font-family:var(--font-display);font-weight:800;font-size:14px;text-align:center;padding:12px 14px;line-height:1.45;direction:rtl}
 .cs-label{background:var(--surface2);color:var(--text);font-weight:700;font-size:12.5px;text-align:center;padding:9px 14px;border-bottom:1px solid var(--border);direction:rtl;line-height:1.6}
-.cs-line{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;font-size:13.5px;line-height:1.95;color:var(--text);padding:11px 16px;text-align:right;direction:rtl;border-bottom:1px solid var(--border)}
+.cs-line{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;font-size:13.5px;line-height:1.95;color:var(--text);padding:11px 16px;text-align:center;direction:rtl;border-bottom:1px solid var(--border)}
 .cs-card>.cs-line:last-child,.cs-card>.cs-label:last-child{border-bottom:0}
 @media(max-width:760px){.cs-grid{grid-template-columns:1fr}.cs-title{font-size:13px}}
 
@@ -1174,8 +1174,9 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .cs-acc.cs-ni{--csc:var(--ni)}
 .cs-acc.cs-st{--csc:var(--st)}
 .cs-acc.cs-baic{--csc:var(--baic)}
-.cs-acc-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
-.cs-acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;background:var(--csc);border:0;cursor:pointer;font-family:var(--font-display);color:#fff;font-weight:800;font-size:14px;text-align:right;direction:rtl}
+.cs-acc-item{border:1.5px solid var(--csc);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.cs-acc-head{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 16px;background:var(--surface2);border:0;border-bottom:1.5px solid var(--csc);cursor:pointer;font-family:var(--font-display);color:var(--csc);font-weight:800;font-size:14px;text-align:center;direction:rtl}
+.cs-acc-item[data-open="0"] .cs-acc-head{border-bottom:0}
 .cs-acc-chev{transition:transform .2s;font-size:13px;flex:0 0 auto}
 .cs-acc-item[data-open="0"] .cs-acc-chev{transform:rotate(-90deg)}
 .cs-acc-item[data-open="0"] .cs-acc-body{display:none}
