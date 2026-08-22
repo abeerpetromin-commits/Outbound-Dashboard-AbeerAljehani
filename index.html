@@ -1241,6 +1241,20 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .hotline-num a{color:inherit;text-decoration:none}
 .hotline-num a:hover{text-decoration:underline}
 /* ── BAIC Instruction sections ── */
+.stins-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:0 0 20px}
+.stins-tab{font-family:var(--font-display);font-weight:800;font-size:13px;padding:9px 20px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
+.stins-tab:hover{border-color:var(--st-bg2)}
+.stins-tab.active{background:linear-gradient(135deg,var(--st-bg),var(--st-bg));color:var(--st);border-color:var(--st-bg2);box-shadow:0 6px 16px -10px rgba(18,87,196,.5)}
+.stins-panel{display:none}
+.stins-panel.active{display:block}
+.stins-block-title{text-align:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--st);background:var(--surface2);padding:11px 14px;border-bottom:1px solid var(--border)}
+.stins-cols{display:flex}
+.stins-col{flex:1;text-align:center;padding:16px 18px}
+.stins-col+.stins-col{border-left:3px solid var(--st)}
+.stins-col-h{font-family:var(--font-display);font-weight:800;font-size:12.5px;color:var(--st);margin-bottom:8px}
+.stins-col-b{font-size:12.5px;color:var(--text2);line-height:1.9;direction:rtl;text-align:center}
+.stins-tbl th{color:var(--st);text-align:center}
+@media(max-width:760px){.stins-cols{flex-direction:column}.stins-col+.stins-col{border-left:0;border-top:1px solid var(--border)}}
 .ins-sec{margin-bottom:14px}
 .ins-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 18px;background:var(--ins-bg,var(--baic-bg));border:1px solid var(--ins-c,var(--baic));border-left:4px solid var(--ins-c,var(--baic));border-radius:12px;cursor:pointer;font-family:var(--font-display);color:var(--ins-c,var(--baic));font-weight:800;font-size:14.5px;text-align:start}
 .ins-chev{transition:transform .2s;font-size:13px}
@@ -2354,72 +2368,71 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
 
+    <div class="stins-tabs">
+      <button type="button" class="stins-tab active" onclick="_stInsTab(0)">🛡️ Warranty</button>
+      <button type="button" class="stins-tab" onclick="_stInsTab(1)">🔧 PMS Services</button>
+      <button type="button" class="stins-tab" onclick="_stInsTab(2)">📋 Appointment Script</button>
+    </div>
+
     <!-- Warranty -->
-    <div class="ins-sec" data-open="1">
-      <button type="button" class="ins-head" onclick="_insToggle(this)">
-        <span class="ins-title">🛡️ Warranty</span><span class="ins-chev">▾</span>
-      </button>
-      <div class="ins-body">
-        <div class="card warr-block">
-          <div class="warr-block-title" style="color:#c0392b">Warranty + Factory battery</div>
-          <div class="warr-grid">
-            <div class="warr-card cdjr">
-              <div class="warr-brand">CHRYSLER · DODGE · JEEP · RAM</div>
-              <div class="warr-txt">📅 <strong>بداية سريان الضمان</strong><br>تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.<br>مدة الضمان: <span class="warr-big">3 سنوات أو 60,000 كم</span><br>(أيهما يأتي أولاً)</div>
-            </div>
-            <div class="warr-card fiat">
-              <div class="warr-brand">FIAT · ABARTH · ALFA ROMEO</div>
-              <div class="warr-txt">📅 <strong>بداية سريان الضمان</strong><br>تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.<br>مدة الضمان: <span class="warr-big">سنتان — مفتوح</span></div>
-            </div>
+    <div class="stins-panel active" data-idx="0">
+      <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px">
+        <div class="stins-block-title">Warranty</div>
+        <div class="stins-cols">
+          <div class="stins-col">
+            <div class="stins-col-h">CHRYSLER, DODGE, JEEP, RAM</div>
+            <div class="stins-col-b">📅 بداية سريان الضمان:<br>تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.<br>مدة الضمان: 3 سنوات أو 60,000 كيلومتر (أيهما يأتي أولاً)</div>
+          </div>
+          <div class="stins-col">
+            <div class="stins-col-h">FIAT, ABARTH, ALFA ROMEO</div>
+            <div class="stins-col-b">📅 بداية سريان الضمان:<br>تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.<br>مدة الضمان: سنتان مفتوح</div>
           </div>
         </div>
-        <div class="card warr-block" style="margin-bottom:0">
-          <div class="warr-block-title" style="color:#1e8449">Spare parts warranty · ضمان قطع الغيار</div>
-          <div class="warr-grid">
-            <div class="warr-card cdjr">
-              <div class="warr-brand">CHRYSLER · DODGE · JEEP · RAM</div>
-              <div class="warr-txt"><span class="warr-big">سنة واحدة / 20,000 كم</span></div>
-            </div>
-            <div class="warr-card fiat">
-              <div class="warr-brand">FIAT · ABARTH · ALFA ROMEO</div>
-              <div class="warr-txt"><span class="warr-big">سنة واحدة / 20,000 كم</span></div>
-            </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="stins-block-title">Spare parts warranty</div>
+        <div class="stins-cols">
+          <div class="stins-col">
+            <div class="stins-col-h">CHRYSLER, DODGE, JEEP, RAM</div>
+            <div class="stins-col-b">year / 20,000 km 1</div>
+          </div>
+          <div class="stins-col">
+            <div class="stins-col-h">FIAT, ABARTH, ALFA ROMEO</div>
+            <div class="stins-col-b">year / 20,000 km 1</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- PMS Services -->
-    <div class="ins-sec" data-open="1">
-      <button type="button" class="ins-head" onclick="_insToggle(this)">
-        <span class="ins-title">🔧 PMS Services</span><span class="ins-chev">▾</span>
-      </button>
-      <div class="ins-body">
-        <div class="card" style="margin-bottom:12px">
-          <div class="ins-kicker">جدول الصيانة الدورية</div>
-          <div class="ins-rtl" style="margin-top:8px">تُجرى الصيانة الدورية كل <strong>10,000 كيلومتر أو كل 6 أشهر</strong> (أيهما يأتي أولًا).</div>
-        </div>
-        <div class="card">
-          <div class="card-title">PMS Services — Jeep Wrangler</div>
-          <div class="tbl-wrap">
-            <table>
-              <thead><tr><th>Service</th><th>Source</th><th>Service Advisor</th><th>Description</th></tr></thead>
-              <tbody>
-                <tr><td><span class="ins-badge">GR</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor GR</td><td>CC - GR - Engine Failure - Jeep Wrangler 2021</td></tr>
-                <tr><td><span class="ins-badge">GR</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor GR</td><td>WA - GR - Engine Failure - Jeep Wrangler 2022</td></tr>
-                <tr><td><span class="ins-badge">GR</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor GR</td><td>OL - GR - Engine Failure - Jeep Wrangler 2023</td></tr>
-                <tr><td><span class="ins-badge">PMS</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor PMS</td><td>CC - PMS - 10000K - Jeep Wrangler 2021</td></tr>
-                <tr><td><span class="ins-badge">PMS</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor PMS</td><td>WA - PMS - 10000K - Jeep Wrangler 2022</td></tr>
-                <tr><td><span class="ins-badge">PMS</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor PMS</td><td>OL - PMS - 10000K - Jeep Wrangler 2023</td></tr>
-                <tr><td><span class="ins-badge recall">Recall</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor PMS</td><td>CC - Recall - Jeep Wrangler 2021</td></tr>
-                <tr><td><span class="ins-badge recall">Recall</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor PMS</td><td>WA - Recall - Jeep Wrangler 2022</td></tr>
-                <tr><td><span class="ins-badge recall">Recall</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor PMS</td><td>OL - Recall - Jeep Wrangler 2023</td></tr>
-                <tr><td><span class="ins-badge">Emergency</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor PMS</td><td>CC - Emergency - Jeep Wrangler 2021</td></tr>
-                <tr><td><span class="ins-badge">Emergency</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor PMS</td><td>WA - Emergency - Jeep Wrangler 2022</td></tr>
-                <tr><td><span class="ins-badge">Emergency</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor PMS</td><td>OL - Emergency - Jeep Wrangler 2023</td></tr>
-              </tbody>
-            </table>
-          </div>
+    <div class="stins-panel" data-idx="1">
+      <div class="card" style="padding:0;overflow:hidden;max-width:680px;margin:0 auto">
+        <div class="stins-block-title">Maintenance Schedule</div>
+        <div class="stins-col-b" style="padding:16px">تُجرى الصيانة الدورية كل <strong>10,000 كيلومتر أو كل 6 أشهر</strong> (أيهما يأتي أولًا)</div>
+      </div>
+    </div>
+
+    <!-- Appointment Script -->
+    <div class="stins-panel" data-idx="2">
+      <div class="card">
+        <div class="tbl-wrap">
+          <table class="stins-tbl">
+            <thead><tr><th>Service</th><th>Source</th><th>Service Advisor</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><span class="ins-badge">GR</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor GR</td><td>CC - GR - Engine Failure - Jeep Wrangler 2021</td></tr>
+              <tr><td><span class="ins-badge">GR</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor GR</td><td>WA - GR - Engine Failure - Jeep Wrangler 2022</td></tr>
+              <tr><td><span class="ins-badge">GR</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor GR</td><td>OL - GR - Engine Failure - Jeep Wrangler 2023</td></tr>
+              <tr><td><span class="ins-badge">PMS</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor PMS</td><td>CC - PMS - 10000K - Jeep Wrangler 2021</td></tr>
+              <tr><td><span class="ins-badge">PMS</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor PMS</td><td>WA - PMS - 10000K - Jeep Wrangler 2022</td></tr>
+              <tr><td><span class="ins-badge">PMS</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor PMS</td><td>OL - PMS - 10000K - Jeep Wrangler 2023</td></tr>
+              <tr><td><span class="ins-badge recall">Recall</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor PMS</td><td>CC - Recall - Jeep Wrangler 2021</td></tr>
+              <tr><td><span class="ins-badge recall">Recall</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor PMS</td><td>WA - Recall - Jeep Wrangler 2022</td></tr>
+              <tr><td><span class="ins-badge recall">Recall</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor PMS</td><td>OL - Recall - Jeep Wrangler 2023</td></tr>
+              <tr><td><span class="ins-badge">Emergency</span></td><td><span class="src src-cc">Call Center</span></td><td>Service Advisor PMS</td><td>CC - Emergency - Jeep Wrangler 2021</td></tr>
+              <tr><td><span class="ins-badge">Emergency</span></td><td><span class="src src-wa">WhatsApp</span></td><td>Service Advisor PMS</td><td>WA - Emergency - Jeep Wrangler 2022</td></tr>
+              <tr><td><span class="ins-badge">Emergency</span></td><td><span class="src src-ol">Online</span></td><td>Service Advisor PMS</td><td>OL - Emergency - Jeep Wrangler 2023</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -4298,6 +4311,11 @@ function _brnToggle(btn){
 function _insToggle(btn){
   var sec=btn.closest('.ins-sec'); if(!sec)return;
   sec.setAttribute('data-open', sec.getAttribute('data-open')==='1'?'0':'1');
+}
+function _stInsTab(i){
+  var host=document.getElementById('tab-instruction-stellantis'); if(!host)return;
+  host.querySelectorAll('.stins-tab').forEach(function(t,j){t.classList.toggle('active',j===i);});
+  host.querySelectorAll('.stins-panel').forEach(function(p){p.classList.toggle('active',+p.dataset.idx===i);});
 }
 
 /* ── BAIC LOCATION (Service Location SMS — live, copy-ready) ── */
