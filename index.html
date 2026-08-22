@@ -4826,8 +4826,9 @@ function _stitkFormula(items){
   return items.map(function(it,i){
     var badges=it.badges?it.badges:[{label:it.badge,href:it.href}];
     var badgeHtml='<div class="stitk-item-badges">'+badges.map(_stitkBadge).join('')+'</div>';
+    var titleHtml=it.title?('<div class="stitk-item-title">'+_baicEsc(it.title)+'</div>'):'';
     return (i?'<div class="stitk-plus">+</div>':'')+
-      '<div class="stitk-item"><div class="stitk-item-title">'+_baicEsc(it.title)+'</div>'+badgeHtml+'</div>';
+      '<div class="stitk-item">'+titleHtml+badgeHtml+'</div>';
   }).join('');
 }
 function _stitkChips(list,cls){
@@ -4866,8 +4867,8 @@ function _stSalesRender(rows){
     ['Abeer Aljehani'],
     null,{},
     'كتابة راتب العميل - المدينة - كاش او أقساط','Salary : 6000\nCity: Jeddah\nCash / Finance','Transfer the opportunity to');
-  var cardAppointment=_stitkCard('Appointment','Closed Satisfied',
-    [{title:'Price List',badges:[
+  var cardAppointment=_stitkCard('Price List','Closed Satisfied',
+    [{title:'',badges:[
        {label:'📄 File',href:priceHref||'https://petromincrm-my.sharepoint.com/:x:/r/personal/sali_aljehani_petromin_com/_layouts/15/Doc.aspx?sourcedoc=%7B9C84F16B-DAC4-414C-B307-8CB3A74F0D2E%7D&file=Sales%20Price%20List.xlsx&action=default&mobileredirect=true'}
      ]}],
     null,
