@@ -4790,9 +4790,12 @@ function _baicInsRender(rows){
     var a=(r[0]||'').trim(), b=(r[1]||'').trim();
     if(!a&&!b)return;
     if(b.toLowerCase()==='content'||(!b&&a&&a.length<=35)){ cur={name:a,items:[]}; groups.push(cur); }
+    else if(!b&&a&&a.length>35){ if(!cur){cur={name:'',items:[]};groups.push(cur);} cur.items.push({label:'',content:a}); }
     else { if(!cur){cur={name:'',items:[]};groups.push(cur);} cur.items.push({label:a,content:b}); }
   });
   groups=groups.filter(function(g){return g.items.length;});
+  if(!groups.length)return false;
+  groups=groups.filter(function(g){return !/vehicle\s*model/i.test(g.name||'');});
   if(!groups.length)return false;
   /* pull unlabeled long-text items (notes rows with no left-column label) out into their own "Extra Information" group instead of leaving them stuck inside whichever section they trailed */
   var extraItems=[];
