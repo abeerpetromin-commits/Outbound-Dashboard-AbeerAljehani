@@ -2131,9 +2131,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">BAIC Location</div><div class="ref-card-count">Service SMS</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
-      <div class="ref-card brand-baic" onclick="openRef('whatsapp-baic','baic','WhatsApp Script')">
+      <div class="ref-card brand-baic" onclick="openRef('whatsapp-baic','baic','Call Script')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <div class="ref-card-body"><div class="ref-card-title">WhatsApp Script</div><div class="ref-card-count">D+1 · AR / EN</div></div>
+        <div class="ref-card-body"><div class="ref-card-title">Call Script</div><div class="ref-card-count">D+1 · AR / EN</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
     </div>
@@ -2661,7 +2661,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
       <div>
         <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
-        <div class="page-title" style="color:var(--baic)">WhatsApp Script</div>
+        <div class="page-title" style="color:var(--baic)">Call Script</div>
         <div class="page-sub" style="margin-top:4px">D+1 Follow-up · Arabic &amp; English</div>
       </div>
       <span class="live-badge" id="d1BaicStatus"><span class="live-dot"></span>Loading…</span>
@@ -4794,6 +4794,26 @@ function _baicInsRender(rows){
   });
   groups=groups.filter(function(g){return g.items.length;});
   if(!groups.length)return false;
+  /* pull unlabeled long-text items (notes rows with no left-column label) out into their own "Extra Information" group instead of leaving them stuck inside whichever section they trailed */
+  var extraItems=[];
+  groups.forEach(function(g){
+    var keep=[];
+    g.items.forEach(function(it){ if(!it.label && it.content){ extraItems.push(it); } else { keep.push(it); } });
+    g.items=keep;
+  });
+  groups=groups.filter(function(g){return g.items.length;});
+  if(extraItems.length){
+    groups.push({name:'Extra Information',items:[{label:'📝 ملاحظات هامة',content:extraItems.map(function(x){return x.content;}).join('\n')}]});
+  }
+  if(!groups.length)return false;
+  /* a group whose first row literally reads "Service / Description..." is table data (Service/Description columns), not label+content cards */
+  groups.forEach(function(g){
+    var first=g.items[0];
+    if(first && /^service$/i.test((first.label||'').trim()) && /description/i.test(first.content||'')){
+      g._table=true;
+      g.items=g.items.slice(1);
+    }
+  });
   function ic(n){n=(n||'').toLowerCase();if(/warranty|ضمان/.test(n))return '🛡️';if(/pms|service|sercive|صيانة|دوري|maintenance/.test(n))return '🔧';if(/appointment|script|موعد/.test(n))return '📄';return '📄';}
   function _grpNm(g,i){
     var hasName=g.name && !/^section\b/i.test(g.name.trim());
@@ -4828,12 +4848,19 @@ function _baicInsRender(rows){
   });
   var tabs=groups.map(function(g,i){var nm=g._nm;return '<button type="button" class="niref-tab baic-tab'+(i===0?' active':'')+'" onclick="_baicInsTab('+i+')">'+ic(nm)+' '+_annEsc(nm)+'</button>';}).join('');
   var panels=groups.map(function(g,i){
-    var cards=g.items.map(function(it){
-      var lines=_niSplit(it.content);
-      var body=lines.map(function(L){var ar=/[؀-ۿ]/.test(L);var m=L.match(/(https?:\/\/\S+)/);var h2;if(m){var tx=L.replace(m[1],'').trim();h2=(tx?_annEsc(tx)+' ':'')+'<a class="nref-link" href="'+_annEsc(m[1])+'" target="_blank" rel="noopener">🔗 فتح</a>';}else h2=_annEsc(L);return '<div class="nref-line" style="direction:'+(ar?'rtl':'ltr')+';text-align:center">'+h2+'</div>';}).join('');
-      return '<div class="nref-item baic-item"><div class="nref-label">'+_annEsc(it.label)+'</div><div class="nref-content">'+body+'</div></div>';
-    }).join('');
-    return '<div class="niref-panel'+(i===0?' active':'')+'" data-idx="'+i+'"><div class="niref-cards">'+cards+'</div></div>';
+    var inner;
+    if(g._table){
+      var rows=g.items.map(function(it){return '<tr><td><span class="ins-badge">'+_annEsc(it.label)+'</span></td><td>'+_annEsc(it.content)+'</td></tr>';}).join('');
+      inner='<div class="card" style="border-top:3px solid var(--baic)"><div class="tbl-wrap"><table><thead><tr><th>Service</th><th>Description</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+    }else{
+      var cards=g.items.map(function(it){
+        var lines=_niSplit(it.content);
+        var body=lines.map(function(L){var ar=/[؀-ۿ]/.test(L);var m=L.match(/(https?:\/\/\S+)/);var h2;if(m){var tx=L.replace(m[1],'').trim();h2=(tx?_annEsc(tx)+' ':'')+'<a class="nref-link" href="'+_annEsc(m[1])+'" target="_blank" rel="noopener">🔗 فتح</a>';}else h2=_annEsc(L);return '<div class="nref-line" style="direction:'+(ar?'rtl':'ltr')+';text-align:'+(ar?'right':'center')+'">'+h2+'</div>';}).join('');
+        return '<div class="nref-item baic-item"><div class="nref-label">'+_annEsc(it.label)+'</div><div class="nref-content">'+body+'</div></div>';
+      }).join('');
+      inner='<div class="niref-cards">'+cards+'</div>';
+    }
+    return '<div class="niref-panel'+(i===0?' active':'')+'" data-idx="'+i+'">'+inner+'</div>';
   }).join('');
   host.innerHTML='<div class="niref-tabs">'+tabs+'</div>'+panels;
   return true;
