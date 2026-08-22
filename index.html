@@ -1486,6 +1486,17 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .dayoff-week-body{padding:12px;border-top:1px solid var(--border)}
 .dayoff-week-body .dayoff-wrap{box-shadow:none}
 .do-vac{color:#0a8f57;background:rgba(16,163,74,.12);font-weight:800}
+/* ── Daily Off week picker (current-week-only view + dropdown for other weeks) ── */
+.dow-picker{position:relative;display:inline-block;margin-bottom:14px}
+.dow-picker-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--red);background:var(--red-bg);border:1.5px solid var(--red);border-radius:11px;padding:9px 14px;cursor:pointer}
+.dow-picker-btn:hover{filter:brightness(0.97)}
+.dow-picker-chev{flex:none;transition:transform .18s ease}
+.dow-picker.open .dow-picker-chev{transform:rotate(180deg)}
+.dow-picker-list{position:absolute;top:calc(100% + 6px);inset-inline-start:0;min-width:210px;max-height:280px;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-md);padding:6px;z-index:20}
+.dow-opt{display:block;width:100%;text-align:start;font-family:var(--font-body);font-weight:700;font-size:13px;color:var(--text);background:transparent;border:0;border-radius:8px;padding:9px 11px;cursor:pointer}
+.dow-opt:hover{background:var(--surface2)}
+.dow-opt.active{color:var(--red);background:var(--red-bg)}
+.dow-table-wrap{margin-top:2px}
 
 /* ── Announcements: more compact ── */
 .announce-list{gap:7px;max-width:760px}
@@ -5221,13 +5232,58 @@ function _doWeekMeta(dateRow,others){
   var today=ds.some(function(d){return d.day===now.getDate()&&d.mon===curMon;});
   return {label:dom+' Week '+wk, range:ds[0].raw+' – '+ds[ds.length-1].raw, today:today};
 }
+var _DOW_WEEKS=null,_DOW_METAS=null,_DOW_NAMECOL=0,_DOW_OTHERS=null;
+function _dowTable(w){
+  var tbl='<div class="dayoff-wrap"><table class="dayoff">';
+  if(w.dates){
+    var cells='<td class="do-namecell do-datehdr"></td>';
+    _DOW_OTHERS.forEach(function(c){cells+='<td class="do-datehdr">'+_annEsc((w.dates[c]||'').trim())+'</td>';});
+    tbl+='<tr>'+cells+'</tr>';
+  }
+  w.agents.forEach(function(r){
+    var nm=(r[_DOW_NAMECOL]||'').trim();
+    var cells='<td class="do-namecell">'+_annEsc(nm)+'</td>';
+    _DOW_OTHERS.forEach(function(c){var v=(r[c]||'').trim();var cls=_isVac(v)?'do-vac':_isOff(v)?'do-off':_isWork(v)?'do-work':'';cells+='<td class="'+cls+'">'+_annEsc(v)+'</td>';});
+    tbl+='<tr>'+cells+'</tr>';
+  });
+  tbl+='</table></div>';
+  return tbl;
+}
+function _dowPickerLabel(meta){return meta.range||meta.label;}
+function _dowPickerHtml(sel){
+  var opts=_DOW_METAS.map(function(m,i){
+    return '<button type="button" class="dow-opt'+(i===sel?' active':'')+'" onclick="_dowSelect('+i+')">'+_annEsc(_dowPickerLabel(m))+(m.today?' · اليوم':'')+'</button>';
+  }).join('');
+  return '<div class="dow-picker" id="dowPicker">'+
+      '<button type="button" class="dow-picker-btn" onclick="_dowToggle(event)">'+
+        '<span>'+_annEsc(_dowPickerLabel(_DOW_METAS[sel]))+'</span>'+
+        '<svg class="dow-picker-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>'+
+      '</button>'+
+      '<div class="dow-picker-list" id="dowPickerList" hidden>'+opts+'</div>'+
+    '</div>';
+}
+function _dowToggle(ev){
+  if(ev)ev.stopPropagation();
+  var l=document.getElementById('dowPickerList'), p=document.getElementById('dowPicker'); if(!l||!p)return;
+  if(l.hasAttribute('hidden')){l.removeAttribute('hidden');p.classList.add('open');}
+  else{l.setAttribute('hidden','');p.classList.remove('open');}
+}
+document.addEventListener('click',function(ev){
+  var p=document.getElementById('dowPicker'); if(!p)return;
+  if(!p.contains(ev.target)){var l=document.getElementById('dowPickerList');if(l&&!l.hasAttribute('hidden')){l.setAttribute('hidden','');p.classList.remove('open');}}
+});
+function _dowSelect(idx){
+  if(!_DOW_WEEKS||!_DOW_WEEKS[idx])return;
+  var el=document.getElementById('dayoffBody'); if(!el)return;
+  el.innerHTML=_dowPickerHtml(idx)+'<div class="dow-table-wrap">'+_dowTable(_DOW_WEEKS[idx])+'</div>';
+}
 function _dayoffRender(rows){
   var el=document.getElementById('dayoffBody'); if(!el)return;
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(!rows.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   var ncol=Math.max.apply(null,rows.map(function(r){return r.length;}));
   var nameCol=0,best=-1;
-  for(var c=0;c<ncol;c++){var sc=0;rows.forEach(function(r){var v=(r[c]||'').trim();if(v&&!_isOff(v)&&!_isWork(v)&&!_isVac(v)&&!_isDate(v)&&/[A-Za-z\u0600-\u06FF]/.test(v))sc++;});if(sc>best){best=sc;nameCol=c;}}
+  for(var c=0;c<ncol;c++){var sc=0;rows.forEach(function(r){var v=(r[c]||'').trim();if(v&&!_isOff(v)&&!_isWork(v)&&!_isVac(v)&&!_isDate(v)&&/[A-Za-z؀-ۿ]/.test(v))sc++;});if(sc>best){best=sc;nameCol=c;}}
   var others=[];for(var c=0;c<ncol;c++){if(c!==nameCol)others.push(c);}
   // partition into weeks (a date-header row starts a week)
   var weeks=[],cur=null;
@@ -5241,29 +5297,10 @@ function _dayoffRender(rows){
   weeks=weeks.filter(function(w){return w.agents.length||w.dates;});
   if(!weeks.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   var metas=weeks.map(function(w,i){return w.dates?_doWeekMeta(w.dates,others):{label:'Week '+(i+1),range:'',today:false};});
-  var anyToday=metas.some(function(m){return m.today;});
-  el.innerHTML=weeks.map(function(w,idx){
-    var meta=metas[idx], open=meta.today||(!anyToday&&idx===0);
-    var tbl='<div class="dayoff-wrap"><table class="dayoff">';
-    if(w.dates){
-      var cells='<td class="do-namecell do-datehdr"></td>';
-      others.forEach(function(c){cells+='<td class="do-datehdr">'+_annEsc((w.dates[c]||'').trim())+'</td>';});
-      tbl+='<tr>'+cells+'</tr>';
-    }
-    w.agents.forEach(function(r){
-      var nm=(r[nameCol]||'').trim();
-      var cells='<td class="do-namecell">'+_annEsc(nm)+'</td>';
-      others.forEach(function(c){var v=(r[c]||'').trim();var cls=_isVac(v)?'do-vac':_isOff(v)?'do-off':_isWork(v)?'do-work':'';cells+='<td class="'+cls+'">'+_annEsc(v)+'</td>';});
-      tbl+='<tr>'+cells+'</tr>';
-    });
-    tbl+='</table></div>';
-    var head='<button class="dayoff-week-head'+(open?' open':'')+'" onclick="_accToggle(this)">'+
-      '<svg class="dayoff-week-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>'+
-      '<span class="dayoff-week-label">'+_annEsc(meta.label)+'</span>'+
-      (meta.range?'<span class="dayoff-week-range">'+_annEsc(meta.range)+'</span>':'')+'</button>';
-    var body='<div class="dayoff-week-body"'+(open?'':' hidden')+'>'+tbl+'</div>';
-    return '<div class="dayoff-week">'+head+body+'</div>';
-  }).join('');
+  var sel=metas.findIndex(function(m){return m.today;});
+  if(sel<0)sel=weeks.length-1;
+  _DOW_WEEKS=weeks; _DOW_METAS=metas; _DOW_NAMECOL=nameCol; _DOW_OTHERS=others;
+  el.innerHTML=_dowPickerHtml(sel)+'<div class="dow-table-wrap">'+_dowTable(weeks[sel])+'</div>';
 }
 async function loadDayOff(){var b=document.getElementById('dayoffStatus');try{var rows=await fetchSheet('2078071010');_dayoffRender(rows);if(b)b.textContent='Live';}catch(e){if(b)b.textContent='Cached';}}
 function _isVac(v){return /^(v|vac|vacation|إجازة|اجازة|اجازه|إجازه|leave|عطلة|اجازة سنوية)$/i.test((v||'').trim());}
