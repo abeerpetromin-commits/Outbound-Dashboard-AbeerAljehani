@@ -4795,8 +4795,25 @@ function _baicInsRender(rows){
   groups=groups.filter(function(g){return g.items.length;});
   if(!groups.length)return false;
   function ic(n){n=(n||'').toLowerCase();if(/warranty|ضمان/.test(n))return '🛡️';if(/pms|service|sercive|صيانة|دوري|maintenance/.test(n))return '🔧';if(/appointment|script|موعد/.test(n))return '📄';return '📄';}
-  function _grpNm(g,i){if(g.name)return g.name;var tx=g.items.map(function(it){return it.label+' '+it.content;}).join(' ').toLowerCase();if(/pms|service|maintenance|صيانة|دوري|زيت|جير/.test(tx))return 'PMS Services';if(/warranty|ضمان|battery|بطارية/.test(tx))return 'Warranty';return 'Section '+(i+1);}
-  var tabs=groups.map(function(g,i){var nm=_grpNm(g,i);return '<button type="button" class="niref-tab baic-tab'+(i===0?' active':'')+'" onclick="_baicInsTab('+i+')">'+ic(nm)+' '+_annEsc(nm)+'</button>';}).join('');
+  function _grpNm(g,i){
+    var hasName=g.name && !/^section\b/i.test(g.name.trim());
+    if(hasName)return g.name;
+    var tx=g.items.map(function(it){return it.label+' '+it.content;}).join(' ').toLowerCase();
+    if(/pms|service|maintenance|صيانة|دوري|زيت|جير/.test(tx))return 'PMS Services';
+    if(/warranty|ضمان|battery|بطارية/.test(tx))return 'Warranty';
+    if(/appointment|script|موعد/.test(tx))return 'Appointment Script';
+    return 'Section '+(i+1);
+  }
+  groups.forEach(function(g,i){g._nm=_grpNm(g,i);});
+  groups=groups.filter(function(g){return !/vehicle\s*model/i.test(g._nm);});
+  if(!groups.length)return false;
+  groups.forEach(function(g){
+    g.items.sort(function(a,b){
+      var ab=/battery|بطارية/i.test(a.label)?1:0, bb=/battery|بطارية/i.test(b.label)?1:0;
+      return ab-bb;
+    });
+  });
+  var tabs=groups.map(function(g,i){var nm=g._nm;return '<button type="button" class="niref-tab baic-tab'+(i===0?' active':'')+'" onclick="_baicInsTab('+i+')">'+ic(nm)+' '+_annEsc(nm)+'</button>';}).join('');
   var panels=groups.map(function(g,i){
     var cards=g.items.map(function(it){
       var lines=_niSplit(it.content);
