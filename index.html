@@ -1337,8 +1337,10 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .stitk-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .stitk-item-title{font-size:12.5px;font-weight:700;color:#333}
 .stitk-item-badges{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.stitk-pill-stack{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px}
+.stitk-pill-wide{width:100%;box-sizing:border-box;padding:8px 16px;font-size:13px}
 .stitk-item-badge{background:var(--st-bg);color:var(--st);border:1px solid rgba(18,87,196,.25);border-radius:10px;padding:3px 10px;font-size:11px;font-weight:700;white-space:pre-line;text-align:center}
-.stitk-item-link{text-decoration:none;cursor:pointer}
+.stitk-item-link{text-decoration:none;cursor:pointer;border-radius:8px;padding:7px 26px;font-size:13px}
 .stitk-item-link:hover{background:var(--st);color:#fff}
 .stitk-plus{font-size:16px;font-weight:800;color:var(--st);opacity:.55}
 .stitk-row{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
@@ -4815,7 +4817,8 @@ async function loadStAppointmentSms(){
 }
 /* ── STELLANTIS SALES INSTRUCTION (Ticket Type layout, from sheet) ── */
 var STSALES_GID='302162348';
-function _stitkBadge(b){return b.href?('<a class="stitk-item-badge stitk-item-link" href="'+_baicEsc(b.href)+'" target="_blank" rel="noopener">'+_baicEsc(b.label)+'</a>'):('<div class="stitk-item-badge">'+_baicEsc(b.label)+'</div>');}
+var _STITK_FILE_ICON='<img src="data:image/png;base64,'+'iVBORw0KGgoAAAANSUhEUgAAAEUAAABXCAYAAABSk4i5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAARjSURBVHhe7ZhtTxxVFMf/987MDuxW6ALahIDVlFKeSlFTGo1pbDTGF33jt+nH8AP4XWpB3jRVjC3WWGjUhoqLLC37wBaWub4YGNi7Z+ns2Rm4kPtLTsI9M5l798c9Zx7Eve++V7A0IPWExUohsVIIrBQCK4XASiGwUgisFAIrhcBKIbBSCKwUAiuFwEohEJ18Orjz0QwGB/r0dOLs7gR4/vIFHj1b0Q+lAktKzvfx7ee3cSmfvhAAqFV3UCiu4t9KBXOPl/TDicMqn4nB4RMTcoBSCu9ls/hielI/lDgsKb7jAQonFwCECJc60J2+GJaUQDSvO80AACnEoZhsFl/euN6wpiRhSTkNhJCHYhSQ7+5KTcwZkiIgZKOYvu4ufP3xtH5qx5whKbJJjFJAj+8nLoYvRS/8lEMKSYpBAPT4ye4YvhR91SmHEOIYMQq9fhe+uTmjL5JFB1LSR0AcDmQoo5UYFSi842YSEWO0lAAKav9viVBCHDF3b32iXak92FKaN3jSoYD9nSKkwGaxGP74GGK6pYO7s3wxbCnpI/b1CAjhoL/3Egoviqhu1vGmpLBTBuplgXrFQb3qYK/mQdU8qFoGQdVD914W14aH9YvGgvVC+NnIOG5dT+fBqQkVytkLFFQQLlWpwyUfdh0FJcIupAKFQCk8/vMZ5p8+ic6Ii8E7ZR8R3nkcR8JxJRxHQEqEHUcBgQo7j5QSjiPheg4834Xf5aFcr+lXi4X5UqL+oiBE2F8c14GX8ZDxHWR8D17GhXQlpDxyt+qAMyHlpLFSCNiNdnaqdaNdeb6MQmEtGpMTHGmWaHXOMQgpMDpyDQP97+qHIh48+RmLy8t6+q2kIuXHhR/w6vWraExO0KEUABgbHcfo1TE9HWGUlO3tKqrVajSmJ6Cz7ZC/mIfjuHo6wigppsCVYhstAV9K+OhgdjDhl89k6/L5afEh/ll7GY3JCRJotDemZnD5/Q/1dMSDJYPK5+i7SZocfN1PGtZO+XRkHLOTU3raOOaWFs3ZKWcdK4WAVz5Xji+f3d1dbJVe6+lGtFnbXYSUAn35fj3dwNxvvPJJRcrcwn2USlvRmJwggbvP1SujGBud0NMRRkkprK81vPuQdLhTAGBocAi53AU9HWGUFFPgSrGNloAtRSnzgwu7fG5OtC6f4uYGNjbWo3G7E/i+j8vDrR/f4zL/lFc+qUiZX7iPUrmzu8+d218hl23dRONglJTt2jaq1Yqejo3ruujtuain28YoKabAlcJutE3fLkwNBnwp5xi2FP0fYmJwYUs5z1gpBB1I0TericGDL0Wf38RgwpdyjrFSCKwUAp4UFTSVr4mxx/x+wJJSeVNrXoGBsbpe0JceC5aUX1f/wsbWW77WnzK/rPyBjVJJT8eC9ZZ8wPTQB7jg5fT06RIoFCtl/P7f3/qR2HQk5bzCKp/zjpVCYKUQWCkEVgqBlUJgpRBYKQRWCoGVQmClEFgpBFYKgZVCYKUQWCkEVgrB/8XpdRaxtWtDAAAAAElFTkSuQmCC'+'" style="width:14px;height:14px;vertical-align:-2px" alt="">';
+function _stitkBadge(b){var inner=b.html?b.html:_baicEsc(b.label);return b.href?('<a class="stitk-item-badge stitk-item-link" href="'+_baicEsc(b.href)+'" target="_blank" rel="noopener">'+inner+'</a>'):('<div class="stitk-item-badge">'+inner+'</div>');}
 function _stitkFormula(items){
   return items.map(function(it,i){
     var badges=it.badges?it.badges:[{label:it.badge,href:it.href}];
@@ -4828,24 +4831,25 @@ function _stitkChips(list,cls){
   return list.map(function(c){return '<span class="stitk-chip'+(cls&&cls[c]?(' '+cls[c]):'')+'">'+_baicEsc(c)+'</span>';}).join('');
 }
 function _stitkCopy(idx,btn){var t=(window._STITK_EX||[])[idx]||'';function done(){var o=btn.innerHTML;btn.innerHTML='✓';setTimeout(function(){btn.innerHTML=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
-function _stitkCard(title,status,items,depts,cats,catCls,desc,example,deptLabel){
+function _stitkPillStack(list){return '<div class="stitk-pill-stack">'+list.map(function(t){return '<div class="stitk-item-badge stitk-pill-wide">'+_baicEsc(t)+'</div>';}).join('')+'</div>';}
+function _stitkCard(title,status,items,depts,cats,catCls,desc,example,deptLabel,catLabel,pillStack){
   window._STITK_EX=window._STITK_EX||[];
   var exIdx=window._STITK_EX.length;
   window._STITK_EX.push(example);
   return '<div class="stitk-card">'+
     '<div class="stitk-card-head"><span class="stitk-card-title">'+_baicEsc(title)+'</span></div>'+
     '<div class="stitk-formula">'+_stitkFormula(items)+'</div>'+
-    '<div class="stitk-row"><div class="stitk-row-label">📁 '+_baicEsc(deptLabel||'Departments')+'</div><div class="stitk-row-body">'+_stitkChips(depts)+'</div></div>'+
-    (cats?'<div class="stitk-row"><div class="stitk-row-label">🏷️ Category</div><div class="stitk-row-body">'+_stitkChips(cats,catCls)+'</div></div>':'')+
-    '<div class="stitk-row"><div class="stitk-row-label">✏️ Description</div><div class="stitk-row-body"><span class="stitk-desc-box">'+_baicEsc(desc)+'</span></div></div>'+
-    '<div class="stitk-row"><div class="stitk-row-label">💡 Example</div><div class="stitk-row-body"><span class="stitk-example">'+_baicEsc(example)+'</span><button type="button" class="stitk-copy-btn" onclick="_stitkCopy('+exIdx+',this)" title="Copy">'+_CLIP_IC+'</button></div></div>'+
+    (depts?'<div class="stitk-row"><div class="stitk-row-label">📁 '+_baicEsc(deptLabel||'Departments')+'</div><div class="stitk-row-body">'+_stitkChips(depts)+'</div></div>':'')+
+    (cats||pillStack?'<div class="stitk-row"><div class="stitk-row-label">🏷️ '+_baicEsc(catLabel||'Category')+'</div><div class="stitk-row-body">'+(pillStack?_stitkPillStack(pillStack):_stitkChips(cats,catCls))+'</div></div>':'')+
+    (desc?'<div class="stitk-row"><div class="stitk-row-label">✏️ Description</div><div class="stitk-row-body"><span class="stitk-desc-box">'+_baicEsc(desc)+'</span></div></div>':'')+
+    (example?'<div class="stitk-row"><div class="stitk-row-label">💡 Example</div><div class="stitk-row-body"><span class="stitk-example">'+_baicEsc(example)+'</span><button type="button" class="stitk-copy-btn" onclick="_stitkCopy('+exIdx+',this)" title="Copy">'+_CLIP_IC+'</button></div></div>':'')+
   '</div>';
 }
 function _stSalesRender(rows){
   var host=document.getElementById('stSalesBody'); if(!host)return;
   window._STITK_EX=[];
   var offerRows=(rows||[]).slice(2).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
-  var offersText=offerRows.map(function(r){return (r[0]||'').trim();}).filter(Boolean).join('\n')||'لا توجد عروض حالياً';
+  var offersList=offerRows.map(function(r){return (r[0]||'').trim();}).filter(Boolean);
   var cardInquiry=_stitkCard('Request','Closed Satisfied',
     [{title:'Sales (Social Media)',badge:'New Lead Salesforce Source ( Insta or Tiktok , facebook )'},
      {title:'Contact the customer',badge:'Share the price list inforamation'},
@@ -4854,15 +4858,12 @@ function _stSalesRender(rows){
     null,{},
     'كتابة راتب العميل - المدينة - كاش او أقساط','Salary : 6000\nCity: Jeddah\nCash / Finance','Transfer the opportunity to');
   var cardAppointment=_stitkCard('Appointment','Closed Satisfied',
-    [{title:'Invoice Number',badge:'Appointment'},
-     {title:'Price List',badges:[
-       {label:'Open Sheet',href:'https://docs.google.com/spreadsheets/d/1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg/edit?gid=302162348#gid=302162348'},
-       {label:'📎 File'}
-     ]},
-     {title:'Description',badge:'Appointment'},{title:'🎁 Offers',badge:offersText}],
-    ['Nissan','Stellantis','PAC','BAIC'],
-    ['GR Appointment','PMS Appointment','Recall'],{},
-    'WIP: Date: Time:','حجز موعد ( صيانة دورية - اصلاحات - استدعاء )');
+    [{title:'Price List',badges:[
+       {label:'📄 File',href:'https://petromincrm-my.sharepoint.com/:x:/r/personal/sali_aljehani_petromin_com/_layouts/15/Doc.aspx?sourcedoc=%7B9C84F16B-DAC4-414C-B307-8CB3A74F0D2E%7D&file=Sales%20Price%20List.xlsx&action=default&mobileredirect=true'}
+     ]}],
+    null,
+    [],{},
+    null,null,null,'Offers Category',offersList);
   host.innerHTML='<div class="stitk-header">📋 Sales Instruction <span style="font-size:11px">▲</span></div>'+
     '<div class="stitk-grid">'+cardInquiry+cardAppointment+'</div>';
 }
