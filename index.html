@@ -5232,7 +5232,39 @@ function _doWeekMeta(dateRow,others){
   var today=ds.some(function(d){return d.day===now.getDate()&&d.mon===curMon;});
   return {label:dom+' Week '+wk, range:ds[0].raw+' – '+ds[ds.length-1].raw, today:today};
 }
-var _DOW_WEEKS=null,_DOW_METAS=null,_DOW_NAMECOL=0,_DOW_OTHERS=null;
+var _PERIOD_STATE={};
+function _periodPickerHtml(pickerId,sel){
+  var st=_PERIOD_STATE[pickerId]; if(!st)return '';
+  var opts=st.items.map(function(m,i){
+    return '<button type="button" class="dow-opt'+(i===sel?' active':'')+'" onclick="_periodSelect(\''+pickerId+'\','+i+')">'+_annEsc(m.label)+(m.today?' · اليوم':'')+'</button>';
+  }).join('');
+  return '<div class="dow-picker" id="'+pickerId+'">'+
+      '<button type="button" class="dow-picker-btn" onclick="_periodToggle(event,\''+pickerId+'\')">'+
+        '<span>'+_annEsc(st.items[sel].label)+'</span>'+
+        '<svg class="dow-picker-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>'+
+      '</button>'+
+      '<div class="dow-picker-list" id="'+pickerId+'List" hidden>'+opts+'</div>'+
+    '</div>';
+}
+function _periodToggle(ev,pickerId){
+  if(ev)ev.stopPropagation();
+  var l=document.getElementById(pickerId+'List'), p=document.getElementById(pickerId); if(!l||!p)return;
+  if(l.hasAttribute('hidden')){l.removeAttribute('hidden');p.classList.add('open');}
+  else{l.setAttribute('hidden','');p.classList.remove('open');}
+}
+document.addEventListener('click',function(ev){
+  Object.keys(_PERIOD_STATE).forEach(function(pickerId){
+    var p=document.getElementById(pickerId); if(!p||p.contains(ev.target))return;
+    var l=document.getElementById(pickerId+'List'); if(l&&!l.hasAttribute('hidden')){l.setAttribute('hidden','');p.classList.remove('open');}
+  });
+});
+function _periodSelect(pickerId,idx){
+  var st=_PERIOD_STATE[pickerId]; if(!st||!st.items[idx])return;
+  st.sel=idx;
+  var body=document.getElementById(st.bodyId); if(!body)return;
+  body.innerHTML=_periodPickerHtml(pickerId,idx)+'<div class="dow-table-wrap">'+st.tableFn(st.items[idx])+'</div>';
+}
+var _DOW_NAMECOL=0,_DOW_OTHERS=null;
 function _dowTable(w){
   var tbl='<div class="dayoff-wrap"><table class="dayoff">';
   if(w.dates){
@@ -5248,34 +5280,6 @@ function _dowTable(w){
   });
   tbl+='</table></div>';
   return tbl;
-}
-function _dowPickerLabel(meta){return meta.range||meta.label;}
-function _dowPickerHtml(sel){
-  var opts=_DOW_METAS.map(function(m,i){
-    return '<button type="button" class="dow-opt'+(i===sel?' active':'')+'" onclick="_dowSelect('+i+')">'+_annEsc(_dowPickerLabel(m))+(m.today?' · اليوم':'')+'</button>';
-  }).join('');
-  return '<div class="dow-picker" id="dowPicker">'+
-      '<button type="button" class="dow-picker-btn" onclick="_dowToggle(event)">'+
-        '<span>'+_annEsc(_dowPickerLabel(_DOW_METAS[sel]))+'</span>'+
-        '<svg class="dow-picker-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>'+
-      '</button>'+
-      '<div class="dow-picker-list" id="dowPickerList" hidden>'+opts+'</div>'+
-    '</div>';
-}
-function _dowToggle(ev){
-  if(ev)ev.stopPropagation();
-  var l=document.getElementById('dowPickerList'), p=document.getElementById('dowPicker'); if(!l||!p)return;
-  if(l.hasAttribute('hidden')){l.removeAttribute('hidden');p.classList.add('open');}
-  else{l.setAttribute('hidden','');p.classList.remove('open');}
-}
-document.addEventListener('click',function(ev){
-  var p=document.getElementById('dowPicker'); if(!p)return;
-  if(!p.contains(ev.target)){var l=document.getElementById('dowPickerList');if(l&&!l.hasAttribute('hidden')){l.setAttribute('hidden','');p.classList.remove('open');}}
-});
-function _dowSelect(idx){
-  if(!_DOW_WEEKS||!_DOW_WEEKS[idx])return;
-  var el=document.getElementById('dayoffBody'); if(!el)return;
-  el.innerHTML=_dowPickerHtml(idx)+'<div class="dow-table-wrap">'+_dowTable(_DOW_WEEKS[idx])+'</div>';
 }
 function _dayoffRender(rows){
   var el=document.getElementById('dayoffBody'); if(!el)return;
@@ -5297,10 +5301,12 @@ function _dayoffRender(rows){
   weeks=weeks.filter(function(w){return w.agents.length||w.dates;});
   if(!weeks.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   var metas=weeks.map(function(w,i){return w.dates?_doWeekMeta(w.dates,others):{label:'Week '+(i+1),range:'',today:false};});
-  var sel=metas.findIndex(function(m){return m.today;});
+  var items=metas.map(function(m,i){return {label:m.range||m.label,today:m.today,_w:weeks[i]};});
+  var sel=items.findIndex(function(it){return it.today;});
   if(sel<0)sel=weeks.length-1;
-  _DOW_WEEKS=weeks; _DOW_METAS=metas; _DOW_NAMECOL=nameCol; _DOW_OTHERS=others;
-  el.innerHTML=_dowPickerHtml(sel)+'<div class="dow-table-wrap">'+_dowTable(weeks[sel])+'</div>';
+  _DOW_NAMECOL=nameCol; _DOW_OTHERS=others;
+  _PERIOD_STATE['dowPicker']={items:items,bodyId:'dayoffBody',tableFn:function(it){return _dowTable(it._w);}};
+  el.innerHTML=_periodPickerHtml('dowPicker',sel)+'<div class="dow-table-wrap">'+_dowTable(weeks[sel])+'</div>';
 }
 async function loadDayOff(){var b=document.getElementById('dayoffStatus');try{var rows=await fetchSheet('2078071010');_dayoffRender(rows);if(b)b.textContent='Live';}catch(e){if(b)b.textContent='Cached';}}
 function _isVac(v){return /^(v|vac|vacation|إجازة|اجازة|اجازه|إجازه|leave|عطلة|اجازة سنوية)$/i.test((v||'').trim());}
@@ -5334,6 +5340,13 @@ function _mergeAgents(agents,nameCol){
   });
   return order.map(function(k){return map[k];});
 }
+function _vacTable(m){
+  var tbl='<div class="dayoff-wrap"><table class="dayoff">';
+  m.rows.forEach(function(r){ tbl+=_vacRowHtml(r,_VAC_OTHERS,_VAC_NAMECOL,!_isRealName((r[_VAC_NAMECOL]||'').trim())); });
+  tbl+='</table></div>';
+  return tbl;
+}
+var _VAC_NAMECOL=0,_VAC_OTHERS=null;
 function _vacRender(rows){
   var el=document.getElementById('vacationBody'); if(!el)return;
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
@@ -5342,7 +5355,6 @@ function _vacRender(rows){
   var nameCol=0,best=-1;
   for(var c=0;c<ncol;c++){var sc=0;rows.forEach(function(r){if(_isRealName((r[c]||'').trim()))sc++;});if(sc>best){best=sc;nameCol=c;}}
   var others=[];for(var c=0;c<ncol;c++){if(c!==nameCol)others.push(c);}
-  function isNum(v){return /^\d{1,2}$/.test((v||'').trim());}
   function isAgentRow(r){return _isRealName((r[nameCol]||'').trim());}
   // group rows into months (a row containing a month name starts a new month block)
   var months=[],cur=null;
@@ -5356,20 +5368,15 @@ function _vacRender(rows){
   months=months.filter(function(m){return m.rows.length;});
   if(!months.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   var now=new Date(), curMo=now.toLocaleDateString('en-US',{month:'long'}).toLowerCase(), curYr=''+now.getFullYear();
-  var opens=months.map(function(m){return !!(m.label && m.label.toLowerCase().indexOf(curMo)===0 && m.label.indexOf(curYr)>-1);});
-  if(opens.indexOf(true)===-1) opens[0]=true;
-  el.innerHTML=months.map(function(m,idx){
-    var open=opens[idx];
-    var tbl='<div class="dayoff-wrap"><table class="dayoff">';
-    m.rows.forEach(function(r){ tbl+=_vacRowHtml(r,others,nameCol,!isAgentRow(r)); });
-    tbl+='</table></div>';
-    var head='<button class="dayoff-week-head'+(open?' open':'')+'" onclick="_accToggle(this)">'+
-      '<svg class="dayoff-week-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>'+
-      '<span class="dayoff-week-label">'+_annEsc(m.label||('Month '+(idx+1)))+'</span>'+
-      '<span class="dayoff-week-range">\ud83c\udf34 Vacation</span></button>';
-    var body='<div class="dayoff-week-body"'+(open?'':' hidden')+'>'+tbl+'</div>';
-    return '<div class="dayoff-week">'+head+body+'</div>';
-  }).join('');
+  var items=months.map(function(m,idx){
+    var today=!!(m.label && m.label.toLowerCase().indexOf(curMo)===0 && m.label.indexOf(curYr)>-1);
+    return {label:m.label||('Month '+(idx+1)),today:today,_m:m};
+  });
+  var sel=items.findIndex(function(it){return it.today;});
+  if(sel<0)sel=0;
+  _VAC_NAMECOL=nameCol; _VAC_OTHERS=others;
+  _PERIOD_STATE['vacPicker']={items:items,bodyId:'vacationBody',tableFn:function(it){return _vacTable(it._m);}};
+  el.innerHTML=_periodPickerHtml('vacPicker',sel)+'<div class="dow-table-wrap">'+_vacTable(months[sel])+'</div>';
 }
 async function loadVacation(){var b=document.getElementById('vacationStatus');try{var rows=await fetchSheetFrom('1_gyBRnPB7SaGtlF5mukNWReTaW75Bs04_2M3AP02SfA','0');_vacRender(rows);if(b)b.textContent='Live';}catch(e){if(b)b.textContent='Cached';}}
 async function loadSocial(){var b=document.getElementById('socialStatus');try{var rows=await fetchSheet('618873602');_socialRender('socialBody',rows);if(b)b.textContent='Live';}catch(e){if(b)b.textContent='Cached';}}
@@ -5432,6 +5439,54 @@ function _monShort(m){m=(m||'').trim();if(!m)return '';
   var ml=m.toLowerCase();
   for(var i=0;i<12;i++){if(ml.indexOf(en[i].toLowerCase())>-1||new RegExp(ar[i]).test(m))return en[i];}
   return m.length>4?m.slice(0,3):m;}
+function _socBlockHtml(b){
+  var days=b.days||[],dates=b.dates||[],nrs=b.nameRows||[];
+  var n=Math.max.apply(null,[days.length,dates.length].concat(nrs.map(function(x){return x.length;})));
+  var cols=[];
+  for(var i=0;i<n;i++){
+    var dn=(days[i]||'').trim(),dt=(dates[i]||'').trim(),nm=[];
+    nrs.forEach(function(rr){var v=(rr[i]||'').trim();if(v)nm.push(v);});
+    if(!dn&&!dt&&!nm.length)continue;
+    cols.push({dn:dn,dt:dt,nm:nm,sat:_socSat(dn),sup:nm.some(function(x){return _socSup(x);})});
+  }
+  var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var head=WD.map(function(d,i){return '<div class="cal-wday'+((i===5||i===6)?' cal-w-end':'')+'">'+d+'</div>';}).join('');
+  if(!cols.length)return '';
+  var isNow=_monthMatchesNow(b.month), todayNum=(new Date()).getDate(), mAb=_monShort(b.month);
+  // align days into weekday columns -> slots (null = empty)
+  var slots=[], col=0;
+  cols.forEach(function(c){
+    var wi=_wdayIdx(c.dn);
+    if(wi>=0){while(col!==wi){slots.push(null);col=(col+1)%7;}}
+    slots.push(c); col=(col+1)%7;
+  });
+  while(col!==0){slots.push(null);col=(col+1)%7;}
+  // chunk into weeks of 7 -> collapsible
+  var weeksHtml='', wk=0;
+  for(var s=0;s<slots.length;s+=7){
+    wk++;
+    var wkSlots=slots.slice(s,s+7);
+    var nums=wkSlots.filter(function(x){return x&&x.dt;}).map(function(x){return x.dt;});
+    var range=nums.length?(nums[0]+(nums.length>1?(' – '+nums[nums.length-1]):'')+(mAb?(' '+mAb):'')):'';
+    var hasToday=isNow&&wkSlots.some(function(x){return x&&x.dt&&parseInt(x.dt,10)===todayNum;});
+    var cellsHtml=wkSlots.map(function(x){
+      if(!x)return '<div class="cal-empty"></div>';
+      var cls='cal-cell'+(x.sat?' cal-sat':'')+(x.sup?' cal-sup':'');
+      if(isNow&&x.dt&&parseInt(x.dt,10)===todayNum)cls+=' cal-today';
+      var namesHtml=x.nm.map(function(nm){return '<span class="cal-name">'+_annEsc(nm)+'</span>';}).join('');
+      return '<div class="'+cls+'">'+(x.dt?'<span class="cal-num">'+_annEsc(x.dt)+'</span>':'')+(namesHtml?'<div class="cal-names">'+namesHtml+'</div>':'')+'</div>';
+    }).join('');
+    var open=hasToday;
+    var headBtn='<button class="cal-week-head'+(open?' open':'')+'" onclick="_accToggle(this)">'+
+      '<svg class="cal-week-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>'+
+      '<span>Week '+wk+'</span>'+(range?'<span class="cal-week-range">'+_annEsc(range)+'</span>':'')+'</button>';
+    var wbody='<div class="cal-week-body"'+(open?'':' hidden')+'><div class="cal-wrap"><div class="cal-grid">'+head+cellsHtml+'</div></div></div>';
+    weeksHtml+='<div class="cal-week">'+headBtn+wbody+'</div>';
+  }
+  var bar='<div class="cal-month-bar"><span class="cal-mname">'+_annEsc(b.month||'Schedule')+'</span><span class="cal-mcount">'+cols.length+' days · '+wk+' weeks</span></div>';
+  var legend='<div class="cal-legend"><span><i class="cal-lg-today"></i>اليوم Today</span><span><i class="cal-lg-sat"></i>السبت Saturday</span><span><i class="cal-lg-sup"></i>دعم Support</span></div>';
+  return '<div class="cal-month">'+bar+legend+'<div class="cal-weeks">'+weeksHtml+'</div></div>';
+}
 function _socialRender(id,rows){
   var el=document.getElementById(id); if(!el)return;
   rows=(rows||[]).map(function(r){return r||[];});
@@ -5446,59 +5501,18 @@ function _socialRender(id,rows){
     if(!cur){ cur={month:'',days:null,dates:null,nameRows:[]}; blocks.push(cur); }
     if(dayCount>=2 && !cur.days){ cur.days=r; if(!cur.month&&monthCell)cur.month=monthCell; return; }
     if(numCount>=2 && !cur.dates){ cur.dates=r; return; }
-    var hasName=r.some(function(c){return /[A-Za-z\u0600-\u06FF]/.test((c||''));});
+    var hasName=r.some(function(c){return /[A-Za-z؀-ۿ]/.test((c||''));});
     if(hasName){ cur.nameRows.push(r); }
   });
   blocks=blocks.filter(function(b){return (b.days||b.dates||b.nameRows.length);});
   if(!blocks.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
-  var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  var head=WD.map(function(d,i){return '<div class="cal-wday'+((i===5||i===6)?' cal-w-end':'')+'">'+d+'</div>';}).join('');
-  el.innerHTML=blocks.map(function(b){
-    var days=b.days||[],dates=b.dates||[],nrs=b.nameRows||[];
-    var n=Math.max.apply(null,[days.length,dates.length].concat(nrs.map(function(x){return x.length;})));
-    var cols=[];
-    for(var i=0;i<n;i++){
-      var dn=(days[i]||'').trim(),dt=(dates[i]||'').trim(),nm=[];
-      nrs.forEach(function(rr){var v=(rr[i]||'').trim();if(v)nm.push(v);});
-      if(!dn&&!dt&&!nm.length)continue;
-      cols.push({dn:dn,dt:dt,nm:nm,sat:_socSat(dn),sup:nm.some(function(x){return _socSup(x);})});
-    }
-    if(!cols.length)return '';
-    var isNow=_monthMatchesNow(b.month), todayNum=(new Date()).getDate(), mAb=_monShort(b.month);
-    // align days into weekday columns -> slots (null = empty)
-    var slots=[], col=0;
-    cols.forEach(function(c){
-      var wi=_wdayIdx(c.dn);
-      if(wi>=0){while(col!==wi){slots.push(null);col=(col+1)%7;}}
-      slots.push(c); col=(col+1)%7;
-    });
-    while(col!==0){slots.push(null);col=(col+1)%7;}
-    // chunk into weeks of 7 -> collapsible
-    var weeksHtml='', wk=0;
-    for(var s=0;s<slots.length;s+=7){
-      wk++;
-      var wkSlots=slots.slice(s,s+7);
-      var nums=wkSlots.filter(function(x){return x&&x.dt;}).map(function(x){return x.dt;});
-      var range=nums.length?(nums[0]+(nums.length>1?(' – '+nums[nums.length-1]):'')+(mAb?(' '+mAb):'')):'';
-      var hasToday=isNow&&wkSlots.some(function(x){return x&&x.dt&&parseInt(x.dt,10)===todayNum;});
-      var cellsHtml=wkSlots.map(function(x){
-        if(!x)return '<div class="cal-empty"></div>';
-        var cls='cal-cell'+(x.sat?' cal-sat':'')+(x.sup?' cal-sup':'');
-        if(isNow&&x.dt&&parseInt(x.dt,10)===todayNum)cls+=' cal-today';
-        var namesHtml=x.nm.map(function(nm){return '<span class="cal-name">'+_annEsc(nm)+'</span>';}).join('');
-        return '<div class="'+cls+'">'+(x.dt?'<span class="cal-num">'+_annEsc(x.dt)+'</span>':'')+(namesHtml?'<div class="cal-names">'+namesHtml+'</div>':'')+'</div>';
-      }).join('');
-      var open=hasToday;
-      var headBtn='<button class="cal-week-head'+(open?' open':'')+'" onclick="_accToggle(this)">'+
-        '<svg class="cal-week-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>'+
-        '<span>Week '+wk+'</span>'+(range?'<span class="cal-week-range">'+_annEsc(range)+'</span>':'')+'</button>';
-      var body='<div class="cal-week-body"'+(open?'':' hidden')+'><div class="cal-wrap"><div class="cal-grid">'+head+cellsHtml+'</div></div></div>';
-      weeksHtml+='<div class="cal-week">'+headBtn+body+'</div>';
-    }
-    var bar='<div class="cal-month-bar"><span class="cal-mname">'+_annEsc(b.month||'Schedule')+'</span><span class="cal-mcount">'+cols.length+' days · '+wk+' weeks</span></div>';
-    var legend='<div class="cal-legend"><span><i class="cal-lg-today"></i>اليوم Today</span><span><i class="cal-lg-sat"></i>السبت Saturday</span><span><i class="cal-lg-sup"></i>دعم Support</span></div>';
-    return '<div class="cal-month">'+bar+legend+'<div class="cal-weeks">'+weeksHtml+'</div></div>';
-  }).join('');
+  var items=blocks.map(function(b,idx){return {label:b.month||('Month '+(idx+1)),today:_monthMatchesNow(b.month),_b:b};}).filter(function(it){return _socBlockHtml(it._b)!=='';});
+  if(!items.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
+  var sel=items.findIndex(function(it){return it.today;});
+  if(sel<0)sel=0;
+  var pickerId='socPicker';
+  _PERIOD_STATE[pickerId]={items:items,bodyId:id,tableFn:function(it){return _socBlockHtml(it._b);}};
+  el.innerHTML=_periodPickerHtml(pickerId,sel)+'<div class="dow-table-wrap">'+_socBlockHtml(items[sel]._b)+'</div>';
 }
 
 /* ── WARRANTY & SERVICES NISSAN (sections + 2 columns) ── */
