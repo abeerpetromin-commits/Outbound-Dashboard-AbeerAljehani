@@ -1336,7 +1336,8 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .stitk-formula{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:center;padding:16px;border:1.5px dashed rgba(18,87,196,.35);border-radius:12px;background:var(--st-bg);margin-bottom:18px}
 .stitk-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .stitk-item-title{font-size:12.5px;font-weight:700;color:#333}
-.stitk-item-badge{background:var(--st-bg);color:var(--st);border:1px solid rgba(18,87,196,.25);border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700}
+.stitk-item-badges{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.stitk-item-badge{background:var(--st-bg);color:var(--st);border:1px solid rgba(18,87,196,.25);border-radius:10px;padding:3px 10px;font-size:11px;font-weight:700;white-space:pre-line;text-align:center}
 .stitk-item-link{text-decoration:none;cursor:pointer}
 .stitk-item-link:hover{background:var(--st);color:#fff}
 .stitk-plus{font-size:16px;font-weight:800;color:var(--st);opacity:.55}
@@ -4814,11 +4815,13 @@ async function loadStAppointmentSms(){
 }
 /* ── STELLANTIS SALES INSTRUCTION (Ticket Type layout, from sheet) ── */
 var STSALES_GID='302162348';
+function _stitkBadge(b){return b.href?('<a class="stitk-item-badge stitk-item-link" href="'+_baicEsc(b.href)+'" target="_blank" rel="noopener">'+_baicEsc(b.label)+'</a>'):('<div class="stitk-item-badge">'+_baicEsc(b.label)+'</div>');}
 function _stitkFormula(items){
   return items.map(function(it,i){
-    var badge=it.href?('<a class="stitk-item-badge stitk-item-link" href="'+_baicEsc(it.href)+'" target="_blank" rel="noopener">'+_baicEsc(it.badge)+'</a>'):('<div class="stitk-item-badge">'+_baicEsc(it.badge)+'</div>');
+    var badges=it.badges?it.badges:[{label:it.badge,href:it.href}];
+    var badgeHtml='<div class="stitk-item-badges">'+badges.map(_stitkBadge).join('')+'</div>';
     return (i?'<div class="stitk-plus">+</div>':'')+
-      '<div class="stitk-item"><div class="stitk-item-title">'+_baicEsc(it.title)+'</div>'+badge+'</div>';
+      '<div class="stitk-item"><div class="stitk-item-title">'+_baicEsc(it.title)+'</div>'+badgeHtml+'</div>';
   }).join('');
 }
 function _stitkChips(list,cls){
@@ -4841,6 +4844,8 @@ function _stitkCard(title,status,items,depts,cats,catCls,desc,example,deptLabel)
 function _stSalesRender(rows){
   var host=document.getElementById('stSalesBody'); if(!host)return;
   window._STITK_EX=[];
+  var offerRows=(rows||[]).slice(2).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  var offersText=offerRows.map(function(r){return (r[0]||'').trim();}).filter(Boolean).join('\n')||'لا توجد عروض حالياً';
   var cardInquiry=_stitkCard('Request','Closed Satisfied',
     [{title:'Sales (Social Media)',badge:'New Lead Salesforce Source ( Insta or Tiktok , facebook )'},
      {title:'Contact the customer',badge:'Share the price list inforamation'},
@@ -4850,8 +4855,11 @@ function _stSalesRender(rows){
     'كتابة راتب العميل - المدينة - كاش او أقساط','Salary : 6000\nCity: Jeddah\nCash / Finance','Transfer the opportunity to');
   var cardAppointment=_stitkCard('Appointment','Closed Satisfied',
     [{title:'Invoice Number',badge:'Appointment'},
-     {title:'Price List',badge:'Open Sheet',href:'https://docs.google.com/spreadsheets/d/1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg/edit?gid=302162348#gid=302162348'},
-     {title:'Description',badge:'Appointment'},{title:'Empty Box',badge:'Appointment'}],
+     {title:'Price List',badges:[
+       {label:'Open Sheet',href:'https://docs.google.com/spreadsheets/d/1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg/edit?gid=302162348#gid=302162348'},
+       {label:'📎 File'}
+     ]},
+     {title:'Description',badge:'Appointment'},{title:'🎁 Offers',badge:offersText}],
     ['Nissan','Stellantis','PAC','BAIC'],
     ['GR Appointment','PMS Appointment','Recall'],{},
     'WIP: Date: Time:','حجز موعد ( صيانة دورية - اصلاحات - استدعاء )');
