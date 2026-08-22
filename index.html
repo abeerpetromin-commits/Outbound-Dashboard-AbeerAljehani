@@ -1062,8 +1062,9 @@ tr.row-nissan:hover td{background:rgba(195,0,47,.09)}
 .brands-label-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px}
 .brands-label-row .nav-group-label{padding:0;margin:0}
 .ops-center{display:flex;align-items:center;justify-content:center;gap:8px;flex:1 1 auto}
-.brand-tabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.brand-tabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
 .brand-tab{flex:0 0 auto;width:auto;gap:8px;padding:9px 13px}
+.brand-tabs-row2{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 
 /* ── Links button + Links & Systems panel ── */
 .links-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:none;
@@ -1497,6 +1498,75 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .dow-opt:hover{background:var(--surface2)}
 .dow-opt.active{color:var(--red);background:var(--red-bg)}
 .dow-table-wrap{margin-top:2px}
+/* ── Employee Permissions (time-off requests) ── */
+.perm-top{text-align:center;margin:4px 0 20px}
+.perm-month-nav{display:inline-flex;align-items:center;gap:10px}
+.perm-month-pill{display:inline-flex;align-items:center;gap:8px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-bg);border-radius:999px;padding:9px 18px;font-weight:800;font-size:13px;font-family:var(--font-display)}
+.perm-month-arrow{background:var(--surface);border:1px solid var(--border);border-radius:50%;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);box-shadow:var(--shadow)}
+.perm-month-arrow:hover{background:var(--surface2)}
+.perm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:900px;margin:0 auto 18px}
+@media(max-width:700px){.perm-stats{grid-template-columns:repeat(2,1fr)}}
+.perm-stat{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:9px 8px;text-align:center;box-shadow:var(--shadow)}
+.perm-stat-label{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.perm-stat-num{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text)}
+.perm-stat.over .perm-stat-num{color:var(--red)}
+.perm-stat-red{border-color:rgba(209,26,62,.28)}
+.perm-stat-green{border-color:rgba(10,122,86,.28)}
+.perm-stat-blue{border-color:rgba(37,99,235,.28)}
+.perm-stat-amber{border-color:rgba(138,90,8,.28)}
+.perm-header-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px 16px;text-align:center;max-width:900px;margin:6px auto 12px}
+.perm-title-pill{display:inline-block;background:var(--red-bg);color:var(--red);border:1px solid rgba(209,26,62,.25);border-radius:12px;padding:9px 22px;font-weight:800;font-size:19px;font-family:var(--font-display)}
+.perm-subtabs{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.perm-subtab{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:9px 18px;font-weight:700;font-size:13px;color:var(--text2);cursor:pointer;font-family:inherit}
+.perm-subtab.active{background:var(--red-bg);color:var(--red);border-color:var(--red-bg)}
+.perm-subpanel{display:none}
+.perm-subpanel.active{display:block}
+.perm-form-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:16px;max-width:900px;margin:0 auto}
+.perm-form-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px}
+.perm-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.perm-form-grid{grid-template-columns:1fr}}
+.perm-field label{display:block;font-size:11.5px;font-weight:700;color:var(--text2);margin-bottom:4px}
+.perm-field select,.perm-field input,.perm-field textarea{width:100%;border:1px solid var(--border);border-radius:9px;padding:7px 10px;font-size:12.5px;font-family:inherit;background:var(--surface);color:var(--text);box-sizing:border-box}
+.perm-field select:focus,.perm-field input:focus,.perm-field textarea:focus{outline:none;border-color:var(--red)}
+.perm-field input[readonly]{background:var(--surface2);color:var(--text3)}
+.perm-field textarea{resize:vertical;min-height:52px}
+.perm-field-full{grid-column:1/-1;margin-top:12px}
+.perm-submit-btn{display:block;width:100%;margin-top:16px;background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit}
+.perm-submit-btn:hover{filter:brightness(0.95)}
+.perm-req-list{display:flex;flex-direction:column;gap:10px;max-width:900px;margin:0 auto}
+.perm-req-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.perm-req-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:10px;flex-wrap:wrap}
+.perm-req-name{font-weight:800;font-size:14px;font-family:var(--font-display)}
+.perm-req-badge{font-size:11.5px;color:var(--text3);font-weight:600}
+.perm-req-meta{font-size:12.5px;color:var(--text2);line-height:1.8}
+.perm-req-status{font-size:11px;font-weight:800;padding:3px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.03em}
+.perm-req-status.pending{background:var(--amber-bg);color:var(--amber)}
+.perm-req-status.approved{background:var(--green-bg);color:var(--green)}
+.perm-req-status.rejected{background:var(--red-bg);color:var(--red)}
+.perm-req-actions{display:flex;gap:8px;margin-top:10px}
+.perm-btn-approve{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bg);border-radius:9px;padding:7px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:inherit}
+.perm-btn-reject{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bg);border-radius:9px;padding:7px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:inherit}
+.perm-btn-undo{background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:9px;padding:7px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:inherit}
+.perm-empty{text-align:center;color:var(--text3);font-size:13px;padding:36px 0}
+.perm-summary-wrap{max-width:760px;margin:0 auto;border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)}
+.perm-summary-table{width:100%;border-collapse:collapse;background:var(--surface)}
+.perm-summary-table th{background:var(--surface2);font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;padding:10px 14px;text-align:center}
+.perm-summary-table td{padding:11px 14px;text-align:center;border-top:1px solid var(--border);font-size:13px}
+.perm-summary-table .over{color:var(--red);font-weight:800}
+.perm-summary-table .ok{color:var(--green);font-weight:700}
+.perm-emp-summary-title{max-width:900px;margin:0 auto 12px;font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.perm-emp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));align-items:start;gap:14px;max-width:900px;margin:0 auto}
+.perm-emp-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.perm-emp-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.perm-emp-name{font-weight:800;font-size:14.5px;font-family:var(--font-display)}
+.perm-emp-hrs{font-size:11.5px;font-weight:700;padding:3px 11px;border-radius:999px;background:var(--surface2);color:var(--text3)}
+.perm-emp-hrs.over{background:var(--red-bg);color:var(--red)}
+.perm-emp-reqs{display:flex;flex-direction:column;gap:8px}
+.perm-emp-req{border-top:1px solid var(--border);padding-top:8px}
+.perm-emp-req:first-child{border-top:none;padding-top:0}
+.perm-emp-req-date{font-size:12.5px;color:var(--text2);display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.perm-emp-req-time{font-size:12.5px;color:var(--text2);margin-bottom:6px}
+.perm-emp-empty{font-size:12.5px;color:var(--text3);padding:2px 0}
 
 /* ── Announcements: more compact ── */
 .announce-list{gap:7px;max-width:760px}
@@ -1521,6 +1591,7 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 /* ── Escalation Emails (red) ── */
 .brand-esc{--brand-c:#d9534f;--brand-fill:linear-gradient(135deg,rgba(217,83,79,.10),rgba(217,83,79,.03));--brand-line:rgba(217,83,79,.22)}
 .brand-recall{--brand-c:#6d4ad8;--brand-fill:linear-gradient(135deg,rgba(109,74,216,.10),rgba(109,74,216,.03));--brand-line:rgba(109,74,216,.22)}
+.brand-perm{--brand-c:var(--red);--brand-fill:linear-gradient(135deg,rgba(209,26,62,.10),rgba(209,26,62,.03));--brand-line:rgba(209,26,62,.22)}
 .rr-sec{margin-bottom:14px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
 .rr-head{width:100%;display:flex;align-items:center;gap:10px;padding:14px 16px;border:0;cursor:pointer;background:var(--bg2);background:color-mix(in srgb,var(--rrc,#6d4ad8) 8%,var(--surface));color:var(--rrc,#6d4ad8);font-family:var(--font-display);font-weight:800;font-size:15px}
 .rr-chev{flex:0 0 auto;transition:transform .2s ease}
@@ -1753,20 +1824,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         </div>
         <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
-      <div class="brand-tab brand-sched" onclick="openBrand('sched',this)">
-        <div class="brand-tab-info">
-          <div class="brand-tab-name">📅 Team Schedules</div>
-          <div class="brand-tab-sub">Day Off · Vacation</div>
-        </div>
-        <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
-      </div>
-      <div class="brand-tab brand-dir" onclick="openDir(this)">
-        <div class="brand-tab-info">
-          <div class="brand-tab-name">👥 Team Directory</div>
-          <div class="brand-tab-sub">Team contacts</div>
-        </div>
-        <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
-      </div>
       <div class="brand-tab brand-esc" onclick="openEsc(this)">
         <div class="brand-tab-info">
           <div class="brand-tab-name">⚠️ Escalation Emails</div>
@@ -1780,6 +1837,29 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
           <div class="brand-tab-sub">Remote Areas · Reschedule</div>
         </div>
         <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="brand-tabs-row2">
+        <div class="brand-tab brand-perm" onclick="openPermissions(this)">
+          <div class="brand-tab-info">
+            <div class="brand-tab-name">🕐 Permissions</div>
+            <div class="brand-tab-sub">Time-off requests</div>
+          </div>
+          <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="brand-tab brand-sched" onclick="openBrand('sched',this)">
+          <div class="brand-tab-info">
+            <div class="brand-tab-name">📅 Team Schedules</div>
+            <div class="brand-tab-sub">Day Off · Vacation</div>
+          </div>
+          <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+        <div class="brand-tab brand-dir" onclick="openDir(this)">
+          <div class="brand-tab-info">
+            <div class="brand-tab-name">👥 Team Directory</div>
+            <div class="brand-tab-sub">Team contacts</div>
+          </div>
+          <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
       </div>
     </div>
   </div>
@@ -1915,6 +1995,85 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div></div>
     <div class="dir-grid brand-dir" id="dirBody"></div>
+  </div>
+
+  <!-- EMPLOYEE PERMISSIONS (time-off requests, stored locally in-browser) -->
+  <div id="tab-permissions" class="tab-panel">
+    <div class="page-eyebrow" style="color:var(--red);max-width:900px;margin:0 auto">Permissions</div>
+    <div class="perm-header-card">
+      <div class="perm-title-pill">Employee Permission Requests</div>
+      <div class="page-sub" style="margin-top:8px;text-align:center">Monthly allowance: 4 hours per employee — calculated from approved requests only</div>
+      <div class="perm-top" style="margin-bottom:0">
+        <div class="perm-month-nav">
+          <button type="button" class="perm-month-arrow" onclick="_permMonthStep(-1)" aria-label="Previous month">‹</button>
+          <span class="perm-month-pill">📅 <span id="permMonthLabel">—</span></span>
+          <button type="button" class="perm-month-arrow" onclick="_permMonthStep(1)" aria-label="Next month">›</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="perm-stats">
+      <div class="perm-stat perm-stat-red"><div class="perm-stat-label">Pending</div><div class="perm-stat-num" id="permStatPending">0</div></div>
+      <div class="perm-stat perm-stat-green"><div class="perm-stat-label">Approved this month</div><div class="perm-stat-num" id="permStatApproved">0</div></div>
+      <div class="perm-stat perm-stat-blue"><div class="perm-stat-label">Total approved hours</div><div class="perm-stat-num" id="permStatHours">0</div></div>
+      <div class="perm-stat perm-stat-amber" id="permStatOverCard"><div class="perm-stat-label">Over limit</div><div class="perm-stat-num" id="permStatOver">0</div></div>
+    </div>
+
+    <div class="perm-subtabs">
+      <button type="button" class="perm-subtab active" onclick="_permTab('submit',this)">Submit Request</button>
+      <button type="button" class="perm-subtab" onclick="_permTab('approvals',this)">Approvals</button>
+      <button type="button" class="perm-subtab" onclick="_permTab('summary',this)">Employee Summary</button>
+    </div>
+
+    <div id="permPanelSubmit" class="perm-subpanel active">
+      <div class="perm-form-card">
+        <div class="perm-form-title">New Time-off Request</div>
+        <form id="permForm" onsubmit="return _permSubmit(event)">
+          <div class="perm-form-grid">
+            <div class="perm-field">
+              <label>Employee Name</label>
+              <select id="permEmpName" onchange="_permFillBadge()" required>
+                <option value="">— Select name —</option>
+              </select>
+            </div>
+            <div class="perm-field">
+              <label>Badge #</label>
+              <input id="permBadge" placeholder="Auto-filled from name" readonly>
+            </div>
+            <div class="perm-field">
+              <label>Reason</label>
+              <select id="permReason"></select>
+            </div>
+            <div class="perm-field">
+              <label>Date</label>
+              <input type="date" id="permDate" required>
+            </div>
+            <div class="perm-field">
+              <label>From</label>
+              <input type="time" id="permFrom" required>
+            </div>
+            <div class="perm-field">
+              <label>To</label>
+              <input type="time" id="permTo" required>
+            </div>
+          </div>
+          <div class="perm-field perm-field-full">
+            <label>Notes (optional)</label>
+            <textarea id="permNotes" placeholder="Any extra details..."></textarea>
+          </div>
+          <button type="submit" class="perm-submit-btn">Submit for <span id="permManagerName">Manager</span>'s Approval</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="permPanelApprovals" class="perm-subpanel">
+      <div class="perm-req-list" id="permApprovalsList"></div>
+    </div>
+
+    <div id="permPanelSummary" class="perm-subpanel">
+      <div class="perm-emp-summary-title">EMPLOYEE BALANCE SUMMARY — SELECTED MONTH</div>
+      <div class="perm-emp-list" id="permSummaryBody"></div>
+    </div>
   </div>
 
   <!-- MENU sched -->
@@ -4748,7 +4907,7 @@ function renderRecalls(){
 function toggleRecall(i){
   document.getElementById('recall-'+i).classList.toggle('open');
 }
-function setBrandActive(brand){var map={stellantis:'brand-st',nissan:'brand-ni',baic:'brand-baic',sched:'brand-sched',dir:'brand-dir',esc:'brand-esc',recall:'brand-recall'};document.querySelectorAll('.brand-tab').forEach(function(b){b.classList.toggle('active',b.classList.contains(map[brand]));});}
+function setBrandActive(brand){var map={stellantis:'brand-st',nissan:'brand-ni',baic:'brand-baic',sched:'brand-sched',dir:'brand-dir',esc:'brand-esc',recall:'brand-recall',perm:'brand-perm'};document.querySelectorAll('.brand-tab').forEach(function(b){b.classList.toggle('active',b.classList.contains(map[brand]));});}
 function _hidePanels(){document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});}
 function _scrollContent(){if(!_booted)return;setTimeout(function(){var ap=document.querySelector('.tab-panel.active');if(ap)ap.scrollIntoView({behavior:'smooth',block:'start'});},40);}
 function setCrumb(brand,title){var c=document.getElementById('crumb');if(!c)return;if(!brand){c.style.display='none';return;}var n={stellantis:'Stellantis',nissan:'Nissan',baic:'BAIC',sched:'Team Schedules'};var bc=brand==='stellantis'?'brand-st':brand==='nissan'?'brand-ni':brand==='sched'?'brand-sched':'brand-baic';c.className='crumb '+bc;c.style.display='flex';c.dataset.brand=brand;c.querySelector('.crumb-brand').textContent=n[brand]||brand;c.querySelector('.crumb-title').textContent=title||'';}
@@ -5660,6 +5819,200 @@ async function loadRecallRemote(){
 }
 function openRecallRemote(el){_hidePanels();var _lb=document.getElementById('linksBtn');if(_lb)_lb.classList.remove('open');document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});setBrandActive('recall');var p=document.getElementById('tab-recall-remote');if(p)p.classList.add('active');document.body.setAttribute('data-brand','recall');setCrumb(null);loadRecalls();_scrollContent();}
 setInterval(function(){var p=document.getElementById('tab-recall-remote');if(p&&p.classList.contains('active'))loadRecalls();},180000);
+
+/* ── EMPLOYEE PERMISSIONS (time-off requests) ──
+   All data is stored locally in this browser (localStorage) — nothing is sent anywhere.
+   Edit PERM_MANAGER, PERM_MONTHLY_LIMIT and PERM_EMPLOYEES below to match your real team. */
+var PERM_MANAGER='Abeer';
+var PERM_MONTHLY_LIMIT=4; // hours allowed per employee per month
+var PERM_EMPLOYEES=[
+  {name:'Ghufran K. Fadlallah',badge:'21270'},
+  {name:'Raghad Khalid',badge:'20149'},
+  {name:'Faridah Abduljawad',badge:'19837'},
+  {name:'Reem Aljahni',badge:'23445'},
+  {name:'Walaa Sakabumi',badge:'25441'},
+  {name:'Wafa Nassr',badge:'36022'},
+  {name:'Manal Alzahrani',badge:'36071'}
+];
+var PERM_REASONS=['Medical appointment','Sick','Family emergency','Other'];
+var _PERM_MONTH=null; // 'YYYY-M' currently viewed
+
+function _permKey(d){var dt=new Date(d+'T00:00:00');return dt.getFullYear()+'-'+(dt.getMonth()+1);}
+function _permMonthName(key){var p=key.split('-');var names=['January','February','March','April','May','June','July','August','September','October','November','December'];return names[parseInt(p[1],10)-1]+' '+p[0];}
+function _permLoad(){try{return JSON.parse(localStorage.getItem('permRequests')||'[]');}catch(e){return [];}}
+function _permSave(list){try{localStorage.setItem('permRequests',JSON.stringify(list));}catch(e){}}
+function _permHours(from,to){
+  if(!from||!to)return 0;
+  var fp=from.split(':').map(Number),tp=to.split(':').map(Number);
+  var mins=(tp[0]*60+tp[1])-(fp[0]*60+fp[1]);
+  if(mins<0)mins+=24*60;
+  return Math.round((mins/60)*100)/100;
+}
+function _permBadgeFor(name){var e=PERM_EMPLOYEES.filter(function(x){return x.name===name;})[0];return e?e.badge:'';}
+
+function openPermissions(el){
+  _hidePanels();
+  var _lb=document.getElementById('linksBtn');if(_lb)_lb.classList.remove('open');
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  setBrandActive('perm');
+  var p=document.getElementById('tab-permissions');if(p)p.classList.add('active');
+  document.body.setAttribute('data-brand','perm');
+  setCrumb(null);
+  _permInit();
+  _scrollContent();
+}
+
+function _permInit(){
+  if(!_PERM_MONTH)_PERM_MONTH=_permKey(new Date().toISOString().slice(0,10));
+  var nameSel=document.getElementById('permEmpName');
+  if(nameSel && nameSel.options.length<=1){
+    nameSel.innerHTML='<option value="">— Select name —</option>'+PERM_EMPLOYEES.map(function(e){return '<option value="'+_annEsc(e.name)+'">'+_annEsc(e.name)+'</option>';}).join('');
+  }
+  var reasonSel=document.getElementById('permReason');
+  if(reasonSel && !reasonSel.options.length){
+    reasonSel.innerHTML=PERM_REASONS.map(function(r){return '<option>'+_annEsc(r)+'</option>';}).join('');
+  }
+  var mgr=document.getElementById('permManagerName');if(mgr)mgr.textContent=PERM_MANAGER;
+  var dateEl=document.getElementById('permDate');
+  if(dateEl && !dateEl.value)dateEl.value=new Date().toISOString().slice(0,10);
+  _permRenderAll();
+}
+function _permFillBadge(){
+  var nameSel=document.getElementById('permEmpName'),badge=document.getElementById('permBadge');
+  if(!nameSel||!badge)return;
+  badge.value=_permBadgeFor(nameSel.value);
+}
+function _permMonthStep(dir){
+  var p=_PERM_MONTH.split('-'),y=parseInt(p[0],10),m=parseInt(p[1],10);
+  m+=dir;
+  if(m<1){m=12;y--;} else if(m>12){m=1;y++;}
+  _PERM_MONTH=y+'-'+m;
+  _permRenderAll();
+}
+function _permTab(name,btn){
+  document.querySelectorAll('.perm-subtab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  ['submit','approvals','summary'].forEach(function(n){
+    var el=document.getElementById('permPanel'+n.charAt(0).toUpperCase()+n.slice(1));
+    if(el)el.classList.toggle('active',n===name);
+  });
+}
+function _permSubmit(ev){
+  ev.preventDefault();
+  var name=document.getElementById('permEmpName').value;
+  if(!name){alert('Please select an employee name.');return false;}
+  var req={
+    id:Date.now()+'-'+Math.floor(Math.random()*1e6),
+    name:name,
+    badge:document.getElementById('permBadge').value||_permBadgeFor(name),
+    reason:document.getElementById('permReason').value,
+    date:document.getElementById('permDate').value,
+    from:document.getElementById('permFrom').value,
+    to:document.getElementById('permTo').value,
+    notes:document.getElementById('permNotes').value||'',
+    status:'pending',
+    submittedAt:new Date().toISOString()
+  };
+  var list=_permLoad();
+  list.push(req);
+  _permSave(list);
+  document.getElementById('permForm').reset();
+  document.getElementById('permDate').value=new Date().toISOString().slice(0,10);
+  document.getElementById('permBadge').value='';
+  _PERM_MONTH=_permKey(req.date);
+  _permRenderAll();
+  _permTab('approvals',document.querySelectorAll('.perm-subtab')[1]);
+  return false;
+}
+function _permDecide(id,status){
+  var list=_permLoad();
+  var r=list.filter(function(x){return x.id===id;})[0];
+  if(!r)return;
+  r.status=status;
+  _permSave(list);
+  _permRenderAll();
+}
+function _permUndo(id){_permDecide(id,'pending');}
+function _permDelete(id){
+  var list=_permLoad().filter(function(x){return x.id!==id;});
+  _permSave(list);
+  _permRenderAll();
+}
+function _permRenderAll(){
+  var label=document.getElementById('permMonthLabel');
+  if(label)label.textContent=_permMonthName(_PERM_MONTH);
+  var all=_permLoad();
+  var inMonth=all.filter(function(r){return _permKey(r.date)===_PERM_MONTH;});
+  var pendingAll=all.filter(function(r){return r.status==='pending';});
+  var approvedMonth=inMonth.filter(function(r){return r.status==='approved';});
+  var totalHours=approvedMonth.reduce(function(s,r){return s+_permHours(r.from,r.to);},0);
+  totalHours=Math.round(totalHours*100)/100;
+  // hours per employee this month (approved only)
+  var byEmp={};
+  approvedMonth.forEach(function(r){byEmp[r.name]=(byEmp[r.name]||0)+_permHours(r.from,r.to);});
+  var overCount=0;
+  Object.keys(byEmp).forEach(function(n){if(byEmp[n]>PERM_MONTHLY_LIMIT)overCount++;});
+
+  var elP=document.getElementById('permStatPending');if(elP)elP.textContent=pendingAll.length;
+  var elA=document.getElementById('permStatApproved');if(elA)elA.textContent=approvedMonth.length;
+  var elH=document.getElementById('permStatHours');if(elH)elH.textContent=totalHours;
+  var elO=document.getElementById('permStatOver');if(elO)elO.textContent=overCount;
+  var overCard=document.getElementById('permStatOverCard');if(overCard)overCard.classList.toggle('over',overCount>0);
+
+  // Approvals list — show ALL pending requests regardless of month, newest first
+  var apEl=document.getElementById('permApprovalsList');
+  if(apEl){
+    var pending=pendingAll.slice().sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt);});
+    var decided=all.filter(function(r){return r.status!=='pending';}).sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt);}).slice(0,10);
+    if(!pending.length && !decided.length){
+      apEl.innerHTML='<div class="perm-empty">No permission requests yet.</div>';
+    }else{
+      var html='';
+      pending.forEach(function(r){
+        html+='<div class="perm-req-card">'+
+          '<div class="perm-req-top"><span class="perm-req-name">'+_annEsc(r.name)+'</span><span class="perm-req-status pending">Pending</span></div>'+
+          '<div class="perm-req-meta">Badge #'+_annEsc(r.badge||'—')+' · '+_annEsc(r.reason||'—')+'<br>'+_annEsc(r.date)+' · '+_annEsc(r.from)+' – '+_annEsc(r.to)+' ('+_permHours(r.from,r.to)+'h)'+(r.notes?('<br>'+_annEsc(r.notes)):'')+'</div>'+
+          '<div class="perm-req-actions"><button type="button" class="perm-btn-approve" onclick="_permDecide(\''+r.id+'\',\'approved\')">Approve</button><button type="button" class="perm-btn-reject" onclick="_permDecide(\''+r.id+'\',\'rejected\')">Reject</button></div>'+
+        '</div>';
+      });
+      if(decided.length){
+        html+='<div style="text-align:center;color:var(--text3);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 6px">Recently decided</div>';
+        decided.forEach(function(r){
+          html+='<div class="perm-req-card">'+
+            '<div class="perm-req-top"><span class="perm-req-name">'+_annEsc(r.name)+'</span><span class="perm-req-status '+r.status+'">'+r.status+'</span></div>'+
+            '<div class="perm-req-meta">Badge #'+_annEsc(r.badge||'—')+' · '+_annEsc(r.reason||'—')+'<br>'+_annEsc(r.date)+' · '+_annEsc(r.from)+' – '+_annEsc(r.to)+' ('+_permHours(r.from,r.to)+'h)</div>'+
+            '<div class="perm-req-actions"><button type="button" class="perm-btn-undo" onclick="_permUndo(\''+r.id+'\')">Undo</button></div>'+
+          '</div>';
+        });
+      }
+      apEl.innerHTML=html;
+    }
+  }
+
+  // Employee summary — for the selected month
+  var sumBody=document.getElementById('permSummaryBody');
+  if(sumBody){
+    var empCards=PERM_EMPLOYEES.map(function(e){
+      var reqs=inMonth.filter(function(r){return r.name===e.name;}).sort(function(a,b){return new Date(a.date)-new Date(b.date);});
+      if(!reqs.length)return '';
+      var approved=reqs.filter(function(r){return r.status==='approved';});
+      var hrs=Math.round(approved.reduce(function(s,r){return s+_permHours(r.from,r.to);},0)*100)/100;
+      var over=hrs>PERM_MONTHLY_LIMIT;
+      var reqsHtml=reqs.map(function(r){
+        return '<div class="perm-emp-req">'+
+          '<div class="perm-emp-req-date">📅 '+_annEsc(r.date)+'</div>'+
+          '<div class="perm-emp-req-time">'+_annEsc(r.from)+'–'+_annEsc(r.to)+' · '+_permHours(r.from,r.to)+' hrs</div>'+
+          '<span class="perm-req-status '+r.status+'">'+r.status+'</span>'+
+        '</div>';
+      }).join('');
+      return '<div class="perm-emp-card">'+
+        '<div class="perm-emp-top"><span class="perm-emp-name">'+_annEsc(e.name)+'</span><span class="perm-emp-hrs'+(over?' over':'')+'">'+hrs+' of '+PERM_MONTHLY_LIMIT+' hrs</span></div>'+
+        '<div class="perm-emp-reqs">'+reqsHtml+'</div>'+
+      '</div>';
+    }).filter(Boolean).join('');
+    sumBody.innerHTML=empCards||'<div class="perm-emp-empty">No permission requests this month.</div>';
+  }
+}
 try{openAnnouncements();}catch(e){console.warn(e);}
 _booted=true;
 
