@@ -4483,15 +4483,16 @@ function _locLinkify(t){
   return _baicEsc(t).replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
 }
 function _locParse(raw){
+  /* Sheet columns: A=City, B=Appointment SMS AR, C=Appointment SMS EN, D=Location SMS AR, E=Location SMS EN — this page only shows the Location SMS columns (D/E), grouped by city. */
   if(!raw||!raw.length)return [];
-  var out=[], group='Service Location SMS';
-  raw.forEach(function(r){
-    var a=(r[0]||'').trim(), b=(r[1]||'').trim();
-    if(!a&&!b)return;
-    var isHeader=a && a.indexOf('http')<0 && a.length<40 && !/عزيز|dear/i.test(a) && !b;
-    if(isHeader){ group=/recall|reacall|ريكول|استدعاء/i.test(a)?'Recall Location SMS':'Service Location SMS'; return; }
-    if(b)out.push({group:group,lang:'EN',text:b});
-    if(a)out.push({group:group,lang:'AR',text:a});
+  var rows=raw.filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(rows.length&&/^city$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
+  var out=[];
+  rows.forEach(function(r){
+    var city=(r[0]||'').trim(), locAr=(r[3]||'').trim(), locEn=(r[4]||'').trim();
+    if(!city&&!locAr&&!locEn)return;
+    if(locAr)out.push({group:city||'Other',lang:'AR',text:locAr});
+    if(locEn)out.push({group:city||'Other',lang:'EN',text:locEn});
   });
   return out;
 }
@@ -4499,7 +4500,7 @@ function _locRender(list){
   var el=document.getElementById('baicLocBody'); if(!el)return;
   _LOC_LIST=list||[];
   if(!_LOC_LIST.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
-  var groups={}, order=[], icon={'Service Location SMS':'📍','Recall Location SMS':'🔁'};
+  var groups={}, order=[];
   _LOC_LIST.forEach(function(it,idx){ it._i=idx; if(!groups[it.group]){groups[it.group]=[];order.push(it.group);} groups[it.group].push(it); });
   el.innerHTML=order.map(function(gk){
     var cards=groups[gk].map(function(it){
@@ -4509,7 +4510,7 @@ function _locRender(list){
         '<button type="button" class="loc-copy" onclick="_locCopy(this,'+it._i+')">'+_CLIP_IC+'<span>Copy</span></button></div>'+
         '<div class="loc-text" dir="'+(rtl?'rtl':'ltr')+'">'+_locLinkify(it.text)+'</div></div>';
     }).join('');
-    return '<div class="loc-group-title">'+(icon[gk]||'📍')+' '+_baicEsc(gk)+'</div><div class="loc-grid">'+cards+'</div>';
+    return '<div class="loc-group-title">📍 '+_baicEsc(gk)+'</div><div class="loc-grid">'+cards+'</div>';
   }).join('');
 }
 function _locCopy(btn,idx){
@@ -4858,7 +4859,7 @@ function _baicInsRender(rows){
     }else{
       var cards=g.items.map(function(it){
         var lines=_niSplit(it.content);
-        var body=lines.map(function(L){var ar=/[؀-ۿ]/.test(L);var m=L.match(/(https?:\/\/\S+)/);var h2;if(m){var tx=L.replace(m[1],'').trim();h2=(tx?_annEsc(tx)+' ':'')+'<a class="nref-link" href="'+_annEsc(m[1])+'" target="_blank" rel="noopener">🔗 فتح</a>';}else h2=_annEsc(L);return '<div class="nref-line" style="direction:'+(ar?'rtl':'ltr')+';text-align:'+(ar?'right':'center')+'">'+h2+'</div>';}).join('');
+        var body=lines.map(function(L){var ar=/[؀-ۿ]/.test(L);var m=L.match(/(https?:\/\/\S+)/);var h2;if(m){var tx=L.replace(m[1],'').trim();h2=(tx?_annEsc(tx)+' ':'')+'<a class="nref-link" href="'+_annEsc(m[1])+'" target="_blank" rel="noopener">🔗 فتح</a>';}else h2=_annEsc(L);return '<div class="nref-line" style="direction:'+(ar?'rtl':'ltr')+';text-align:center">'+h2+'</div>';}).join('');
         return '<div class="nref-item baic-item"><div class="nref-label">'+_annEsc(it.label)+'</div><div class="nref-content">'+body+'</div></div>';
       }).join('');
       inner='<div class="niref-cards">'+cards+'</div>';
@@ -4925,7 +4926,7 @@ async function loadNissanSmsLoc(){
   catch(e){var host=document.getElementById('nissanSmsLocBody');if(host&&!host.innerHTML)host.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u062a\u062d\u0645\u064a\u0644</div>';if(st)st.innerHTML='<span class="live-dot"></span>Cached';}
 }
 /* \u2500\u2500 BAIC APPOINTMENT & LOCATION SMS (live, grouped by city) \u2500\u2500 */
-/* Sheet columns: A=City, B=Appointment SMS AR, C=Appointment SMS EN, D=Location SMS */
+/* Sheet columns: A=City, B=Appointment SMS AR, C=Appointment SMS EN, D=Location SMS AR, E=Location SMS EN */
 var BAICSMS_GID='260555768';
 function _baicSmsCopy(i,field,btn){var s=(window._BAICSMS||[])[i];if(!s)return;var t=s[field]||'';function done(){var o=btn.innerHTML;btn.innerHTML='\u2713 Copied';setTimeout(function(){btn.innerHTML=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
 function _baicSmsBranch(s){
@@ -4939,8 +4940,8 @@ function _baicApptLocParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(rows.length&&/^city$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
   return rows.map(function(r){
-    return {city:(r[0]||'').trim(),apptAr:(r[1]||'').trim(),apptEn:(r[2]||'').trim(),loc:(r[3]||'').trim()};
-  }).filter(function(s){return s.city||s.apptAr||s.apptEn||s.loc;});
+    return {city:(r[0]||'').trim(),apptAr:(r[1]||'').trim(),apptEn:(r[2]||'').trim(),locAr:(r[3]||'').trim(),locEn:(r[4]||'').trim()};
+  }).filter(function(s){return s.city||s.apptAr||s.apptEn||s.locAr||s.locEn;});
 }
 function _baicApptLocRender(list){
   var host=document.getElementById('baicApptLocBody'); if(!host)return;
@@ -4949,8 +4950,7 @@ function _baicApptLocRender(list){
   function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_baicSmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
   function card(s,i){
     var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';
-    var loc='';
-    if(s.loc){var locAr=/[\u0600-\u06ff]/.test(s.loc);loc='<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+msg(locAr?'AR':'EN',s.loc,i,'loc');}
+    var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';
     return '<div class="smsc"><div class="smsc-head">'+_baicEsc(_baicSmsBranch(s))+'</div>'+appt+loc+'</div>';
   }
   var groups={}, order=[];
