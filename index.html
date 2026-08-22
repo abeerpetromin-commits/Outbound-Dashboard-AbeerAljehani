@@ -1347,10 +1347,14 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .stitk-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .stitk-item-title{font-size:12.5px;font-weight:700;color:#333}
 .stitk-item-badges{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
-.stitk-pill-stack{display:flex;flex-direction:column;gap:10px;width:100%;max-width:520px}
-.stitk-offer-card{border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--surface);box-shadow:var(--shadow)}
-.stitk-offer-title{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--st);margin-bottom:5px}
-.stitk-offer-detail{font-size:12.5px;color:#444;line-height:1.7;white-space:pre-line}
+.stitk-pill-stack{display:flex;flex-direction:column;gap:12px;width:100%;max-width:560px}
+.stitk-offer-card{border:1px solid var(--border);border-inline-start:3px solid var(--st);border-radius:10px;padding:12px 16px;background:var(--surface);box-shadow:var(--shadow)}
+.stitk-offer-title{font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--st);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.stitk-offer-detail{font-size:12.5px;color:#444}
+.stitk-offer-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.stitk-offer-list li{position:relative;padding-inline-start:15px;line-height:1.6}
+.stitk-offer-list li::before{content:'';position:absolute;inset-inline-start:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--st)}
+.stitk-offer-list li b,.stitk-offer-list li strong{color:var(--st)}
 .stitk-pill-wide{width:100%;box-sizing:border-box;padding:8px 16px;font-size:13px}
 .stitk-item-badge{background:var(--st-bg);color:var(--st);border:1px solid rgba(18,87,196,.25);border-radius:10px;padding:3px 10px;font-size:11px;font-weight:700;white-space:pre-line;text-align:center}
 .stitk-item-link{text-decoration:none;cursor:pointer;border-radius:8px;padding:7px 26px;font-size:13px}
@@ -5251,9 +5255,19 @@ function _stitkChips(list,cls){
   return list.map(function(c){return '<span class="stitk-chip'+(cls&&cls[c]?(' '+cls[c]):'')+'">'+_baicEsc(c)+'</span>';}).join('');
 }
 function _stitkCopy(idx,btn){var t=(window._STITK_EX||[])[idx]||'';function done(){var o=btn.innerHTML;btn.innerHTML='✓';setTimeout(function(){btn.innerHTML=o;},1400);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
+function _stitkOfferHighlight(line){
+  var esc=_baicEsc(line);
+  esc=esc.replace(/(\d[\d,]*(?:\.\d+)?\s*(?:SAR|SR|ريال|%))/gi,'<b>$1</b>');
+  return esc;
+}
+function _stitkOfferLines(txt){
+  return (txt||'').split(/\r?\n|(?<=[.!؟?])\s+(?=[؀-ۿ]|[A-Z])/).map(function(l){return l.replace(/^[\s\-•*]+/,'').trim();}).filter(Boolean);
+}
 function _stitkPillStack(list){return '<div class="stitk-pill-stack">'+list.map(function(o){
   if(typeof o==='string')return '<div class="stitk-item-badge stitk-pill-wide">'+_baicEsc(o)+'</div>';
-  return '<div class="stitk-offer-card"><div class="stitk-offer-title">'+_baicEsc(o.title)+'</div>'+(o.detail?'<div class="stitk-offer-detail" dir="rtl">'+_baicEsc(o.detail)+'</div>':'')+'</div>';
+  var lines=_stitkOfferLines(o.detail);
+  var body=lines.length?('<ul class="stitk-offer-list" dir="rtl">'+lines.map(function(l){return '<li>'+_stitkOfferHighlight(l)+'</li>';}).join('')+'</ul>'):'';
+  return '<div class="stitk-offer-card"><div class="stitk-offer-title">🚙 '+_baicEsc(o.title)+'</div>'+(body?'<div class="stitk-offer-detail">'+body+'</div>':'')+'</div>';
 }).join('')+'</div>';}
 function _stitkCard(title,status,items,depts,cats,catCls,desc,example,deptLabel,catLabel,pillStack){
   window._STITK_EX=window._STITK_EX||[];
