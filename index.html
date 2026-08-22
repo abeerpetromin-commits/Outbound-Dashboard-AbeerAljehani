@@ -4797,7 +4797,7 @@ function _nissanSmsLocRender(rows){
   var before=[],after=[],inPac=false;
   all.forEach(function(s){
     var hasContent=!!(s.apptAr||s.apptEn||s.locAr||s.locEn);
-    var isDiv=/pac/i.test(s.branch)&&!hasContent;
+    var isDiv=/pac/i.test(s.branch);
     if(isDiv){inPac=true;return;}
     if(!s.branch&&!hasContent)return;
     (inPac?after:before).push(s);
