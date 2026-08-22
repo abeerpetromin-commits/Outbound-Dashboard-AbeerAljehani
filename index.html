@@ -790,6 +790,12 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .live-badge{background:var(--green-bg);color:var(--green);border-radius:20px;padding:5px 13px;
   box-shadow:inset 0 0 0 1px rgba(10,122,86,.2)}
 
+.hdr-eyebrow-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.hdr-hotline{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:0;text-transform:none;color:var(--hh,#c0392b);background:var(--hh-bg,rgba(192,57,43,.09));border-radius:999px;padding:3px 10px 3px 8px;text-decoration:none;direction:ltr}
+.hdr-hotline svg{flex:none}
+.hdr-hotline.wa{--hh:#1e8449;--hh-bg:rgba(30,132,73,.1)}
+.hdr-hotline:hover{filter:brightness(0.95)}
+
 /* ── Glass cards / metrics ── */
 .card,.metric,.target-meter,.agent-sum-card{
   background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -1677,6 +1683,10 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 .niref-panel{display:none}
 .niref-panel.active{display:block}
 .niref-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;align-items:start}
+.niref-tab.baic-tab:hover{border-color:#f6cf9e}
+.niref-tab.baic-tab.active{background:linear-gradient(135deg,#fff1de,#ffe8cc);color:var(--baic);border-color:#f6cf9e;box-shadow:0 6px 16px -10px rgba(229,137,26,.5)}
+.nref-item.baic-item{border-top:3px solid var(--baic)}
+.nref-item.baic-item .nref-label{color:var(--baic)}
 /* ===== /INSTRUCTION TABS ===== */
 .brand-tab.brand-ann.active{border-color:#b4a7d6;box-shadow:0 0 0 1px #b4a7d6,0 10px 24px -14px rgba(103,78,167,.5)}
 .brand-tab.brand-ann .brand-tab-name{color:#674ea7}
@@ -1961,7 +1971,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <!-- MENU stellantis -->
   <div id="tab-menu-stellantis" class="tab-panel active">
     <div class="page-header"><div>
-      <div class="page-eyebrow">Stellantis · Brand</div>
+      <div class="hdr-eyebrow-row">
+        <span class="page-eyebrow">Stellantis · Brand</span>
+        <a class="hdr-hotline" href="tel:8003030040"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>8003030040</a>
+        <a class="hdr-hotline wa" href="https://wa.me/966558627733" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>558627733</a>
+      </div>
       <div class="page-title st">Stellantis References</div>
       <div class="page-sub">Select a section to view its full details</div>
     </div></div>
@@ -2022,7 +2036,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <!-- MENU nissan -->
   <div id="tab-menu-nissan" class="tab-panel">
     <div class="page-header"><div>
-      <div class="page-eyebrow">Nissan · Brand</div>
+      <div class="hdr-eyebrow-row">
+        <span class="page-eyebrow">Nissan · Brand</span>
+        <a class="hdr-hotline" href="tel:8004420010"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>8004420010</a>
+        <a class="hdr-hotline wa" href="https://wa.me/966920011795" target="_blank" rel="noopener"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>920011795</a>
+      </div>
       <div class="page-title ni">Nissan References</div>
       <div class="page-sub">Select a section to view its full details</div>
     </div></div>
@@ -2035,6 +2053,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       <div class="ref-card brand-ni" onclick="openRef('nissan-smsloc','nissan','SMS &amp; Location')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">SMS &amp; Location</div><div class="ref-card-count">Appointment · Location · Live</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="ref-card brand-ni" onclick="openRef('pac-branches-nissan','nissan','PAC Branches')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">PAC Branches</div><div class="ref-card-count">Live · Auto Care</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
       <div class="ref-card brand-ni" onclick="openRef('vehicles-nissan','nissan','Vehicles')">
@@ -2351,10 +2374,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="page-sub" style="margin-top:4px">Mopar Authorized Service Centers · 9 Branches</div>
       </div>
     </div>
-    <div class="hotline-bar">
-      <div class="hotline-card"><div class="hotline-label">Petromin Stellantis</div><div class="hotline-num"><a href="tel:8003030040">8003030040</a></div></div>
-      <div class="hotline-card wa"><div class="hotline-label">Petromin Stellantis · WhatsApp</div><div class="hotline-num"><a href="https://wa.me/966558627733" target="_blank" rel="noopener">558627733</a></div></div>
-    </div>
     <div class="card">
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
         <span>All Branches</span>
@@ -2373,20 +2392,12 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="page-sub" style="margin-top:4px">3S Service Centers · 16 Branches</div>
       </div>
     </div>
-    <div class="hotline-bar">
-      <div class="hotline-card"><div class="hotline-label">Petromin Nissan</div><div class="hotline-num"><a href="tel:8004420010">8004420010</a></div></div>
-      <div class="hotline-card wa"><div class="hotline-label">Petromin Nissan · WhatsApp</div><div class="hotline-num"><a href="https://wa.me/966920011795" target="_blank" rel="noopener">920011795</a></div></div>
-    </div>
     <div class="card">
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
         <span>All Branches <span class="brn-count-pill" id="niBranchCount">0</span></span>
         <span class="live-badge" id="niBranchesStatus"><span class="live-dot"></span>Loading...</span>
       </div>
       <div id="niBranchesBody" class="brn-regions"><div class="grid-empty">Loading data from Google Sheets…</div></div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span>Auto care Branches <span class="brn-count-pill" id="niPacCount">0</span></span></div>
-      <div id="niPacBody"><div class="grid-empty">Loading…</div></div>
     </div>
   </div>
 
@@ -2536,46 +2547,57 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
 
-    <!-- Warranty -->
-    <div class="ins-sec" data-open="1">
-      <button type="button" class="ins-head" onclick="_insToggle(this)">
-        <span class="ins-title">🛡️ Warranty</span><span class="ins-chev">▾</span>
-      </button>
-      <div class="ins-body">
-        <div class="card" style="border-top:3px solid var(--baic)">
-          <div style="display:flex;align-items:flex-start;gap:14px">
-            <div class="ins-ic">🛡️</div>
-            <div style="flex:1">
-              <div class="ins-kicker">الضمان الأساسي لمركبات بايك</div>
-              <div class="ins-rtl" style="margin-top:8px">
-                📅 <strong>بداية سريان الضمان:</strong><br>
-                تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.<br>
-                مدة الضمان: <strong style="color:var(--baic)">10 سنوات أو 150,000 كيلومتر</strong> (أيهما يأتي أولاً).
-              </div>
+    <div id="baicInsWrap">
+      <div class="niref-tabs">
+        <button type="button" class="niref-tab baic-tab active" onclick="_baicInsTab(0)">🛡️ Warranty</button>
+        <button type="button" class="niref-tab baic-tab" onclick="_baicInsTab(1)">🔧 PMS Services</button>
+        <button type="button" class="niref-tab baic-tab" onclick="_baicInsTab(2)">📄 Appointment Script</button>
+        <button type="button" class="niref-tab baic-tab" onclick="_baicInsTab(3)">📄 Extra Information</button>
+      </div>
+
+      <!-- Warranty -->
+      <div class="niref-panel active" data-idx="0">
+        <div class="niref-cards">
+          <div class="nref-item baic-item">
+            <div class="nref-label">Warranty</div>
+            <div class="nref-content" dir="rtl" style="text-align:center">
+              <div class="nref-line">📅 <strong>بداية سريان الضمان:</strong></div>
+              <div class="nref-line">تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.</div>
+              <div class="nref-line">مدة الضمان: <strong style="color:var(--baic)">10 سنوات أو 150,000 كيلومتر</strong> (أيهما يأتي أولاً).</div>
+            </div>
+          </div>
+          <div class="nref-item baic-item">
+            <div class="nref-label">Battery Warranty</div>
+            <div class="nref-content" dir="rtl" style="text-align:center">
+              <div class="nref-line">📅 <strong>بداية سريان الضمان:</strong></div>
+              <div class="nref-line">تاريخ بدء الضمان: من تاريخ إصدار لوحات المركبة.</div>
+              <div class="nref-line">مدة الضمان: <strong style="color:var(--baic)">سنة واحدة أو 20 ألف كيلومتر</strong> (أيهما يأتي أولاً).</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- PMS Services -->
-    <div class="ins-sec" data-open="1">
-      <button type="button" class="ins-head" onclick="_insToggle(this)">
-        <span class="ins-title">🔧 PMS Services</span><span class="ins-chev">▾</span>
-      </button>
-      <div class="ins-body">
-        <div class="card" style="margin-bottom:12px">
-          <div class="ins-kicker">الصيانة الدورية لمركبات بايك</div>
-          <div class="ins-rtl" style="margin-top:8px">
-            تُجرى أول صيانة دورية على ممشى <strong>5,000 كيلومتر أو 6 أشهر</strong> (أيهما يأتي أولًا).<br>
-            بعد ذلك تُجرى الصيانة الدورية كل <strong>7,500 كيلومتر أو 6 أشهر</strong> (أيهما يأتي أولًا).
+      <!-- PMS Services -->
+      <div class="niref-panel" data-idx="1">
+        <div class="niref-cards">
+          <div class="nref-item baic-item">
+            <div class="nref-label">Maintenance Schedule</div>
+            <div class="nref-content" dir="rtl" style="text-align:center">
+              <div class="nref-line"><strong>الصيانة الدورية:</strong></div>
+              <div class="nref-line">تُجرى اول صيانة دورية علي ممشى <strong>5,000 كيلومتر أو 6 أشهر</strong> (أيهما يأتي أولآ)</div>
+              <div class="nref-line">بعد ذلك</div>
+              <div class="nref-line">تُجرى الصيانة الدورية كل <strong>7,500 كيلومتر أو 6 أشهر</strong> (أيهما يأتي أولآ)</div>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title">جدول الصيانة لمركبات بايك</div>
+      </div>
+
+      <!-- Appointment Script -->
+      <div class="niref-panel" data-idx="2">
+        <div class="card" style="border-top:3px solid var(--baic)">
           <div class="tbl-wrap">
             <table>
-              <thead><tr><th>Service</th><th>Description (Eg.)</th></tr></thead>
+              <thead><tr><th>Service</th><th>Description</th></tr></thead>
               <tbody>
                 <tr><td><span class="ins-badge">GR</span></td><td>GR - Engine Failure - BAIC 2021</td></tr>
                 <tr><td><span class="ins-badge">PMS</span></td><td>PMS - 10000K - BAIC 2021</td></tr>
@@ -2586,20 +2608,19 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Extra Information -->
-    <div class="ins-sec" data-open="1">
-      <button type="button" class="ins-head" onclick="_insToggle(this)">
-        <span class="ins-title">📄 Extra Information</span><span class="ins-chev">▾</span>
-      </button>
-      <div class="ins-body">
-        <div class="card">
-          <div class="ins-kicker">📝 ملاحظات هامة</div>
-          <ul class="ins-notes">
-            <li>توفر مبيعات قطع الغيار فقط في فرع <strong>114 - 358 - 623</strong>.</li>
-            <li>كامل الفروع تستقبل الاستدعاء والصيانة الدورية والإصلاحات تحت الضمان، ماعدا فرع <strong>(623 - 360)</strong> لا تقبل إصلاحات الضمان.</li>
-          </ul>
+      <!-- Extra Information -->
+      <div class="niref-panel" data-idx="3">
+        <div class="nref-item baic-item">
+          <div class="nref-label">📝 ملاحظات هامة</div>
+          <div class="nref-content" dir="rtl" style="text-align:right">
+            <ul class="ins-notes">
+              <li>توفر مبيعات قطع الغيار فقط في فرع <strong>114 - 358 - 623</strong>.</li>
+              <li>كامل الفروع تستقبل الاستدعاء والصيانة الدورية والإصلاحات تحت الضمان، ماعدا فرع <strong>(623 - 360)</strong> لا تقبل إصلاحات الضمان.</li>
+              <li>يتم رفع طلب للعميل (ممنوع اعطاء العميل رقم الفرع)</li>
+              <li>عملاء المنطقة الجنوبية خارج خميس مشيط وأبها، يتم رفع الريكوست لمدير فرع عبور فرع خميس مشيط</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -2825,6 +2846,17 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div id="nissanSmsLocBody"></div>
   </div>
 
+  <div id="tab-pac-branches-nissan" class="tab-panel">
+    <div class="page-header"><div>
+      <div class="page-eyebrow" style="color:var(--ni)">Nissan</div>
+      <div class="page-title" style="color:var(--ni)">PAC Branches</div>
+      <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px">Petromin Auto Care Workshops
+        <span class="live-badge" id="niPacBrStatus"><span class="live-dot"></span>—</span>
+      </div>
+    </div></div>
+    <div id="niPacBrBody"></div>
+  </div>
+
   <div id="tab-vehicles-nissan" class="tab-panel">
     <div class="page-header">
       <div>
@@ -2963,7 +2995,7 @@ const TAB_GROUPS={
   announcements:['announcements'],
   manager:['manager'],
   tasks:['tasks'],
-  nissan:['nissan-ref','nissan-smsloc','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
+  nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
   baic:['instruction-baic','warranty-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
 };
@@ -2978,6 +3010,7 @@ function runLoader(id){
   if(id==='nissan-smsloc')loadNissanSmsLoc();
   if(id==='appt-sms-stellantis')loadStAppointmentSms();
   if(id==='pac-branches-stellantis')loadStPacBranches();
+  if(id==='pac-branches-nissan')loadNiPacBranches();
   if(id==='sales-stellantis')loadStSales();
   if(id==='lost-offer-nissan')loadLostOffer();
   if(id==='sms-stellantis')renderSMS('stellantis');
@@ -4771,6 +4804,7 @@ function _niRefRender(rows){
   host.innerHTML='<div class="niref-tabs">'+tabs+'</div>'+panels;
 }
 function _niRefTab(i){var host=document.getElementById('nissanRefBody');if(!host)return;host.querySelectorAll('.niref-tab').forEach(function(t,j){t.classList.toggle('active',j===i);});host.querySelectorAll('.niref-panel').forEach(function(p){p.classList.toggle('active',+p.dataset.idx===i);});}
+function _baicInsTab(i){var host=document.getElementById('baicInsWrap');if(!host)return;host.querySelectorAll('.niref-tab').forEach(function(t,j){t.classList.toggle('active',j===i);});host.querySelectorAll('.niref-panel').forEach(function(p){p.classList.toggle('active',+p.dataset.idx===i);});}
 async function fetchSheetByName(sheetId,name){var url="https://docs.google.com/spreadsheets/d/"+sheetId+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent(name)+"&t="+Date.now();var r=await fetch(url);if(!r.ok)throw new Error(r.status);return csv(await r.text());}
 async function loadNissanRef(){
   var st=document.getElementById('nissanRefStatus');
@@ -4807,7 +4841,7 @@ function _nissanSmsLocRender(rows){
   function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_nsmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
   function card(s,i){var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.branch||('Branch '+(i+1)))+'</div>'+appt+loc+'</div>';}
   function section(title,list,offset){if(!list.length)return '';var cards=list.map(function(s,k){return card(s,offset+k);}).join('');return '<div class="nsms-section-h">'+title+'</div><div class="smsc-grid" style="--sms-c:var(--ni);--sms-bg:var(--ni-bg)">'+cards+'</div>';}
-  host.innerHTML=section('\ud83c\udfe2 \u0641\u0631\u0648\u0639 \u0627\u0644\u0645\u0639\u0627\u0631\u0636 \u00b7 3S Showrooms',before,0)+section('\ud83d\udd27 \u0641\u0631\u0648\u0639 PAC \u00b7 Auto Care Branches',after,before.length);
+  host.innerHTML=section('Appointment &amp; Location SMS',before,0)+section('\ud83d\udd27 \u0641\u0631\u0648\u0639 PAC \u00b7 Auto Care Branches',after,before.length);
 }
 async function loadNissanSmsLoc(){
   var st=document.getElementById('nissanSmsLocStatus');
@@ -4929,6 +4963,45 @@ function _stPacRender(list){
            '<div class="pac-card-body">'+loc+mgr+ph+em+rmLine+hrs+'</div></div>';
   }).join('');
   el.innerHTML='<div class="pac-section" style="--rc:var(--st);--rcbg:var(--st-bg)"><div class="pac-grid">'+cards+'</div></div>';
+}
+/* ── NISSAN PAC BRANCHES (live from sheet) ── */
+var NIPAC_SHEET='1lXDeN1iUosG_JSADgdWhnkT5J1t3hhwXoSJdbmb4B88';
+var NIPAC_GID='1439489903';
+function _niPacBrParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(rows.length&&/^(city|code)$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
+  return rows.map(function(r){
+    return {code:(r[0]||'').trim(),name:(r[1]||'').trim(),city:(r[2]||'').trim(),hours:(r[3]||'').trim(),person:(r[4]||'').trim(),phone:(r[5]||'').trim(),map:(r[6]||'').trim()};
+  }).filter(function(b){return b.name||b.city;});
+}
+function _niPacBrRender(list){
+  var el=document.getElementById('niPacBrBody'); if(!el)return;
+  if(!list.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
+  var cards=list.map(function(b){
+    var mgr=b.person?'<div class="brn-mgr">'+_BRN_PERSON+'<span>'+_baicEsc(b.person)+'</span></div>':'';
+    var ph=b.phone?'<div class="brn-phone">'+_BRN_PHONE+'<a href="tel:'+_baicEsc(b.phone.replace(/\s/g,''))+'">'+_baicEsc(b.phone)+'</a></div>':'';
+    var loc=b.map?'<a class="brn-loc" href="'+_baicEsc(b.map)+'" target="_blank" rel="noopener">'+_BRN_LOC+'<span>Location</span></a>':'';
+    var hrs=b.hours?'<div class="brn-hours">'+_BRN_CLOCK+'<span>'+_baicEsc(b.hours)+'</span></div>':'';
+    return '<div class="pac-card"><div class="pac-card-head"><div class="pac-card-name">'+_baicEsc((b.code?b.code+' - ':'')+b.name)+'</div>'+
+           '<div class="brn-city">'+_BRN_PIN+'<span>'+_baicEsc(b.city)+'</span></div></div>'+
+           '<div class="pac-card-body">'+loc+mgr+ph+hrs+'</div></div>';
+  }).join('');
+  el.innerHTML='<div class="pac-section" style="--rc:var(--ni);--rcbg:var(--ni-bg)"><div class="pac-head"><span class="pac-head-title">🔧 Petromin Auto Care (PAC) — '+list.length+' workshops</span></div><div class="pac-grid">'+cards+'</div></div>';
+}
+async function loadNiPacBranches(){
+  var st=document.getElementById('niPacBrStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{
+    var rows=await fetchSheetFrom(NIPAC_SHEET,NIPAC_GID);
+    var list=_niPacBrParse(rows);
+    if(!list.length)throw new Error('empty');
+    _niPacBrRender(list);
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';}
+  }catch(e){
+    var fb=NI_PAC_WS.map(function(w){return {code:w.code,name:w.name,city:w.city,hours:w.hours,person:w.person,phone:w.phone,map:_pacMapUrl(w)};});
+    _niPacBrRender(fb);
+    if(st){st.innerHTML='<span class="live-dot"></span>Cached';}
+  }
 }
 async function loadStPacBranches(){
   var st=document.getElementById('stPacStatus');
