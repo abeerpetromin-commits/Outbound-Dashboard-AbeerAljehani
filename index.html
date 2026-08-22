@@ -1168,6 +1168,18 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .cs-line{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;font-size:13.5px;line-height:1.95;color:var(--text);padding:11px 16px;text-align:right;direction:rtl;border-bottom:1px solid var(--border)}
 .cs-card>.cs-line:last-child,.cs-card>.cs-label:last-child{border-bottom:0}
 @media(max-width:760px){.cs-grid{grid-template-columns:1fr}.cs-title{font-size:13px}}
+
+/* ── Call Scripts: collapsible list ── */
+.cs-acc{display:flex;flex-direction:column;gap:10px;--csc:var(--ni)}
+.cs-acc.cs-ni{--csc:var(--ni)}
+.cs-acc.cs-st{--csc:var(--st)}
+.cs-acc.cs-baic{--csc:var(--baic)}
+.cs-acc-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.cs-acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;background:var(--csc);border:0;cursor:pointer;font-family:var(--font-display);color:#fff;font-weight:800;font-size:14px;text-align:right;direction:rtl}
+.cs-acc-chev{transition:transform .2s;font-size:13px;flex:0 0 auto}
+.cs-acc-item[data-open="0"] .cs-acc-chev{transform:rotate(-90deg)}
+.cs-acc-item[data-open="0"] .cs-acc-body{display:none}
+.cs-acc-body>.cs-line:last-child,.cs-acc-body>.cs-label:last-child{border-bottom:0}
 /* ── D+1 / WhatsApp bilingual script ── */
 .d1-wrap{display:flex;flex-direction:column;gap:11px;--d1c:var(--ni);--d1c2:var(--ni-muted)}
 .d1-wrap.d1-ni{--d1c:var(--ni);--d1c2:var(--ni-muted)}
@@ -2190,7 +2202,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
       <span class="live-badge" id="csStStatus"><span class="live-dot"></span>Loading…</span>
     </div>
-    <div class="cs-grid cs-st" id="scriptStellantisContent"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+    <div class="cs-acc cs-st" id="scriptStellantisContent"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── SCRIPT NISSAN ── -->
@@ -2203,7 +2215,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
       <span class="live-badge" id="csNiStatus"><span class="live-dot"></span>Loading…</span>
     </div>
-    <div class="cs-grid cs-ni" id="scriptNissanContent"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+    <div class="cs-acc cs-ni" id="scriptNissanContent"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── WHATSAPP / D+1 SCRIPT NISSAN ── -->
@@ -3894,7 +3906,7 @@ const ST_BR_FALLBACK=[
   {region:'West',branch:'701 - Automall Jeddah',svc:'PMS - Recall - Suspension',addr:'طريق الملك عبدالعزيز',phone:'545421311',mgr:'Tareq Jabsheh',email:'tariq.jabsheh@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://maps.app.goo.gl/3MGmJhpKpDd82zYo9'},
   {region:'West',branch:'711 - Al-Nakhil Jeddah',svc:'',addr:'حي النخيل، طريق ابو عمرو الأوزاعي',phone:'545734566',mgr:'Ahmed Essawi',email:'a.essawi@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://maps.app.goo.gl/nn63He58yitGojnb9'},
   {region:'West',branch:'704 - Makkah',svc:'',addr:'طريق الليث، ولي العهد، مكة المكرمة 24354',phone:'535003037',mgr:'Atif Tufail',email:'a.tufail@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://goo.gl/maps/WKpfLNmzsYwHLJ9u9'},
-  {region:'West',branch:'706 - Madinah Road - Jeddah',svc:'PMS - Recall - Suspension',addr:'طريق المدينة، البوادي،, جدة 23443',phone:'507492938',mgr:'Emad Abu Salah',email:'e.abusalah@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 8PM ❌ Fridays closed',map:'https://maps.app.goo.gl/YW2HMKndiEbQmpXn7'},
+  {region:'West',branch:'706 - Madinah Road - Jeddah',svc:'PMS - Recall - Suspension',addr:'طريق المدينة، البوادي،, جدة 23443',phone:'507492938',mgr:'Emad Abu Salah',email:'e.abusalah@petromin.com',map:'https://maps.app.goo.gl/YW2HMKndiEbQmpXn7'},
   {region:'Central',branch:'801 - Khurias Riyadh',svc:'Jeep: Saqib / Ihab / Mahmoud / Abdulsattar   MB: Osama / Tamer / Salah / Izzuldeen',addr:'3852 طريق خريص الفرعي، النهضة، الرياض 13222 6561، مدينة',phone:'535815944',mgr:'Shahzad Ali / Abdullah Swaidan',email:'shahzad.ali@petromin.com, abdullah.swaidan@petromin.com',hours:'',map:'https://goo.gl/maps/TATdshgR84mUXqKW7'},
   {region:'Central',branch:'805 - Hail',svc:'PMS - Recall - Suspension',addr:'طريق الملك عبدالله، حي الخماشية',phone:'',mgr:'Anwar Ali Mugheri',email:'anwar.mugheri@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://goo.gl/maps/n2Q7bU3NBJU7HedX9'},
   {region:'East',branch:'901 - Dammam',svc:'',addr:'2675 طريق الملك فهد, الدمام 34225',phone:'531002502',mgr:'Osama Mohammed',email:'osama.mohammed@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://goo.gl/maps/TmrmoNQZiCXAGprFA'},
@@ -4210,13 +4222,17 @@ function _csParse(rows){
 }
 function _csRender(elId,rows,brand){
   var el=document.getElementById(elId); if(!el)return;
-  el.className='cs-grid cs-'+(brand||'ni');
+  el.className='cs-acc cs-'+(brand||'ni');
   var scripts=_csParse(rows);
   if(!scripts.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   el.innerHTML=scripts.map(function(s){
     var body=s.lines.map(function(l){return '<div class="'+(l.label?'cs-label':'cs-line')+'">'+_baicEsc(l.text)+'</div>';}).join('');
-    return '<div class="cs-card"><div class="cs-title">'+_baicEsc(s.title||'Script')+'</div>'+body+'</div>';
+    return '<div class="cs-acc-item" data-open="0"><button type="button" class="cs-acc-head" onclick="_csAccToggle(this)"><span>'+_baicEsc(s.title||'Script')+'</span><span class="cs-acc-chev">▾</span></button><div class="cs-acc-body">'+body+'</div></div>';
   }).join('');
+}
+function _csAccToggle(btn){
+  var item=btn.closest('.cs-acc-item'); if(!item)return;
+  item.setAttribute('data-open', item.getAttribute('data-open')==='1'?'0':'1');
 }
 async function loadCallScript(brand){
   var cfg=CS_CFG[brand]||CS_CFG.ni;
