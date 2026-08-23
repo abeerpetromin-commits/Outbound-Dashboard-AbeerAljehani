@@ -763,7 +763,7 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .hdr-notif-badge{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1}
 .hdr-notif-badge.show{display:flex}
 .hdr-ann-wrap{position:relative}
-.hdr-ann-dropdown{position:absolute;top:calc(100% + 10px);left:0;width:290px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 44px -16px rgba(16,24,40,.28);z-index:60;display:none;overflow:hidden;text-align:right;direction:rtl}
+.hdr-ann-dropdown{position:fixed;width:290px;max-width:90vw;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 44px -16px rgba(16,24,40,.28);z-index:9999;display:none;overflow:hidden;text-align:right;direction:rtl}
 .hdr-ann-dropdown.show{display:block}
 .hdr-ann-drop-head{font-family:var(--font-display);font-weight:800;font-size:12.5px;color:var(--text);padding:12px 14px;border-bottom:1px solid var(--border);background:#fafbfc}
 .hdr-ann-drop-body{max-height:280px;overflow-y:auto}
@@ -777,7 +777,7 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .hdr-ann-drop-empty{padding:20px 14px;text-align:center;font-size:12px;color:var(--text3)}
 .hdr-ann-drop-foot{padding:10px 14px;text-align:center;font-size:11.5px;font-weight:700;color:var(--st);cursor:pointer;border-top:1px solid var(--border);background:#fafbfc}
 .hdr-ann-drop-foot:hover{background:#f1f4fa}
-@media(max-width:480px){.hdr-ann-dropdown{left:auto;right:0;width:260px}}
+@media(max-width:480px){.hdr-ann-dropdown{width:260px}}
 .brand-tagline{font-size:10.5px;color:var(--text3);letter-spacing:.02em;padding-left:50px}
 .nav-group{padding:14px 12px 4px}
 .nav-group-label{font-size:9.5px;font-weight:800;letter-spacing:.18em;color:var(--text3);padding:0 10px 8px}
@@ -1120,6 +1120,19 @@ tr.row-nissan:hover td{background:rgba(195,0,47,.09)}
 .link-file{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);
   background:#eef1f6;border:1px solid var(--border);padding:7px 13px;border-radius:9px}
 @media(max-width:760px){.links-btn{margin-left:0}.link-row{flex-wrap:wrap;gap:8px}}
+.links-groups{display:flex;flex-direction:column;gap:20px;padding:18px}
+.links-cat-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;padding:0 2px}
+.links-cat-ic{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 auto}
+.links-cat-title{font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--text)}
+.links-cat-count{font-size:11px;color:var(--text3);font-weight:700;margin-inline-start:auto}
+.links-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.link-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:transform .15s,box-shadow .15s}
+.link-card:hover{transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(16,24,40,.25)}
+.link-card-title{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--text)}
+.link-card-desc{font-size:11.5px;color:var(--text3);line-height:1.5}
+.link-card-open{align-self:flex-start;display:inline-flex;align-items:center;gap:5px;background:var(--st-bg,#eaf1ff);color:var(--st,#1257c4);font-weight:800;font-size:11.5px;padding:6px 12px;border-radius:8px;text-decoration:none;margin-top:2px}
+.link-card-open svg{width:12px;height:12px}
+.link-card-file{align-self:flex-start;display:inline-flex;align-items:center;gap:5px;background:#eef1f6;border:1px solid var(--border);color:var(--text2);font-weight:700;font-size:11.5px;padding:6px 12px;border-radius:8px;margin-top:2px}
 
 .links-head{position:relative}
 .links-live{position:absolute;right:16px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;gap:6px;
@@ -1909,7 +1922,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
       <div class="brand-tab brand-recall" onclick="openRecallRemote(this)">
         <div class="brand-tab-info">
-          <div class="brand-tab-name">🔁 Recall</div>
+          <div class="brand-tab-name">⚠️ Recall</div>
           <div class="brand-tab-sub">Remote Areas · Reschedule</div>
         </div>
         <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
@@ -3444,7 +3457,21 @@ function _renderAnnDropdown(){
   if(!items.length){host.innerHTML='<div class="hdr-ann-drop-empty">لا توجد إعلانات جديدة 👍</div>';return;}
   host.innerHTML=items.map(_annDropItemHtml).join('');
 }
-function _closeAnnDropdown(){var dd=document.getElementById('hdrAnnDropdown');if(dd)dd.classList.remove('show');}
+function _closeAnnDropdown(){
+  var dd=document.getElementById('hdrAnnDropdown');if(dd)dd.classList.remove('show');
+  window.removeEventListener('scroll',_closeAnnDropdown,true);
+  window.removeEventListener('resize',_closeAnnDropdown);
+}
+function _positionAnnDropdown(dd){
+  var wrap=document.querySelector('.hdr-ann-wrap'); if(!wrap)return;
+  var r=wrap.getBoundingClientRect();
+  var w=dd.offsetWidth||290;
+  var right=Math.max(8,window.innerWidth-r.right);
+  if(right+w>window.innerWidth-8)right=Math.max(8,window.innerWidth-w-8);
+  dd.style.top=(r.bottom+8)+'px';
+  dd.style.right=right+'px';
+  dd.style.left='auto';
+}
 function _toggleAnnDropdown(ev){
   if(ev){ev.stopPropagation();ev.preventDefault();}
   var dd=document.getElementById('hdrAnnDropdown'); if(!dd)return;
@@ -3453,7 +3480,10 @@ function _toggleAnnDropdown(ev){
   if(!wasOpen){
     _renderAnnDropdown();
     dd.classList.add('show');
+    _positionAnnDropdown(dd);
     setTimeout(function(){document.addEventListener('click',_closeAnnDropdown,{once:true});},0);
+    window.addEventListener('scroll',_closeAnnDropdown,true);
+    window.addEventListener('resize',_closeAnnDropdown);
     _annMarkSeen();
   }
 }
@@ -5551,15 +5581,43 @@ function _linksParse(rows){
   }
   return out;
 }
+var LINKS_CATS=[
+  {key:'crm',title:'CRM & Sales',icon:'💼',bg:'#eaf1ff',fg:'#1257c4',test:/salesforce|dealer connect|social media|crm/i},
+  {key:'comm',title:'Communication',icon:'💬',bg:'#e9fbf0',fg:'#16a34a',test:/ameyo|whatsapp|surbo|chat/i},
+  {key:'reports',title:'Reports & Performance',icon:'📊',bg:'#fff4e8',fg:'#e6971e',test:/dashboard|daily sheet|1km|10km|performance|preformance/i},
+  {key:'pricing',title:'Pricing & Offers',icon:'💰',bg:'#fdf2f4',fg:'#e5383b',test:/price/i},
+  {key:'hr',title:'HR & Support',icon:'🛠️',bg:'#f2eefc',fg:'#7c3aed',test:/vacation|it care|support|\bhr\b/i}
+];
+var LINKS_OTHER={key:'other',title:'Other',icon:'🔗',bg:'#f4f6fa',fg:'#64748b'};
+function _linkCatFor(name){
+  for(var i=0;i<LINKS_CATS.length;i++){if(LINKS_CATS[i].test.test(name))return LINKS_CATS[i];}
+  return LINKS_OTHER;
+}
+function _linkCardHtml(it){
+  var name=_annEsc(it.name), desc=it.desc?('<div class="link-card-desc">'+_annEsc(it.desc)+'</div>'):'';
+  var u=it.url||'', action='';
+  if(/^https?:\/\//i.test(u)){action='<a class="link-card-open" href="'+u.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener">'+_LINK_IC+' Open</a>';}
+  else if(u){action='<span class="link-card-file">'+_annEsc(u)+'</span>';}
+  return '<div class="link-card"><div class="link-card-title">'+name+'</div>'+desc+action+'</div>';
+}
 function _linksRender(items){
   var list=document.getElementById('linksList'); if(!list)return;
-  if(!items||!items.length){list.innerHTML='<div class="link-row"><div class="link-info"><div class="link-desc">لا توجد روابط في الجدول بعد</div></div></div>';return;}
-  list.innerHTML=items.map(function(it){
-    var name=_annEsc(it.name), desc=it.desc?('<div class="link-desc">'+_annEsc(it.desc)+'</div>'):'';
-    var u=it.url||'', action='';
-    if(/^https?:\/\//i.test(u)){action='<a class="link-open" href="'+u.replace(/"/g,'&quot;')+'" target="_blank" rel="noopener">'+_LINK_IC+' Open</a>';}
-    else if(u){action='<span class="link-file">'+_annEsc(u)+'</span>';}
-    return '<div class="link-row"><div class="link-info"><div class="link-title">'+name+'</div>'+desc+'</div>'+action+'</div>';
+  list.className='links-groups';
+  if(!items||!items.length){list.innerHTML='<div class="link-card-desc" style="padding:8px">لا توجد روابط في الجدول بعد</div>';return;}
+  var groups={};
+  items.forEach(function(it){
+    var cat=_linkCatFor(it.name||'');
+    if(!groups[cat.key])groups[cat.key]={cat:cat,items:[]};
+    groups[cat.key].items.push(it);
+  });
+  var order=LINKS_CATS.concat([LINKS_OTHER]).map(function(c){return c.key;});
+  list.innerHTML=order.filter(function(k){return groups[k];}).map(function(k){
+    var g=groups[k];
+    return '<div class="links-cat">'+
+      '<div class="links-cat-head"><div class="links-cat-ic" style="background:'+g.cat.bg+';color:'+g.cat.fg+'">'+g.cat.icon+'</div>'+
+      '<div class="links-cat-title">'+_annEsc(g.cat.title)+'</div><div class="links-cat-count">'+g.items.length+'</div></div>'+
+      '<div class="links-cat-grid">'+g.items.map(_linkCardHtml).join('')+'</div>'+
+    '</div>';
   }).join('');
 }
 async function loadLinks(){
@@ -6059,6 +6117,7 @@ var _permApprovalsUnlocked=false;
 function _permGetPassword(){try{return localStorage.getItem('permApprovalPw')||PERM_APPROVAL_PASSWORD;}catch(e){return PERM_APPROVAL_PASSWORD;}}
 function _permSetPassword(p){try{localStorage.setItem('permApprovalPw',p);}catch(e){}}
 var PERM_MANAGER='Abeer';
+var PERM_SHEET_GID='1875882939';
 var PERM_MONTHLY_LIMIT=4; // hours allowed per employee per month
 var PERM_EMPLOYEES=[
   {name:'Ghufran K. Fadlallah',badge:'21270'},
@@ -6074,8 +6133,47 @@ var _PERM_MONTH=null; // 'YYYY-M' currently viewed
 
 function _permKey(d){var dt=new Date(d+'T00:00:00');return dt.getFullYear()+'-'+(dt.getMonth()+1);}
 function _permMonthName(key){var p=key.split('-');var names=['January','February','March','April','May','June','July','August','September','October','November','December'];return names[parseInt(p[1],10)-1]+' '+p[0];}
-function _permLoad(){try{return JSON.parse(localStorage.getItem('permRequests')||'[]');}catch(e){return [];}}
-function _permSave(list){try{localStorage.setItem('permRequests',JSON.stringify(list));}catch(e){}}
+function _permParseTimeRange(s){
+  s=(s||'').trim();
+  var m=s.match(/(\d{1,2}:\d{2})\s*[-–]\s*(\d{1,2}:\d{2})/);
+  if(!m)return {from:'',to:''};
+  return {from:m[1],to:m[2]};
+}
+function _permRowsToReqs(rows){
+  rows=rows||[];
+  var start=0;
+  if(rows.length&&/^timestamp$/i.test((rows[0][0]||'').trim()))start=1;
+  var out=[];
+  for(var i=start;i<rows.length;i++){
+    var r=rows[i]||[];
+    var name=(r[1]||'').trim();
+    if(!name)continue;
+    var tr=_permParseTimeRange(r[5]);
+    out.push({
+      rowIndex:i-start,
+      submittedAt:(r[0]||'').trim(),
+      name:name,
+      badge:(r[2]||'').trim(),
+      reason:(r[3]||'').trim(),
+      date:(r[4]||'').trim(),
+      timeRange:(r[5]||'').trim(),
+      from:tr.from,
+      to:tr.to,
+      status:((r[6]||'').trim()||'pending').toLowerCase(),
+      managerNote:(r[7]||'').trim()
+    });
+  }
+  return out;
+}
+async function _permFetchAll(){
+  try{
+    var rows=await fetchSheet(PERM_SHEET_GID);
+    window._permCache=_permRowsToReqs(rows);
+  }catch(e){
+    window._permCache=window._permCache||[];
+  }
+  return window._permCache;
+}
 function _permHours(from,to){
   if(!from||!to)return 0;
   var fp=from.split(':').map(Number),tp=to.split(':').map(Number);
@@ -6190,51 +6288,58 @@ function _permSaveChangePw(){
   _permCloseChangePw();
   alert('Password changed successfully.');
 }
+function _permPost(payload){
+  try{
+    fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+  }catch(e){}
+}
 function _permSubmit(ev){
   ev.preventDefault();
   var name=document.getElementById('permEmpName').value;
   if(!name){alert('Please select an employee name.');return false;}
-  var req={
-    id:Date.now()+'-'+Math.floor(Math.random()*1e6),
-    name:name,
-    badge:document.getElementById('permBadge').value||_permBadgeFor(name),
-    reason:document.getElementById('permReason').value,
-    date:document.getElementById('permDate').value,
-    from:document.getElementById('permFrom').value,
-    to:document.getElementById('permTo').value,
-    notes:document.getElementById('permNotes').value||'',
-    status:'pending',
-    submittedAt:new Date().toISOString()
-  };
-  var list=_permLoad();
-  list.push(req);
-  _permSave(list);
+  var badge=document.getElementById('permBadge').value||_permBadgeFor(name);
+  var reason=document.getElementById('permReason').value;
+  var date=document.getElementById('permDate').value;
+  var from=document.getElementById('permFrom').value;
+  var to=document.getElementById('permTo').value;
+  var notes=document.getElementById('permNotes').value||'';
+  var reasonCell=reason+(notes?(' — '+notes):'');
+  var hoursCell=(from&&to)?(from+'-'+to):'';
+  var row=[new Date().toISOString(),name,badge,reasonCell,date,hoursCell,'pending',''];
+  _permPost({type:'permission_submit',row:row});
   document.getElementById('permForm').reset();
   document.getElementById('permDate').value=new Date().toISOString().slice(0,10);
   document.getElementById('permBadge').value='';
-  _PERM_MONTH=_permKey(req.date);
-  _permRenderAll();
+  _PERM_MONTH=_permKey(date);
   alert('Request submitted for approval.');
+  setTimeout(_permRenderAll,1200);
   return false;
 }
-function _permDecide(id,status){
-  var list=_permLoad();
-  var r=list.filter(function(x){return x.id===id;})[0];
-  if(!r)return;
-  r.status=status;
-  _permSave(list);
-  _permRenderAll();
+function _permDecide(rowIndex,status){
+  _permPost({type:'permission_update',rowIndex:rowIndex,status:status});
+  if(window._permCache){
+    window._permCache.forEach(function(r){if(r.rowIndex===rowIndex)r.status=status;});
+    _permRenderFromCache();
+  }
+  setTimeout(_permRenderAll,1200);
 }
-function _permUndo(id){_permDecide(id,'pending');}
-function _permDelete(id){
-  var list=_permLoad().filter(function(x){return x.id!==id;});
-  _permSave(list);
-  _permRenderAll();
+function _permUndo(rowIndex){_permDecide(rowIndex,'pending');}
+function _permDelete(rowIndex){
+  _permPost({type:'permission_delete',rowIndex:rowIndex});
+  if(window._permCache){
+    window._permCache=window._permCache.filter(function(r){return r.rowIndex!==rowIndex;});
+    _permRenderFromCache();
+  }
+  setTimeout(_permRenderAll,1200);
 }
-function _permRenderAll(){
+async function _permRenderAll(){
+  await _permFetchAll();
+  _permRenderFromCache();
+}
+function _permRenderFromCache(){
   var label=document.getElementById('permMonthLabel');
   if(label)label.textContent=_permMonthName(_PERM_MONTH);
-  var all=_permLoad();
+  var all=window._permCache||[];
   var inMonth=all.filter(function(r){return _permKey(r.date)===_PERM_MONTH;});
   var pendingAll=all.filter(function(r){return r.status==='pending';});
   var approvedMonth=inMonth.filter(function(r){return r.status==='approved';});
@@ -6264,8 +6369,8 @@ function _permRenderAll(){
       pending.forEach(function(r){
         html+='<div class="perm-req-card">'+
           '<div class="perm-req-top"><span class="perm-req-name">'+_annEsc(r.name)+'</span><span class="perm-req-status pending">Pending</span></div>'+
-          '<div class="perm-req-meta">Badge #'+_annEsc(r.badge||'—')+' · '+_annEsc(r.reason||'—')+'<br>'+_annEsc(r.date)+' · '+_annEsc(r.from)+' – '+_annEsc(r.to)+' ('+_permHours(r.from,r.to)+'h)'+(r.notes?('<br>'+_annEsc(r.notes)):'')+'</div>'+
-          '<div class="perm-req-actions"><button type="button" class="perm-btn-approve" onclick="_permDecide(\''+r.id+'\',\'approved\')">Approve</button><button type="button" class="perm-btn-reject" onclick="_permDecide(\''+r.id+'\',\'rejected\')">Reject</button></div>'+
+          '<div class="perm-req-meta">Badge #'+_annEsc(r.badge||'—')+' · '+_annEsc(r.reason||'—')+'<br>'+_annEsc(r.date)+' · '+_annEsc(r.from)+' – '+_annEsc(r.to)+' ('+_permHours(r.from,r.to)+'h)</div>'+
+          '<div class="perm-req-actions"><button type="button" class="perm-btn-approve" onclick="_permDecide('+r.rowIndex+',\'approved\')">Approve</button><button type="button" class="perm-btn-reject" onclick="_permDecide('+r.rowIndex+',\'rejected\')">Reject</button></div>'+
         '</div>';
       });
       if(decided.length){
@@ -6274,7 +6379,7 @@ function _permRenderAll(){
           html+='<div class="perm-req-card">'+
             '<div class="perm-req-top"><span class="perm-req-name">'+_annEsc(r.name)+'</span><span class="perm-req-status '+r.status+'">'+r.status+'</span></div>'+
             '<div class="perm-req-meta">Badge #'+_annEsc(r.badge||'—')+' · '+_annEsc(r.reason||'—')+'<br>'+_annEsc(r.date)+' · '+_annEsc(r.from)+' – '+_annEsc(r.to)+' ('+_permHours(r.from,r.to)+'h)</div>'+
-            '<div class="perm-req-actions"><button type="button" class="perm-btn-undo" onclick="_permUndo(\''+r.id+'\')">Undo</button></div>'+
+            '<div class="perm-req-actions"><button type="button" class="perm-btn-undo" onclick="_permUndo('+r.rowIndex+')">Undo</button></div>'+
           '</div>';
         });
       }
@@ -6306,6 +6411,7 @@ function _permRenderAll(){
     sumBody.innerHTML=empCards||'<div class="perm-emp-empty">No permission requests this month.</div>';
   }
 }
+setInterval(function(){var p=document.getElementById('tab-permissions');if(p&&p.classList.contains('active'))_permRenderAll();},30000);
 try{openAnnouncements();}catch(e){console.warn(e);}
 _booted=true;
 
