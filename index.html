@@ -752,6 +752,16 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .hdr-right .brand-tagline{margin-left:0;padding-left:0}
 .hdr-updated{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--text3);font-family:var(--font-display)}
 .upd-dot{width:7px;height:7px;border-radius:50%;background:#1aa758;box-shadow:0 0 0 3px rgba(26,167,88,.15)}
+.hdr-notif-row{display:flex;gap:8px;margin-top:6px}
+.hdr-notif-btn{position:relative;width:32px;height:32px;border-radius:10px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .15s,box-shadow .15s}
+.hdr-notif-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.hdr-notif-btn svg{width:16px;height:16px}
+.hdr-notif-ann{background:#fff4e8;border-color:#f6d9ae}
+.hdr-notif-ann svg{color:#e6971e}
+.hdr-notif-refresh{background:#eaf1ff;border-color:#bfd6fb}
+.hdr-notif-refresh svg{color:#2563eb}
+.hdr-notif-badge{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1}
+.hdr-notif-badge.show{display:flex}
 .brand-tagline{font-size:10.5px;color:var(--text3);letter-spacing:.02em;padding-left:50px}
 .nav-group{padding:14px 12px 4px}
 .nav-group-label{font-size:9.5px;font-weight:800;letter-spacing:.18em;color:var(--text3);padding:0 10px 8px}
@@ -1821,6 +1831,16 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div class="hdr-center"><div><div class="hdr-title">Retention Team Dashboard</div><div class="hdr-title-sub">Nissan · Stellantis · BAIC</div></div></div>
     <div class="hdr-right">
       <div class="hdr-updated" id="hdrUpdated">📅 —</div>
+      <div class="hdr-notif-row">
+        <button type="button" class="hdr-notif-btn hdr-notif-ann" onclick="openAnnouncements()" title="إعلانات جديدة">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="hdr-notif-badge" id="hdrAnnBadge"></span>
+        </button>
+        <button type="button" class="hdr-notif-btn hdr-notif-refresh" onclick="_hdrRefreshDashboard()" title="تحديث الداشبورد">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          <span class="hdr-notif-badge" id="hdrRefreshBadge"></span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3329,10 +3349,30 @@ function _annLines(x){
   if(parts.length<=1)return _annOne(parts[0]||x);
   return parts.map(_annOne).join('');
 }
+var ANN_SEEN_KEY='annSeenCount';
+function _annUpdateBadges(count){
+  try{
+    var seen=parseInt(localStorage.getItem(ANN_SEEN_KEY)||'0',10);
+    if(isNaN(seen))seen=0;
+    var diff=Math.max(0,count-seen);
+    ['hdrAnnBadge','hdrRefreshBadge'].forEach(function(id){
+      var b=document.getElementById(id); if(!b)return;
+      if(diff>0){b.textContent=diff>99?'99+':String(diff);b.classList.add('show');}
+      else{b.classList.remove('show');b.textContent='';}
+    });
+  }catch(e){}
+}
+function _annMarkSeen(){
+  try{localStorage.setItem(ANN_SEEN_KEY,String(window._annTotalCount||0));}catch(e){}
+  _annUpdateBadges(window._annTotalCount||0);
+}
+function _hdrRefreshDashboard(){location.reload();}
 function _annSet(items,live){
   var t=document.querySelector('.announce-title'), m=document.querySelector('.announce-msg'), list=document.getElementById('annList'), b=document.getElementById('annLive');
   if(b)b.textContent=live?'Live':'Cached';
   var groups=_annGroup(items);
+  window._annTotalCount=groups.length;
+  _annUpdateBadges(groups.length);
   if(groups.length){
     if(t)t.textContent='📢 Announcements';
     if(m)m.style.display='none';
@@ -4977,7 +5017,7 @@ function setBrandActive(brand){var map={stellantis:'brand-st',nissan:'brand-ni',
 function _hidePanels(){document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});}
 function _scrollContent(){if(!_booted)return;setTimeout(function(){var ap=document.querySelector('.tab-panel.active');if(ap)ap.scrollIntoView({behavior:'smooth',block:'start'});},40);}
 function setCrumb(brand,title){var c=document.getElementById('crumb');if(!c)return;if(!brand){c.style.display='none';return;}var n={stellantis:'Stellantis',nissan:'Nissan',baic:'BAIC',sched:'Team Schedules'};var bc=brand==='stellantis'?'brand-st':brand==='nissan'?'brand-ni':brand==='sched'?'brand-sched':'brand-baic';c.className='crumb '+bc;c.style.display='flex';c.dataset.brand=brand;c.querySelector('.crumb-brand').textContent=n[brand]||brand;c.querySelector('.crumb-title').textContent=title||'';}
-function openAnnouncements(el){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");document.querySelectorAll('.nav-item,.brand-tab').forEach(function(n){n.classList.remove('active');});if(el)el.classList.add('active');else{var c=document.querySelector('.brand-ann');if(c)c.classList.add('active');}var p=document.getElementById('tab-announcements');if(p)p.classList.add('active');document.body.setAttribute('data-brand','ann');if(typeof setCrumb==='function')setCrumb(null);try{loadAnnouncements();}catch(e){}if(typeof _scrollContent==='function')_scrollContent();}
+function openAnnouncements(el){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");document.querySelectorAll('.nav-item,.brand-tab').forEach(function(n){n.classList.remove('active');});if(el)el.classList.add('active');else{var c=document.querySelector('.brand-ann');if(c)c.classList.add('active');}var p=document.getElementById('tab-announcements');if(p)p.classList.add('active');document.body.setAttribute('data-brand','ann');if(typeof setCrumb==='function')setCrumb(null);try{var _annP=loadAnnouncements();if(_annP&&_annP.then)_annP.then(function(){try{_annMarkSeen();}catch(e){}});}catch(e){}if(typeof _scrollContent==='function')_scrollContent();}
 function openBrand(brand,el){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});setBrandActive(brand);var m=document.getElementById('tab-menu-'+brand);if(m)m.classList.add('active');document.body.setAttribute('data-brand',brand);setCrumb(null);_scrollContent();}
 function openRef(panelId,brand,title){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");var p=document.getElementById('tab-'+panelId);if(p)p.classList.add('active');document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});setBrandActive(brand);document.body.setAttribute('data-brand',brand);setCrumb(brand,title);setTimeout(function(){try{runLoader(panelId);}catch(e){console.warn(panelId,e);}},40);_scrollContent();}
 function crumbBack(){var c=document.getElementById('crumb');var brand=c&&c.dataset.brand?c.dataset.brand:'stellantis';openBrand(brand);}
