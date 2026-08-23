@@ -762,6 +762,22 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .hdr-notif-refresh svg{color:#2563eb}
 .hdr-notif-badge{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1}
 .hdr-notif-badge.show{display:flex}
+.hdr-ann-wrap{position:relative}
+.hdr-ann-dropdown{position:absolute;top:calc(100% + 10px);left:0;width:290px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 44px -16px rgba(16,24,40,.28);z-index:60;display:none;overflow:hidden;text-align:right;direction:rtl}
+.hdr-ann-dropdown.show{display:block}
+.hdr-ann-drop-head{font-family:var(--font-display);font-weight:800;font-size:12.5px;color:var(--text);padding:12px 14px;border-bottom:1px solid var(--border);background:#fafbfc}
+.hdr-ann-drop-body{max-height:280px;overflow-y:auto}
+.hdr-ann-drop-item{display:flex;gap:9px;align-items:flex-start;padding:10px 14px;border-bottom:1px solid #f1f2f4;cursor:pointer;transition:background .12s}
+.hdr-ann-drop-item:last-child{border-bottom:0}
+.hdr-ann-drop-item:hover{background:#f7f8fa}
+.hdr-ann-drop-dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;margin-top:5px}
+.hdr-ann-drop-txt{min-width:0;flex:1}
+.hdr-ann-drop-title{font-size:12.5px;font-weight:700;color:var(--text);line-height:1.4}
+.hdr-ann-drop-sub{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr-ann-drop-empty{padding:20px 14px;text-align:center;font-size:12px;color:var(--text3)}
+.hdr-ann-drop-foot{padding:10px 14px;text-align:center;font-size:11.5px;font-weight:700;color:var(--st);cursor:pointer;border-top:1px solid var(--border);background:#fafbfc}
+.hdr-ann-drop-foot:hover{background:#f1f4fa}
+@media(max-width:480px){.hdr-ann-dropdown{left:auto;right:0;width:260px}}
 .brand-tagline{font-size:10.5px;color:var(--text3);letter-spacing:.02em;padding-left:50px}
 .nav-group{padding:14px 12px 4px}
 .nav-group-label{font-size:9.5px;font-weight:800;letter-spacing:.18em;color:var(--text3);padding:0 10px 8px}
@@ -1832,10 +1848,17 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div class="hdr-right">
       <div class="hdr-updated" id="hdrUpdated">📅 —</div>
       <div class="hdr-notif-row">
-        <button type="button" class="hdr-notif-btn hdr-notif-ann" onclick="openAnnouncements()" title="إعلانات جديدة">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span class="hdr-notif-badge" id="hdrAnnBadge"></span>
-        </button>
+        <div class="hdr-ann-wrap">
+          <button type="button" class="hdr-notif-btn hdr-notif-ann" onclick="_toggleAnnDropdown(event)" title="إعلانات جديدة">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="hdr-notif-badge" id="hdrAnnBadge"></span>
+          </button>
+          <div class="hdr-ann-dropdown" id="hdrAnnDropdown" onclick="event.stopPropagation()">
+            <div class="hdr-ann-drop-head">📢 إعلانات جديدة</div>
+            <div class="hdr-ann-drop-body" id="hdrAnnDropdownBody"></div>
+            <div class="hdr-ann-drop-foot" onclick="_hdrAnnDropItemClick()">عرض كل الإعلانات ›</div>
+          </div>
+        </div>
         <button type="button" class="hdr-notif-btn hdr-notif-refresh" onclick="_hdrRefreshDashboard()" title="تحديث الداشبورد">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           <span class="hdr-notif-badge" id="hdrRefreshBadge"></span>
@@ -1919,7 +1942,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
   <div class="nav-group">
     <div class="ops-center">
-      <div class="nav-item" onclick="show('manager',this)">
+      <div class="nav-item" onclick="_mgrTab(this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Manager View 👑
       </div>
@@ -3271,6 +3294,32 @@ function show(tab,el,brand){
   if(_booted){setTimeout(function(){var ap=document.querySelector('.tab-panel.active');if(ap)ap.scrollIntoView({behavior:'smooth',block:'start'});},40);}
   setTimeout(function(){ids.forEach(function(id){try{runLoader(id);}catch(e){console.warn('loader',id,e);}});},50);
 }
+var MGR_PASSWORD='190899';
+var _mgrUnlocked=false;
+var _mgrPendingBtn=null;
+function _mgrTab(btn){
+  if(!_mgrUnlocked){_mgrPendingBtn=btn||null;_mgrOpenGate();return;}
+  show('manager',btn);
+}
+function _mgrOpenGate(){
+  var m=document.getElementById('mgrGateModal'); if(!m)return;
+  var inp=document.getElementById('mgrGatePassword'); if(inp)inp.value='';
+  var err=document.getElementById('mgrGateError'); if(err)err.style.display='none';
+  m.style.display='flex';
+  setTimeout(function(){if(inp)inp.focus();},50);
+}
+function _mgrCloseGate(){var m=document.getElementById('mgrGateModal');if(m)m.style.display='none';_mgrPendingBtn=null;}
+function _mgrSubmitGate(){
+  var inp=document.getElementById('mgrGatePassword'); var val=inp?inp.value:'';
+  if(val===MGR_PASSWORD){
+    _mgrUnlocked=true;
+    var m=document.getElementById('mgrGateModal'); if(m)m.style.display='none';
+    var btn=_mgrPendingBtn; _mgrPendingBtn=null;
+    show('manager',btn);
+  }else{
+    var err=document.getElementById('mgrGateError'); if(err)err.style.display='block';
+  }
+}
 
 // ── CSV ──
 function csv(t){
@@ -3349,30 +3398,75 @@ function _annLines(x){
   if(parts.length<=1)return _annOne(parts[0]||x);
   return parts.map(_annOne).join('');
 }
-var ANN_SEEN_KEY='annSeenCount';
+var ANN_SEEN_KEY='annSeenSigs';
+function _annSig(g){
+  var s=(g.title||'')+'|'+(g.body||[]).join('|');
+  var h=0; for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}
+  return h.toString(36);
+}
+function _annGetSeenSigs(){
+  try{var raw=localStorage.getItem(ANN_SEEN_KEY);var arr=raw?JSON.parse(raw):[];return Array.isArray(arr)?arr:[];}catch(e){return [];}
+}
+function _annIsMeaningful(g){
+  var meta=_annTitleMeta(g.title||'');
+  if(meta.title&&meta.title.trim().replace(/[^\p{L}\p{N}]/gu,'').length>1)return true;
+  var body=(g.body||[]).join(' ');
+  var stripped=body.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}️]/gu,'').trim();
+  return stripped.length>1;
+}
 function _annUpdateBadges(count){
-  try{
-    var seen=parseInt(localStorage.getItem(ANN_SEEN_KEY)||'0',10);
-    if(isNaN(seen))seen=0;
-    var diff=Math.max(0,count-seen);
-    ['hdrAnnBadge','hdrRefreshBadge'].forEach(function(id){
-      var b=document.getElementById(id); if(!b)return;
-      if(diff>0){b.textContent=diff>99?'99+':String(diff);b.classList.add('show');}
-      else{b.classList.remove('show');b.textContent='';}
-    });
-  }catch(e){}
+  ['hdrAnnBadge','hdrRefreshBadge'].forEach(function(id){
+    var b=document.getElementById(id); if(!b)return;
+    if(count>0){b.textContent=count>99?'99+':String(count);b.classList.add('show');}
+    else{b.classList.remove('show');b.textContent='';}
+  });
 }
 function _annMarkSeen(){
-  try{localStorage.setItem(ANN_SEEN_KEY,String(window._annTotalCount||0));}catch(e){}
-  _annUpdateBadges(window._annTotalCount||0);
+  try{localStorage.setItem(ANN_SEEN_KEY,JSON.stringify((window._annAllSigs||[]).slice(-300)));}catch(e){}
+  window._annNewItems=[];
+  _annUpdateBadges(0);
 }
 function _hdrRefreshDashboard(){location.reload();}
+function _annDropItemHtml(g){
+  var _meta=_annTitleMeta(g.title);
+  var titleTxt=_meta.title||g.title||'إعلان جديد';
+  var firstLine=(g.body&&g.body[0])?g.body[0]:'';
+  return '<div class="hdr-ann-drop-item" onclick="_hdrAnnDropItemClick()">'+
+    '<span class="hdr-ann-drop-dot" style="background:'+(_meta.color||'#e6971e')+'"></span>'+
+    '<div class="hdr-ann-drop-txt"><div class="hdr-ann-drop-title">'+_annEsc(titleTxt)+'</div>'+
+    (firstLine?'<div class="hdr-ann-drop-sub">'+_annEsc(firstLine.slice(0,80))+(firstLine.length>80?'…':'')+'</div>':'')+
+    '</div></div>';
+}
+function _hdrAnnDropItemClick(){_closeAnnDropdown();openAnnouncements();}
+function _renderAnnDropdown(){
+  var host=document.getElementById('hdrAnnDropdownBody'); if(!host)return;
+  var items=window._annNewItems||[];
+  if(!items.length){host.innerHTML='<div class="hdr-ann-drop-empty">لا توجد إعلانات جديدة 👍</div>';return;}
+  host.innerHTML=items.map(_annDropItemHtml).join('');
+}
+function _closeAnnDropdown(){var dd=document.getElementById('hdrAnnDropdown');if(dd)dd.classList.remove('show');}
+function _toggleAnnDropdown(ev){
+  if(ev){ev.stopPropagation();ev.preventDefault();}
+  var dd=document.getElementById('hdrAnnDropdown'); if(!dd)return;
+  var wasOpen=dd.classList.contains('show');
+  _closeAnnDropdown();
+  if(!wasOpen){
+    _renderAnnDropdown();
+    dd.classList.add('show');
+    setTimeout(function(){document.addEventListener('click',_closeAnnDropdown,{once:true});},0);
+    _annMarkSeen();
+  }
+}
 function _annSet(items,live){
   var t=document.querySelector('.announce-title'), m=document.querySelector('.announce-msg'), list=document.getElementById('annList'), b=document.getElementById('annLive');
   if(b)b.textContent=live?'Live':'Cached';
   var groups=_annGroup(items);
-  window._annTotalCount=groups.length;
-  _annUpdateBadges(groups.length);
+  var seenSet={}; _annGetSeenSigs().forEach(function(s){seenSet[s]=1;});
+  var sigs=groups.map(_annSig);
+  window._annAllSigs=sigs;
+  var newItems=groups.filter(function(g,i){return !seenSet[sigs[i]]&&_annIsMeaningful(g);});
+  window._annNewItems=newItems;
+  _annUpdateBadges(newItems.length);
   if(groups.length){
     if(t)t.textContent='📢 Announcements';
     if(m)m.style.display='none';
@@ -6236,5 +6330,17 @@ setInterval(rotateMotto,180000);
 function _setSiteFooter(){var e=document.getElementById('siteFooterUpd');if(!e)return;var d=new Date(),p=function(n){return(''+n).padStart(2,'0');};e.textContent='Updated: '+p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+', '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());}
 _setSiteFooter();setInterval(_setSiteFooter,180000);
 </script>
+<div id="mgrGateModal" class="perm-modal-overlay" style="display:none">
+  <div class="perm-modal">
+    <div class="perm-modal-title">Password Required</div>
+    <div class="perm-modal-sub">Enter password to open Manager View</div>
+    <div class="perm-modal-field"><input type="password" id="mgrGatePassword" placeholder="Password" onkeydown="if(event.key==='Enter')_mgrSubmitGate()"></div>
+    <div id="mgrGateError" style="display:none;color:var(--red);font-size:12px;font-weight:700;margin:-4px 0 6px">Incorrect password.</div>
+    <div class="perm-modal-actions">
+      <button type="button" class="perm-modal-cancel" onclick="_mgrCloseGate()">Cancel</button>
+      <button type="button" class="perm-modal-save" onclick="_mgrSubmitGate()">Unlock</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
