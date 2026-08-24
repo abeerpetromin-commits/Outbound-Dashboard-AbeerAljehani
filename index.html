@@ -761,6 +761,8 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .hdr-notif-refresh{background:#eaf1ff;border-color:#bfd6fb}
 .hdr-notif-refresh svg{color:#2563eb}
 .hdr-notif-badge{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1}
+.brand-tab-badge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10.5px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1;z-index:3}
+.perm-subtab-badge{display:none;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#e5383b;color:#fff;font-size:10.5px;font-weight:800;margin-inline-start:6px;line-height:1}
 .hdr-notif-badge.show{display:flex}
 .hdr-ann-wrap{position:relative}
 .hdr-ann-dropdown{position:fixed;width:290px;max-width:90vw;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 44px -16px rgba(16,24,40,.28);z-index:9999;display:none;overflow:hidden;text-align:right;direction:rtl}
@@ -1872,6 +1874,10 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
             <div class="hdr-ann-drop-foot" onclick="_hdrAnnDropItemClick()">عرض كل الإعلانات ›</div>
           </div>
         </div>
+        <button type="button" class="hdr-notif-btn hdr-notif-perm" onclick="_hdrPermClick()" title="طلبات استئذان جديدة">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span class="hdr-notif-badge" id="hdrPermBadge"></span>
+        </button>
         <button type="button" class="hdr-notif-btn hdr-notif-refresh" onclick="_hdrRefreshDashboard()" title="تحديث الداشبورد">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           <span class="hdr-notif-badge" id="hdrRefreshBadge"></span>
@@ -1929,6 +1935,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
       <div class="brand-tabs-row2">
         <div class="brand-tab brand-perm" onclick="openPermissions(this)">
+          <span class="brand-tab-badge" id="permTabBadge"></span>
           <div class="brand-tab-info">
             <div class="brand-tab-name">🕐 Permissions</div>
             <div class="brand-tab-sub">Time-off requests</div>
@@ -2112,7 +2119,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
     <div class="perm-subtabs">
       <button type="button" class="perm-subtab active" onclick="_permTab('submit',this)">Submit Request</button>
-      <button type="button" class="perm-subtab" onclick="_permTab('approvals',this)">Approvals</button>
+      <button type="button" class="perm-subtab" onclick="_permTab('approvals',this)">Approvals<span class="perm-subtab-badge" id="permSubtabBadge" style="display:none">0</span></button>
       <button type="button" class="perm-subtab" onclick="_permTab('summary',this)">Employee Summary</button>
     </div>
 
@@ -6193,6 +6200,39 @@ function openPermissions(el){
   setCrumb(null);
   _permInit();
   _scrollContent();
+  _permCheckNew().then(_permMarkAllSeen);
+}
+var PERM_SEEN_KEY='permSeenSigs';
+function _permReqSig(r){return (r.submittedAt||'')+'|'+(r.name||'')+'|'+(r.reason||'')+'|'+(r.date||'');}
+function _permGetSeenSigs(){
+  try{var raw=localStorage.getItem(PERM_SEEN_KEY);var arr=raw?JSON.parse(raw):[];return Array.isArray(arr)?arr:[];}catch(e){return [];}
+}
+function _permUpdateTabBadge(count){
+  ['permTabBadge','hdrPermBadge'].forEach(function(id){
+    var b=document.getElementById(id); if(!b)return;
+    if(count>0){b.textContent=count>99?'99+':String(count);b.style.display='flex';}
+    else{b.style.display='none';b.textContent='';}
+  });
+}
+function _hdrPermClick(){
+  openPermissions();
+  var btn=document.querySelector('.perm-subtab[onclick*="approvals"]');
+  if(btn)_permTab('approvals',btn);
+}
+function _permMarkAllSeen(){
+  try{localStorage.setItem(PERM_SEEN_KEY,JSON.stringify((window._permAllSigs||[]).slice(-300)));}catch(e){}
+  _permUpdateTabBadge(0);
+}
+async function _permCheckNew(){
+  try{
+    var list=await _permFetchAll();
+    var pending=(list||[]).filter(function(r){return r.status==='pending';});
+    var sigs=pending.map(_permReqSig);
+    window._permAllSigs=sigs;
+    var seen={}; _permGetSeenSigs().forEach(function(s){seen[s]=1;});
+    var newCount=sigs.filter(function(s){return !seen[s];}).length;
+    _permUpdateTabBadge(newCount);
+  }catch(e){}
 }
 
 function _permInit(){
@@ -6356,6 +6396,11 @@ function _permRenderFromCache(){
   var elH=document.getElementById('permStatHours');if(elH)elH.textContent=totalHours;
   var elO=document.getElementById('permStatOver');if(elO)elO.textContent=overCount;
   var overCard=document.getElementById('permStatOverCard');if(overCard)overCard.classList.toggle('over',overCount>0);
+  var elSB=document.getElementById('permSubtabBadge');
+  if(elSB){
+    if(pendingAll.length>0){elSB.textContent=pendingAll.length>99?'99+':String(pendingAll.length);elSB.style.display='inline-flex';}
+    else{elSB.style.display='none';elSB.textContent='0';}
+  }
 
   // Approvals list — show ALL pending requests regardless of month, newest first
   var apEl=document.getElementById('permApprovalsList');
@@ -6411,8 +6456,9 @@ function _permRenderFromCache(){
     sumBody.innerHTML=empCards||'<div class="perm-emp-empty">No permission requests this month.</div>';
   }
 }
-setInterval(function(){var p=document.getElementById('tab-permissions');if(p&&p.classList.contains('active'))_permRenderAll();},30000);
+setInterval(function(){var p=document.getElementById('tab-permissions');if(p&&p.classList.contains('active'))_permRenderAll();_permCheckNew();},30000);
 try{openAnnouncements();}catch(e){console.warn(e);}
+try{_permCheckNew();}catch(e){console.warn(e);}
 _booted=true;
 
 /* ── Rotating team motivation: two phrases, every 3 minutes ── */
