@@ -2167,7 +2167,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div id="permPanelApprovals" class="perm-subpanel">
       <div class="perm-approvals-topbar">
         <div class="perm-approvals-heading">AWAITING <span id="permApprovalHeadingName">MANAGER</span>'S APPROVAL</div>
-        <button type="button" class="perm-changepw-link" onclick="_permOpenChangePw()">🔒 Change password</button>
+        <button type="button" class="perm-changepw-link" onclick="_permOpenChangePw()" style="display:none">🔒 Change password</button>
       </div>
       <div class="perm-req-list" id="permApprovalsList"></div>
     </div>
@@ -6119,10 +6119,10 @@ setInterval(function(){var p=document.getElementById('tab-recall-remote');if(p&&
 /* ── EMPLOYEE PERMISSIONS (time-off requests) ──
    All data is stored locally in this browser (localStorage) — nothing is sent anywhere.
    Edit PERM_MANAGER, PERM_MONTHLY_LIMIT and PERM_EMPLOYEES below to match your real team. */
-var PERM_APPROVAL_PASSWORD='petromin2026'; // default password for the Approvals tab (can be changed from within the app)
+var PERM_APPROVAL_PASSWORD='190899'; // fixed password for the Approvals tab — same for everyone, on every device
 var _permApprovalsUnlocked=false;
-function _permGetPassword(){try{return localStorage.getItem('permApprovalPw')||PERM_APPROVAL_PASSWORD;}catch(e){return PERM_APPROVAL_PASSWORD;}}
-function _permSetPassword(p){try{localStorage.setItem('permApprovalPw',p);}catch(e){}}
+function _permGetPassword(){return PERM_APPROVAL_PASSWORD;}
+function _permSetPassword(p){/* disabled: password is fixed and shared across all devices, no per-device override */}
 var PERM_MANAGER='Abeer';
 var PERM_SHEET_GID='1875882939';
 var PERM_MONTHLY_LIMIT=4; // hours allowed per employee per month
