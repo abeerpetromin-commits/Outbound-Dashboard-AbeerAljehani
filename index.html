@@ -763,6 +763,11 @@ body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05
 .hdr-notif-badge{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1}
 .brand-tab-badge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#e5383b;color:#fff;font-size:10.5px;font-weight:800;display:none;align-items:center;justify-content:center;font-family:var(--font-display);box-shadow:0 0 0 2px #fff;line-height:1;z-index:3}
 .perm-subtab-badge{display:none;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#e5383b;color:#fff;font-size:10.5px;font-weight:800;margin-inline-start:6px;line-height:1}
+.perm-toast-wrap{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-16px);z-index:99999;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.perm-toast{background:#fff;border:1px solid var(--border);border-inline-start:4px solid var(--red);border-radius:12px;box-shadow:var(--shadow-md);padding:12px 18px;font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-10px);transition:opacity .25s,transform .25s;max-width:90vw}
+.perm-toast.show{opacity:1;transform:translateY(0)}
+.perm-toast-ic{font-size:16px;flex:0 0 auto}
+.perm-toast.error{border-inline-start-color:#e6971e}
 .hdr-notif-badge.show{display:flex}
 .hdr-ann-wrap{position:relative}
 .hdr-ann-dropdown{position:fixed;width:290px;max-width:90vw;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 44px -16px rgba(16,24,40,.28);z-index:9999;display:none;overflow:hidden;text-align:right;direction:rtl}
@@ -6328,6 +6333,24 @@ function _permSaveChangePw(){
   _permCloseChangePw();
   alert('Password changed successfully.');
 }
+function _permToast(msg,isError){
+  var wrap=document.getElementById('permToastWrap');
+  if(!wrap){
+    wrap=document.createElement('div');
+    wrap.id='permToastWrap';
+    wrap.className='perm-toast-wrap';
+    document.body.appendChild(wrap);
+  }
+  var t=document.createElement('div');
+  t.className='perm-toast'+(isError?' error':'');
+  t.innerHTML='<span class="perm-toast-ic">'+(isError?'⚠️':'✅')+'</span><span>'+_annEsc(msg)+'</span>';
+  wrap.appendChild(t);
+  requestAnimationFrame(function(){t.classList.add('show');});
+  setTimeout(function(){
+    t.classList.remove('show');
+    setTimeout(function(){t.remove();},300);
+  },2600);
+}
 function _permPost(payload){
   try{
     fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
@@ -6336,7 +6359,7 @@ function _permPost(payload){
 function _permSubmit(ev){
   ev.preventDefault();
   var name=document.getElementById('permEmpName').value;
-  if(!name){alert('Please select an employee name.');return false;}
+  if(!name){_permToast('Please select an employee name.',true);return false;}
   var badge=document.getElementById('permBadge').value||_permBadgeFor(name);
   var reason=document.getElementById('permReason').value;
   var date=document.getElementById('permDate').value;
@@ -6351,7 +6374,7 @@ function _permSubmit(ev){
   document.getElementById('permDate').value=new Date().toISOString().slice(0,10);
   document.getElementById('permBadge').value='';
   _PERM_MONTH=_permKey(date);
-  alert('Request submitted for approval.');
+  _permToast('Request submitted for approval.');
   setTimeout(_permRenderAll,1200);
   return false;
 }
