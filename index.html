@@ -15,32 +15,32 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   color-scheme:light;
-  /* Canvas */
-  --bg:#f5f5f5;--bg2:#ececec;
+  /* Canvas — softer, warmer off-white instead of stark gray */
+  --bg:#f6f6f4;--bg2:#eef0ee;
   /* Glass surfaces */
-  --surface:#ffffff;--surface2:#f1f5f9;--surface3:#e6ecf3;
+  --surface:#fefefd;--surface2:#f1f3f4;--surface3:#e6e9eb;
   --glass:rgba(255,255,255,.74);--glass2:rgba(255,255,255,.6);
-  --border:rgba(16,24,40,.08);--border2:rgba(16,24,40,.15);
-  /* Ink */
-  --text:#0e1320;--text2:#4d586b;--text3:#8a94a6;
-  /* Elevation */
-  --shadow:0 1px 2px rgba(16,24,40,.04),0 6px 18px rgba(16,24,40,.06);
-  --shadow-md:0 12px 32px rgba(16,24,40,.11),0 4px 12px rgba(16,24,40,.06);
-  --shadow-lg:0 40px 100px rgba(16,24,40,.22),0 14px 44px rgba(16,24,40,.14);
-  /* App accent */
-  --accent:#2f54eb;--accent-bg:rgba(47,84,235,.10);
+  --border:rgba(30,35,45,.16);--border2:rgba(30,35,45,.26);
+  /* Ink — softened dark slate instead of near-black, less eye strain */
+  --text:#232b36;--text2:#57616f;--text3:#8e96a3;
+  /* Elevation — softer, lower-contrast shadows */
+  --shadow:0 1px 2px rgba(30,35,45,.03),0 6px 16px rgba(30,35,45,.05);
+  --shadow-md:0 10px 28px rgba(30,35,45,.09),0 4px 10px rgba(30,35,45,.05);
+  --shadow-lg:0 36px 90px rgba(30,35,45,.18),0 12px 38px rgba(30,35,45,.11);
+  /* App accent — softer blue, less saturated */
+  --accent:#3f6fd1;--accent-bg:rgba(63,111,209,.09);
   /* Stellantis */
-  --st:#1257c4;--st-light:#3b82f6;--st-bg:rgba(18,87,196,.10);--st-bg2:rgba(18,87,196,.24);--st-muted:#5a9ae0;
+  --st:#2f6bab;--st-light:#4f8fd6;--st-bg:rgba(47,107,171,.09);--st-bg2:rgba(47,107,171,.20);--st-muted:#6ba3d8;
   /* BAIC */
-  --baic:#e5891a;--baic-bg:rgba(250,179,65,.16);--baic-muted:#c8791c;
-  /* Nissan (authentic brand red) */
-  --ni:#c3002f;--ni-light:#e11138;--ni-bg:rgba(195,0,47,.10);--ni-bg2:rgba(195,0,47,.24);--ni-muted:#e06175;
+  --baic:#d1852f;--baic-bg:rgba(230,168,80,.14);--baic-muted:#bd7a2e;
+  /* Nissan (softened brand red) */
+  --ni:#b23a4d;--ni-light:#c94a5c;--ni-bg:rgba(178,58,77,.08);--ni-bg2:rgba(178,58,77,.18);--ni-muted:#d17888;
   /* Status */
-  --green:#0a7a56;--green-bg:rgba(10,122,86,.12);
-  --amber:#8a5a08;--amber-bg:rgba(180,120,20,.18);
-  --purple:#4835a8;--purple-bg:rgba(72,53,168,.12);
-  --teal:#0a6e70;--teal-bg:rgba(10,110,112,.12);
-  --red:#d11a3e;--red-bg:rgba(209,26,62,.10);
+  --green:#2f8065;--green-bg:rgba(47,128,101,.11);
+  --amber:#8a6a2e;--amber-bg:rgba(180,140,50,.16);
+  --purple:#5c4f9e;--purple-bg:rgba(92,79,158,.11);
+  --teal:#2e7a7c;--teal-bg:rgba(46,122,124,.11);
+  --red:#c1495f;--red-bg:rgba(193,73,95,.09);
   /* Radius */
   --r:10px;--rl:14px;--rxl:18px;
   /* Type */
@@ -1830,8 +1830,8 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 /* ===== FULL-WIDTH HEADER + CENTERED TITLE ===== */
 .sidebar-header{position:relative!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;padding-left:max(34px,calc((100vw - 2160px)/2))!important;padding-right:max(34px,calc((100vw - 2160px)/2))!important;box-sizing:border-box!important}
 .hdr-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hdr-title{font-family:var(--font-display);font-weight:800;font-size:19px;color:var(--text);letter-spacing:-.02em;pointer-events:none;text-align:center}
-.hdr-title-sub{font-size:11px;font-weight:600;color:var(--text3);text-align:center;margin-top:2px;pointer-events:none}
+.hdr-title{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-.03em;pointer-events:none;text-align:center;background:linear-gradient(120deg,var(--accent),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--accent)}
+.hdr-title-sub{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--text3);text-align:center;margin-top:3px;pointer-events:none;letter-spacing:.02em}
 .hdr-right{position:relative;z-index:2}
 @media(max-width:960px){.sidebar-header{width:auto!important;margin-left:0!important;margin-right:0!important;padding-left:16px!important;padding-right:16px!important}.hdr-center{position:static;justify-content:flex-start;margin-left:12px}.hdr-title{font-size:18px}}
 /* ===== /FULL-WIDTH HEADER ===== */
