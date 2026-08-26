@@ -15,32 +15,32 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   color-scheme:light;
-  /* Canvas — softer, warmer off-white instead of stark gray */
-  --bg:#f6f6f4;--bg2:#eef0ee;
+  /* Canvas */
+  --bg:#f5f5f5;--bg2:#ececec;
   /* Glass surfaces */
-  --surface:#fefefd;--surface2:#f1f3f4;--surface3:#e6e9eb;
+  --surface:#ffffff;--surface2:#f1f5f9;--surface3:#e6ecf3;
   --glass:rgba(255,255,255,.74);--glass2:rgba(255,255,255,.6);
-  --border:rgba(30,35,45,.16);--border2:rgba(30,35,45,.26);
-  /* Ink — softened dark slate instead of near-black, less eye strain */
-  --text:#232b36;--text2:#57616f;--text3:#8e96a3;
-  /* Elevation — softer, lower-contrast shadows */
-  --shadow:0 1px 2px rgba(30,35,45,.03),0 6px 16px rgba(30,35,45,.05);
-  --shadow-md:0 10px 28px rgba(30,35,45,.09),0 4px 10px rgba(30,35,45,.05);
-  --shadow-lg:0 36px 90px rgba(30,35,45,.18),0 12px 38px rgba(30,35,45,.11);
-  /* App accent — softer blue, less saturated */
-  --accent:#3f6fd1;--accent-bg:rgba(63,111,209,.09);
+  --border:rgba(16,24,40,.08);--border2:rgba(16,24,40,.15);
+  /* Ink */
+  --text:#0e1320;--text2:#4d586b;--text3:#8a94a6;
+  /* Elevation */
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 6px 18px rgba(16,24,40,.06);
+  --shadow-md:0 12px 32px rgba(16,24,40,.11),0 4px 12px rgba(16,24,40,.06);
+  --shadow-lg:0 40px 100px rgba(16,24,40,.22),0 14px 44px rgba(16,24,40,.14);
+  /* App accent */
+  --accent:#2f54eb;--accent-bg:rgba(47,84,235,.10);
   /* Stellantis */
-  --st:#2f6bab;--st-light:#4f8fd6;--st-bg:rgba(47,107,171,.09);--st-bg2:rgba(47,107,171,.20);--st-muted:#6ba3d8;
+  --st:#1257c4;--st-light:#3b82f6;--st-bg:rgba(18,87,196,.10);--st-bg2:rgba(18,87,196,.24);--st-muted:#5a9ae0;
   /* BAIC */
-  --baic:#d1852f;--baic-bg:rgba(230,168,80,.14);--baic-muted:#bd7a2e;
-  /* Nissan (softened brand red) */
-  --ni:#b23a4d;--ni-light:#c94a5c;--ni-bg:rgba(178,58,77,.08);--ni-bg2:rgba(178,58,77,.18);--ni-muted:#d17888;
+  --baic:#e5891a;--baic-bg:rgba(250,179,65,.16);--baic-muted:#c8791c;
+  /* Nissan (authentic brand red) */
+  --ni:#c3002f;--ni-light:#e11138;--ni-bg:rgba(195,0,47,.10);--ni-bg2:rgba(195,0,47,.24);--ni-muted:#e06175;
   /* Status */
-  --green:#2f8065;--green-bg:rgba(47,128,101,.11);
-  --amber:#8a6a2e;--amber-bg:rgba(180,140,50,.16);
-  --purple:#5c4f9e;--purple-bg:rgba(92,79,158,.11);
-  --teal:#2e7a7c;--teal-bg:rgba(46,122,124,.11);
-  --red:#c1495f;--red-bg:rgba(193,73,95,.09);
+  --green:#0a7a56;--green-bg:rgba(10,122,86,.12);
+  --amber:#8a5a08;--amber-bg:rgba(180,120,20,.18);
+  --purple:#4835a8;--purple-bg:rgba(72,53,168,.12);
+  --teal:#0a6e70;--teal-bg:rgba(10,110,112,.12);
+  --red:#d11a3e;--red-bg:rgba(209,26,62,.10);
   /* Radius */
   --r:10px;--rl:14px;--rxl:18px;
   /* Type */
@@ -1127,13 +1127,16 @@ tr.row-nissan:hover td{background:rgba(195,0,47,.09)}
 .link-file{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);
   background:#eef1f6;border:1px solid var(--border);padding:7px 13px;border-radius:9px}
 @media(max-width:760px){.links-btn{margin-left:0}.link-row{flex-wrap:wrap;gap:8px}}
-.links-groups{display:flex;flex-direction:column;gap:20px;padding:18px}
-.links-cat-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;padding:0 2px}
+.links-groups{display:flex;flex-direction:column;gap:16px;padding:18px;max-width:1040px;margin:0 auto}
+.links-cat{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:16px 16px 14px}
+.links-cat-head{display:flex;align-items:center;gap:9px;margin-bottom:12px;padding:0 2px}
 .links-cat-ic{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 auto}
 .links-cat-title{font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--text)}
 .links-cat-count{font-size:11px;color:var(--text3);font-weight:700;margin-inline-start:auto}
-.links-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.link-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:transform .15s,box-shadow .15s}
+.links-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;align-items:start}
+.links-cat{padding-bottom:2px}
+.link-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:transform .15s,box-shadow .15s;min-height:64px;justify-content:center}
+.link-card:has(.link-card-desc),.link-card:has(.link-card-open),.link-card:has(.link-card-file){justify-content:flex-start}
 .link-card:hover{transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(16,24,40,.25)}
 .link-card-title{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--text)}
 .link-card-desc{font-size:11.5px;color:var(--text3);line-height:1.5}
@@ -5589,6 +5592,7 @@ function _linksParse(rows){
     var desc=H.desc>=0?(r[H.desc]||'').trim():'';
     var url=H.url>=0?(r[H.url]||'').trim():'';
     if(!name&&!url)continue;
+    if(/daily\s*sheets?/i.test(name))continue; // hidden per manager request
     out.push({name:name,desc:desc,url:url});
   }
   return out;
@@ -5596,7 +5600,7 @@ function _linksParse(rows){
 var LINKS_CATS=[
   {key:'crm',title:'CRM & Sales',icon:'💼',bg:'#eaf1ff',fg:'#1257c4',test:/salesforce|dealer connect|social media|crm/i},
   {key:'comm',title:'Communication',icon:'💬',bg:'#e9fbf0',fg:'#16a34a',test:/ameyo|whatsapp|surbo|chat/i},
-  {key:'reports',title:'Reports & Performance',icon:'📊',bg:'#fff4e8',fg:'#e6971e',test:/dashboard|daily sheet|1km|10km|performance|preformance/i},
+  {key:'reports',title:'Daily Tasks',icon:'📊',bg:'#fff4e8',fg:'#e6971e',test:/dashboard|daily sheet|1km|10km|performance|preformance|website|d\+1|14\s*days|lost customer/i},
   {key:'pricing',title:'Pricing & Offers',icon:'💰',bg:'#fdf2f4',fg:'#e5383b',test:/price/i},
   {key:'hr',title:'HR & Support',icon:'🛠️',bg:'#f2eefc',fg:'#7c3aed',test:/vacation|it care|support|\bhr\b/i}
 ];
