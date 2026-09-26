@@ -1807,6 +1807,40 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 .brand-tab.brand-ann .brand-tab-name{color:#674ea7}
 .nsms-section-h{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--ni);text-align:center;margin:28px 0 14px;padding:12px 14px;background:linear-gradient(180deg,#ffffff,#fff5f7);border:1px solid #f3b4bc;border-radius:12px;box-shadow:0 6px 16px -12px rgba(195,0,47,.35)}
 .nsms-section-h:first-child{margin-top:2px}
+
+/* ===== TIMELINE ANNOUNCEMENTS ===== */
+.ann-feed{display:block!important;position:relative;max-width:960px;margin:16px auto 0;padding:0;direction:rtl}
+.annx-item{position:relative;padding-right:30px;margin-bottom:16px}
+.annx-item:last-child{margin-bottom:2px}
+.ann-rail{position:absolute;top:0;bottom:0;right:4px;width:16px;display:flex;justify-content:center;pointer-events:none}
+.ann-rail::before{content:"";position:absolute;top:22px;bottom:-16px;width:2px;background:var(--border)}
+.annx-item:last-child .ann-rail::before{display:none}
+.ann-dot{width:14px;height:14px;border-radius:50%;background:var(--ac,#64748b);box-shadow:0 0 0 3px var(--surface,#fff);margin-top:15px;position:relative;z-index:2}
+.ann-card{min-width:0;background:var(--acbg,#f7f8fa);border:1px solid var(--border);border-radius:16px;padding:15px 18px;box-shadow:0 1px 2px rgba(16,24,40,.03),0 12px 26px -20px rgba(16,24,40,.18)}
+.ann-card-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.ann-card-title{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--ac,#1f2733);direction:rtl}
+.ann-pill{font-size:11px;font-weight:800;padding:2px 12px;border-radius:999px;background:var(--surface,#fff);color:var(--ac,#64748b);border:1px solid var(--ac,#ccc);opacity:.95}
+.ann-card-body{position:relative}
+.ann-card-body .ann-line{font-size:13px;color:var(--text2);line-height:1.95;text-align:right;direction:rtl;margin:2px 0}
+.ann-card-body .ann-line.ann-linkrow{text-align:right}
+.ann-num{color:var(--ac,#111);font-weight:800}
+.ann-card-body.ann-collapsible{max-height:118px;overflow:hidden}
+.ann-card-body.ann-collapsible::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44px;background:linear-gradient(transparent,var(--acbg,#fff))}
+.ann-card-body.ann-open{max-height:none}
+.ann-card-body.ann-open::after{display:none}
+.ann-more-btn{margin-top:6px;background:none;border:0;color:var(--ac,#64748b);font-family:var(--font-display);font-weight:800;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:2px 0}
+.ann-more-btn .amc{font-size:10px}
+.ann-chip-link{display:inline-flex;align-items:center;gap:5px;background:var(--ac,#0a7a56);color:#fff!important;font-weight:800;font-size:12px;padding:4px 11px;border-radius:8px;text-decoration:none;margin-top:4px}
+@media(max-width:760px){.ann-feed{max-width:100%}.ann-card-title{font-size:14px}}
+/* ===== /TIMELINE ANNOUNCEMENTS ===== */
+
+.annx-body{font-size:13px;color:var(--text2);line-height:2.05;text-align:right;direction:rtl;position:relative}
+.annx-body .ann-num{color:var(--ac,#111);font-weight:800}
+.annx-body .ann-chip-link{display:inline-flex;align-items:center;gap:5px;background:var(--ac,#0a7a56);color:#fff!important;font-weight:800;font-size:12px;padding:4px 11px;border-radius:8px;text-decoration:none;margin-top:5px}
+.annx-body.ann-collapsible{max-height:120px;overflow:hidden}
+.annx-body.ann-collapsible::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44px;background:linear-gradient(transparent,var(--acbg,#fff))}
+.annx-body.ann-open{max-height:none}
+.annx-body.ann-open::after{display:none}
 </style>
 </head>
 <body data-brand="stellantis">
@@ -3225,7 +3259,7 @@ function runLoader(id){
   if(id==='sales-stellantis')loadStSales();
   if(id==='lost-offer-nissan')loadLostOffer();
   if(id==='sms-stellantis')renderSMS('stellantis');
-  if(id==='sms-nissan')renderSMS('nissan');
+  if(id==='sms-nissan')loadNissanSms();
   if(id==='script-stellantis')loadCallScript('st');
   if(id==='script-nissan')loadCallScript('ni');
   if(id==='whatsapp-nissan')loadD1Script('ni');
@@ -3295,17 +3329,14 @@ async function fetchSheetFrom(sheetId,gid){
 // ── ANNOUNCEMENTS (live from sheet, gid 1755969910) ──
 function _annParse(rows){
   if(!rows||!rows.length)return [];
-  var HK=/^(announcement|announcements|إعلان|الإعلان|الإعلانات|message|msg|الرسالة|النص|notice|تنويه|البيان)$/i;
-  var first=rows[0]||[], colIdx=-1, start=0;
-  if(first.some(function(c){return HK.test((c||'').trim());})){
-    colIdx=first.findIndex(function(c){return HK.test((c||'').trim());}); start=1;
-  }
+  var start=0, first=(rows[0]||[]).join(' ');
+  if(/brand|\u0628\u0631\u0627\u0646\u062f|\u0627\u0644\u0645\u0627\u0631\u0643\u0629|subject|\u0627\u0644\u0639\u0646\u0648\u0627\u0646|content|\u0627\u0644\u0645\u062d\u062a\u0648\u0649/i.test(first))start=1;
   var out=[];
   for(var i=start;i<rows.length;i++){
-    var row=rows[i]||[], txt='';
-    if(colIdx>=0){txt=(row[colIdx]||'').trim();}
-    else{txt=row.reduce(function(a,c){c=(c||'').trim();return c.length>a.length?c:a;},'');}
-    if(txt)out.push(txt);
+    var r=rows[i]||[];
+    var brand=(r[0]||'').trim(), subject=(r[1]||'').trim(), content=(r[2]||'').trim();
+    if(!subject&&!content){var lc=r.reduce(function(a,c){c=(c||'').trim();return c.length>a.length?c:a;},'');if(lc)content=lc;}
+    if(subject||content)out.push({brand:brand,subject:subject,content:content});
   }
   return out;
 }
@@ -3329,23 +3360,53 @@ function _annLines(x){
   if(parts.length<=1)return _annOne(parts[0]||x);
   return parts.map(_annOne).join('');
 }
+function _annBrand(title,body){
+  var s=((title||'')+' '+((body||[]).join(' '))).toLowerCase();
+  if(/\u0646\u064a\u0633\u0627\u0646|nissan/.test(s))return {name:'Nissan',color:'#dc2626'};
+  if(/\u0633\u062a\u0644\u0627\u0646\u062a\u0633|\u0633\u062a\u064a\u0644\u0627\u0646\u062a\u0633|stellantis/.test(s))return {name:'Stellantis',color:'#2563eb'};
+  if(/\u0628\u0627\u064a\u0643|baic/.test(s))return {name:'BAIC',color:'#ea8a0b'};
+  if(/\u0628\u062a\u0631\u0648\u0645\u064a\u0646|petromin/.test(s))return {name:'Petromin',color:'#ea8a0b'};
+  return null;
+}
+function _annNumHi(t){return t.replace(/(\d[\d\u066b\u066c,\.]*)((?:\s?(?:\u0631\u064a\u0627\u0644|\u0643\u0645|%|\u066a))?)/g,function(m,n,u){return '<span class="ann-num">'+n+u+'</span>';});}
+function _annNumHiHtml(h){return h.replace(/>([^<]+)</g,function(m,txt){return '>'+_annNumHi(txt)+'<';});}
+function _annToggleMore(btn){var body=btn.previousElementSibling;if(!body)return;var open=body.classList.toggle('ann-open');btn.innerHTML=open?'Show less <span class="amc">\u25b4</span>':'Show more <span class="amc">\u25be</span>';}
+function _annBrandC(b){var s=(b||'').toLowerCase().trim();
+  if(/nissan|\u0646\u064a\u0633\u0627\u0646/.test(s))return {name:b||'Nissan',color:'#dc2626'};
+  if(/stellantis|\u0633\u062a\u0644\u0627\u0646\u062a\u0633|\u0633\u062a\u064a\u0644\u0627\u0646\u062a\u0633/.test(s))return {name:b||'Stellantis',color:'#2563eb'};
+  if(/baic|\u0628\u0627\u064a\u0643/.test(s))return {name:b||'BAIC',color:'#ea8a0b'};
+  if(/petromin|\u0628\u062a\u0631\u0648\u0645\u064a\u0646/.test(s))return {name:b||'Petromin',color:'#ea8a0b'};
+  if(/general|\u0639\u0627\u0645/.test(s))return {name:b||'General',color:'#64748b'};
+  return {name:b||'',color:'#64748b'};
+}
+function _annBodyLine(ln){var esc=_annEsc(ln);var CHIP='<a class="ann-chip-link" href="$U" target="_blank" rel="noopener">\ud83d\udd17 \u0641\u062a\u062d \u0627\u0644\u0645\u0644\u0641</a>';var html=esc.replace(/(https?:\/\/[^\s<]+)/gi,function(u){return CHIP.replace('$U',u);});return _annNumHiHtml(html);}
+function _annBody(content){return String(content||'').replace(/\r/g,'').split('\n').map(function(l){l=l.trim();return l?_annBodyLine(l):'';}).filter(Boolean).join('<br>');}
 function _annSet(items,live){
   var t=document.querySelector('.announce-title'), m=document.querySelector('.announce-msg'), list=document.getElementById('annList'), b=document.getElementById('annLive');
   if(b)b.textContent=live?'Live':'Cached';
-  var groups=_annGroup(items);
+  var groups=(items||[]).slice().reverse();
   if(groups.length){
     if(t)t.textContent='📢 Announcements';
     if(m)m.style.display='none';
     if(list){
-      list.style.display='flex';
-      var html=groups.map(function(g,i){
-        var _meta=_annTitleMeta(g.title);
-        var head=_meta.title?'<div class="ann-group-title" style="background:'+_meta.color+'">'+_annEsc(_meta.title)+'</div>':'';
-        var body=g.body.map(function(x){return _annLines(x);}).join('');
-        var _hasUrl=(g.body||[]).some(function(x){return /https?:\/\//i.test(x);});var _lng=(g.body||[]).some(function(x){return (x||'').length>95;});var _nL=(body.match(/class="ann-line"/g)||[]).length, _bc=(_nL>=4&&!_hasUrl&&!_lng)?' ann-2col':'';
-        return '<div class="ann-group">'+head+'<div class="ann-group-body'+_bc+'">'+body+'</div></div>';
+      list.style.display='block';
+      list.className='ann-feed';
+      var html=groups.map(function(a){
+        var bc=_annBrandC(a.brand);
+        var ac=bc.color;
+        var pill=bc.name?'<span class="ann-pill">'+_annEsc(bc.name)+'</span>':'';
+        var titleHtml=a.subject?'<span class="ann-card-title">'+_annEsc(a.subject)+'</span>':'';
+        var body=_annBody(a.content);
+        var lineCount=(body.match(/<br>/g)||[]).length+1;
+        var collap=lineCount>4||(a.content||'').length>300;
+        var moreBtn=collap?'<button type="button" class="ann-more-btn" onclick="_annToggleMore(this)">Show more <span class="amc">\u25be</span></button>':'';
+        return '<div class="annx-item" style="--ac:'+ac+';--acbg:'+ac+'12">'+
+          '<div class="ann-rail"><span class="ann-dot"></span></div>'+
+          '<div class="ann-card">'+
+            ((titleHtml||pill)?'<div class="ann-card-head">'+titleHtml+pill+'</div>':'')+
+            '<div class="annx-body'+(collap?' ann-collapsible':'')+'">'+body+'</div>'+moreBtn+
+          '</div></div>';
       }).join('');
-      html+='<div class="ann-more"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg> More updates coming soon · المزيد قريباً</div>';
       list.innerHTML=html;
     }
   }else{
@@ -3928,6 +3989,22 @@ const SMS={
     {type:'No Ans — Lost Customer',en:'Dear customer, We tried to contact you regarding a special discount available for you at Petromin Stellantis Mopar, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معكم بخصوص وجود خصم لكم في بترومين ستيلانتس موبار ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
   ]
 };
+var SMS_NI_SHEET='1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg';
+var SMS_NI_GID='271677239';
+function _smsNiParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(rows.length){var h=(rows[0].join(' ')||'').toLowerCase();if(/type|title|template|message|\u0646\u0648\u0639|\u0631\u0633\u0627\u0644\u0629|\u0627\u0644\u0642\u0627\u0644\u0628/.test(h))rows=rows.slice(1);}
+  return rows.map(function(r){
+    var type=(r[0]||'').trim(),b=(r[1]||'').trim(),c=(r[2]||'').trim();
+    var bAr=/[\u0600-\u06FF]/.test(b),cAr=/[\u0600-\u06FF]/.test(c),ar='',en='';
+    if(bAr&&!cAr){ar=b;en=c;} else if(cAr&&!bAr){ar=c;en=b;} else {ar=b;en=c;}
+    return {type:type,ar:ar,en:en};
+  }).filter(function(x){return x.type||x.ar||x.en;});
+}
+async function loadNissanSms(){
+  try{var rows=await fetchSheet(SMS_NI_GID);var p=_smsNiParse(rows);if(p.length)SMS.nissan=p;}catch(e){}
+  renderSMS('nissan');
+}
 function renderSMS(brand){
   var id='sms'+(brand==='stellantis'?'Stellantis':'Nissan')+'Grid';
   var el=document.getElementById(id); if(!el)return;
@@ -5314,8 +5391,8 @@ async function loadStSales(){
   catch(e){_stSalesRender([]);if(st)st.innerHTML='<span class="live-dot"></span>Cached';}
 }
 /* ── STELLANTIS PAC BRANCHES (live from sheet) ── */
-var STPAC_SHEET='1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg';
-var STPAC_GID='809522641';
+var STPAC_SHEET='11M28wIA4Ee84ohrIqzXtobK7X-QsrruoL4MwjoGz-6k';
+var STPAC_GID='0';
 var STPAC_RM={'jeddah':{mgr:'Chirag Dhingra',phone:'0539200978'},'makkah':{mgr:'Faizan Shams',phone:'0550113348'},'yanbu':{mgr:'Chirag Dhingra',phone:'0539200978'},'tabuk':{mgr:'Chirag Dhingra',phone:'0539200978'},'taif':{mgr:'Faizan Shams',phone:'0550113348'},'khamis mushait':{mgr:'Chirag Dhingra',phone:'0539200978'},'muhayil':{mgr:'Chirag Dhingra',phone:'0539200978'}};
 function _stPacParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
@@ -5336,8 +5413,7 @@ function _stPacRender(list){
     var rmLine=rm?'<div class="pac-rm-line">RM: '+_baicEsc(rm.mgr)+' · '+_baicEsc(rm.phone.replace(/^0/,''))+'</div>':'';
     var hrs=b.hours?'<div class="brn-hours">'+_BRN_CLOCK+'<span>'+_baicEsc(b.hours)+'</span></div>':'';
     return '<div class="pac-card"><div class="pac-card-head"><div class="pac-card-name">'+_baicEsc(b.branch)+'</div>'+
-           '<div class="brn-city">'+_BRN_PIN+'<span>'+_baicEsc(b.city)+'</span></div></div>'+
-           '<div class="pac-card-body">'+loc+mgr+ph+em+rmLine+hrs+'</div></div>';
+           (b.city?'<div class="brn-city">'+_BRN_PIN+'<span>'+_baicEsc(b.city)+'</span></div>':'')+'</div></div>';
   }).join('');
   el.innerHTML='<div class="pac-section" style="--rc:var(--st);--rcbg:var(--st-bg)"><div class="pac-grid">'+cards+'</div></div>';
 }
