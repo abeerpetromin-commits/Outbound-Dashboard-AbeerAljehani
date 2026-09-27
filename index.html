@@ -4611,7 +4611,7 @@ const CS_CFG={
   st:{gid:'1857567338', el:'scriptStellantisContent', status:'csStStatus'}
 };
 function _csIsTitle(v){ if(/الموظفة|^\s*\(|إذا|:\s*$/.test(v))return false;
-  return /customers|script|reminder|recall|website|salesforce|\bpms\b/i.test(v); }
+  return /customers|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b/i.test(v); }
 function _csIsLabel(v){ return /:\s*$/.test(v)||/^\s*\(/.test(v)||/^الموظفة/.test(v); }
 function _csParse(rows){
   rows=rows||[]; var maxc=0; rows.forEach(function(r){if(r&&r.length>maxc)maxc=r.length;});
