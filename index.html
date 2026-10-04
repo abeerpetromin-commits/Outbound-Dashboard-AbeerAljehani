@@ -1941,6 +1941,33 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 .stpac-rm{word-break:break-word;font-size:11.5px;color:var(--text2);border-top:1px dashed var(--border2);padding-top:8px;margin-top:2px;width:100%;line-height:1.6}
 .stpac-rm a{color:var(--text2);text-decoration:none}.stpac-rm a:hover{color:var(--st)}
 .stpac-rm-k{font-size:10px;font-weight:800;color:var(--st);background:var(--st-bg);border-radius:4px;padding:1px 6px;margin-right:6px}
+.bsr-hours{max-width:760px;margin:6px auto 26px;text-align:center;background:#f8f2ee;border:1px solid #f0d9cc;border-radius:12px;padding:13px 18px;font-weight:700;font-size:16px;color:#4a4a4f;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.bsr-sep{width:2px;height:18px;background:#e6cbbb;border-radius:2px}
+.bsr-off{color:#c8682e}
+.bsr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 22px}
+.bsr-card{position:relative;background:#f8f2ee;border-radius:14px;padding:30px 18px 18px;margin-top:12px;text-align:center;box-shadow:0 2px 14px rgba(200,104,46,.08);display:flex;flex-direction:column;align-items:center;gap:6px}
+.bsr-pill{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#fbe9de;border:1px solid #f0c2a6;color:#c8682e;font-weight:700;font-size:13px;border-radius:999px;padding:3px 24px}
+.bsr-name{font-weight:800;font-size:20px;color:#2a1f1a;font-family:var(--font-display)}
+.bsr-city{display:inline-flex;align-items:center;gap:7px;color:#7d7d82;font-size:16px}
+.bsr-city svg{color:#c8682e}
+.bsr-addr{font-size:12.5px;color:#9a8f88}
+.bsr-actions{display:flex;gap:10px;margin-top:6px}
+.bsr-open{display:inline-flex;align-items:center;gap:9px;border:1.5px solid #c8682e;color:#c8682e;background:#fff;border-radius:9px;padding:6px 16px;font-weight:700;font-size:14.5px;text-decoration:none}
+.bsr-open:hover{background:#c8682e;color:#fff}
+.bsr-copy{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #f0c2a6;background:#fff;color:#c8682e;border-radius:9px;cursor:pointer}
+.bsr-copy:hover{border-color:#c8682e}
+.bweb{border:1px solid #f0dcd0;border-radius:14px;overflow:hidden;background:#fffdfc;margin-bottom:22px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.bweb-head{display:flex;align-items:center;gap:14px;background:#f5e3da;padding:14px 18px 14px 26px}
+.bweb-ic{width:44px;height:44px;border-radius:50%;background:#fff;color:#c8682e;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.bweb-title{font-family:var(--font-display);font-weight:800;font-size:20px;color:#c8682e;flex:1}
+.bweb-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #ecd6ca;border-radius:999px;padding:6px 16px;font:700 14px var(--font-display);color:#c8682e;cursor:pointer}
+.bweb-chev{font-size:12px;transition:transform .2s}
+.bweb[data-open="0"] .bweb-chev{transform:rotate(-90deg)}
+.bweb[data-open="0"] .bweb-body{display:none}
+.bweb-body{display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px 16px 26px}
+.bweb-sub{font-size:16px;color:#7d7d82}
+.bweb-link{display:inline-flex;align-items:center;gap:8px;border:1px solid #ecd6ca;border-radius:999px;padding:13px 42px;font-weight:700;font-size:18px;color:#c8682e;text-decoration:none;background:#fff}
+.bweb-link:hover{background:#fbefe8}
 </style>
 </head>
 <body data-brand="stellantis">
@@ -2496,6 +2523,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">Branches</div><div class="ref-card-count">21 branches</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
+      <div class="ref-card brand-baic" onclick="openRef('baic-showroom','baic','BAIC Showroom')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">BAIC Showroom</div><div class="ref-card-count">Live · 3 showrooms</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
       <div class="ref-card brand-baic" onclick="openRef('baic-location','baic','BAIC Location')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">BAIC Location</div><div class="ref-card-count">Service SMS</div></div>
@@ -2934,6 +2966,31 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div class="card"><div class="rcs-host" id="recallSearch-baic"></div></div>
   </div>
 
+  <!-- ── BAIC SHOWROOM ── -->
+  <div id="tab-baic-showroom" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">BAIC Showroom</div>
+        <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px">Showroom locations
+          <span class="live-badge" id="baicSrStatus"><span class="live-dot"></span>Loading…</span>
+        </div>
+      </div>
+    </div>
+    <div class="bweb" data-open="1">
+      <div class="bweb-head">
+        <div class="bweb-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M6 17v2M18 17v2"/><path d="M3 13l2-6h14l2 6v4H3z"/><circle cx="7.5" cy="14" r="1"/><circle cx="16.5" cy="14" r="1"/></svg></div>
+        <div class="bweb-title">BAIC</div>
+        <button type="button" class="bweb-btn" onclick="var c=this.closest('.bweb');c.setAttribute('data-open',c.getAttribute('data-open')==='1'?'0':'1')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2f6fd6" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span>Website</span><span class="bweb-chev">▼</span></button>
+      </div>
+      <div class="bweb-body">
+        <div class="bweb-sub">BAIC Saudi Arabia — Petromin</div>
+        <a class="bweb-link" href="https://www.petromin-baic.com/ar" target="_blank" rel="noopener">🔗 petromin-baic.com</a>
+      </div>
+    </div>
+    <div id="baicSrBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
   <!-- ── BAIC LOCATION (Service Location SMS) ── -->
   <div id="tab-baic-location" class="tab-panel">
     <div class="page-header">
@@ -3320,7 +3377,7 @@ const TAB_GROUPS={
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
-  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
+  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','baic-showroom','whatsapp-baic']
 };
 function runLoader(id){
   if(id==='teamperf'){if(!_tpUnlocked()){openTeamPerf(null);return;}tpLoad(false);}
@@ -3347,6 +3404,7 @@ function runLoader(id){
   if(id==='branches-nissan')loadNiBranches();
   if(id==='branches-baic')loadBaicBranches();
   if(id==='baic-location')loadBaicLocation();
+  if(id==='baic-showroom')loadBaicShowroom();
   if(id==='whatsapp-baic')loadD1Script('baic');
   if(id==='whatsapp-stellantis')loadD1Script('st');
   if(id==='recalls-nissan'){loadNiRecalls();_recallMount('ni');}
@@ -5001,6 +5059,54 @@ function _locCopy(btn,idx){
   function done(){var o=btn.innerHTML;btn.innerHTML='✓ Copied';setTimeout(function(){btn.innerHTML=o;},1400);}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}
   else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}
+}
+/* ── BAIC SHOWROOM (live · BAIC Reference gid 67999882) ── */
+var BAICSR_GID='67999882';
+var BAICSR_FALLBACK=[
+ {region:'West',city:'Jeddah',name:'BAIC Petromin',addr:'Prince Sultan Rd, Al Zahra',hours:'Saturday to Thursday 9 AM - 10 PM\nFridays closed',map:'https://maps.app.goo.gl/msMHMo2GuRLLrvm37'},
+ {region:'Central',city:'Riyadh',name:'BAIC Petromin',addr:'Khurais Rd, An Nahdah',hours:'Saturday to Thursday 9 AM - 10 PM\nFridays closed',map:'https://maps.app.goo.gl/6FxCoWZienQ2LKmr5'},
+ {region:'East',city:'Dammam',name:'BAIC Petromin',addr:'King Fahd Road',hours:'Saturday to Thursday 9 AM - 10 PM\nFridays closed',map:'https://maps.app.goo.gl/qGj56dnwD4oN1QwW6'}];
+var _BAICSR=[];
+function _baicSrParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  var h=(rows[0]||[]).map(function(x){return String(x||'').trim().toLowerCase();}),ix=function(re,d){var i=h.findIndex(function(x){return re.test(x);});return i<0?d:i;};
+  var c={region:ix(/region/,0),city:ix(/city/,1),name:ix(/name/,2),addr:ix(/location|address/,3),hours:ix(/hour/,4),map:ix(/gps|map|link/,5)};
+  if(/region|city/.test(h.join(' ')))rows=rows.slice(1);
+  return rows.map(function(r){var g=function(k){return String(r[c[k]]||'').trim();};
+    var reg=g('region').replace(/^centeral$/i,'Central');
+    return {region:reg,city:g('city'),name:g('name'),addr:g('addr'),hours:g('hours'),map:g('map')};
+  }).filter(function(b){return b.name||b.city;});
+}
+function _baicSrHours(t){var p=String(t||'').split(/\r?\n|\s*[|·]\s*/).map(function(x){return x.trim();}).filter(Boolean);
+  var main=(p[0]||'').replace(/\s-\s/,' – '),off=(p[1]||'').replace(/^fridays/i,'Friday').replace(/closed/i,'Closed');return {main:main,off:off};}
+function _baicSrCopy(i,btn){var b=_BAICSR[i];if(!b)return;var t=b.name+' — '+b.city+(b.addr?'\n'+b.addr:'')+(b.map?'\n'+b.map:'');
+  function done(){var o=btn.innerHTML;btn.innerHTML='✓';setTimeout(function(){btn.innerHTML=o;},1400);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(function(){});}
+  else{try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}catch(e){}}}
+function _baicSrRender(list){
+  var el=document.getElementById('baicSrBody');if(!el)return;_BAICSR=list||[];
+  if(!_BAICSR.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
+  var hs={};_BAICSR.forEach(function(b){if(b.hours)hs[b.hours]=1;});var hk=Object.keys(hs),common=hk.length===1?_baicSrHours(hk[0]):null;
+  var MAP_IC='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>';
+  var PIN='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+  var cards=_BAICSR.map(function(b,i){var hh=!common&&b.hours?_baicSrHours(b.hours):null;
+    return '<div class="bsr-card">'+(b.region?'<div class="bsr-pill">'+_baicEsc(b.region)+'</div>':'')+
+      '<div class="bsr-name">'+_baicEsc(b.name)+'</div>'+
+      '<div class="bsr-city">'+PIN+'<span>'+_baicEsc(b.city)+'</span></div>'+
+      (b.addr?'<div class="bsr-addr">'+_baicEsc(b.addr)+'</div>':'')+
+      (hh?'<div class="bsr-addr">'+_baicEsc(hh.main)+(hh.off?' · '+_baicEsc(hh.off):'')+'</div>':'')+
+      '<div class="bsr-actions">'+(b.map?'<a class="bsr-open" href="'+_baicEsc(b.map)+'" target="_blank" rel="noopener">'+MAP_IC+'<span>Open Location</span></a>':'')+
+      '<button type="button" class="bsr-copy" title="Copy" onclick="_baicSrCopy('+i+',this)">'+_CLIP_IC+'</button></div></div>';}).join('');
+  el.innerHTML=(common?'<div class="bsr-hours">'+_baicEsc(common.main)+(common.off?'<span class="bsr-sep"></span><span class="bsr-off">'+_baicEsc(common.off)+'</span>':'')+'</div>':'')+
+    '<div class="bsr-grid">'+cards+'</div>';
+}
+async function loadBaicShowroom(){
+  var st=document.getElementById('baicSrStatus');if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  var list;
+  try{list=_baicSrParse(await fetchSheetFrom(BAIC_REF_SHEET,BAICSR_GID));if(!list.length)throw new Error('empty');
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}}
+  catch(e){list=BAICSR_FALLBACK;if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}}
+  _baicSrRender(list);
 }
 async function loadBaicLocation(){
   var statusEl=document.getElementById('baicLocStatus');
