@@ -1841,6 +1841,93 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 .annx-body.ann-collapsible::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44px;background:linear-gradient(transparent,var(--acbg,#fff))}
 .annx-body.ann-open{max-height:none}
 .annx-body.ann-open::after{display:none}
+
+.recall-fix{background:#eafaf1;border:1px solid #a7e0c4;border-right:4px solid #0a9d63;border-radius:10px;padding:10px 13px;margin-top:12px}
+.recall-fix .recall-fix-tag{font-family:var(--font-display);font-weight:800;font-size:12px;color:#087a4d;margin-bottom:6px;text-align:right;display:flex;align-items:center;gap:6px;justify-content:flex-start;flex-direction:row-reverse}
+.recall-fix .recall-line{color:#0a7a56!important;font-weight:600}
+/* ── TEAM PERFORMANCE ── */
+#tab-teamperf{--tp-ink:#1d1d1f;--tp-ink2:#6b6b70;--tp-ink3:#a3a3a8;--tp-line:#ececec;--tp-red:#9b2335;--tp-red2:#b0213a;--tp-bad-bg:#fbe9ec;
+  --tp-t1:#f6f1ee;--tp-t2:#eef0f2;--tp-t3:#f5f2ea;--tp-slate:#2f4858;--tp-green:#1e7a46;--tp-gold:#c8a978;font-family:'Inter',system-ui,sans-serif;color:var(--tp-ink)}
+.tp-card{background:#fff;border:1px solid var(--tp-line);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.03),0 4px 14px rgba(0,0,0,.04)}
+.tp-filter{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:10px 16px;margin-bottom:14px;position:relative}
+.tp-filter label{font-size:12.5px;font-weight:600;color:var(--tp-ink2)}
+.tp-filter input,.tp-filter select{font-family:inherit;font-size:13px;color:var(--tp-ink);border:1px solid #e3e3e6;border-radius:8px;padding:6px 10px;background:#fff;height:32px}
+.tp-filter select{min-width:180px;cursor:pointer}
+.tp-filter input:focus,.tp-filter select:focus{outline:none;border-color:#1d1d1f;box-shadow:0 0 0 1px #1d1d1f}
+.tp-fsep{width:4px}
+.tp-live{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--tp-ink3)}
+.tp-live button{border:1px solid #e3e3e6;background:#fff;border-radius:8px;height:30px;padding:0 10px;font:600 12px Inter,sans-serif;color:var(--tp-ink2);cursor:pointer}
+.tp-live button:hover{background:#f6f6f7}
+.tp-team{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:start}
+.tp-cmp{padding:14px 16px 6px}
+.tp-cmp-h{font-weight:700;font-size:14px}
+.tp-cmp-s{font-size:11px;color:var(--tp-ink3);margin:1px 0 8px;padding-bottom:8px;border-bottom:1px solid var(--tp-line)}
+.tp-cmp-r{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #f2f2f3}
+.tp-cmp-r:last-child{border-bottom:none}
+.tp-cmp-l{font-size:12.5px;color:var(--tp-ink)}
+.tp-cmp-p{font-size:10.5px;color:var(--tp-ink3);margin-top:1px;white-space:nowrap}
+.tp-cmp-v{font-size:15.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.tp-up,.tp-dn{font-weight:700}
+.tp-good{color:var(--tp-green)}.tp-badc{color:var(--tp-red2)}
+.tp-list{display:flex;flex-direction:column;gap:9px}
+.tp-row{display:grid;grid-template-columns:56px minmax(170px,1fr) minmax(0,3.4fr);align-items:center;gap:10px;padding:12px 18px 12px 10px;cursor:pointer;transition:box-shadow .15s,transform .15s}
+.tp-row:hover{box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-1px)}
+.tp-rank{display:flex;justify-content:center;font-size:19px;font-weight:600;color:var(--tp-gold)}
+.tp-name{font-size:15px;font-weight:600;letter-spacing:-.1px}
+.tp-meta{font-size:11.5px;color:var(--tp-ink2);margin-top:2px}
+.tp-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tp-tile{border-radius:8px;padding:9px 6px 8px;text-align:center;background:var(--tp-t1)}
+.tp-tile.s{background:var(--tp-t2)}.tp-tile.a{background:var(--tp-t3)}
+.tp-tl{font-size:11px;font-weight:500;color:#4a4a4f}
+.tp-tv{font-size:17px;font-weight:600;color:var(--tp-red);font-variant-numeric:tabular-nums;margin-top:1px}
+.tp-tile.s .tp-tv{color:var(--tp-slate)}
+.tp-empty{padding:40px;text-align:center;color:var(--tp-ink3);font-size:13px}
+/* agent view */
+.tp-ahead{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 18px;margin-bottom:14px;background:#f4f3f1;position:relative;flex-wrap:wrap}
+.tp-av{width:38px;height:38px;border-radius:50%;border:1.5px solid #d9d6d0;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#3a3a3e}
+.tp-aname{font-size:17px;font-weight:700}
+.tp-asep{width:1px;height:16px;background:#d6d3ce}
+.tp-ainfo{font-size:13px;color:var(--tp-ink2)}
+.tp-seg{position:absolute;right:16px;top:50%;transform:translateY(-50%);display:flex;background:#fff;border:1px solid #e3e1dd;border-radius:9px;padding:3px}
+.tp-seg button{border:none;background:none;font:600 12.5px Inter,sans-serif;color:#3a3a3e;padding:6px 12px;border-radius:7px;cursor:pointer}
+.tp-seg button.on{background:#efe9e1;color:#5a4630}
+.tp-kpis{display:grid;grid-template-columns:repeat(6,1fr);margin-bottom:14px;overflow:hidden}
+.tp-kpi{padding:12px 8px;text-align:center;border-right:1px solid var(--tp-line)}
+.tp-kpi:last-child{border-right:none}
+.tp-kl{font-size:11.5px;color:#4a4a4f}
+.tp-kv{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;margin:1px 0}
+.tp-ks{font-size:10.5px;color:var(--tp-ink3)}
+.tp-tblcard{padding:14px 18px 16px}
+.tp-tblwrap{max-height:430px;overflow:auto;border:1px solid var(--tp-line);border-radius:6px}
+.tp-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.tp-tbl th{text-transform:none;letter-spacing:normal;font-family:Inter,sans-serif;position:sticky;background:#fff;z-index:2;font-weight:600;color:#3a3a3e;font-size:11.5px;padding:7px 10px;text-align:center;white-space:nowrap}
+.tp-tbl thead tr:first-child th{top:0;background:#f6f4f1;border-bottom:2px solid #f0c9cf;font-size:11.5px;height:29px}
+.tp-tbl thead tr:nth-child(2) th{top:29px;border-bottom:1px solid var(--tp-line);height:46px}
+.tp-tbl th.tp-grp+th.tp-grp,.tp-tbl th.tp-gl{border-left:1px solid #e5e2dd}
+.tp-tbl th small{display:block;font-weight:500;color:var(--tp-ink2);font-size:10.5px}
+.tp-tbl th.tp-dh{vertical-align:middle;background:#fff;border-bottom:1px solid var(--tp-line);z-index:3}
+.tp-tbl td{padding:9px 10px;text-align:center;border-bottom:1px solid #f1f1f2;white-space:nowrap}
+.tp-tbl td.tp-d{font-weight:600}
+.tp-tbl td.tp-d small{display:block;font-weight:400;color:var(--tp-ink3);font-size:10.5px}
+.tp-tbl td.tp-bad{background:var(--tp-bad-bg);color:var(--tp-red2);font-weight:700}
+.tp-tbl td.tp-bad::before{content:'▲ ';font-size:8.5px;vertical-align:1px}
+.tp-tbl td.tp-bad.dn::before{content:'▼ '}
+.tp-tbl tfoot td{position:sticky;bottom:0;background:#f6f4f1;font-weight:700;border-top:1px solid #e5e2dd;border-bottom:none}
+/* attendance */
+.tp-cal-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:22px}
+.tp-cal-m{font-weight:700;font-size:13.5px;margin-bottom:8px}
+.tp-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.tp-cal-dw{font-size:10.5px;color:var(--tp-ink3);text-align:center;font-weight:600}
+.tp-cal-c{border-radius:7px;min-height:50px;padding:4px 5px;font-size:11px;background:#f6f6f7;color:var(--tp-ink3)}
+.tp-cal-c b{display:block;font-size:11.5px;color:var(--tp-ink2)}
+.tp-cal-c.ok{background:#e8f4ec;color:var(--tp-green)}
+.tp-cal-c.late{background:var(--tp-bad-bg);color:var(--tp-red2)}
+.tp-cal-c.ok b,.tp-cal-c.late b{color:var(--tp-ink)}
+.tp-cal-c.blank{background:none}
+.tp-legend{display:flex;gap:16px;font-size:11.5px;color:var(--tp-ink2);margin:4px 0 14px}
+.tp-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media(max-width:1100px){.tp-team{grid-template-columns:1fr}.tp-row{grid-template-columns:44px 1fr}.tp-tiles{grid-column:1/-1}.tp-kpis{grid-template-columns:repeat(3,1fr)}.tp-kpi:nth-child(3){border-right:none}.tp-kpi:nth-child(-n+3){border-bottom:1px solid var(--tp-line)}.tp-seg{position:static;transform:none}.tp-live{position:static;transform:none}}
+@media(max-width:640px){.tp-tiles{grid-template-columns:repeat(3,1fr)}.tp-kpis{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body data-brand="stellantis">
@@ -1933,9 +2020,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
   <div class="nav-group">
     <div class="ops-center">
-      <div class="nav-item" onclick="show('manager',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Manager View 👑
+      <div class="nav-item" onclick="openTeamPerf(this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+        Team Performance 🔒
       </div>
       <div class="nav-item" onclick="show('tasks',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -2411,50 +2498,17 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
 
 
-  <!-- ── MANAGER VIEW ── -->
-  <div id="tab-manager" class="tab-panel">
-    <div class="page-header">
-      <div>
-        <div class="page-eyebrow">Operations · Manager Only</div>
-        <div class="page-title">👑 Team Progress</div>
-        <div class="page-sub" style="margin-top:4px" id="managerDate">Today's task completion</div>
-      </div>
-      <div class="header-right">
-        <div class="live-badge" id="managerStatus"><span class="live-dot"></span>Loading...</div>
-        <button class="btn" onclick="loadManagerView()">↻ Refresh</button>
-      </div>
+  <!-- ── TEAM PERFORMANCE (password-locked) ── -->
+  <div id="tab-teamperf" class="tab-panel">
+    <div class="tp-card tp-filter">
+      <label for="tpFrom">From</label><input type="date" id="tpFrom" onchange="tpOnFilter()">
+      <label for="tpTo">To</label><input type="date" id="tpTo" onchange="tpOnFilter()">
+      <span class="tp-fsep"></span>
+      <label for="tpAgent">Agent</label>
+      <select id="tpAgent" onchange="tpOnFilter()"><option value="">— All Agents —</option></select>
+      <div class="tp-live"><span id="tpStatus">Loading…</span><button type="button" onclick="tpLoad(true)">↻</button><button type="button" onclick="tpLock()" title="Lock">🔒</button></div>
     </div>
-
-    <!-- Archive + Filter row -->
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-      <button onclick="archiveToday()" style="
-        display:flex;align-items:center;gap:7px;
-        background:linear-gradient(135deg,#1558b0,#1a6fcc);
-        color:white;border:none;padding:9px 18px;border-radius:10px;
-        font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
-        box-shadow:0 2px 8px rgba(21,88,176,.3);transition:opacity .15s;
-      " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-        📥 Archive Today's Data
-      </button>
-      <div style="display:flex;align-items:center;gap:8px">
-        <label style="font-size:12px;font-weight:600;color:var(--text2)">View Date:</label>
-        <input type="date" id="managerDateFilter" onchange="loadManagerView()"
-          style="font-size:13px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;cursor:pointer">
-      </div>
-      <span id="archiveMsg" style="font-size:12px;color:var(--green);font-weight:600;display:none">✅ Archived!</span>
-    </div>
-
-    <div id="managerCards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px"></div>
-    <div class="card">
-      <div class="card-title">Task Details</div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Agent</th><th>Task</th><th>Status</th></tr></thead>
-          <tbody id="managerBody"><tr class="loading-row"><td colspan="3">Loading...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
-    <div class="page-footer" id="managerFooter"></div>
+    <div id="tpBody"><div class="tp-card tp-empty">Loading…</div></div>
   </div>
 
   <!-- ── DAILY TASKS ── -->
@@ -3229,6 +3283,19 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   </div>
 </div>
 
+<div id="tpGateModal" class="perm-modal-overlay" style="display:none">
+  <div class="perm-modal">
+    <div class="perm-modal-title">🔒 Team Performance</div>
+    <div class="perm-modal-sub">Enter password to open this page</div>
+    <div class="perm-modal-field"><input type="password" id="tpGatePw" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')tpSubmitGate()"></div>
+    <div id="tpGateErr" style="display:none;color:var(--red);font-size:12px;font-weight:700;margin:-4px 0 6px">Incorrect password.</div>
+    <div class="perm-modal-actions">
+      <button type="button" class="perm-modal-cancel" onclick="tpCloseGate()">Cancel</button>
+      <button type="button" class="perm-modal-save" onclick="tpSubmitGate()">Unlock</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const SHEET='1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg';
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbx6mWXhVu7BP6BHg-_hR8ChM5oBPtYv45EIEnICqfyZfPi_wRfdY5dGwL1gwk6hMJpl8Q/exec';
@@ -3236,14 +3303,14 @@ const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbx6mWXhVu7BP6BHg-
 // ── NAV ──
 const TAB_GROUPS={
   announcements:['announcements'],
-  manager:['manager'],
+  teamperf:['teamperf'],
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
   baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
 };
 function runLoader(id){
-  if(id==='manager')loadManagerView();
+  if(id==='teamperf'){if(!_tpUnlocked()){openTeamPerf(null);return;}tpLoad(false);}
   if(id==='tasks')loadTasks();
   if(id==='dayoff')loadDayOff();
   if(id==='vacation')loadVacation();
@@ -3544,123 +3611,213 @@ function _searchGo(tag,brand){
   if(tag==='recall'){openRecallRemote();return;}
 }
 
-// ── MANAGER VIEW ──
+// ── shared date helper ──
 function getTodayStr(){
   const d=new Date();
   return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
 }
-function _mvDateMatch(v, selY, selM, selD){
-  var yr,mm,dd;
-  if(v instanceof Date){yr=v.getFullYear();mm=v.getMonth()+1;dd=v.getDate();}
-  else{
-    var nums=(String(v==null?'':v).match(/\d+/g)||[]).map(Number);
-    var ys=nums.filter(function(n){return n>=1000;});
-    var rest=nums.filter(function(n){return n<1000;});
-    if(!ys.length||rest.length<2)return false;
-    yr=ys[0];mm=rest[0];dd=rest[1];
-  }
-  if(yr!==selY)return false;
-  return (mm===selM&&dd===selD)||(mm===selD&&dd===selM);
+
+/* ══ TEAM PERFORMANCE (live · password-locked) ══
+   Sheet: "All Team Summary - Per Employee". Add every employee tab's gid to TP_GIDS. */
+var TP_SHEET='13fHr4FtVTf-J5TZ6GGOP2G_r_u8LTpm9A0pN91rAaMI';
+var TP_GIDS=['605683444'];
+var TP_PW_HASH='06c09303e9b9164837426d07c32d9fca17d0de566296ef634f8872d4b9788981';
+var TP_LOGIN_TARGET=9*3600, TP_BREAK_TARGET=3600, TP_NA_TARGET=40, TP_BOOK_TARGET=40;
+var TP={rows:[],loaded:false,loading:false,view:'daily',pendingEl:null};
+var TP_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var TP_MONL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function _tpUnlocked(){try{return sessionStorage.getItem('tp_unlock')==='1';}catch(e){return !!TP._u;}}
+function _tpSetUnlocked(v){TP._u=v;try{v?sessionStorage.setItem('tp_unlock','1'):sessionStorage.removeItem('tp_unlock');}catch(e){}}
+function openTeamPerf(el){
+  if(_tpUnlocked()){show('teamperf',el);return;}
+  TP.pendingEl=el||null;
+  var m=document.getElementById('tpGateModal');document.getElementById('tpGatePw').value='';
+  document.getElementById('tpGateErr').style.display='none';m.style.display='flex';
+  setTimeout(function(){document.getElementById('tpGatePw').focus();},50);
 }
-function _mvDone(x){return /^(1|true|done|yes|\u2713|\u0646\u0639\u0645|\u062a\u0645)$/i.test(String(x==null?'':x).trim());}
-async function loadManagerView(){
-  const statusEl=document.getElementById('managerStatus');
-  statusEl.innerHTML='<span class="live-dot"></span>Updating...';
-
-  // Set today as default in date filter if empty
-  const filterEl=document.getElementById('managerDateFilter');
-  if(!filterEl.value){
-    const d=new Date();
-    filterEl.value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  }
-  const selectedDate=filterEl.value;
-  const [y,m,dd]=selectedDate.split('-');
-  const selY=parseInt(y),selM=parseInt(m),selD=parseInt(dd);
-  document.getElementById('managerDate').textContent='Viewing: '+selectedDate;
-
-  try{
-    const rows=await fetchProgressSheet();
-    const data=rows.slice(1).filter(r=>r[1]&&_mvDateMatch(r[0],selY,selM,selD)).map(r=>({
-      date:String(r[0]).trim(),
-      agent:(r[1]||'').trim(),
-      task:(r[2]||'').trim(),
-      done:_mvDone(r[3])
-    }));
-    renderManagerView(data);
-    statusEl.innerHTML='<span class="live-dot"></span>Live ✓';
-    statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';
-  }catch(e){
-    statusEl.innerHTML='<span class="live-dot"></span>Error';
-    statusEl.style.background='var(--red-bg)';statusEl.style.color='var(--red)';
-    document.getElementById('managerBody').innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--text3);padding:20px">Could not load data. Make sure the Progress sheet exists.</td></tr>';
-  }
-  document.getElementById('managerFooter').textContent='Last updated: '+new Date().toLocaleTimeString();
+function tpCloseGate(){document.getElementById('tpGateModal').style.display='none';}
+async function _tpHash(s){
+  try{var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+  catch(e){return s.split('').reverse().join('')==='998091'?TP_PW_HASH:'x';}
 }
+async function tpSubmitGate(){
+  var h=await _tpHash(document.getElementById('tpGatePw').value);
+  if(h!==TP_PW_HASH){document.getElementById('tpGateErr').style.display='block';return;}
+  _tpSetUnlocked(true);tpCloseGate();show('teamperf',TP.pendingEl);
+}
+function tpLock(){_tpSetUnlocked(false);var a=document.querySelector('.nav-item');show('announcements',a);}
 
-async function archiveToday(){
-  const btn=(typeof event!=='undefined'&&event&&event.currentTarget)?event.currentTarget:null;
-  const restore=()=>{if(btn){btn.disabled=false;btn.textContent="📥 Archive Today's Data";}};
-  if(btn){btn.disabled=true;btn.textContent='⏳ Archiving...';}
-  const today=getTodayStr();
-  const seen={},archived=[];
-  AGENTS.forEach((a,i)=>{
-    const add=(task,done)=>{const k=a.name+'||'+task;if(seen[k])return;seen[k]=1;archived.push([today,a.name,task,done?1:0]);};
-    Object.keys(localStorage).filter(k=>k.startsWith(`check_${today}_${i}_`)).forEach(k=>{
-      add(k.replace(`check_${today}_${i}_`,'').replace(/_/g,' '), localStorage.getItem(k)==='1');
-    });
-    document.querySelectorAll(`#agent-panel-${i} tr[data-task]`).forEach(row=>{
-      add(row.dataset.task, localStorage.getItem(getTodayKey(i,row.dataset.task))==='1');
-    });
+/* ── parsing ── */
+function _tpDur(v){v=String(v==null?'':v).trim();if(!v||/#|n\/a/i.test(v))return null;
+  var pm=/pm/i.test(v),am=/am/i.test(v);var p=v.replace(/[^\d:]/g,'').split(':').map(Number);
+  if(!p.length||p.some(isNaN))return null;var s=(p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);
+  if(pm&&p[0]<12)s+=12*3600;if(am&&p[0]===12)s-=12*3600;return s;}
+function _tpNum(v){v=String(v==null?'':v).replace(/[,%\s]/g,'');if(v===''||/#/.test(v))return null;var n=Number(v);return isNaN(n)?null:n;}
+function _tpDate(v){v=String(v||'').trim();var m=v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m)return m[3]+'-'+m[1].padStart(2,'0')+'-'+m[2].padStart(2,'0');
+  m=v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0');return null;}
+function _tpCols(rows){
+  var def={date:0,camp:1,agent:2,badge:3,login:4,brk:5,talk:6,ring:7,dials:8,conn:9,na:10,sms:11,wa:12,book:13},hi=-1;
+  for(var i=0;i<Math.min(rows.length,8);i++){if((rows[i]||[]).some(function(c){return /agent\s*name/i.test(c);})){hi=i;break;}}
+  if(hi<0)return def;var c={},h=rows[hi].map(function(x){return String(x).toLowerCase().replace(/\s+/g,' ');});
+  h.forEach(function(x,j){
+    if(c.date==null&&/^date/.test(x))c.date=j;else if(c.camp==null&&/campaign/.test(x))c.camp=j;
+    else if(c.agent==null&&/agent/.test(x))c.agent=j;else if(c.badge==null&&/badge/.test(x))c.badge=j;
+    else if(c.login==null&&/login/.test(x))c.login=j;else if(c.brk==null&&/break/.test(x))c.brk=j;
+    else if(c.talk==null&&/talk/.test(x))c.talk=j;else if(c.ring==null&&/ring/.test(x))c.ring=j;
+    else if(c.conn==null&&/connected/.test(x))c.conn=j;else if(c.dials==null&&/manual dials|dials/.test(x))c.dials=j;
+    else if(c.na==null&&/no answer/.test(x))c.na=j;else if(c.sms==null&&/sms|ticket/.test(x))c.sms=j;
+    else if(c.wa==null&&/whats/.test(x))c.wa=j;else if(c.book==null&&/booking/.test(x))c.book=j;
   });
-  if(!archived.length){restore();alert('لا توجد مهام لأرشفتها اليوم.');return;}
-  if(!APPS_SCRIPT_URL||APPS_SCRIPT_URL.indexOf('script.google')<0){restore();alert('لم يتم إعداد Apps Script بعد. راجعي خطوات الإعداد.');return;}
-  try{
-    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({rows:archived})});
-    restore();
-    const msg=document.getElementById('archiveMsg');if(msg){msg.style.display='inline';setTimeout(()=>msg.style.display='none',4000);}
-    const fe=document.getElementById('managerDateFilter');if(fe){const d=new Date();fe.value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-    setTimeout(loadManagerView,1600);
-  }catch(e){
-    restore();
-    alert('تعذّرت الأرشفة. تأكدي من الاتصال وإعداد Apps Script.');
+  Object.keys(def).forEach(function(k){if(c[k]==null)c[k]=def[k];});return c;
+}
+function _tpParse(rows){
+  var c=_tpCols(rows),out=[];
+  rows.forEach(function(r){
+    var d=_tpDate(r[c.date]),ag=String(r[c.agent]||'').trim();if(!d||!ag)return;
+    var o={date:d,camp:String(r[c.camp]||'').trim(),agent:ag,badge:String(r[c.badge]||'').trim(),
+      loginTxt:String(r[c.login]||'').trim(),login:_tpDur(r[c.login]),brk:_tpDur(r[c.brk]),talk:_tpDur(r[c.talk]),ring:_tpDur(r[c.ring]),
+      dials:_tpNum(r[c.dials]),conn:_tpNum(r[c.conn]),na:_tpNum(r[c.na]),sms:_tpNum(r[c.sms]),wa:_tpNum(r[c.wa]),book:_tpNum(r[c.book])};
+    if(o.login==null&&!o.dials&&!o.wa&&!o.sms)return;
+    if(o.na==null&&o.dials)o.na=Math.round((o.dials-(o.conn||0))/o.dials*100);
+    out.push(o);
+  });
+  return out;
+}
+async function tpLoad(force){
+  if(TP.loading)return;if(TP.loaded&&!force){tpRender();return;}
+  TP.loading=true;var st=document.getElementById('tpStatus');st.textContent='Updating…';
+  var res=await Promise.allSettled(TP_GIDS.map(function(g){return fetchSheetFrom(TP_SHEET,g);}));
+  var seen={},all=[],ok=0;
+  res.forEach(function(r){if(r.status!=='fulfilled')return;ok++;_tpParse(r.value).forEach(function(o){var k=o.agent+'|'+o.date;if(seen[k])return;seen[k]=1;all.push(o);});});
+  TP.loading=false;
+  if(!ok){st.textContent='Error';document.getElementById('tpBody').innerHTML='<div class="tp-card tp-empty">Could not load the sheet. Check it is shared “Anyone with the link”.</div>';return;}
+  TP.rows=all;TP.loaded=true;
+  st.textContent='Live · '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  _tpInitFilters();tpRender();
+}
+function _tpInitFilters(){
+  var sel=document.getElementById('tpAgent'),cur=sel.value,names={};
+  TP.rows.forEach(function(r){names[r.agent]=1;});
+  sel.innerHTML='<option value="">— All Agents —</option>'+Object.keys(names).sort().map(function(n){return '<option'+(n===cur?' selected':'')+'>'+_annEsc(n)+'</option>';}).join('');
+  var f=document.getElementById('tpFrom'),t=document.getElementById('tpTo');
+  if(!f.value||!t.value){
+    var last=TP.rows.reduce(function(m,r){return r.date>m?r.date:m;},'');
+    if(!last){var d=new Date();last=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';}
+    var y=+last.slice(0,4),m=+last.slice(5,7);
+    f.value=last.slice(0,7)+'-01';t.value=last.slice(0,7)+'-'+String(new Date(y,m,0).getDate()).padStart(2,'0');
   }
 }
+function tpOnFilter(){if(TP.loaded)tpRender();}
+function tpPickAgent(n){document.getElementById('tpAgent').value=n;TP.view='daily';tpRender();window.scrollTo({top:0,behavior:'smooth'});}
+function tpSetView(v){TP.view=v;tpRender();}
 
-function renderManagerView(data){
-  // Group by agent
-  const byAgent={};
-  AGENTS.forEach(a=>{ byAgent[a.name]={done:0,total:0,tasks:[]}; });
-  data.forEach(row=>{
-    if(!byAgent[row.agent]) byAgent[row.agent]={done:0,total:0,tasks:[]};
-    byAgent[row.agent].total++;
-    if(row.done) byAgent[row.agent].done++;
-    byAgent[row.agent].tasks.push(row);
-  });
+/* ── helpers ── */
+function _tpFmtT(s){if(s==null)return '—';s=Math.round(s);var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0');}
+function _tpFmtClock(s){if(s==null)return '—';var h=Math.floor(s/3600),ap=h>=12?'PM':'AM',hh=h%12||12;return hh+_tpFmtT(s).slice(String(h).length)+' '+ap;}
+function _tpFmtN(n){return n==null?'—':Math.round(n).toLocaleString('en-US');}
+function _tpShift(iso,months){var y=+iso.slice(0,4),m=+iso.slice(5,7)-1+months,d=+iso.slice(8,10);var dt=new Date(y,m,1);var last=new Date(dt.getFullYear(),dt.getMonth()+1,0).getDate();
+  var isLast=d===new Date(y,+iso.slice(5,7),0).getDate();dt.setDate(isLast?last:Math.min(d,last));
+  return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');}
+function _tpShort(iso){return +iso.slice(8,10)+' '+TP_MON[+iso.slice(5,7)-1];}
+function _tpAvg(a){a=a.filter(function(x){return x!=null;});return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:null;}
+function _tpSum(a){a=a.filter(function(x){return x!=null;});return a.length?a.reduce(function(s,x){return s+x;},0):null;}
+function _tpAgg(rows){
+  var g=function(k){return rows.map(function(r){return r[k];});};
+  return {days:rows.length,dials:_tpSum(g('dials')),conn:_tpSum(g('conn')),wa:_tpSum(g('wa')),sms:_tpSum(g('sms')),book:_tpSum(g('book')),
+    na:_tpAvg(g('na')),talk:_tpAvg(g('talk')),talkSum:_tpSum(g('talk')),ring:_tpAvg(g('ring')),login:_tpAvg(g('login')),brk:_tpAvg(g('brk')),
+    late:rows.filter(function(r){return r.login!=null&&r.login>TP_LOGIN_TARGET;}).length,
+    overBrk:rows.filter(function(r){return r.brk!=null&&r.brk>TP_BREAK_TARGET;}).length,
+    badge:(rows.find(function(r){return r.badge;})||{}).badge||''};
+}
+function _tpRange(from,to,agent){return TP.rows.filter(function(r){return r.date>=from&&r.date<=to&&(!agent||r.agent===agent);});}
+/* metric meta: higher-is-good? */
+var TP_M={dials:{l:'Manual Dials',t:'n',up:1},conn:{l:'Connected',t:'n',up:1},wa:{l:'WhatsApp',t:'n',up:1},sms:{l:'SMS Tickets',t:'n',up:1},
+  book:{l:'Bookings',t:'n',up:1},na:{l:'No Answer %',t:'p',up:0},talk:{l:'Avg Talk Time',t:'t',up:1},login:{l:'Avg Login',t:'c',up:0},brk:{l:'Avg Break',t:'t',up:0}};
+function _tpVal(k,v){var t=TP_M[k].t;return v==null?'—':t==='n'?_tpFmtN(v):t==='p'?Math.round(v)+'%':t==='c'?_tpFmtClock(v):_tpFmtT(v);}
+function _tpDelta(k,cur,prev){
+  if(cur==null||prev==null)return '';var t=TP_M[k].t,d=cur-prev;if(t==='n'||t==='p')d=Math.round(cur)-Math.round(prev);else d=Math.round(d);
+  if(!d)return ' · <span style="color:var(--tp-ink3)">=</span>';
+  var good=(d>0)===!!TP_M[k].up,txt=t==='n'?(d>0?'+':'−')+_tpFmtN(Math.abs(d)):t==='p'?(d>0?'+':'−')+Math.abs(d)+' pts':(d>0?'+':'−')+_tpFmtT(Math.abs(d));
+  return ' · <span class="'+(good?'tp-good':'tp-badc')+'">'+(d>0?'▲':'▼')+' '+txt+'</span>';
+}
+function _tpMedal(n){var c=[['#f2b632','#d39a1d','#6b4a00'],['#d4d7e0','#aeb3c2','#4a4f63'],['#d39468','#b07246','#5a3216']][n-1];
+  return '<svg width="26" height="32" viewBox="0 0 26 32"><path d="M5 1h6l3.2 9H8.2z" fill="#4f7bdc"/><path d="M21 1h-6l-3.2 9h6z" fill="#7aa0ee"/><circle cx="13" cy="20.5" r="9" fill="'+c[0]+'" stroke="'+c[1]+'" stroke-width="1.6"/><text x="13" y="24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" fill="'+c[2]+'">'+n+'</text></svg>';}
+function _tpInit(n){var p=n.split(/\s+/).filter(Boolean);return ((p[0]||'')[0]||'')+((p.length>1?p[p.length-1]:'')[0]||'');}
 
-  // Agent cards
-  document.getElementById('managerCards').innerHTML=AGENTS.map(a=>{
-    const d=byAgent[a.name]||{done:0,total:0};
-    const pct=d.total>0?Math.round((d.done/d.total)*100):0;
-    return`<div class="metric" style="border-top:3px solid ${a.color}">
-      <div class="metric-label" style="color:${a.color}">${a.name}</div>
-      <div class="metric-val">${d.done}<span style="font-size:16px;color:var(--text3)">/${d.total}</span></div>
-      <div style="height:5px;background:var(--surface2);border-radius:3px;margin-top:8px;overflow:hidden">
-        <div style="height:100%;width:${pct}%;background:${a.color};border-radius:3px;transition:width .5s"></div>
-      </div>
-      <div class="metric-sub" style="margin-top:4px">${pct}% complete</div>
-    </div>`;
-  }).join('');
-
-  // Task detail table
-  document.getElementById('managerBody').innerHTML=data.length?data.map(row=>`
-    <tr>
-      <td><span style="font-weight:600">${row.agent}</span></td>
-      <td>${row.task}</td>
-      <td>${row.done
-        ?'<span style="color:var(--green);font-weight:600">✓ Done</span>'
-        :'<span style="color:var(--text3)">○ Pending</span>'}</td>
-    </tr>`).join('')
-    :'<tr><td colspan="3" style="text-align:center;color:var(--text3);padding:20px">No data yet today. Tasks will appear when agents start checking off items.</td></tr>';
+/* ── render ── */
+function tpRender(){
+  var from=document.getElementById('tpFrom').value,to=document.getElementById('tpTo').value,agent=document.getElementById('tpAgent').value;
+  var body=document.getElementById('tpBody');
+  if(!from||!to||from>to){body.innerHTML='<div class="tp-card tp-empty">Choose a valid date range.</div>';return;}
+  var pf=_tpShift(from,-1),pt=_tpShift(to,-1);
+  body.innerHTML=agent?_tpAgentView(agent,from,to,pf,pt):_tpTeamView(from,to,pf,pt);
+}
+function _tpPeriodLabel(from,to,pf,pt){
+  var full=from.slice(8)==='01'&&from.slice(0,7)===to.slice(0,7)&&+to.slice(8)===new Date(+to.slice(0,4),+to.slice(5,7),0).getDate();
+  var sub=function(a,b){return a.slice(0,7)===b.slice(0,7)?(+a.slice(8))+'–'+(+b.slice(8))+' '+TP_MON[+a.slice(5,7)-1]:_tpShort(a)+' – '+_tpShort(b);};
+  return {title:full?TP_MONL[+from.slice(5,7)-1]+' vs '+TP_MONL[+pf.slice(5,7)-1]:'Selected vs previous',sub:sub(from,to)+' · '+sub(pf,pt),prevShort:full?TP_MON[+pf.slice(5,7)-1]:'Prev'};
+}
+function _tpTeamView(from,to,pf,pt){
+  var cur=_tpRange(from,to),prev=_tpRange(pf,pt),A=_tpAgg(cur),P=_tpAgg(prev),L=_tpPeriodLabel(from,to,pf,pt);
+  var cmp=['dials','conn','wa','sms','na','talk'].map(function(k){
+    return '<div class="tp-cmp-r"><div><div class="tp-cmp-l">'+TP_M[k].l+'</div><div class="tp-cmp-p">'+L.prevShort+' '+_tpVal(k,P[k])+_tpDelta(k,A[k],P[k])+'</div></div><div class="tp-cmp-v">'+_tpVal(k,A[k])+'</div></div>';}).join('');
+  var by={};cur.forEach(function(r){(by[r.agent]=by[r.agent]||[]).push(r);});
+  var list=Object.keys(by).map(function(n){var a=_tpAgg(by[n]);a.name=n;return a;})
+    .sort(function(a,b){return (b.conn||0)-(a.conn||0)||(b.dials||0)-(a.dials||0);});
+  var rows=list.length?list.map(function(a,i){
+    var t=function(k,cls){return '<div class="tp-tile'+(cls?' '+cls:'')+'"><div class="tp-tl">'+(k==='talk'?'Avg Talk':TP_M[k].l)+'</div><div class="tp-tv">'+_tpVal(k,a[k])+'</div></div>';};
+    return '<div class="tp-card tp-row" onclick="tpPickAgent(\''+a.name.replace(/'/g,"\\'")+'\')"><div class="tp-rank">'+(i<3?_tpMedal(i+1):(i+1))+'</div>'+
+      '<div><div class="tp-name">'+_annEsc(a.name)+'</div><div class="tp-meta">'+(a.badge?'Badge '+_annEsc(a.badge)+' · ':'')+a.days+' Day</div></div>'+
+      '<div class="tp-tiles">'+t('dials')+t('conn')+t('wa','s')+t('na','a')+t('talk','a')+'</div></div>';}).join('')
+    :'<div class="tp-card tp-empty">No data in this date range.</div>';
+  return '<div class="tp-team"><aside class="tp-card tp-cmp"><div class="tp-cmp-h">'+L.title+'</div><div class="tp-cmp-s">'+L.sub+'</div>'+cmp+'</aside><div class="tp-list">'+rows+'</div></div>';
+}
+function _tpAgentView(name,from,to,pf,pt){
+  var cur=_tpRange(from,to,name).sort(function(a,b){return a.date<b.date?1:-1;}),prev=_tpRange(pf,pt,name),A=_tpAgg(cur),P=_tpAgg(prev);
+  var badge=A.badge||(_tpRange('0000','9999',name)[0]||{}).badge||'';
+  var span=cur.length?_tpShort(cur[cur.length-1].date)+' → '+_tpShort(cur[0].date)+' '+cur[0].date.slice(0,4):'No data';
+  var head='<div class="tp-card tp-ahead"><div class="tp-av">'+_annEsc(_tpInit(name).toUpperCase())+'</div><div class="tp-aname">'+_annEsc(name)+'</div>'+
+    (badge?'<div class="tp-asep"></div><div class="tp-ainfo">Badge '+_annEsc(badge)+'</div>':'')+'<div class="tp-asep"></div><div class="tp-ainfo">'+span+'</div>'+
+    '<div class="tp-seg"><button class="'+(TP.view==='daily'?'on':'')+'" onclick="tpSetView(\'daily\')">Daily Performance</button><button class="'+(TP.view==='att'?'on':'')+'" onclick="tpSetView(\'att\')">Attendance</button></div></div>';
+  var kpi=function(l,v,sub){return '<div class="tp-kpi"><div class="tp-kl">'+l+'</div><div class="tp-kv">'+v+'</div><div class="tp-ks">'+sub+'</div></div>';};
+  var lm=function(k){return 'Last month '+_tpVal(k,P[k])+_tpDelta(k,A[k],P[k]);};
+  if(!cur.length)return head+'<div class="tp-card tp-empty">No records for '+_annEsc(name)+' in this date range.</div>';
+  if(TP.view==='att')return head+_tpAttendance(cur,A,P,from,to,kpi,lm);
+  var kpis='<div class="tp-card tp-kpis">'+kpi('Total Dials',_tpVal('dials',A.dials),lm('dials'))+kpi('Connected',_tpVal('conn',A.conn),lm('conn'))+
+    kpi('WhatsApp',_tpVal('wa',A.wa),lm('wa'))+kpi('No Answer %',_tpVal('na',A.na),lm('na'))+kpi('Avg Talk Time',_tpVal('talk',A.talk),lm('talk'))+
+    kpi('Working Days',A.days,(A.dials!=null?Math.round(A.dials/A.days)+' dials/day':''))+'</div>';
+  var tr=cur.map(function(r){
+    var late=r.login!=null&&r.login>TP_LOGIN_TARGET,ob=r.brk!=null&&r.brk>TP_BREAK_TARGET,nab=r.na!=null&&r.na>TP_NA_TARGET,bk=r.book!=null&&r.book<TP_BOOK_TARGET;
+    return '<tr><td class="tp-d">'+r.date+(r.camp?'<small>'+_annEsc(r.camp.replace(/_Outbound/g,'').replace(/\s*\+\s*/g,' + '))+'</small>':'')+'</td>'+
+      '<td class="'+(late?'tp-bad':'')+'">'+_tpFmtClock(r.login)+'</td><td class="'+(ob?'tp-bad':'')+'">'+_tpFmtT(r.brk)+'</td>'+
+      '<td>'+_tpFmtT(r.talk)+'</td><td>'+_tpFmtT(r.ring)+'</td>'+
+      '<td>'+_tpFmtN(r.dials)+'</td><td>'+_tpFmtN(r.conn)+'</td><td class="'+(nab?'tp-bad':'')+'">'+(r.na==null?'—':r.na+'%')+'</td>'+
+      '<td>'+_tpFmtN(r.sms)+'</td><td>'+_tpFmtN(r.wa)+'</td><td class="'+(bk?'tp-bad dn':'')+'">'+_tpFmtN(r.book)+'</td></tr>';}).join('');
+  var foot='<tr><td>Total / Avg</td><td>'+_tpFmtClock(A.login)+'</td><td>'+_tpFmtT(A.brk)+'</td><td>'+_tpFmtT(A.talk)+'</td><td>'+_tpFmtT(A.ring)+'</td><td>'+_tpFmtN(A.dials)+'</td><td>'+_tpFmtN(A.conn)+'</td><td>'+(A.na==null?'—':Math.round(A.na)+'%')+'</td><td>'+_tpFmtN(A.sms)+'</td><td>'+_tpFmtN(A.wa)+'</td><td>'+_tpFmtN(A.book)+'</td></tr>';
+  var tbl='<div class="tp-card tp-tblcard"><div class="tp-tblwrap"><table class="tp-tbl"><thead><tr><th rowspan="2" class="tp-dh">Date</th><th colspan="2" class="tp-grp tp-gl">⏱ Time</th><th colspan="2" class="tp-grp">📊 Quality</th><th colspan="6" class="tp-grp">📞 Volume</th></tr>'+
+    '<tr><th class="tp-gl">Login Time<small>9:00:00 AM</small></th><th>Total Break<small>1:00:00</small></th><th class="tp-gl">Total Talk Time<small>per day</small></th><th>Manual Ring Time<small>ringing</small></th>'+
+    '<th class="tp-gl">Manual Dials</th><th>Connected</th><th>No Answer %<small>Below 40%</small></th><th>SMS Tickets</th><th>WhatsApp</th><th>Bookings<small>40 / day</small></th></tr></thead><tbody>'+tr+'</tbody><tfoot>'+foot+'</tfoot></table></div></div>';
+  return head+kpis+tbl;
+}
+function _tpAttendance(cur,A,P,from,to,kpi,lm){
+  var onT=A.days-A.late;
+  var kpis='<div class="tp-card tp-kpis">'+kpi('Working Days',A.days,'Last month '+P.days)+kpi('On Time',onT,A.days?Math.round(onT/A.days*100)+'% of days':'')+
+    kpi('Late Days',A.late,'after 9:00:00 AM')+kpi('Avg Login',_tpVal('login',A.login),lm('login'))+kpi('Avg Break',_tpVal('brk',A.brk),lm('brk'))+kpi('Over Break',A.overBrk,'days over 1:00:00')+'</div>';
+  var byD={};cur.forEach(function(r){byD[r.date]=r;});
+  var months=[],y=+from.slice(0,4),m=+from.slice(5,7),ty=+to.slice(0,4),tm=+to.slice(5,7);
+  while((y<ty||(y===ty&&m<=tm))&&months.length<12){months.push([y,m]);m++;if(m>12){m=1;y++;}}
+  var cal=months.map(function(ym){
+    var Y=ym[0],M=ym[1],first=new Date(Y,M-1,1).getDay(),n=new Date(Y,M,0).getDate(),cells='';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(function(d){cells+='<div class="tp-cal-dw">'+d+'</div>';});
+    for(var i=0;i<first;i++)cells+='<div class="tp-cal-c blank"></div>';
+    for(var d=1;d<=n;d++){var iso=Y+'-'+String(M).padStart(2,'0')+'-'+String(d).padStart(2,'0'),r=byD[iso],inR=iso>=from&&iso<=to;
+      if(r&&r.login!=null){var late=r.login>TP_LOGIN_TARGET;cells+='<div class="tp-cal-c '+(late?'late':'ok')+'" title="'+iso+' · Login '+_tpFmtClock(r.login)+' · Break '+_tpFmtT(r.brk)+'"><b>'+d+'</b>'+_tpFmtClock(r.login).replace(/:\d\d (AM|PM)/,'')+(late?' · +'+Math.round((r.login-TP_LOGIN_TARGET)/60)+'m':'')+'</div>';}
+      else cells+='<div class="tp-cal-c'+(inR?'':' blank')+'"><b style="'+(inR?'':'opacity:.35')+'">'+d+'</b></div>';}
+    return '<div><div class="tp-cal-m">'+TP_MONL[M-1]+' '+Y+'</div><div class="tp-cal">'+cells+'</div></div>';}).join('');
+  return kpis+'<div class="tp-card tp-tblcard"><div class="tp-legend"><span><i style="background:#e8f4ec"></i>On time</span><span><i style="background:var(--tp-bad-bg)"></i>Late (minutes after 9:00)</span><span><i style="background:#f6f6f7"></i>No record / off</span></div><div class="tp-cal-wrap">'+cal+'</div></div>';
 }
 
 // ── CELEBRATION ──
@@ -5013,6 +5170,17 @@ async function loadRecalls(){
   renderRecalls();
 }
 
+function _rcPartHtml(p){
+  var lines=String(p||'').replace(/\r/g,'').split('\n').map(function(l){return l.trim();}).filter(Boolean);
+  var normal='',fix='',inFix=false;
+  lines.forEach(function(ln){
+    if(/\u0625\u062c\u0631\u0627\u0621 \u0627\u0644\u0625\u0635\u0644\u0627\u062d|\u0627\u0644\u0625\u062c\u0631\u0627\u0621 \u0627\u0644\u062a\u0635\u062d\u064a\u062d\u064a|\u0625\u062c\u0631\u0627\u0621 \u0627\u0644\u0627\u0635\u0644\u0627\u062d|repair|remedy|corrective/i.test(ln))inFix=true;
+    var pa=/[\u0600-\u06FF]/.test(ln);
+    var div='<div class="recall-line" style="direction:'+(pa?'rtl':'ltr')+';text-align:'+(pa?'right':'left')+'">'+ln+'</div>';
+    if(inFix)fix+=div; else normal+=div;
+  });
+  return normal+(fix?'<div class="recall-fix"><div class="recall-fix-tag">\ud83d\udd27 \u0625\u062c\u0631\u0627\u0621 \u0627\u0644\u0625\u0635\u0644\u0627\u062d</div>'+fix+'</div>':'');
+}
 function renderRecalls(){
   const chevron=`<svg class="sms-trigger-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
   const brandColors={
@@ -5040,7 +5208,7 @@ function renderRecalls(){
         ${chevron}
       </button>
       <div class="recall-body">
-        ${(r.parts&&r.parts.length?r.parts:[r.desc]).map(function(p){var pa=/[\u0600-\u06FF]/.test(p);return '<div class="recall-desc" style="direction:'+(pa?'rtl':'ltr')+';text-align:'+(pa?'right':'left')+'">'+p+'</div>';}).join('')}
+        ${(r.parts&&r.parts.length?r.parts:[r.desc]).map(_rcPartHtml).join('')}
       </div>
     </div>`;
   }).join('');
