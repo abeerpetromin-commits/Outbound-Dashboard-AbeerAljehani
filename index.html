@@ -5635,8 +5635,7 @@ function _stPacRender(data){
       '<span class="brn-region-title">'+_baicEsc(k)+' <span class="brn-region-count">('+items.length+')</span></span><span class="brn-chev">▾</span></button>'+
       '<div class="brn-grid stpac-grid">'+cards+'</div></div>';
   }).join('');
-  el.innerHTML=(routes?'<div class="stpac-routes">'+routes+'</div>':'')+
-    '<div class="stpac-bar"><input type="search" class="stpac-search" placeholder="Search branch, code, city, manager…" oninput="_stPacFilter(this.value)"><span id="stPacCount" class="stpac-count">'+list.length+' workshops</span></div>'+
+  el.innerHTML=    '<div class="stpac-bar"><input type="search" class="stpac-search" placeholder="Search branch, code, city, manager…" oninput="_stPacFilter(this.value)"><span id="stPacCount" class="stpac-count">'+list.length+' workshops</span></div>'+
     '<div class="brn-regions">'+regions+'</div>';
 }
 /* ── NISSAN PAC BRANCHES (live from sheet) ── */
