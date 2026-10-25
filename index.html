@@ -549,6 +549,58 @@ td.muted{text-align:center;direction:rtl}
 }
 .reset-btn:hover{background:#f9d0d0}
 
+/* ── PAC Branches master-detail directory ── */
+.pacd-wrap{--acc:var(--st);--accbg:var(--st-bg);display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+@media(max-width:820px){.pacd-wrap{grid-template-columns:1fr}}
+.pacd-wrap.pacd-baic{--acc:var(--baic);--accbg:var(--baic-bg)}
+.pacd-left{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px;max-height:620px;display:flex;flex-direction:column;overflow:hidden}
+.pacd-search{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:9px 12px;margin-bottom:10px}
+.pacd-search-ic{font-size:14px;opacity:.6}
+.pacd-search input{flex:1;border:0;background:transparent;outline:none;font-family:var(--font-body);font-size:13px;color:var(--text)}
+.pacd-tree{overflow-y:auto;flex:1;padding-right:4px}
+.pacd-reg{margin-bottom:4px}
+.pacd-reg-h{width:100%;display:flex;align-items:center;gap:8px;background:transparent;border:0;cursor:pointer;padding:9px 8px;border-radius:9px;font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--acc);text-align:start}
+.pacd-reg-h:hover{background:var(--accbg)}
+.pacd-reg-ch{font-size:11px;transition:transform .2s;color:var(--acc)}
+.pacd-reg[data-open="0"] .pacd-reg-ch{transform:rotate(-90deg)}
+.pacd-reg[data-open="0"] .pacd-reg-body{display:none}
+.pacd-reg-t{flex:1}
+.pacd-reg-n{font-size:12px;font-weight:700;color:var(--text3);background:var(--surface2);border-radius:999px;padding:1px 9px}
+.pacd-reg-body{padding:2px 0 6px}
+.pacd-city-h{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;padding:8px 10px 4px}
+.pacd-city-n{background:var(--surface2);border-radius:999px;padding:0 7px;font-size:10.5px}
+.pacd-branch{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;border-radius:10px;cursor:pointer;transition:.12s}
+.pacd-branch:hover{background:var(--surface2)}
+.pacd-branch.sel{background:var(--accbg)}
+.pacd-bcode{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--acc);flex:0 0 auto;min-width:30px}
+.pacd-binfo{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pacd-bname{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
+.pacd-bdist{font-size:11px;color:var(--text3);direction:rtl;line-height:1.35}
+.pacd-right{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;min-height:260px}
+.pacd-d-head{background:var(--accbg);padding:22px 26px;text-align:center;border-bottom:1px solid var(--border)}
+.pacd-d-title{font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--text)}
+.pacd-d-code{color:var(--acc)}
+.pacd-d-dist{font-size:13px;color:var(--text2);direction:rtl;margin-top:4px}
+.pacd-d-actions{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px}
+.pacd-d-loc{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--acc);color:var(--acc);border-radius:9px;padding:8px 16px;font-size:13px;font-weight:700;text-decoration:none}
+.pacd-d-loc:hover{background:var(--acc);color:#fff}
+.pacd-d-loc:hover svg{stroke:#fff}
+.pacd-d-copy{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--surface);border:1px solid var(--border);border-radius:9px;color:var(--text3);cursor:pointer}
+.pacd-d-copy:hover{color:var(--acc);border-color:var(--acc)}
+.pacd-d-hoursbar{text-align:center;padding:14px 20px;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--text)}
+.pacd-d-mgrs{display:flex;align-items:stretch;padding:22px 26px;gap:0}
+.pacd-d-vline{width:1px;background:var(--border);margin:0 8px}
+.pacd-d-mcol{flex:1;text-align:center;padding:0 16px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.pacd-d-mlabel{font-size:12px;color:var(--text3);font-weight:600}
+.pacd-d-mname{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text)}
+.pacd-d-ph,.pacd-d-em{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--text2)}
+.pacd-d-ph svg,.pacd-d-em svg{color:var(--acc);flex:0 0 auto}
+.pacd-d-em a{color:var(--text2);text-decoration:none}
+.pacd-d-em a:hover{color:var(--acc)}
+.pacd-mini-copy{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:2px 9px;font-size:11px;color:var(--text3);cursor:pointer;font-family:var(--font-body)}
+.pacd-mini-copy:hover{color:var(--acc);border-color:var(--acc)}
+.pacd-mini-copy.done{color:var(--green,#0a9d63);border-color:var(--green,#0a9d63)}
+@media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
 /* ── All Tasks overview ── */
 .allt-sec{border:1px solid var(--border);border-radius:14px;background:var(--surface);margin-bottom:18px;overflow:hidden}
 .allt-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:var(--surface2);border:0;border-bottom:1px solid var(--border);cursor:pointer;font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--text);text-align:start}
@@ -4819,6 +4871,7 @@ function _stInsTab(i){
 /* ── BAIC LOCATION (Service Location SMS — live, copy-ready) ── */
 var _LOC_LIST=[];
 var _CLIP_IC='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+var _MAIL_IC='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>';
 var _LOC_SVC=[
   {loc:'الرياض/ الثمامة', url:'https://goo.gl/maps/N2YAkUAsg2sEfxKr8', en:'Riyadh/Thumama'},
   {loc:'الرياض/ المصيف', url:'https://goo.gl/maps/3sU8jGgAjonjEHBx8'},
@@ -4902,14 +4955,18 @@ async function loadBaicBranches(){
   var list=[];
   try{
     var raw=await fetchSheetFrom(BAIC_REF_SHEET,'0');
-    list=_baicParse(raw);
+    list=_stPacParse(raw);
     if(!list.length)throw new Error('empty');
     if(statusEl){statusEl.innerHTML='<span class="live-dot"></span>Live ✓';statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';}
   }catch(e){
-    list=BAIC_REF_FALLBACK;
+    list=BAIC_REF_FALLBACK.map(function(w){
+      var code=((w.branch||'').match(/\d+/)||[''])[0];
+      var nm=(w.branch||'').replace(/^\s*\d+\s*[-–—]?\s*/,'').trim();
+      return {region:w.region,city:w.city,code:code,name:nm||w.branch,district:'',hours:'Saturday to Thursday 8 AM – 9 PM | Friday Closed',mgr:w.mgr||'',mgrPhone:w.phone||'',mgrEmail:w.email||'',rm:'',rmPhone:'',rmEmail:'',map:w.map||''};
+    });
     if(statusEl){statusEl.innerHTML='<span class="live-dot"></span>Cached';statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';}
   }
-  _baicRender(list);
+  _bdRender(list);
 }
 
 // ── BAIC WHATSAPP SCRIPTS ──
@@ -5457,39 +5514,161 @@ var STPAC_RM={'jeddah':{mgr:'Chirag Dhingra',phone:'0539200978'},'makkah':{mgr:'
 function _stPacParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(!rows.length)return [];
-  // Detect columns from the header row (order-independent, Arabic or English)
-  var H={region:-1,city:-1,branch:-1,hours:-1,person:-1,phone:-1,email:-1,map:-1};
   var hdr=rows[0]||[], hasHeader=false;
+  var H={region:-1,city:-1,code:-1,name:-1,district:-1,hours:-1,mgr:-1,mgrPhone:-1,mgrEmail:-1,rm:-1,rmPhone:-1,rmEmail:-1,map:-1};
   hdr.forEach(function(c,i){
-    var t=(c||'').trim().toLowerCase();
-    if(!t)return;
-    if(H.region<0&&/(region|منطقة|المنطقة)/.test(t)){H.region=i;hasHeader=true;}
-    else if(H.city<0&&/(city|مدينة|المدينة)/.test(t)){H.city=i;hasHeader=true;}
-    else if(H.branch<0&&/(branch|workshop|ورشة|الفرع|اسم الفرع|name)/.test(t)){H.branch=i;hasHeader=true;}
-    else if(H.hours<0&&/(hour|time|دوام|الدوام|ساعات)/.test(t)){H.hours=i;hasHeader=true;}
-    else if(H.person<0&&/(manager|person|مدير|المسؤول|مسؤول)/.test(t)){H.person=i;hasHeader=true;}
-    else if(H.phone<0&&/(phone|mobile|number|جوال|هاتف|رقم)/.test(t)){H.phone=i;hasHeader=true;}
-    else if(H.email<0&&/(email|mail|ايميل|بريد)/.test(t)){H.email=i;hasHeader=true;}
-    else if(H.map<0&&/(map|location|gps|رابط|موقع|خريطة)/.test(t)){H.map=i;hasHeader=true;}
+    var t=(c||'').trim().toLowerCase(); if(!t)return;
+    var reg=/regional|اقليم|إقليم|\brm\b/.test(t);
+    var isPhone=/phone|mobile|number|جوال|هاتف|رقم/.test(t);
+    var isEmail=/email|mail|ايميل|إيميل|بريد/.test(t);
+    var isMgr=/manager|مدير|مسؤول|person/.test(t);
+    if(H.region<0&&/^\s*(region|المنطقة|منطقة)\s*$/.test(t)){H.region=i;hasHeader=true;return;}
+    if(H.city<0&&/^\s*(city|المدينة|مدينة)\s*$/.test(t)){H.city=i;hasHeader=true;return;}
+    if(H.code<0&&/code|كود|رقم الفرع|branch no|branch number|الرقم/.test(t)){H.code=i;hasHeader=true;return;}
+    if(H.hours<0&&/hour|working|دوام|ساعات|اوقات|أوقات|وقت/.test(t)){H.hours=i;hasHeader=true;return;}
+    if(H.map<0&&/map|gps|خريطة|قوقل|google|رابط الموقع|الموقع الجغرافي/.test(t)){H.map=i;hasHeader=true;return;}
+    if(H.district<0&&/district|address|الحي|العنوان|العنوان الوطني/.test(t)){H.district=i;hasHeader=true;return;}
+    if(reg&&isPhone&&H.rmPhone<0){H.rmPhone=i;hasHeader=true;return;}
+    if(reg&&isEmail&&H.rmEmail<0){H.rmEmail=i;hasHeader=true;return;}
+    if(reg&&isMgr&&H.rm<0){H.rm=i;hasHeader=true;return;}
+    if(reg&&H.rm<0){H.rm=i;hasHeader=true;return;}
+    if(isPhone&&H.mgrPhone<0){H.mgrPhone=i;hasHeader=true;return;}
+    if(isEmail&&H.mgrEmail<0){H.mgrEmail=i;hasHeader=true;return;}
+    if(isMgr&&H.mgr<0){H.mgr=i;hasHeader=true;return;}
+    if(H.name<0&&/branch name|workshop|اسم الفرع|الورشة|ورشة|branch|name|الاسم/.test(t)){H.name=i;hasHeader=true;return;}
   });
   var body=hasHeader?rows.slice(1):rows;
-  if(!hasHeader){H={region:0,city:1,branch:2,hours:3,person:4,phone:5,email:6,map:7};}
+  if(!hasHeader){H.region=0;H.city=1;H.name=2;H.hours=3;H.mgr=4;H.mgrPhone=5;H.mgrEmail=6;H.map=7;}
   var g=function(r,i){return i>=0?(r[i]||'').trim():'';};
+  var DEF_HOURS='Saturday to Thursday 8 AM – 9 PM | Friday Closed';
   return body.map(function(r){
-    return {region:g(r,H.region),city:g(r,H.city),branch:g(r,H.branch),hours:g(r,H.hours),person:g(r,H.person),phone:g(r,H.phone),email:g(r,H.email),map:g(r,H.map)};
-  }).filter(function(b){return b.branch||b.city;});
+    var rawName=g(r,H.name), rawCode=g(r,H.code);
+    var src=rawName||rawCode;
+    var code=(rawCode.match(/\d+/)||[''])[0]||(src.match(/\d+/)||[''])[0];
+    var nm=(rawName?rawName:src).replace(/^\s*\d+\s*[-–—]?\s*/,'').trim();
+    if(!nm)nm=src;
+    var byCode=code&&_PAC_BY_CODE[code]?_PAC_BY_CODE[code]:null;
+    var rmByCity=STPAC_RM[(g(r,H.city)||'').trim().toLowerCase()];
+    return {
+      region:g(r,H.region), city:g(r,H.city), code:code, name:nm||g(r,H.name),
+      district:g(r,H.district), hours:g(r,H.hours)||DEF_HOURS,
+      mgr:g(r,H.mgr)||(byCode?byCode.mgr:''), mgrPhone:g(r,H.mgrPhone)||(byCode?byCode.phone:''), mgrEmail:g(r,H.mgrEmail)||(byCode?byCode.email:''),
+      rm:g(r,H.rm)||(rmByCity?rmByCity.mgr:''), rmPhone:g(r,H.rmPhone)||(rmByCity?rmByCity.phone:''), rmEmail:g(r,H.rmEmail),
+      map:g(r,H.map)
+    };
+  }).filter(function(b){return b.name||b.code||b.city;});
 }
-function _stPacRender(list){
-  var el=document.getElementById('stPacBody'); if(!el)return;
-  if(!list.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
-  var cards=list.map(function(b){
-    var name=b.branch||b.city;
-    var sub=b.branch?(b.city+(b.region?' · '+b.region:'')):(b.region||'');
-    return '<div class="pac-card"><div class="pac-card-head"><div class="pac-card-name">'+_baicEsc(name)+'</div>'+
-           (sub?'<div class="brn-city">'+_BRN_PIN+'<span>'+_baicEsc(sub)+'</span></div>':'')+'</div></div>';
+// Workshop code -> manager/phone/email (PAC workshops are shared; from BAIC Reference)
+var _PAC_BY_CODE=(function(){
+  var m={};
+  try{(BAIC_REF_FALLBACK||[]).forEach(function(b){
+    var c=((b.branch||'').match(/\d+/)||[''])[0];
+    if(c&&(b.mgr||b.phone||b.email))m[c]={mgr:b.mgr||'',phone:b.phone||'',email:b.email||''};
+  });}catch(e){}
+  return m;
+})();
+function _stPhone(p){var x=(p||'').replace(/[^0-9+]/g,'');if(x&&x.charAt(0)!=='+'&&x.charAt(0)!=='0')x='0'+x;return x;}
+function _stRegionMeta(region){
+  var t=(region||'').trim().toLowerCase();
+  if(/west|غرب|wr/.test(t))return{label:'West',rank:1};
+  if(/cent|وسط|cr/.test(t))return{label:'Central',rank:2};
+  if(/east|شرق|er/.test(t))return{label:'East',rank:3};
+  if(/north|شمال|nr/.test(t))return{label:'North',rank:4};
+  if(/south|جنوب|sr/.test(t))return{label:'South',rank:5};
+  return{label:(region||'Other'),rank:9};
+}
+var _PACD={
+  st:{list:[],sel:'',el:'stPacBody',cls:''},
+  baic:{list:[],sel:'',el:'baicBranchesBody',cls:'pacd-baic'}
+};
+function _pacdKey(b){return (b.code||'')+'|'+(b.name||'')+'|'+(b.city||'');}
+function _pacdRender(id,list){
+  var S=_PACD[id]; S.list=list||[];
+  var el=document.getElementById(S.el); if(!el)return;
+  if(id==='baic'){var _c=document.getElementById('baicBranchCount');if(_c)_c.textContent=S.list.length;}
+  if(!S.list.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
+  var found=false; S.list.forEach(function(x){if(_pacdKey(x)===S.sel)found=true;});
+  if(!found)S.sel=_pacdKey(S.list[0]);
+  el.innerHTML='<div class="pacd-wrap '+S.cls+'">'+
+      '<div class="pacd-left">'+
+        '<div class="pacd-search"><span class="pacd-search-ic">🔍</span>'+
+        '<input id="'+S.el+'Search" type="text" placeholder="Search by branch number or name…" oninput="_pacdDraw(\''+id+'\')"></div>'+
+        '<div id="'+S.el+'Tree" class="pacd-tree"></div>'+
+      '</div>'+
+      '<div id="'+S.el+'Detail" class="pacd-right"></div>'+
+    '</div>';
+  _pacdDraw(id);
+}
+function _pacdDraw(id){
+  var S=_PACD[id];
+  var q=((document.getElementById(S.el+'Search')||{}).value||'').trim().toLowerCase();
+  var items=S.list.filter(function(b){
+    if(!q)return true;
+    return ((b.code||'')+' '+(b.name||'')+' '+(b.district||'')+' '+(b.city||'')).toLowerCase().indexOf(q)>=0;
+  });
+  var regs={}, rorder=[];
+  items.forEach(function(b){
+    var rm=_stRegionMeta(b.region), rk=rm.label;
+    if(!regs[rk]){regs[rk]={meta:rm,cities:{},corder:[],n:0};rorder.push(rk);}
+    var R=regs[rk]; R.n++;
+    var ck=b.city||'—';
+    if(!R.cities[ck]){R.cities[ck]=[];R.corder.push(ck);}
+    R.cities[ck].push(b);
+  });
+  rorder.sort(function(a,b){return regs[a].meta.rank-regs[b].meta.rank;});
+  var openReg=null; S.list.forEach(function(b){if(_pacdKey(b)===S.sel)openReg=_stRegionMeta(b.region).label;});
+  var tree=rorder.map(function(rk){
+    var R=regs[rk]; var isOpen=(openReg?rk===openReg:rorder[0]===rk);
+    var cities=R.corder.map(function(ck){
+      var rows=R.cities[ck].map(function(b){
+        var k=_pacdKey(b), sel=k===S.sel?' sel':'';
+        return '<div class="pacd-branch'+sel+'" onclick="_pacdPick(\''+id+'\',\''+encodeURIComponent(k)+'\')">'+
+          '<span class="pacd-bcode">'+_baicEsc(b.code||'')+'</span>'+
+          '<span class="pacd-binfo"><span class="pacd-bname">'+_baicEsc(b.name||'')+'</span>'+
+          (b.district?'<span class="pacd-bdist">'+_baicEsc(b.district)+'</span>':'')+'</span></div>';
+      }).join('');
+      return '<div class="pacd-city"><div class="pacd-city-h">'+_baicEsc(ck)+'<span class="pacd-city-n">'+R.cities[ck].length+'</span></div>'+rows+'</div>';
+    }).join('');
+    return '<div class="pacd-reg" data-open="'+(isOpen?'1':'0')+'">'+
+      '<button type="button" class="pacd-reg-h" onclick="_stRegToggle(this)"><span class="pacd-reg-ch">▾</span>'+
+      '<span class="pacd-reg-t">'+_baicEsc(rk)+'</span><span class="pacd-reg-n">'+R.n+'</span></button>'+
+      '<div class="pacd-reg-body">'+cities+'</div></div>';
   }).join('');
-  el.innerHTML='<div class="pac-section" style="--rc:var(--st);--rcbg:var(--st-bg)"><div class="pac-grid">'+cards+'</div></div>';
+  var treeEl=document.getElementById(S.el+'Tree'); if(treeEl)treeEl.innerHTML=tree||'<div class="grid-empty">لا نتائج</div>';
+  _pacdDetail(id);
 }
+function _stRegToggle(btn){var s=btn.closest('.pacd-reg');if(s)s.setAttribute('data-open',s.getAttribute('data-open')==='1'?'0':'1');}
+function _pacdPick(id,k){_PACD[id].sel=decodeURIComponent(k);_pacdDraw(id);}
+function _pacdDetail(id){
+  var S=_PACD[id]; var el=document.getElementById(S.el+'Detail'); if(!el)return;
+  var b=null; S.list.forEach(function(x){if(_pacdKey(x)===S.sel)b=x;});
+  if(!b){el.innerHTML='';return;}
+  var title=(b.code?'<span class="pacd-d-code">'+_baicEsc(b.code)+'</span> ':'')+_baicEsc(b.name||'');
+  var dist=b.district?'<div class="pacd-d-dist">'+_baicEsc((b.city?b.city+' · ':'')+b.district)+'</div>':(b.city?'<div class="pacd-d-dist">'+_baicEsc(b.city+(b.region?' · '+b.region:''))+'</div>':'');
+  var mapu=b.map||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent((b.name||'')+' '+(b.city||'')+' Saudi Arabia'));
+  var loc='<a class="pacd-d-loc" href="'+_baicEsc(mapu)+'" target="_blank" rel="noopener">'+_BRN_LOC+'<span>Open Location</span></a>';
+  var cpMap='<button type="button" class="pacd-d-copy" title="Copy location" onclick="_stCopy(\''+encodeURIComponent(mapu)+'\',this)">'+_CLIP_IC+'</button>';
+  var hrs=b.hours?'<div class="pacd-d-hours">'+_baicEsc(b.hours)+'</div>':'';
+  function col(label,name,phone,email){
+    if(!name&&!phone&&!email)return '';
+    var ph=_stPhone(phone);
+    var phline=ph?'<div class="pacd-d-ph">'+_BRN_PHONE+'<span>'+_baicEsc(ph)+'</span>'+_cpBtn(ph)+'</div>':'';
+    var emline=(email&&email.indexOf("@")>0)?'<div class="pacd-d-em">'+_MAIL_IC+'<a href="mailto:'+_baicEsc(email)+'">'+_baicEsc(email)+'</a>'+_cpBtn(email)+'</div>':'';
+    return '<div class="pacd-d-mcol"><div class="pacd-d-mlabel">'+label+'</div>'+
+      '<div class="pacd-d-mname">'+_baicEsc(name||'—')+'</div>'+phline+emline+'</div>';
+  }
+  var bm=col('Branch Manager',b.mgr,b.mgrPhone,b.mgrEmail);
+  var rm=col('Regional Manager',b.rm,b.rmPhone,b.rmEmail);
+  var mgrRow=(bm||rm)?'<div class="pacd-d-mgrs">'+bm+(bm&&rm?'<div class="pacd-d-vline"></div>':'')+rm+'</div>':'';
+  el.innerHTML='<div class="pacd-d-head"><div class="pacd-d-title">'+title+'</div>'+dist+
+      '<div class="pacd-d-actions">'+loc+cpMap+'</div></div>'+
+      (hrs?'<div class="pacd-d-hoursbar">'+hrs+'</div>':'')+mgrRow;
+}
+function _stPacRender(list){return _pacdRender('st',list);}
+function _bdRender(list){return _pacdRender('baic',list);}
+function _cpBtn(v){return '<button type="button" class="pacd-mini-copy" onclick="_stCopy(\''+encodeURIComponent(v)+'\',this)">copy</button>';}
+function _stCopy(v,btn){var t=decodeURIComponent(v);try{navigator.clipboard.writeText(t);}catch(e){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e2){}document.body.removeChild(ta);}if(btn){var o=btn.textContent;btn.textContent='✓';btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1200);}}
+
 /* ── NISSAN PAC BRANCHES (live from sheet) ── */
 var NIPAC_SHEET='1lXDeN1iUosG_JSADgdWhnkT5J1t3hhwXoSJdbmb4B88';
 var NIPAC_GID='1439489903';
