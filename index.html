@@ -5456,24 +5456,37 @@ var STPAC_GID='0';
 var STPAC_RM={'jeddah':{mgr:'Chirag Dhingra',phone:'0539200978'},'makkah':{mgr:'Faizan Shams',phone:'0550113348'},'yanbu':{mgr:'Chirag Dhingra',phone:'0539200978'},'tabuk':{mgr:'Chirag Dhingra',phone:'0539200978'},'taif':{mgr:'Faizan Shams',phone:'0550113348'},'khamis mushait':{mgr:'Chirag Dhingra',phone:'0539200978'},'muhayil':{mgr:'Chirag Dhingra',phone:'0539200978'}};
 function _stPacParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
-  if(rows.length&&/^city$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
-  return rows.map(function(r){
-    return {city:(r[0]||'').trim(),branch:(r[1]||'').trim(),hours:(r[2]||'').trim(),person:(r[3]||'').trim(),phone:(r[4]||'').trim(),email:(r[5]||'').trim(),map:(r[6]||'').trim()};
-  }).filter(function(b){return b.branch;});
+  if(!rows.length)return [];
+  // Detect columns from the header row (order-independent, Arabic or English)
+  var H={region:-1,city:-1,branch:-1,hours:-1,person:-1,phone:-1,email:-1,map:-1};
+  var hdr=rows[0]||[], hasHeader=false;
+  hdr.forEach(function(c,i){
+    var t=(c||'').trim().toLowerCase();
+    if(!t)return;
+    if(H.region<0&&/(region|منطقة|المنطقة)/.test(t)){H.region=i;hasHeader=true;}
+    else if(H.city<0&&/(city|مدينة|المدينة)/.test(t)){H.city=i;hasHeader=true;}
+    else if(H.branch<0&&/(branch|workshop|ورشة|الفرع|اسم الفرع|name)/.test(t)){H.branch=i;hasHeader=true;}
+    else if(H.hours<0&&/(hour|time|دوام|الدوام|ساعات)/.test(t)){H.hours=i;hasHeader=true;}
+    else if(H.person<0&&/(manager|person|مدير|المسؤول|مسؤول)/.test(t)){H.person=i;hasHeader=true;}
+    else if(H.phone<0&&/(phone|mobile|number|جوال|هاتف|رقم)/.test(t)){H.phone=i;hasHeader=true;}
+    else if(H.email<0&&/(email|mail|ايميل|بريد)/.test(t)){H.email=i;hasHeader=true;}
+    else if(H.map<0&&/(map|location|gps|رابط|موقع|خريطة)/.test(t)){H.map=i;hasHeader=true;}
+  });
+  var body=hasHeader?rows.slice(1):rows;
+  if(!hasHeader){H={region:0,city:1,branch:2,hours:3,person:4,phone:5,email:6,map:7};}
+  var g=function(r,i){return i>=0?(r[i]||'').trim():'';};
+  return body.map(function(r){
+    return {region:g(r,H.region),city:g(r,H.city),branch:g(r,H.branch),hours:g(r,H.hours),person:g(r,H.person),phone:g(r,H.phone),email:g(r,H.email),map:g(r,H.map)};
+  }).filter(function(b){return b.branch||b.city;});
 }
 function _stPacRender(list){
   var el=document.getElementById('stPacBody'); if(!el)return;
   if(!list.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   var cards=list.map(function(b){
-    var rm=STPAC_RM[(b.city||'').trim().toLowerCase()];
-    var mgr=b.person?'<div class="brn-mgr">'+_BRN_PERSON+'<span>'+_baicEsc(b.person)+'</span></div>':'';
-    var ph=b.phone?'<div class="brn-phone">'+_BRN_PHONE+'<a href="tel:'+_baicEsc(b.phone.replace(/\s/g,''))+'">'+_baicEsc(b.phone)+'</a></div>':'';
-    var em='';
-    var loc=b.map?'<a class="brn-loc" href="'+_baicEsc(b.map)+'" target="_blank" rel="noopener">'+_BRN_LOC+'<span>Location</span></a>':'';
-    var rmLine=rm?'<div class="pac-rm-line">RM: '+_baicEsc(rm.mgr)+' · '+_baicEsc(rm.phone.replace(/^0/,''))+'</div>':'';
-    var hrs=b.hours?'<div class="brn-hours">'+_BRN_CLOCK+'<span>'+_baicEsc(b.hours)+'</span></div>':'';
-    return '<div class="pac-card"><div class="pac-card-head"><div class="pac-card-name">'+_baicEsc(b.branch)+'</div>'+
-           (b.city?'<div class="brn-city">'+_BRN_PIN+'<span>'+_baicEsc(b.city)+'</span></div>':'')+'</div></div>';
+    var name=b.branch||b.city;
+    var sub=b.branch?(b.city+(b.region?' · '+b.region:'')):(b.region||'');
+    return '<div class="pac-card"><div class="pac-card-head"><div class="pac-card-name">'+_baicEsc(name)+'</div>'+
+           (sub?'<div class="brn-city">'+_BRN_PIN+'<span>'+_baicEsc(sub)+'</span></div>':'')+'</div></div>';
   }).join('');
   el.innerHTML='<div class="pac-section" style="--rc:var(--st);--rcbg:var(--st-bg)"><div class="pac-grid">'+cards+'</div></div>';
 }
