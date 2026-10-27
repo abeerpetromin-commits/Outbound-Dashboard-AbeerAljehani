@@ -2477,6 +2477,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">Call Script</div><div class="ref-card-count">D+1 · AR / EN</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
+      <div class="ref-card brand-baic" onclick="openRef('sms-baic','baic','No Answer SMS')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">No Answer SMS</div><div class="ref-card-count">Live · Auto Care</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
     </div>
   </div>
 
@@ -2605,6 +2610,19 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
     <div class="sms-list" id="smsNissanGrid"></div>
+  </div>
+
+  <div id="tab-sms-baic" class="tab-panel">
+    <div class="page-header">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">No Answer SMS</div>
+        <div class="page-sub" style="margin-top:6px;gap:6px;display:flex;align-items:center">
+          <span class="live-badge" id="smsBaicStatus"><span class="live-dot"></span>—</span>
+        </div>
+      </div>
+    </div>
+    <div class="sms-list" id="smsBaicGrid"></div>
   </div>
 
   <!-- ── SCRIPT STELLANTIS ── -->
@@ -3311,7 +3329,7 @@ const TAB_GROUPS={
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
-  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic']
+  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic','sms-baic']
 };
 function runLoader(id){
   if(id==='manager')loadManagerView();
@@ -3331,6 +3349,7 @@ function runLoader(id){
   if(id==='lost-offer-nissan')loadLostOffer();
   if(id==='sms-stellantis')renderSMS('stellantis');
   if(id==='sms-nissan')loadNissanSms();
+  if(id==='sms-baic')loadBaicSms();
   if(id==='script-stellantis')loadCallScript('st');
   if(id==='script-nissan')loadCallScript('ni');
   if(id==='whatsapp-nissan')loadD1Script('ni');
@@ -4085,7 +4104,8 @@ const SMS={
     {type:'No Ans — PMS',en:'Dear customer, We tried to contact you regarding the upcoming scheduled maintenance for your vehicle, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معك بخصوص إقتراب موعد الصيانة الدورية لمركبتكم، ولم يتم الرد. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
     {type:'No Ans — 1k Service',en:'Dear customer, We tried to contact you regarding your free 1,000 km check up, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، لقد حاولنا التواصل معكم بخصوص موعد الفحص المجاني 1000 كيلومتر ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
     {type:'No Ans — Lost Customer',en:'Dear customer, We tried to contact you regarding a special discount available for you at Petromin Stellantis Mopar, but there was no response. For more details, please feel free to contact us at 8003030040 or via WhatsApp at 0558627733. We wish you a safe drive.',ar:'عميلنا العزيز، حاولنا التواصل معكم بخصوص وجود خصم لكم في بترومين ستيلانتس موبار ولم نتمكن من الوصول إليكم. للمزيد من التفاصيل، يسعدنا تواصلكم معنا على الرقم 8003030040 او عبر محادثة الواتساب 0558627733. نتمنى لك قياده امنه.'},
-  ]
+  ],
+  baic:[]
 };
 var SMS_NI_SHEET='1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg';
 var SMS_NI_GID='271677239';
@@ -4103,11 +4123,26 @@ async function loadNissanSms(){
   try{var rows=await fetchSheet(SMS_NI_GID);var p=_smsNiParse(rows);if(p.length)SMS.nissan=p;}catch(e){}
   renderSMS('nissan');
 }
+var SMS_BAIC_GID='37694302';
+async function loadBaicSms(){
+  var st=document.getElementById('smsBaicStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{
+    var rows=await fetchSheet(SMS_BAIC_GID);
+    var p=_smsNiParse(rows);
+    if(p.length)SMS.baic=p;
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+  }catch(e){
+    if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}
+  }
+  renderSMS('baic');
+}
 function renderSMS(brand){
-  var id='sms'+(brand==='stellantis'?'Stellantis':'Nissan')+'Grid';
+  var cap=brand==='stellantis'?'Stellantis':(brand==='baic'?'Baic':'Nissan');
+  var id='sms'+cap+'Grid';
   var el=document.getElementById(id); if(!el)return;
-  var color=brand==='stellantis'?'var(--st)':'var(--ni)';
-  var bg=brand==='stellantis'?'var(--st-bg)':'var(--ni-bg)';
+  var color=brand==='stellantis'?'var(--st)':(brand==='baic'?'var(--baic)':'var(--ni)');
+  var bg=brand==='stellantis'?'var(--st-bg)':(brand==='baic'?'var(--baic-bg)':'var(--ni-bg)');
   el.className='smsc-grid';
   el.setAttribute('style','--sms-c:'+color+';--sms-bg:'+bg);
   el.innerHTML=SMS[brand].map(function(s,i){
@@ -5514,50 +5549,73 @@ var STPAC_RM={'jeddah':{mgr:'Chirag Dhingra',phone:'0539200978'},'makkah':{mgr:'
 function _stPacParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(!rows.length)return [];
-  var hdr=rows[0]||[], hasHeader=false;
-  var H={region:-1,city:-1,code:-1,name:-1,district:-1,hours:-1,mgr:-1,mgrPhone:-1,mgrEmail:-1,rm:-1,rmPhone:-1,rmEmail:-1,map:-1};
-  hdr.forEach(function(c,i){
-    var t=(c||'').trim().toLowerCase(); if(!t)return;
-    var reg=/regional|اقليم|إقليم|\brm\b/.test(t);
-    var isPhone=/phone|mobile|number|جوال|هاتف|رقم/.test(t);
-    var isEmail=/email|mail|ايميل|إيميل|بريد/.test(t);
-    var isMgr=/manager|مدير|مسؤول|person/.test(t);
-    if(H.region<0&&/^\s*(region|المنطقة|منطقة)\s*$/.test(t)){H.region=i;hasHeader=true;return;}
-    if(H.city<0&&/^\s*(city|المدينة|مدينة)\s*$/.test(t)){H.city=i;hasHeader=true;return;}
-    if(H.code<0&&/code|كود|رقم الفرع|branch no|branch number|الرقم/.test(t)){H.code=i;hasHeader=true;return;}
-    if(H.hours<0&&/hour|working|دوام|ساعات|اوقات|أوقات|وقت/.test(t)){H.hours=i;hasHeader=true;return;}
-    if(H.map<0&&/map|gps|خريطة|قوقل|google|رابط الموقع|الموقع الجغرافي/.test(t)){H.map=i;hasHeader=true;return;}
-    if(H.district<0&&/district|address|الحي|العنوان|العنوان الوطني/.test(t)){H.district=i;hasHeader=true;return;}
-    if(reg&&isPhone&&H.rmPhone<0){H.rmPhone=i;hasHeader=true;return;}
-    if(reg&&isEmail&&H.rmEmail<0){H.rmEmail=i;hasHeader=true;return;}
-    if(reg&&isMgr&&H.rm<0){H.rm=i;hasHeader=true;return;}
-    if(reg&&H.rm<0){H.rm=i;hasHeader=true;return;}
-    if(isPhone&&H.mgrPhone<0){H.mgrPhone=i;hasHeader=true;return;}
-    if(isEmail&&H.mgrEmail<0){H.mgrEmail=i;hasHeader=true;return;}
-    if(isMgr&&H.mgr<0){H.mgr=i;hasHeader=true;return;}
-    if(H.name<0&&/branch name|workshop|اسم الفرع|الورشة|ورشة|branch|name|الاسم/.test(t)){H.name=i;hasHeader=true;return;}
-  });
-  var body=hasHeader?rows.slice(1):rows;
-  if(!hasHeader){H.region=0;H.city=1;H.name=2;H.hours=3;H.mgr=4;H.mgrPhone=5;H.mgrEmail=6;H.map=7;}
+  var ncol=0; rows.forEach(function(r){ncol=Math.max(ncol,r.length);});
+  var CITY=/^(jeddah|jed\b|dammam|riyadh|riyad|buraid|buray|makkah|mecca|madinah|medina|tabuk|sakaka|khamis|khobar|hassa|al ?hasa|ahsa|unizah|unaizah|unayzah|jubail|dwadmi|dawadmi|khafji|yanbu|taif|mohyail|muhayil|mahayel|duba|neom|hail|jizan|jazan|najran|abha|qassim|qatif|hofuf|hafr|arar|baha|سكاكا|جدة|الدمام|الرياض|بريدة|مكة|المدينة|تبوك|خميس|الخبر|الاحساء|الأحساء|عنيزة|الجبيل|الدوادمي|الخفجي|ينبع|الطائف|محايل|ضبا|نيوم|حائل|جازان|نجران|ابها|القصيم|القطيف|الهفوف)/i;
+  function isRegion(v){return /\b(west|east|central|north|south|wr|er|cr|nr|sr)\b/i.test(v)||/غرب|شرق|وسط|وسطى|شمال|جنوب/.test(v);}
+  function isCity(v){return CITY.test((v||'').trim());}
+  function isBranch(v){return /\d{2,4}\s*[-\u2013\u2014]/.test(v)||/workshop|ورشة|معرض/i.test(v);}
+  function isPhone(v){var x=(v||'').replace(/[^0-9]/g,'');return x.length>=9&&x.length<=10&&/^0?5/.test(x);}
+  function isEmail(v){return /@/.test(v||'');}
+  function isMap(v){return /https?:\/\/|goo\.gl|maps\.|google\.com\/maps/i.test(v||'');}
+  function isHours(v){return /\d\s*(am|pm)|\d:\d|closed|مغلق|sat|sun|mon|السبت|الخميس|دوام/i.test(v||'');}
+  function isAr(v){return /[\u0600-\u06FF]/.test(v||'');}
+  function hasLetters(v){return /[A-Za-z\u0600-\u06FF]/.test(v||'');}
+  function scoreCol(fn){
+    var c=[]; for(var j=0;j<ncol;j++)c[j]=0;
+    for(var i2=1;i2<rows.length;i2++)for(var j2=0;j2<ncol;j2++){var v=(rows[i2][j2]||'').trim();if(v&&fn(v))c[j2]++;}
+    return c;
+  }
+  function argmax(c,used){var bi=-1,bv=0;for(var j=0;j<c.length;j++){if(used&&used.indexOf(j)>=0)continue;if(c[j]>bv){bv=c[j];bi=j;}}return bv>0?bi:-1;}
+  var used=[];
+  var nameCol=argmax(scoreCol(isBranch),used); if(nameCol>=0)used.push(nameCol);
+  var regionCol=argmax(scoreCol(isRegion),used); if(regionCol>=0)used.push(regionCol);
+  var cityCol=argmax(scoreCol(isCity),used); if(cityCol>=0)used.push(cityCol);
+  var mapCol=argmax(scoreCol(isMap),used); if(mapCol>=0)used.push(mapCol);
+  var hoursCol=argmax(scoreCol(isHours),used); if(hoursCol>=0)used.push(hoursCol);
+  // phone / email columns, left-to-right (first = branch, second = regional)
+  var phS=scoreCol(isPhone), phoneCols=[]; for(var j=0;j<ncol;j++)if(phS[j]>0&&used.indexOf(j)<0)phoneCols.push(j);
+  var emS=scoreCol(isEmail), emailCols=[]; for(var j=0;j<ncol;j++)if(emS[j]>0&&used.indexOf(j)<0)emailCols.push(j);
+  phoneCols.forEach(function(j){used.push(j);}); emailCols.forEach(function(j){used.push(j);});
+  // person-name columns: letters, not mostly branch/city/region, not map/phone/email ; keep index order
+  var nameLikeCols=[]; 
+  for(var j=0;j<ncol;j++){
+    if(used.indexOf(j)>=0)continue;
+    var tot=0,lets=0,arAddr=0;
+    for(var i3=1;i3<rows.length;i3++){var v=(rows[i3][j]||'').trim();if(!v)continue;tot++;var nameish=hasLetters(v)&&!isBranch(v)&&!isCity(v)&&!isRegion(v)&&(/\s/.test(v)||v.length>=4);if(nameish)lets++;if(isAr(v)&&v.length>12)arAddr++;}
+    if(tot>0&&lets/tot>=0.5)nameLikeCols.push({j:j,arAddr:arAddr});
+  }
+  // district = a name-like column that is mostly long Arabic (address); remove from manager pool
+  var districtCol=-1,bestAddr=0;
+  nameLikeCols.forEach(function(o){if(o.arAddr>bestAddr){bestAddr=o.arAddr;districtCol=o.j;}});
+  var mgrCols=nameLikeCols.filter(function(o){return o.j!==districtCol;}).map(function(o){return o.j;}).sort(function(a,b){return a-b;});
+  if(districtCol>=0)used.push(districtCol);
+  // decide header row: include row0 only if it looks like a data branch/city/region
+  var r0=rows[0]||[];
+  var r0Data=(nameCol>=0&&isBranch(r0[nameCol]||''))||(cityCol>=0&&isCity(r0[cityCol]||''))||(regionCol>=0&&isRegion(r0[regionCol]||''));
+  var body=r0Data?rows:rows.slice(1);
   var g=function(r,i){return i>=0?(r[i]||'').trim():'';};
-  var DEF_HOURS='Saturday to Thursday 8 AM – 9 PM | Friday Closed';
+  var DEF_HOURS='Saturday to Thursday 8 AM \u2013 9 PM | Friday Closed';
   return body.map(function(r){
-    var rawName=g(r,H.name), rawCode=g(r,H.code);
-    var src=rawName||rawCode;
-    var code=(rawCode.match(/\d+/)||[''])[0]||(src.match(/\d+/)||[''])[0];
-    var nm=(rawName?rawName:src).replace(/^\s*\d+\s*[-–—]?\s*/,'').trim();
-    if(!nm)nm=src;
+    var rawName=g(r,nameCol);
+    var code=(rawName.match(/\d{2,4}/)||[''])[0];
+    var nm=rawName.replace(/^\s*\d+\s*[-\u2013\u2014]?\s*/,'').trim(); if(!nm)nm=rawName;
     var byCode=code&&_PAC_BY_CODE[code]?_PAC_BY_CODE[code]:null;
-    var rmByCity=STPAC_RM[(g(r,H.city)||'').trim().toLowerCase()];
+    var city=g(r,cityCol);
+    var rmByCity=STPAC_RM[(city||'').trim().toLowerCase()];
     return {
-      region:g(r,H.region), city:g(r,H.city), code:code, name:nm||g(r,H.name),
-      district:g(r,H.district), hours:g(r,H.hours)||DEF_HOURS,
-      mgr:g(r,H.mgr)||(byCode?byCode.mgr:''), mgrPhone:g(r,H.mgrPhone)||(byCode?byCode.phone:''), mgrEmail:g(r,H.mgrEmail)||(byCode?byCode.email:''),
-      rm:g(r,H.rm)||(rmByCity?rmByCity.mgr:''), rmPhone:g(r,H.rmPhone)||(rmByCity?rmByCity.phone:''), rmEmail:g(r,H.rmEmail),
-      map:g(r,H.map)
+      region:g(r,regionCol), city:city, code:code, name:nm||rawName,
+      district:g(r,districtCol), hours:g(r,hoursCol)||DEF_HOURS,
+      mgr:g(r,mgrCols[0]!==undefined?mgrCols[0]:-1)||(byCode?byCode.mgr:''),
+      mgrPhone:g(r,phoneCols[0]!==undefined?phoneCols[0]:-1)||(byCode?byCode.phone:''),
+      mgrEmail:g(r,emailCols[0]!==undefined?emailCols[0]:-1)||(byCode?byCode.email:''),
+      rm:g(r,mgrCols[1]!==undefined?mgrCols[1]:-1)||(rmByCity?rmByCity.mgr:''),
+      rmPhone:g(r,phoneCols[1]!==undefined?phoneCols[1]:-1)||(rmByCity?rmByCity.phone:''),
+      rmEmail:g(r,emailCols[1]!==undefined?emailCols[1]:-1),
+      map:g(r,mapCol)
     };
-  }).filter(function(b){return b.name||b.code||b.city;});
+  }).filter(function(b){return (b.name&&b.name.length>1)||b.code;});
 }
+
 // Workshop code -> manager/phone/email (PAC workshops are shared; from BAIC Reference)
 var _PAC_BY_CODE=(function(){
   var m={};
@@ -6270,6 +6328,32 @@ function _permKey(d){var dt=new Date(d+'T00:00:00');return dt.getFullYear()+'-'+
 function _permMonthName(key){var p=key.split('-');var names=['January','February','March','April','May','June','July','August','September','October','November','December'];return names[parseInt(p[1],10)-1]+' '+p[0];}
 function _permLoad(){try{return JSON.parse(localStorage.getItem('permRequests')||'[]');}catch(e){return [];}}
 function _permSave(list){try{localStorage.setItem('permRequests',JSON.stringify(list));}catch(e){}}
+/* ── Shared permissions store (via Apps Script → Outbound Dashboard gid 1474295213) ── */
+var PERM_REMOTE=(typeof APPS_SCRIPT_URL!=='undefined')?APPS_SCRIPT_URL:'';
+var _permSyncTimer=null;
+async function _permFetchRemote(){
+  if(!PERM_REMOTE||PERM_REMOTE.indexOf('script.google')<0)return null;
+  try{
+    var r=await fetch(PERM_REMOTE+(PERM_REMOTE.indexOf('?')<0?'?':'&')+'type=perm&t='+Date.now());
+    if(!r.ok)return null;
+    var j=await r.json();
+    if(j&&Array.isArray(j.perms))return j.perms;
+    return null;
+  }catch(e){return null;}
+}
+async function _permSync(){
+  var remote=await _permFetchRemote();
+  var badge=document.getElementById('permSyncStatus');
+  if(remote){
+    _permSave(remote);
+    if(badge){badge.textContent='Live ✓';badge.className='live-badge';}
+    _permRenderAll();
+  }else if(badge){badge.textContent='Local';}
+}
+function _permPostRemote(req){
+  if(!PERM_REMOTE||PERM_REMOTE.indexOf('script.google')<0)return;
+  try{fetch(PERM_REMOTE,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'perm',perm:req})});}catch(e){}
+}
 function _permHours(from,to){
   if(!from||!to)return 0;
   var fp=from.split(':').map(Number),tp=to.split(':').map(Number);
@@ -6306,6 +6390,8 @@ function _permInit(){
   var dateEl=document.getElementById('permDate');
   if(dateEl && !dateEl.value)dateEl.value=new Date().toISOString().slice(0,10);
   _permRenderAll();
+  _permSync();
+  if(!_permSyncTimer)_permSyncTimer=setInterval(_permSync,30000);
 }
 function _permFillBadge(){
   var nameSel=document.getElementById('permEmpName'),badge=document.getElementById('permBadge');
@@ -6403,6 +6489,7 @@ function _permSubmit(ev){
   var list=_permLoad();
   list.push(req);
   _permSave(list);
+  _permPostRemote(req);
   document.getElementById('permForm').reset();
   document.getElementById('permDate').value=new Date().toISOString().slice(0,10);
   document.getElementById('permBadge').value='';
@@ -6417,6 +6504,7 @@ function _permDecide(id,status){
   if(!r)return;
   r.status=status;
   _permSave(list);
+  _permPostRemote(r);
   _permRenderAll();
 }
 function _permUndo(id){_permDecide(id,'pending');}
