@@ -5056,20 +5056,54 @@ async function loadBaicLocation(){
   }
   _locRender(list);
 }
+/* Regional Manager lookup (from BAIC Reference sheet RM table) */
+function _baicRM(region,branch){
+  var r=(region||'').toLowerCase().trim(), bn=(branch||'').toLowerCase();
+  if(/east|شرق/.test(r))return {mgr:'Jimshad Mayin',phone:'531468920',email:'jimshad.mayin@PetrominAutoCare.com'};
+  if(/cent|وسط|central/.test(r)){
+    var g1=/exit|kharj|خرج|azez|aziz|عزيز|khurais|khrais|خريص|badia|بادي/.test(bn);
+    return {mgr:'Mohammed Sallam',phone:g1?'539143824':'555047230',email:'m.sallam@PetrominAutoCare.com'};
+  }
+  return {mgr:'Sami Kalantan',phone:'546428428',email:'s.kalantan@PetrominAutoCare.com'}; /* West · North · South */
+}
+/* Precise BAIC branch parser — fixed columns from BAIC Reference sheet:
+   A Region · B City · C Branch · D District · E Services · F Manager · G Phone · H Email · I GPS · J Map · K Hours */
+function _baicBranchParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  var out=[];
+  rows.forEach(function(r){
+    var bc=(r[2]||'').trim();
+    var code=(bc.match(/\d{2,4}/)||[''])[0];
+    if(!code)return; /* skip header + the Regional-Manager table rows */
+    var name=bc.replace(/^\s*\d+\s*[-–—]?\s*/,'').trim();
+    var region=(r[0]||'').trim();
+    var rm=_baicRM(region,name);
+    out.push({
+      region:region, city:(r[1]||'').trim(), code:code, name:name||bc,
+      district:(r[3]||'').trim(),
+      hours:(r[10]||'').trim()||'Saturday to Thursday 8 AM – 9 PM | Fridays closed',
+      mgr:(r[5]||'').trim(), mgrPhone:(r[6]||'').trim(), mgrEmail:(r[7]||'').trim(),
+      rm:rm.mgr, rmPhone:rm.phone, rmEmail:rm.email,
+      map:(r[9]||'').trim()
+    });
+  });
+  return out;
+}
 async function loadBaicBranches(){
   var statusEl=document.getElementById('baicBranchesStatus');
   if(statusEl)statusEl.innerHTML='<span class="live-dot"></span>Updating...';
   var list=[];
   try{
     var raw=await fetchSheetFrom(BAIC_REF_SHEET,'0');
-    list=_stPacParse(raw);
+    list=_baicBranchParse(raw);
     if(!list.length)throw new Error('empty');
     if(statusEl){statusEl.innerHTML='<span class="live-dot"></span>Live ✓';statusEl.style.background='var(--green-bg)';statusEl.style.color='var(--green)';}
   }catch(e){
     list=BAIC_REF_FALLBACK.map(function(w){
       var code=((w.branch||'').match(/\d+/)||[''])[0];
       var nm=(w.branch||'').replace(/^\s*\d+\s*[-–—]?\s*/,'').trim();
-      return {region:w.region,city:w.city,code:code,name:nm||w.branch,district:'',hours:'Saturday to Thursday 8 AM – 9 PM | Friday Closed',mgr:w.mgr||'',mgrPhone:w.phone||'',mgrEmail:w.email||'',rm:'',rmPhone:'',rmEmail:'',map:w.map||''};
+      var rm=_baicRM(w.region,nm);
+      return {region:w.region,city:w.city,code:code,name:nm||w.branch,district:'',hours:'Saturday to Thursday 8 AM – 9 PM | Friday Closed',mgr:w.mgr||'',mgrPhone:w.phone||'',mgrEmail:w.email||'',rm:rm.mgr,rmPhone:rm.phone,rmEmail:rm.email,map:w.map||''};
     });
     if(statusEl){statusEl.innerHTML='<span class="live-dot"></span>Cached';statusEl.style.background='var(--amber-bg)';statusEl.style.color='var(--amber)';}
   }
