@@ -638,6 +638,26 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-mini-copy:hover{color:var(--acc);border-color:var(--acc)}
 .pacd-mini-copy.done{color:var(--green,#0a9d63);border-color:var(--green,#0a9d63)}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
+/* ── Appointment & Location SMS — tabbed per-branch cards ── */
+.al-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.al-card{background:var(--surface);border:1.4px solid var(--border);border-radius:14px;padding:13px 15px;display:flex;flex-direction:column;gap:9px;--al-c:var(--st);box-shadow:var(--shadow)}
+.al-head{font-family:var(--font-display);font-weight:800;font-size:14.5px;color:var(--text);display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.al-head .al-sub{font-weight:600;font-size:12px;color:var(--text3)}
+.al-tabbar{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);padding-bottom:7px}
+.al-tab{background:none;border:0;font-family:var(--font-display);font-weight:700;font-size:12.5px;color:var(--text3);cursor:pointer;padding:3px 1px;position:relative}
+.al-tab.active{color:var(--al-c)}
+.al-tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--al-c);border-radius:2px}
+.al-langs{margin-inline-start:auto;display:inline-flex;gap:3px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:2px}
+.al-lang{background:none;border:0;font-size:10.5px;font-weight:800;color:var(--text3);cursor:pointer;padding:3px 10px;border-radius:6px;transition:.12s}
+.al-lang.active{background:var(--al-c);color:#fff}
+.al-body{min-height:56px}
+.al-text{font-size:12.5px;line-height:1.85;color:var(--text2);white-space:pre-wrap;word-break:break-word}
+.al-text[dir="rtl"]{text-align:right}
+.al-text a{color:var(--al-c);word-break:break-all}
+.al-foot{display:flex;justify-content:flex-end;margin-top:2px}
+.al-copy{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:5px 13px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font-body)}
+.al-copy:hover{border-color:var(--al-c);color:var(--al-c)}
+.al-copy.done{border-color:var(--green,#0a9d63);color:var(--green,#0a9d63)}
 /* ── All Tasks overview ── */
 .allt-sec{border:1px solid var(--border);border-radius:14px;background:var(--surface);margin-bottom:18px;overflow:hidden}
 .allt-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:var(--surface2);border:0;border-bottom:1px solid var(--border);cursor:pointer;font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--text);text-align:start}
@@ -5427,12 +5447,9 @@ function _nissanSmsLocRender(rows){
     if(!s.branch&&!hasContent)return;
     (inPac?after:before).push(s);
   });
-  window._NSMS=before.concat(after);
-  if(!window._NSMS.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a</div>';return;}
-  function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_nsmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
-  function card(s,i){var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.branch||('Branch '+(i+1)))+'</div>'+appt+loc+'</div>';}
-  function section(title,list,offset){if(!list.length)return '';var cards=list.map(function(s,k){return card(s,offset+k);}).join('');return '<div class="nsms-section-h">'+title+'</div><div class="smsc-grid" style="--sms-c:var(--ni);--sms-bg:var(--ni-bg)">'+cards+'</div>';}
-  host.innerHTML=section('Appointment &amp; Location SMS',before,0)+section('\ud83d\udd27 \u0641\u0631\u0648\u0639 PAC \u00b7 Auto Care Branches',after,before.length);
+  var all2=before.concat(after);
+  var norm=all2.map(function(s){return {branch:(s.branch||_alBranch(s.apptAr,s.apptEn,''))||'',city:_alCity(s.apptAr,s.apptEn),apptAr:s.apptAr,apptEn:s.apptEn,locAr:s.locAr,locEn:s.locEn};});
+  _renderApptLoc('nissanSmsLocBody',norm,'var(--ni)');
 }
 async function loadNissanSmsLoc(){
   var st=document.getElementById('nissanSmsLocStatus');
@@ -5451,6 +5468,45 @@ function _baicSmsBranch(s){
   if(m)return m[1].trim();
   return s.city;
 }
+/* ── Unified Appointment & Location SMS renderer (tabbed cards) ── */
+var _ALDATA={};
+function _cutField(s){s=String(s||'').replace(/[\n\r][\s\S]*$/,'');return s.split(/\s*(?:المدينة|التاريخ|الوقت|رقم|العنوان|الموقع|المرجع|City|Date|Time|WIP|Location|Ref|No\.)/)[0].replace(/[:\-·]\s*$/,'').trim();}
+function _alBranch(ar,en,fb){var m=(ar||'').match(/الفرع\s*:\s*(.+)/);if(m){var x=_cutField(m[1]);if(x)return x;}m=(en||'').match(/Branch\s*:\s*(.+)/i);if(m){var y=_cutField(m[1]);if(y)return y;}return fb||'';}
+function _alCity(ar,en){var m=(ar||'').match(/المدينة\s*:\s*(.+)/);if(m){var x=_cutField(m[1]);if(x)return x;}m=(en||'').match(/City\s*:\s*(.+)/i);if(m){var y=_cutField(m[1]);if(y)return y;}return '';}
+function _renderApptLoc(hostId,list,acc){
+  var host=document.getElementById(hostId); if(!host)return;
+  list=(list||[]).filter(function(s){return s.branch||s.city||s.apptAr||s.apptEn||s.locAr||s.locEn;});
+  if(!list.length){host.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
+  var cards=list.map(function(s,i){
+    var id=hostId+'_'+i;
+    _ALDATA[id]={apptAr:s.apptAr||'',apptEn:s.apptEn||'',locAr:s.locAr||'',locEn:s.locEn||''};
+    var hasAppt=!!(s.apptAr||s.apptEn), hasLoc=!!(s.locAr||s.locEn);
+    var tab=hasAppt?'appt':'loc';
+    var lang=(tab==='appt'?(s.apptAr?'ar':'en'):(s.locAr?'ar':'en'));
+    var title=_baicEsc(s.branch||s.city||('Branch '+(i+1)));
+    var sub=(s.branch&&s.city&&s.branch!==s.city)?'<span class="al-sub">'+_baicEsc(s.city)+'</span>':'';
+    var tabs='';
+    if(hasAppt)tabs+='<button type="button" class="al-tab'+(tab==='appt'?' active':'')+'" data-tab="appt" onclick="_alTab(this)">Appointment</button>';
+    if(hasLoc)tabs+='<button type="button" class="al-tab'+(tab==='loc'?' active':'')+'" data-tab="loc" onclick="_alTab(this)">Location</button>';
+    var langs='<div class="al-langs"><button type="button" class="al-lang'+(lang==='ar'?' active':'')+'" data-lang="ar" onclick="_alLang(this)">AR</button><button type="button" class="al-lang'+(lang==='en'?' active':'')+'" data-lang="en" onclick="_alLang(this)">EN</button></div>';
+    return '<div class="al-card" id="'+id+'" data-tab="'+tab+'" data-lang="'+lang+'" style="--al-c:'+acc+'">'+
+      '<div class="al-head">'+title+sub+'</div>'+
+      '<div class="al-tabbar">'+tabs+langs+'</div>'+
+      '<div class="al-body"><div class="al-text"></div></div>'+
+      '<div class="al-foot"><button type="button" class="al-copy" onclick="_alCopy(this)">'+_CLIP_IC+'<span>Copy</span></button></div>'+
+    '</div>';
+  }).join('');
+  host.innerHTML='<div class="al-grid">'+cards+'</div>';
+  list.forEach(function(s,i){_alPaint(document.getElementById(hostId+'_'+i));});
+}
+function _alGet(card){var d=_ALDATA[card.id]||{};var t=card.getAttribute('data-tab'),l=card.getAttribute('data-lang');return d[(t==='appt'?'appt':'loc')+(l==='ar'?'Ar':'En')]||'';}
+function _alPaint(card){if(!card)return;var el=card.querySelector('.al-text');if(!el)return;var isAr=card.getAttribute('data-lang')==='ar';var t=_alGet(card);el.innerHTML=t?_smsLinkify(t):'—';el.setAttribute('dir',isAr?'rtl':'ltr');}
+function _alTab(btn){var card=btn.closest('.al-card');var tab=btn.getAttribute('data-tab');card.setAttribute('data-tab',tab);card.querySelectorAll('.al-tab').forEach(function(b){b.classList.toggle('active',b===btn);});
+  var d=_ALDATA[card.id]||{};var lang=card.getAttribute('data-lang');
+  if(!d[(tab==='appt'?'appt':'loc')+(lang==='ar'?'Ar':'En')]){var alt=lang==='ar'?'en':'ar';if(d[(tab==='appt'?'appt':'loc')+(alt==='ar'?'Ar':'En')]){card.setAttribute('data-lang',alt);card.querySelectorAll('.al-lang').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===alt);});}}
+  _alPaint(card);}
+function _alLang(btn){var card=btn.closest('.al-card');card.setAttribute('data-lang',btn.getAttribute('data-lang'));card.querySelectorAll('.al-lang').forEach(function(b){b.classList.toggle('active',b===btn);});_alPaint(card);}
+function _alCopy(btn){var card=btn.closest('.al-card');var t=_alGet(card);try{navigator.clipboard.writeText(t);}catch(e){try{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}catch(e2){}}var s=btn.querySelector('span');if(s){var o=s.textContent;s.textContent='Copied ✓';btn.classList.add('done');setTimeout(function(){s.textContent=o;btn.classList.remove('done');},1300);}}
 function _baicApptLocParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(rows.length&&/^city$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
@@ -5459,26 +5515,8 @@ function _baicApptLocParse(rows){
   }).filter(function(s){return s.city||s.apptAr||s.apptEn||s.locAr||s.locEn;});
 }
 function _baicApptLocRender(list){
-  var host=document.getElementById('baicApptLocBody'); if(!host)return;
-  window._BAICSMS=list||[];
-  if(!window._BAICSMS.length){host.innerHTML='<div class="grid-empty">\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a \u0628\u0639\u062f</div>';return;}
-  function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_baicSmsCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
-  function card(s,i){
-    var appt=(s.apptAr||s.apptEn)?'<div class="nsms-sec-h">\ud83d\udcc5 APPOINTMENT SMS</div>'+(s.apptAr?msg('AR',s.apptAr,i,'apptAr'):'')+(s.apptEn?msg('EN',s.apptEn,i,'apptEn'):''):'';
-    var loc=(s.locAr||s.locEn)?'<div class="nsms-sec-h">\ud83d\udccd LOCATION SMS</div>'+(s.locAr?msg('AR',s.locAr,i,'locAr'):'')+(s.locEn?msg('EN',s.locEn,i,'locEn'):''):'';
-    return '<div class="smsc"><div class="smsc-head">'+_baicEsc(_baicSmsBranch(s))+'</div>'+appt+loc+'</div>';
-  }
-  var groups={}, order=[];
-  window._BAICSMS.forEach(function(s,i){s._i=i; var k=s.city||'Other'; if(!groups[k]){groups[k]=[];order.push(k);} groups[k].push(s);});
-  host.innerHTML=order.map(function(k){
-    var items=groups[k];
-    var cards=items.map(function(s){return card(s,s._i);}).join('');
-    return '<div class="brn-region" data-open="1" style="--rc:var(--baic);--rcbg:var(--baic-bg)">'+
-      '<button type="button" class="brn-region-head" onclick="_brnToggle(this)">'+
-        '<span class="brn-region-title">'+_baicEsc(k)+' <span class="brn-region-count">('+items.length+')</span></span>'+
-        '<span class="brn-chev">\u25be</span></button>'+
-      '<div class="smsc-grid" style="--sms-c:var(--baic);--sms-bg:var(--baic-bg);padding:16px">'+cards+'</div></div>';
-  }).join('');
+  var norm=(list||[]).map(function(s){return {branch:_alBranch(s.apptAr,s.apptEn,s.city),city:_alCity(s.apptAr,s.apptEn)||s.city,apptAr:s.apptAr,apptEn:s.apptEn,locAr:s.locAr,locEn:s.locEn};});
+  _renderApptLoc('baicApptLocBody',norm,'var(--baic)');
 }
 async function loadBaicApptLoc(){
   var st=document.getElementById('baicApptLocStatus');
@@ -5505,11 +5543,8 @@ function _stApptSmsRender(rows){
   if(rows.length&&/^ar$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
   var all=rows.map(function(r){return {ar:(r[0]||'').trim(),branch:(r[1]||'').trim(),en:(r[2]||'').trim()};}).filter(function(s){return s.ar||s.en;});
   all=all.filter(function(s){return !(/^riyadh$/i.test(s.branch)&&(/exit 28/i.test(s.en)||/مخرج\s*28/.test(s.ar)));});
-  window._STAPPT=all;
-  if(!all.length){host.innerHTML='<div class="grid-empty">لا توجد بيانات</div>';return;}
-  function msg(lang,txt,i,field){return '<div class="smsc-msg"><div class="smsc-msg-head"><span class="smsc-lang">'+lang+'</span><button type="button" class="smsc-copy" onclick="_stApptCopy('+i+',\''+field+'\',this)">'+_CLIP_IC+'<span>Copy</span></button></div><div class="smsc-text"'+(lang==='AR'?' dir="rtl"':'')+'>'+_smsLinkify(txt)+'</div></div>';}
-  var cards=all.map(function(s,i){return '<div class="smsc"><div class="smsc-head">'+_baicEsc(s.branch||('Branch '+(i+1)))+'</div><div class="nsms-sec-h">📅 APPOINTMENT SMS</div>'+(s.ar?msg('AR',s.ar,i,'ar'):'')+(s.en?msg('EN',s.en,i,'en'):'')+'</div>';}).join('');
-  host.innerHTML='<div class="smsc-grid" style="--sms-c:var(--st);--sms-bg:var(--st-bg)">'+cards+'</div>';
+  var norm=all.map(function(s){return {branch:(s.branch||_alBranch(s.ar,s.en,''))||'',city:_alCity(s.ar,s.en),apptAr:s.ar,apptEn:s.en,locAr:'',locEn:''};});
+  _renderApptLoc('stApptSmsBody',norm,'var(--st)');
 }
 async function loadStAppointmentSms(){
   var st=document.getElementById('stApptSmsStatus');
