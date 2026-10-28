@@ -637,6 +637,10 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-mini-copy{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:2px 9px;font-size:11px;color:var(--text3);cursor:pointer;font-family:var(--font-body)}
 .pacd-mini-copy:hover{color:var(--acc);border-color:var(--acc)}
 .pacd-mini-copy.done{color:var(--green,#0a9d63);border-color:var(--green,#0a9d63)}
+.pacd-d-svc{padding:15px 26px 18px;border-top:1px solid var(--border);text-align:center}
+.pacd-d-svc-label{font-size:12px;color:var(--text3);font-weight:600;margin-bottom:10px}
+.pacd-d-svc-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pacd-svc-pill{background:var(--green-bg,#e0f2eb);color:var(--green,#0a7a56);border:1px solid rgba(10,122,86,.28);border-radius:999px;padding:5px 15px;font-size:12px;font-weight:800;letter-spacing:.3px}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
 /* ── Appointment & Location SMS — tabbed per-branch cards ── */
 .al-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
@@ -5081,7 +5085,7 @@ function _baicBranchParse(rows){
     var rm=_baicRM(region,name);
     out.push({
       region:region, city:(r[1]||'').trim(), code:code, name:name||bc,
-      district:(r[3]||'').trim(),
+      district:(r[3]||'').trim(), services:(r[4]||'').trim(),
       hours:(r[10]||'').trim()||'Saturday to Thursday 8 AM – 9 PM | Fridays closed',
       mgr:(r[5]||'').trim(), mgrPhone:(r[6]||'').trim(), mgrEmail:(r[7]||'').trim(),
       rm:rm.mgr, rmPhone:rm.phone, rmEmail:rm.email,
@@ -5846,9 +5850,14 @@ function _pacdDetail(id){
   var bm=col('Branch Manager',b.mgr,b.mgrPhone,b.mgrEmail);
   var rm=col('Regional Manager',b.rm,b.rmPhone,b.rmEmail);
   var mgrRow=(bm||rm)?'<div class="pacd-d-mgrs">'+bm+(bm&&rm?'<div class="pacd-d-vline"></div>':'')+rm+'</div>':'';
+  var svc='';
+  if(b.services){
+    var parts=b.services.split(/\s*[-–—,\/]\s*/).map(function(x){return x.trim();}).filter(Boolean);
+    if(parts.length)svc='<div class="pacd-d-svc"><div class="pacd-d-svc-label">Services</div><div class="pacd-d-svc-pills">'+parts.map(function(p){return '<span class="pacd-svc-pill">'+_baicEsc(p.toUpperCase())+' ✓</span>';}).join('')+'</div></div>';
+  }
   el.innerHTML='<div class="pacd-d-head"><div class="pacd-d-title">'+title+'</div>'+dist+
       '<div class="pacd-d-actions">'+loc+cpMap+'</div></div>'+
-      (hrs?'<div class="pacd-d-hoursbar">'+hrs+'</div>':'')+mgrRow;
+      (hrs?'<div class="pacd-d-hoursbar">'+hrs+'</div>':'')+mgrRow+svc;
 }
 function _stPacRender(list){return _pacdRender('st',list);}
 function _bdRender(list){return _pacdRender('baic',list);}
