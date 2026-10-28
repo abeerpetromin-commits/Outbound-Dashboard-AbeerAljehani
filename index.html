@@ -5542,10 +5542,16 @@ function _stApptCopy(i,field,btn){var s=(window._STAPPT||[])[i];if(!s)return;var
 function _stApptSmsRender(rows){
   var host=document.getElementById('stApptSmsBody'); if(!host)return;
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
-  if(rows.length&&/^ar$/i.test((rows[0][0]||'').trim()))rows=rows.slice(1);
-  var all=rows.map(function(r){return {ar:(r[0]||'').trim(),branch:(r[1]||'').trim(),en:(r[2]||'').trim()};}).filter(function(s){return s.ar||s.en;});
-  all=all.filter(function(s){return !(/^riyadh$/i.test(s.branch)&&(/exit 28/i.test(s.en)||/مخرج\s*28/.test(s.ar)));});
-  var norm=all.map(function(s){return {branch:(s.branch||_alBranch(s.ar,s.en,''))||'',city:_alCity(s.ar,s.en),apptAr:s.ar,apptEn:s.en,locAr:'',locEn:''};});
+  // Detect AR/EN by content (column order/count independent): longest Arabic cell = AR, longest Latin cell = EN
+  var all=rows.map(function(r){
+    var ar='',en='';
+    (r||[]).forEach(function(c){c=(c||'').trim();if(!c)return;
+      if(/[؀-ۿ]/.test(c)){if(c.length>ar.length)ar=c;}
+      else if(/[A-Za-z]/.test(c)){if(c.length>en.length)en=c;}
+    });
+    return {ar:ar,en:en};
+  }).filter(function(s){return (s.ar&&s.ar.length>20)||(s.en&&s.en.length>20);});
+  var norm=all.map(function(s){return {branch:_alBranch(s.ar,s.en,'')||'Stellantis',city:_alCity(s.ar,s.en),apptAr:s.ar,apptEn:s.en,locAr:'',locEn:''};});
   _renderApptLoc('stApptSmsBody',norm,'var(--st)');
 }
 async function loadStAppointmentSms(){
