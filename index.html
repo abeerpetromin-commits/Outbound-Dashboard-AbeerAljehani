@@ -2503,6 +2503,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">BAIC Location</div><div class="ref-card-count">Service SMS</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
+      <div class="ref-card brand-baic" onclick="openRef('script-baic','baic','Call Scripts')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">Call Scripts</div><div class="ref-card-count">Live · AR / EN</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
       <div class="ref-card brand-baic" onclick="openRef('sms-baic','baic','No Answer SMS')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">No Answer SMS</div><div class="ref-card-count">Live · Auto Care</div></div>
@@ -2675,6 +2680,19 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       <span class="live-badge" id="csNiStatus"><span class="live-dot"></span>Loading…</span>
     </div>
     <div class="cs-acc cs-ni" id="scriptNissanContent"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
+  <!-- ── SCRIPT BAIC ── -->
+  <div id="tab-script-baic" class="tab-panel">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+      <div>
+        <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Reference</div>
+        <div class="page-title" style="color:var(--baic)">Call Scripts</div>
+        <div class="page-sub" style="margin-top:4px">Agent call guides for Petromin BAIC</div>
+      </div>
+      <span class="live-badge" id="csBaicStatus"><span class="live-dot"></span>Loading…</span>
+    </div>
+    <div class="cs-acc cs-baic" id="scriptBaicContent"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── WHATSAPP / D+1 SCRIPT NISSAN ── -->
@@ -3359,7 +3377,7 @@ const TAB_GROUPS={
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
-  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','whatsapp-baic','sms-baic']
+  baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','script-baic','sms-baic']
 };
 function runLoader(id){
   if(id==='manager')loadManagerView();
@@ -3382,6 +3400,7 @@ function runLoader(id){
   if(id==='sms-baic')loadBaicSms();
   if(id==='script-stellantis')loadCallScript('st');
   if(id==='script-nissan')loadCallScript('ni');
+  if(id==='script-baic')loadCallScript('baic');
   if(id==='whatsapp-nissan')loadD1Script('ni');
   if(id==='branches-stellantis')loadStBranches();
   if(id==='branches-nissan')loadNiBranches();
@@ -4771,10 +4790,11 @@ async function loadD1Script(brand){
 const CS_SHEET='1IYeyE-2h-kJGm2um4iKIfryrj1qdW-p-zGCMZLcbxrg';
 const CS_CFG={
   ni:{gid:'298548986', el:'scriptNissanContent', status:'csNiStatus'},
-  st:{gid:'1857567338', el:'scriptStellantisContent', status:'csStStatus'}
+  st:{gid:'1857567338', el:'scriptStellantisContent', status:'csStStatus'},
+  baic:{gid:'261506665', el:'scriptBaicContent', status:'csBaicStatus'}
 };
 function _csIsTitle(v){ if(/الموظفة|^\s*\(|إذا|:\s*$/.test(v))return false;
-  return /customers|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b/i.test(v); }
+  return /customers?|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b|d\s*\+\s*1|follow[\s-]?up|bj\s*40|\b1k(m)?\b|\b10k(m)?\b|lost|متابعة|استدعاء|ريكول|عرض|فحص|تذكير|مكالم|سكربت/i.test(v); }
 function _csIsLabel(v){ return /:\s*$/.test(v)||/^\s*\(/.test(v)||/^الموظفة/.test(v); }
 function _csParse(rows){
   rows=rows||[]; var maxc=0; rows.forEach(function(r){if(r&&r.length>maxc)maxc=r.length;});
