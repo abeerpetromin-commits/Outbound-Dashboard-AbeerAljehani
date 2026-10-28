@@ -5070,11 +5070,12 @@ function _baicRM(region,branch){
    A Region · B City · C Branch · D District · E Services · F Manager · G Phone · H Email · I GPS · J Map · K Hours */
 function _baicBranchParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
-  var out=[];
+  var out=[], seen={};
   rows.forEach(function(r){
     var bc=(r[2]||'').trim();
     var code=(bc.match(/\d{2,4}/)||[''])[0];
     if(!code)return; /* skip header + the Regional-Manager table rows */
+    if(seen[code])return; seen[code]=1; /* skip duplicate branch codes */
     var name=bc.replace(/^\s*\d+\s*[-–—]?\s*/,'').trim();
     var region=(r[0]||'').trim();
     var rm=_baicRM(region,name);
