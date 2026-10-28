@@ -4813,8 +4813,10 @@ const CS_CFG={
   st:{gid:'1857567338', el:'scriptStellantisContent', status:'csStStatus'},
   baic:{gid:'261506665', el:'scriptBaicContent', status:'csBaicStatus'}
 };
-function _csIsTitle(v){ if(/الموظفة|^\s*\(|إذا|:\s*$/.test(v))return false;
-  return /customers?|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b|d\s*\+\s*1|follow[\s-]?up|bj\s*40|\b1k(m)?\b|\b10k(m)?\b|lost|متابعة|استدعاء|ريكول|عرض|فحص|تذكير|مكالم|سكربت/i.test(v); }
+function _csIsTitle(v){ v=(v||'').trim(); if(!v)return false;
+  if(/^الموظفة|^\s*\(|^\s*إذا|^\s*اذا|:\s*$/.test(v))return false;
+  if(v.length>70)return false; /* dialogue lines are long; titles are short headings */
+  return /customers?|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b|follow[\s-]?up|bj\s*40|\b1k(m)?\b|\b10k(m)?\b|\b14\s*days?\b|lost|d\s*\+\s*1/i.test(v); }
 function _csIsLabel(v){ return /:\s*$/.test(v)||/^\s*\(/.test(v)||/^الموظفة/.test(v); }
 function _csParse(rows){
   rows=rows||[]; var maxc=0; rows.forEach(function(r){if(r&&r.length>maxc)maxc=r.length;});
@@ -5666,7 +5668,7 @@ function _stPacParse(rows){
   for(var j=0;j<ncol;j++){
     if(used.indexOf(j)>=0)continue;
     var tot=0,lets=0,arAddr=0;
-    for(var i3=1;i3<rows.length;i3++){var v=(rows[i3][j]||'').trim();if(!v)continue;tot++;var nameish=hasLetters(v)&&!isBranch(v)&&!isCity(v)&&!isRegion(v)&&(/\s/.test(v)||v.length>=4);if(nameish)lets++;if(isAr(v)&&v.length>12)arAddr++;}
+    for(var i3=1;i3<rows.length;i3++){var v=(rows[i3][j]||'').trim();if(!v)continue;tot++;var isSvc=/\b(pms|recall|warranty|service|maintenance|oil\s*change)\b/i.test(v)||/صيانة|ضمان|استدعاء|دورية/.test(v);var nameish=hasLetters(v)&&!isBranch(v)&&!isCity(v)&&!isRegion(v)&&!isSvc&&!isMap(v)&&!isHours(v)&&(/\s/.test(v)||v.length>=4);if(nameish)lets++;if(isAr(v)&&v.length>12)arAddr++;}
     if(tot>0&&lets/tot>=0.5)nameLikeCols.push({j:j,arAddr:arAddr});
   }
   // district = a name-like column that is mostly long Arabic (address); remove from manager pool
@@ -5693,12 +5695,12 @@ function _stPacParse(rows){
       mgr:g(r,mgrCols[0]!==undefined?mgrCols[0]:-1)||(byCode?byCode.mgr:''),
       mgrPhone:g(r,phoneCols[0]!==undefined?phoneCols[0]:-1)||(byCode?byCode.phone:''),
       mgrEmail:g(r,emailCols[0]!==undefined?emailCols[0]:-1)||(byCode?byCode.email:''),
-      rm:g(r,mgrCols[1]!==undefined?mgrCols[1]:-1)||(rmByCity?rmByCity.mgr:''),
-      rmPhone:g(r,phoneCols[1]!==undefined?phoneCols[1]:-1)||(rmByCity?rmByCity.phone:''),
+      rm:g(r,mgrCols[1]!==undefined?mgrCols[1]:-1),
+      rmPhone:g(r,phoneCols[1]!==undefined?phoneCols[1]:-1),
       rmEmail:g(r,emailCols[1]!==undefined?emailCols[1]:-1),
       map:g(r,mapCol)
     };
-  }).filter(function(b){return (b.name&&b.name.length>1)||b.code;});
+  }).filter(function(b){return b.code && /\d/.test(b.code);});
 }
 
 // Workshop code -> manager/phone/email (PAC workshops are shared; from BAIC Reference)
