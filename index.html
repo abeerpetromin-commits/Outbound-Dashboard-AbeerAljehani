@@ -642,6 +642,41 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-d-svc-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .pacd-svc-pill{background:var(--green-bg,#e0f2eb);color:var(--green,#0a7a56);border:1px solid rgba(10,122,86,.28);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:.3px}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
+/* ── Team Performance leaderboard ── */
+.perf-filters{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px 18px;max-width:1040px;margin:0 auto 18px}
+.perf-fld{display:flex;align-items:center;gap:8px}
+.perf-fld-l{font-size:12.5px;font-weight:700;color:var(--text2)}
+.perf-fld input,.perf-fld select{border:1px solid var(--border);border-radius:9px;padding:7px 11px;font-size:12.5px;font-family:inherit;background:var(--surface);color:var(--text)}
+.perf-fld input:focus,.perf-fld select:focus{outline:none;border-color:var(--accent)}
+.perf-layout{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:270px 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.perf-layout{grid-template-columns:1fr}}
+.perf-compare{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px}
+.cmp-title{font-family:var(--font-display);font-weight:800;font-size:15.5px;color:var(--text)}
+.cmp-range{font-size:11.5px;color:var(--text3);margin:2px 0 12px}
+.cmp-row{padding:10px 0;border-top:1px solid var(--border)}
+.cmp-row:first-of-type{border-top:0}
+.cmp-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.cmp-l{font-size:12.5px;font-weight:700;color:var(--text2)}
+.cmp-cur{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text)}
+.cmp-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.cmp-up{color:var(--green,#0a7a56);font-weight:800}
+.cmp-down{color:var(--red,#d11a3e);font-weight:800}
+.perf-list{display:flex;flex-direction:column;gap:10px}
+.perf-row{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px 18px}
+.perf-rank{flex:0 0 auto;width:34px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text3)}
+.perf-medal{font-size:24px;line-height:1}
+.perf-who{flex:0 0 auto;min-width:190px}
+.perf-name{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text)}
+.perf-badge{font-size:12px;color:var(--text3);margin-top:2px}
+.perf-stats{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;min-width:0}
+@media(max-width:900px){.perf-stats{grid-template-columns:repeat(3,1fr)}.perf-who{min-width:140px}}
+@media(max-width:560px){.perf-stats{grid-template-columns:repeat(2,1fr)}.perf-row{flex-wrap:wrap}}
+.perf-tile{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:9px 6px;text-align:center}
+.perf-tile.green{background:var(--green-bg)}
+.perf-tile.amber{background:var(--amber-bg)}
+.perf-tile-l{font-size:10.5px;font-weight:700;color:var(--text3);letter-spacing:.02em}
+.perf-tile-v{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text);margin-top:3px}
+.perf-tile.red .perf-tile-v{color:var(--red)}
 /* ── Appointment & Location SMS — tabbed per-branch cards ── */
 .al-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
 .al-card{background:var(--surface);border:1.4px solid var(--border);border-radius:14px;padding:13px 15px;display:flex;flex-direction:column;gap:9px;--al-c:var(--st);box-shadow:var(--shadow)}
@@ -2069,9 +2104,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
   <div class="nav-group">
     <div class="ops-center">
-      <div class="nav-item" onclick="show('manager',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Manager View 👑
+      <div class="nav-item" onclick="show('performance',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>
+        Team Performance
       </div>
       <div class="nav-item" onclick="show('tasks',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -2590,6 +2625,27 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
     <div class="page-footer" id="managerFooter"></div>
+  </div>
+
+  <!-- ── TEAM PERFORMANCE (leaderboard, live gid 1857953641) ── -->
+  <div id="tab-performance" class="tab-panel">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+      <div>
+        <div class="page-eyebrow">Operations · Manager Only</div>
+        <div class="page-title">🏆 Team Performance</div>
+        <div class="page-sub" id="perfSub" style="margin-top:4px">Agent performance leaderboard</div>
+      </div>
+      <div class="header-right">
+        <span class="live-badge" id="perfStatus"><span class="live-dot"></span>Loading…</span>
+        <button class="btn" onclick="loadPerformance()">↻ Refresh</button>
+      </div>
+    </div>
+    <div class="perf-filters">
+      <div class="perf-fld"><span class="perf-fld-l">From</span><input type="date" id="perfFrom" onchange="_perfRender()"></div>
+      <div class="perf-fld"><span class="perf-fld-l">To</span><input type="date" id="perfTo" onchange="_perfRender()"></div>
+      <div class="perf-fld"><span class="perf-fld-l">Agent</span><select id="perfAgent" onchange="_perfRender()"><option value="">— All Agents —</option></select></div>
+    </div>
+    <div id="perfBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── DAILY TASKS ── -->
@@ -3404,6 +3460,7 @@ const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbx6mWXhVu7BP6BHg-
 const TAB_GROUPS={
   announcements:['announcements'],
   manager:['manager'],
+  performance:['performance'],
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
@@ -3411,6 +3468,7 @@ const TAB_GROUPS={
 };
 function runLoader(id){
   if(id==='manager')loadManagerView();
+  if(id==='performance')loadPerformance();
   if(id==='tasks')loadTasks();
   if(id==='dayoff')loadDayOff();
   if(id==='vacation')loadVacation();
@@ -3732,6 +3790,123 @@ function _mvDateMatch(v, selY, selM, selD){
   return (mm===selM&&dd===selD)||(mm===selD&&dd===selM);
 }
 function _mvDone(x){return /^(1|true|done|yes|\u2713|\u0646\u0639\u0645|\u062a\u0645)$/i.test(String(x==null?'':x).trim());}
+/* ── TEAM PERFORMANCE (leaderboard, live gid 1857953641) ── */
+var PERF_GID='1857953641';
+var _PERF=[];
+function _perfToSec(t){t=String(t||'').trim();if(!t)return 0;if(/^\d+(\.\d+)?$/.test(t))return parseFloat(t);var p=t.split(':').map(function(x){return parseInt(x,10);});if(p.some(isNaN))return 0;if(p.length===3)return p[0]*3600+p[1]*60+p[2];if(p.length===2)return p[0]*60+p[1];return p[0];}
+function _perfHMS(s){s=Math.round(s||0);var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+('0'+m).slice(-2)+':'+('0'+ss).slice(-2);}
+function _perfMS(s){s=Math.round(s||0);var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return (h?h+':'+('0'+m).slice(-2):m)+':'+('0'+ss).slice(-2);}
+function _perfISO(v){v=String(v||'').trim();if(!v)return '';var m=v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);if(m)return m[3]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[1]).slice(-2);m=v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[3]).slice(-2);var d=new Date(v);if(!isNaN(d.getTime()))return d.toISOString().slice(0,10);return '';}
+function _perfParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(!rows.length)return [];
+  var H={name:-1,badge:-1,date:-1,inbound:-1,tickets:-1,whatsapp:-1,talk:-1,handling:-1};
+  (rows[0]||[]).forEach(function(c,i){var t=(c||'').trim().toLowerCase();if(!t)return;
+    if(H.handling<0&&/handl|معالجة/.test(t)){H.handling=i;return;}
+    if(H.talk<0&&/talk|تحدث|محادثة/.test(t)){H.talk=i;return;}
+    if(H.whatsapp<0&&/whats|واتس/.test(t)){H.whatsapp=i;return;}
+    if(H.tickets<0&&/ticket|تذاكر|تذكر/.test(t)){H.tickets=i;return;}
+    if(H.inbound<0&&/inbound|وارد|مكالم|\bcalls?\b/.test(t)){H.inbound=i;return;}
+    if(H.name<0&&/agent|name|الموظف|الاسم|^اسم/.test(t)){H.name=i;return;}
+    if(H.badge<0&&/badge|رقم|\bid\b/.test(t)){H.badge=i;return;}
+    if(H.date<0&&/date|تاريخ|اليوم/.test(t)){H.date=i;return;}
+  });
+  if(H.name<0)H.name=0;
+  var g=function(r,i){return i>=0?(r[i]||'').trim():'';};
+  var out=[];
+  for(var i=1;i<rows.length;i++){var r=rows[i];var name=g(r,H.name);if(!name||/total|grand|اجمالي|المجموع/i.test(name))continue;
+    out.push({name:name,badge:g(r,H.badge),date:_perfISO(g(r,H.date)),
+      inbound:+String(g(r,H.inbound)).replace(/[^0-9.]/g,'')||0,
+      tickets:+String(g(r,H.tickets)).replace(/[^0-9.]/g,'')||0,
+      whatsapp:+String(g(r,H.whatsapp)).replace(/[^0-9.]/g,'')||0,
+      talk:_perfToSec(g(r,H.talk)),handling:_perfToSec(g(r,H.handling))});
+  }
+  return out;
+}
+async function loadPerformance(){
+  var st=document.getElementById('perfStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating…';
+  try{
+    var rows=await fetchSheet(PERF_GID);
+    _PERF=_perfParse(rows);
+    if(!_PERF.length)throw new Error('empty');
+    var sel=document.getElementById('perfAgent');
+    if(sel){var names=[];_PERF.forEach(function(x){if(names.indexOf(x.name)<0)names.push(x.name);});names.sort();
+      var cur=sel.value;sel.innerHTML='<option value="">— All Agents —</option>'+names.map(function(n){return '<option>'+_annEsc(n)+'</option>';}).join('');sel.value=cur;}
+    var dates=_PERF.map(function(x){return x.date;}).filter(Boolean).sort();
+    var from=document.getElementById('perfFrom'),to=document.getElementById('perfTo');
+    if(dates.length){if(from&&!from.value)from.value=dates[0];if(to&&!to.value)to.value=dates[dates.length-1];}
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+    _perfRender();
+  }catch(e){
+    var host=document.getElementById('perfBody');if(host)host.innerHTML='<div class="grid-empty">تعذّر تحميل البيانات من الشيت. تأكدي أن الورقة عامة.</div>';
+    if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}
+  }
+}
+function _perfRender(){
+  var host=document.getElementById('perfBody');if(!host)return;
+  var from=(document.getElementById('perfFrom')||{}).value||'';
+  var to=(document.getElementById('perfTo')||{}).value||'';
+  var agent=(document.getElementById('perfAgent')||{}).value||'';
+  var recs=_PERF.filter(function(x){if(agent&&x.name!==agent)return false;if(x.date){if(from&&x.date<from)return false;if(to&&x.date>to)return false;}return true;});
+  var g={},order=[];
+  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,badge:x.badge,inbound:0,tickets:0,whatsapp:0,tS:0,tN:0,hS:0,hN:0,days:{}};order.push(x.name);}
+    var a=g[x.name];a.inbound+=x.inbound;a.tickets+=x.tickets;a.whatsapp+=x.whatsapp;
+    if(x.talk){a.tS+=x.talk;a.tN++;}if(x.handling){a.hS+=x.handling;a.hN++;}
+    if(x.date)a.days[x.date]=1;if(!a.badge&&x.badge)a.badge=x.badge;});
+  var arr=order.map(function(n){var a=g[n];return {name:a.name,badge:a.badge,inbound:a.inbound,tickets:a.tickets,whatsapp:a.whatsapp,talk:a.tN?a.tS/a.tN:0,handling:a.hN?a.hS/a.hN:0,days:Object.keys(a.days).length};});
+  arr.sort(function(x,y){return (y.inbound-x.inbound)||(y.tickets-x.tickets);});
+  if(!arr.length){host.innerHTML='<div class="grid-empty">لا توجد بيانات للفترة المحددة</div>';return;}
+  var medals=['🥇','🥈','🥉'];
+  var listHtml='<div class="perf-list">'+arr.map(function(a,i){
+    var rank=i<3?'<span class="perf-medal">'+medals[i]+'</span>':(i+1);
+    var days=a.days||1;var dl=days===1?'1 Day':days+' Days';
+    return '<div class="perf-row">'+
+      '<div class="perf-rank">'+rank+'</div>'+
+      '<div class="perf-who"><div class="perf-name">'+_annEsc(a.name)+'</div><div class="perf-badge">'+(a.badge?'Badge '+_annEsc(a.badge)+' · ':'')+dl+'</div></div>'+
+      '<div class="perf-stats">'+
+        '<div class="perf-tile red"><div class="perf-tile-l">Inbound</div><div class="perf-tile-v">'+a.inbound+'</div></div>'+
+        '<div class="perf-tile red"><div class="perf-tile-l">Tickets</div><div class="perf-tile-v">'+a.tickets+'</div></div>'+
+        '<div class="perf-tile green"><div class="perf-tile-l">WhatsApp</div><div class="perf-tile-v">'+a.whatsapp+'</div></div>'+
+        '<div class="perf-tile amber"><div class="perf-tile-l">Avg Talk</div><div class="perf-tile-v">'+_perfHMS(a.talk)+'</div></div>'+
+        '<div class="perf-tile amber"><div class="perf-tile-l">Avg Handling</div><div class="perf-tile-v">'+_perfHMS(a.handling)+'</div></div>'+
+      '</div></div>';
+  }).join('')+'</div>';
+  host.innerHTML='<div class="perf-layout">'+_perfCompare()+listHtml+'</div>';
+  var sub=document.getElementById('perfSub');if(sub)sub.textContent=arr.length+' agents'+((from||to)?(' · '+(from||'…')+' → '+(to||'…')):'');
+}
+var _MONS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var _MONL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function _perfTot(recs){var t={inbound:0,tickets:0,whatsapp:0,tS:0,tN:0,hS:0,hN:0,min:'',max:''};
+  recs.forEach(function(x){t.inbound+=x.inbound;t.tickets+=x.tickets;t.whatsapp+=x.whatsapp;if(x.talk){t.tS+=x.talk;t.tN++;}if(x.handling){t.hS+=x.handling;t.hN++;}if(x.date){if(!t.min||x.date<t.min)t.min=x.date;if(!t.max||x.date>t.max)t.max=x.date;}});
+  t.talk=t.tN?t.tS/t.tN:0;t.hand=t.hN?t.hS/t.hN:0;return t;}
+function _dayRange(min,max){if(!min)return '';var d1=+min.slice(8,10),d2=+max.slice(8,10),mo=_MONS[+max.slice(5,7)-1];return (d1===d2?d1:d1+'–'+d2)+' '+mo;}
+function _cmpRow(label,cur,prev,prevLabel,isTime){
+  var curS=isTime?_perfHMS(cur):Math.round(cur).toLocaleString();
+  var prevS=isTime?_perfHMS(prev):Math.round(prev).toLocaleString();
+  var diff=cur-prev, good=isTime?(diff<0):(diff>0), arrow=diff>0?'▲':(diff<0?'▼':'•');
+  var sign=isTime?((diff<0?'−':'+')+_perfMS(Math.abs(diff))):((diff>=0?'+':'−')+Math.abs(Math.round(diff)).toLocaleString());
+  var cls=diff===0?'':(good?'cmp-up':'cmp-down');
+  return '<div class="cmp-row"><div class="cmp-top"><span class="cmp-l">'+label+'</span><span class="cmp-cur">'+curS+'</span></div>'+
+    '<div class="cmp-sub">'+prevLabel+' '+prevS+' <span class="'+cls+'">'+arrow+' '+sign+'</span></div></div>';
+}
+function _perfCompare(){
+  var months={};_PERF.forEach(function(x){if(x.date){var m=x.date.slice(0,7);(months[m]=months[m]||[]).push(x);}});
+  var mk=Object.keys(months).sort();
+  if(mk.length<2)return '';
+  var curM=mk[mk.length-1], prevM=mk[mk.length-2];
+  var cT=_perfTot(months[curM]), pT=_perfTot(months[prevM]);
+  var curName=_MONL[+curM.slice(5,7)-1], prevName=_MONL[+prevM.slice(5,7)-1], prevShort=_MONS[+prevM.slice(5,7)-1];
+  return '<div class="perf-compare">'+
+    '<div class="cmp-title">'+curName+' vs '+prevName+'</div>'+
+    '<div class="cmp-range">'+_dayRange(cT.min,cT.max)+' · '+_dayRange(pT.min,pT.max)+'</div>'+
+    _cmpRow('Inbound',cT.inbound,pT.inbound,prevShort,false)+
+    _cmpRow('Tickets',cT.tickets,pT.tickets,prevShort,false)+
+    _cmpRow('WhatsApp',cT.whatsapp,pT.whatsapp,prevShort,false)+
+    _cmpRow('Avg Talk',cT.talk,pT.talk,prevShort,true)+
+    _cmpRow('Avg Handling',cT.hand,pT.hand,prevShort,true)+
+  '</div>';
+}
 async function loadManagerView(){
   const statusEl=document.getElementById('managerStatus');
   statusEl.innerHTML='<span class="live-dot"></span>Updating...';
