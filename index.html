@@ -4064,14 +4064,15 @@ function _bookRender(){
   var activeDays=dayKeys.length||0;
   var avg=activeDays?Math.round(totBk/activeDays):0;
   var best='—';if(dayKeys.length){var bd=dayKeys.sort(function(a,b){return byDay[b]-byDay[a];})[0];best=_bkNiceD(bd);}
+  var grand=totBk+totInb;var obPct=grand?Math.round(totBk/grand*100):0;
   var tiles='<div class="bk-sum">'+
-    _bkTile('Total Bookings',_nf(totBk),'c-st')+
+    _bkTile('Total Outbound',_nf(totBk),'c-st')+
     _bkTile('Total Inbound',_nf(totInb),'')+
-    _bkTile('Daily Avg',_nf(avg),'c-green')+
-    _bkTile('Best Day',best,'c-amber')+'</div>';
-  var cards='<div class="bk-cards">'+brands.map(function(b){var a=agg[b];var share=totBk?Math.round(a.bk/totBk*100):0;var m=_BK_META[b]||{n:b,c:'var(--text3)'};
+    _bkTile('Total',_nf(grand),'c-green')+
+    _bkTile('Outbound %',obPct+'%','c-amber')+'</div>';
+  var cards='<div class="bk-cards">'+brands.map(function(b){var a=agg[b];var tt=a.bk+a.inb;var pct=tt?Math.round(a.bk/tt*100):0;var m=_BK_META[b]||{n:b,c:'var(--text3)'};
     return '<div class="bk-card" style="--bkc:'+m.c+'"><div class="bk-card-h">'+_annEsc(m.n)+'</div><div class="bk-card-metrics">'+
-      _bkMetric('Bookings',_nf(a.bk))+_bkMetric('Inbound',_nf(a.inb))+_bkMetric('Share',share+'%')+
+      _bkMetric('Outbound',_nf(a.bk))+_bkMetric('Inbound',_nf(a.inb))+_bkMetric('Total',_nf(tt))+_bkMetric('Outbound %',pct+'%')+
     '</div></div>';}).join('')+'</div>';
   host.innerHTML=tiles+cards;
 }
