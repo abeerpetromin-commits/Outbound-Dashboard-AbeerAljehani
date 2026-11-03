@@ -661,28 +661,28 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .cmp-sub{font-size:11px;color:var(--text3);margin-top:2px}
 .cmp-up{color:var(--green,#0a7a56);font-weight:800}
 .cmp-down{color:var(--red,#d11a3e);font-weight:800}
-.perf-list{display:flex;flex-direction:column;gap:10px}
-.perf-row{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px 18px}
-.perf-rank{flex:0 0 auto;width:34px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text3)}
-.perf-medal{font-size:24px;line-height:1}
-.perf-who{flex:0 0 auto;min-width:190px}
-.perf-name{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text)}
-.perf-badge{font-size:12px;color:var(--text3);margin-top:2px}
-.perf-stats{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;min-width:0}
-@media(max-width:900px){.perf-stats{grid-template-columns:repeat(3,1fr)}.perf-who{min-width:140px}}
+.perf-list{display:flex;flex-direction:column;gap:6px}
+.perf-row{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:7px 11px}
+.perf-rank{flex:0 0 auto;width:22px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--text3)}
+.perf-medal{font-size:16px;line-height:1}
+.perf-who{flex:0 0 auto;min-width:150px}
+.perf-name{font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--text)}
+.perf-badge{font-size:10.5px;color:var(--text3);margin-top:1px}
+.perf-stats{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;min-width:0}
+@media(max-width:900px){.perf-stats{grid-template-columns:repeat(3,1fr)}.perf-who{min-width:120px}}
 @media(max-width:560px){.perf-stats{grid-template-columns:repeat(2,1fr)}.perf-row{flex-wrap:wrap}}
-.perf-tile{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:9px 6px;text-align:center}
+.perf-tile{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 4px;text-align:center}
 .perf-tile.green{background:var(--green-bg)}
 .perf-tile.amber{background:var(--amber-bg)}
-.perf-tile-l{font-size:10.5px;font-weight:700;color:var(--text3);letter-spacing:.02em}
-.perf-tile-v{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text);margin-top:3px}
+.perf-tile-l{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.02em}
+.perf-tile-v{font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--text);margin-top:1px}
 .perf-tile.red .perf-tile-v{color:var(--red)}
 .perf-tile.book{background:linear-gradient(135deg,rgba(18,87,196,.14),rgba(18,87,196,.05));border-color:rgba(18,87,196,.4)}
 .perf-tile.book .perf-tile-v{color:var(--st)}
 .perf-tile.book .perf-tile-l{color:var(--st)}
 .perf-row.clickable{cursor:pointer;transition:transform .12s,box-shadow .12s}
 .perf-row.clickable:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(15,23,42,.08);border-color:var(--border2)}
-.perf-row-caret{color:var(--text3);font-size:17px;padding:0 2px;align-self:center}
+.perf-row-caret{color:var(--text3);font-size:14px;padding:0 1px;align-self:center}
 /* ── Agent detail drill-down ── */
 .pd-head{display:flex;align-items:center;gap:13px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 15px;margin-bottom:14px}
 .pd-back{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--text);cursor:pointer;white-space:nowrap}
@@ -2694,9 +2694,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
     <div class="perf-filters">
-      <div class="perf-fld"><span class="perf-fld-l">From</span><input type="date" id="perfFrom" onchange="_perfRender()"></div>
-      <div class="perf-fld"><span class="perf-fld-l">To</span><input type="date" id="perfTo" onchange="_perfRender()"></div>
-      <div class="perf-fld"><span class="perf-fld-l">Agent</span><select id="perfAgent" onchange="_perfRender()"><option value="">— All Agents —</option></select></div>
+      <div class="perf-fld"><span class="perf-fld-l">From</span><input type="date" id="perfFrom" onchange="_perfDate()"></div>
+      <div class="perf-fld"><span class="perf-fld-l">To</span><input type="date" id="perfTo" onchange="_perfDate()"></div>
+      <div class="perf-fld"><span class="perf-fld-l">Agent</span><select id="perfAgent" onchange="_perfPick()"><option value="">— All Agents —</option></select></div>
     </div>
     <div id="perfBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
@@ -3900,13 +3900,15 @@ async function loadPerformance(){
     var sel=document.getElementById('perfAgent');
     if(sel){var names=[];_PERF.forEach(function(x){if(names.indexOf(x.name)<0)names.push(x.name);});names.sort();
       var cur=sel.value;sel.innerHTML='<option value="">— All Agents —</option>'+names.map(function(n){return '<option>'+_annEsc(n)+'</option>';}).join('');sel.value=cur;}
+    _perfLoadDates();
     var dates=_PERF.map(function(x){return x.date;}).filter(Boolean).sort();
     var from=document.getElementById('perfFrom'),to=document.getElementById('perfTo');
     if(dates.length){if(from&&!from.value)from.value=dates[0];if(to&&!to.value)to.value=dates[dates.length-1];}
+    _perfSaveDates();
     if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
     _perfRender();
   }catch(e){
-    var host=document.getElementById('perfBody');if(host)host.innerHTML='<div class="grid-empty">تعذّر تحميل البيانات من الشيت. تأكدي أن الورقة عامة.</div>';
+    var host=document.getElementById('perfBody');if(host)host.innerHTML='<div class="grid-empty">Could not load data from the sheet. Make sure the sheet is public.</div>';
     if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}
   }
 }
@@ -3925,12 +3927,12 @@ function _perfRender(){
     if(!a.team&&x.team)a.team=x.team;});
   var arr=order.map(function(n){var a=g[n];return {name:a.name,team:a.team,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length};});
   arr.sort(function(x,y){return (y.bookings-x.bookings)||(y.connected-x.connected);});
-  if(!arr.length){host.innerHTML='<div class="grid-empty">لا توجد بيانات للفترة المحددة</div>';return;}
+  if(!arr.length){host.innerHTML='<div class="grid-empty">No data for the selected period</div>';return;}
   var medals=['🥇','🥈','🥉'];
   var listHtml='<div class="perf-list">'+arr.map(function(a,i){
     var rank=i<3?'<span class="perf-medal">'+medals[i]+'</span>':(i+1);
     var days=a.days||1;var dl=days===1?'1 Day':days+' Days';
-    return '<div class="perf-row clickable" onclick="_perfOpen('+JSON.stringify(a.name).replace(/"/g,'&quot;')+')" title="اضغطي لعرض التفاصيل">'+
+    return '<div class="perf-row clickable" onclick="_perfOpen('+JSON.stringify(a.name).replace(/"/g,'&quot;')+')" title="Click to view details">'+
       '<div class="perf-rank">'+rank+'</div>'+
       '<div class="perf-who"><div class="perf-name">'+_annEsc(a.name)+'</div><div class="perf-badge">'+(a.team?_annEsc(a.team)+' · ':'')+dl+'</div></div>'+
       '<div class="perf-stats">'+
@@ -3947,8 +3949,12 @@ function _perfRender(){
 /* ── Agent drill-down ── */
 var _PERF_SEL='',_PERF_SUB='daily';
 var _DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-function _perfOpen(n){_PERF_SEL=n;_PERF_SUB='daily';_perfRender();try{window.scrollTo(0,0);}catch(e){}}
-function _perfBack(){_PERF_SEL='';_perfRender();}
+function _perfLoadDates(){try{var f=localStorage.getItem('perfFrom'),t=localStorage.getItem('perfTo');var ff=document.getElementById('perfFrom'),tt=document.getElementById('perfTo');if(ff&&f!==null&&f!=='')ff.value=f;if(tt&&t!==null&&t!=='')tt.value=t;}catch(e){}}
+function _perfSaveDates(){try{localStorage.setItem('perfFrom',(document.getElementById('perfFrom')||{}).value||'');localStorage.setItem('perfTo',(document.getElementById('perfTo')||{}).value||'');}catch(e){}}
+function _perfDate(){_perfSaveDates();_perfRender();}
+function _perfOpen(n){var sel=document.getElementById('perfAgent');if(sel)sel.value=n;_PERF_SEL=n;_PERF_SUB='daily';_perfRender();try{window.scrollTo(0,0);}catch(e){}}
+function _perfPick(){var v=(document.getElementById('perfAgent')||{}).value||'';_PERF_SEL=v;if(v)_PERF_SUB='daily';_perfRender();}
+function _perfBack(){var sel=document.getElementById('perfAgent');if(sel)sel.value='';_PERF_SEL='';_perfRender();}
 function _perfSub(t){_PERF_SUB=t;_perfRender();}
 function _niceDate(iso){if(!iso)return '';var p=iso.split('-');return (+p[2])+' '+_MONS[+p[1]-1];}
 function _wd(iso){if(!iso)return '';var d=new Date(iso+'T00:00:00');return isNaN(d.getTime())?'':_DOW[d.getDay()];}
@@ -3971,7 +3977,6 @@ function _perfDetailRender(host,name,from,to){
   var body=_PERF_SUB==='attendance'?_perfAtt(recs):_PERF_SUB==='monthly'?_perfMonthly(recs):_perfDaily(recs);
   var st=function(t,lbl){return '<button class="pd-subtab'+(_PERF_SUB===t?' on':'')+'" onclick="_perfSub(\''+t+'\')">'+lbl+'</button>';};
   host.innerHTML='<div class="pd-head">'+
-    '<button class="pd-back" onclick="_perfBack()">‹ القائمة</button>'+
     '<div class="pd-av">'+_annEsc(initials||'?')+'</div>'+
     '<div class="pd-id"><div class="pd-name">'+_annEsc(name)+'</div><div class="pd-meta">'+(team?_annEsc(team)+' · ':'')+rangeTxt+'</div></div>'+
     '<div class="pd-subtabs">'+st('daily','Daily Performance')+st('attendance','Attendance')+st('monthly','Monthly Summary')+'</div>'+
@@ -4003,7 +4008,7 @@ function _perfAtt(recs){
     _attTile(cnt.sick,'Sick Leave','#c3002f')+_attTile(cnt.off,'Off Day','#94a3b8')+_attTile(cnt.abs,'Absent','#8a0014')+'</div>';
   var months={};Object.keys(byDate).forEach(function(d){var m=d.slice(0,7);(months[m]=months[m]||1);});
   var mk=Object.keys(months).sort();
-  var cal=mk.length?mk.map(function(m){return _calMonth(m,byDate);}).join(''):'<div class="grid-empty">لا توجد أيام في الفترة</div>';
+  var cal=mk.length?mk.map(function(m){return _calMonth(m,byDate);}).join(''):'<div class="grid-empty">No days in this period</div>';
   return sum+'<div class="pd-card"><div class="pd-card-t">🗓️ Attendance Calendar</div>'+cal+'</div>';
 }
 function _calMonth(m,byDate){
@@ -4020,7 +4025,7 @@ function _perfMonthly(recs){
   var months={};recs.forEach(function(r){if(!r.date)return;var m=r.date.slice(0,7);var o=months[m]=months[m]||{total:0,connected:0,whatsapp:0,bookings:0,work:0,vac:0,sick:0,off:0,abs:0,days:{}};
     o.total+=r.total;o.connected+=r.connected;o.whatsapp+=r.whatsapp;o.bookings+=r.bookings;var s=_perfStat(r.status);o[s.k]=(o[s.k]||0)+1;if(s.k==='work')o.days[r.date]=1;});
   var mk=Object.keys(months).sort().reverse();
-  if(!mk.length)return '<div class="grid-empty">لا توجد بيانات</div>';
+  if(!mk.length)return '<div class="grid-empty">No data</div>';
   return mk.map(function(m){var o=months[m];var pct=o.total?Math.round(o.connected/o.total*100):0;var nm=_MONL[+m.slice(5,7)-1]+' '+m.slice(0,4);
     return '<div class="pd-card"><div class="pd-card-t">📊 '+nm+'</div><div class="pd-tiles">'+
       _pdTile('Total Calls',_nf(o.total),'red')+_pdTile('Connected',_nf(o.connected),'red')+_pdTile('WhatsApp',_nf(o.whatsapp),'green')+
