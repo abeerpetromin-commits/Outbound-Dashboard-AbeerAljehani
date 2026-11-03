@@ -643,13 +643,18 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-svc-pill{background:var(--green-bg,#e0f2eb);color:var(--green,#0a7a56);border:1px solid rgba(10,122,86,.28);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:.3px}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
 /* ── Team Performance leaderboard ── */
-.perf-filters{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px 18px;max-width:1040px;margin:0 auto 18px}
+.perf-filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px 13px;max-width:1040px;margin:4px auto 12px}
+.perf-filters-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.live-badge.sm{padding:3px 9px;font-size:10.5px}
+.btn.sm{padding:4px 9px;font-size:13px;line-height:1}
+@media(max-width:560px){.perf-filters-right{margin-left:0}}
 .perf-fld{display:flex;align-items:center;gap:8px}
 .perf-fld-l{font-size:12.5px;font-weight:700;color:var(--text2)}
 .perf-fld input,.perf-fld select{border:1px solid var(--border);border-radius:9px;padding:7px 11px;font-size:12.5px;font-family:inherit;background:var(--surface);color:var(--text)}
 .perf-fld input:focus,.perf-fld select:focus{outline:none;border-color:var(--accent)}
 .perf-layout{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:270px 1fr;gap:18px;align-items:start}
 @media(max-width:900px){.perf-layout{grid-template-columns:1fr}}
+.perf-single{max-width:1040px;margin:0 auto}
 .perf-compare{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px}
 .cmp-title{font-family:var(--font-display);font-weight:800;font-size:15.5px;color:var(--text)}
 .cmp-range{font-size:11.5px;color:var(--text3);margin:2px 0 12px}
@@ -2682,21 +2687,15 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
   <!-- ── TEAM PERFORMANCE (leaderboard, live gid 1857953641) ── -->
   <div id="tab-performance" class="tab-panel">
-    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
-      <div>
-        <div class="page-eyebrow">Operations · Manager Only</div>
-        <div class="page-title">🏆 Team Performance</div>
-        <div class="page-sub" id="perfSub" style="margin-top:4px">Agent performance leaderboard</div>
-      </div>
-      <div class="header-right">
-        <span class="live-badge" id="perfStatus"><span class="live-dot"></span>Loading…</span>
-        <button class="btn" onclick="loadPerformance()">↻ Refresh</button>
-      </div>
-    </div>
+    <span id="perfSub" style="display:none"></span>
     <div class="perf-filters">
       <div class="perf-fld"><span class="perf-fld-l">From</span><input type="date" id="perfFrom" onchange="_perfDate()"></div>
       <div class="perf-fld"><span class="perf-fld-l">To</span><input type="date" id="perfTo" onchange="_perfDate()"></div>
       <div class="perf-fld"><span class="perf-fld-l">Agent</span><select id="perfAgent" onchange="_perfPick()"><option value="">— All Agents —</option></select></div>
+      <div class="perf-filters-right">
+        <span class="live-badge sm" id="perfStatus"><span class="live-dot"></span>…</span>
+        <button class="btn sm" onclick="loadPerformance()" title="Refresh">↻</button>
+      </div>
     </div>
     <div id="perfBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
@@ -3945,7 +3944,8 @@ function _perfRender(){
         '<div class="perf-tile book"><div class="perf-tile-l">Bookings</div><div class="perf-tile-v">'+_nf(a.bookings)+'</div></div>'+
       '</div><div class="perf-row-caret">›</div></div>';
   }).join('')+'</div>';
-  host.innerHTML='<div class="perf-layout">'+_perfCompare()+listHtml+'</div>';
+  var cmp=_perfCompare();
+  host.innerHTML=cmp?('<div class="perf-layout">'+cmp+listHtml+'</div>'):('<div class="perf-single">'+listHtml+'</div>');
   var sub=document.getElementById('perfSub');if(sub)sub.textContent=arr.length+' agents'+((from||to)?(' · '+(from||'…')+' → '+(to||'…')):'');
 }
 /* ── Agent drill-down ── */
