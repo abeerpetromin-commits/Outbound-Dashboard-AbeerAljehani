@@ -643,6 +643,33 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-svc-pill{background:var(--green-bg,#e0f2eb);color:var(--green,#0a7a56);border:1px solid rgba(10,122,86,.28);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:.3px}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
 /* ── Team Performance leaderboard ── */
+/* ── Booking Volume ── */
+.bk-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1180px;margin:4px auto 14px}
+.bk-modes{display:flex;gap:3px;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:4px}
+.bk-mode{border:none;background:transparent;border-radius:8px;padding:7px 15px;font-size:12.5px;font-weight:700;color:var(--text3);cursor:pointer;font-family:inherit}
+.bk-mode.on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(15,23,42,.1)}
+.bk-navwrap{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.bk-nav{display:flex;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px 5px;box-shadow:var(--shadow)}
+.bk-arrow{border:none;background:transparent;color:var(--text3);font-size:18px;cursor:pointer;padding:1px 9px;border-radius:7px;line-height:1.2}
+.bk-arrow:hover{background:var(--surface2);color:var(--text)}
+.bk-range{font-size:13px;font-weight:700;color:var(--text);min-width:148px;text-align:center}
+.bk-custom{display:flex;align-items:center;gap:7px}
+.bk-custom input{border:1px solid var(--border);border-radius:9px;padding:6px 10px;font-size:12px;font-family:inherit;background:var(--surface);color:var(--text)}
+.bk-ar{color:var(--text3);font-weight:700}
+.bk-sum{display:flex;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);max-width:1180px;margin:0 auto 14px;padding:15px 8px}
+.bk-sum-tile{flex:1;min-width:120px;text-align:center;padding:4px 10px;border-right:1px solid var(--border)}
+.bk-sum-tile:last-child{border-right:none}
+.bk-sum-l{font-size:11.5px;font-weight:700;color:var(--text3)}
+.bk-sum-v{font-family:var(--font-display);font-weight:800;font-size:27px;color:var(--text);margin-top:4px}
+.bk-sum-v.c-st{color:var(--st)}.bk-sum-v.c-green{color:var(--green)}.bk-sum-v.c-amber{color:var(--amber)}
+.bk-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1180px;margin:0 auto}
+@media(max-width:860px){.bk-cards{grid-template-columns:1fr}}
+.bk-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--bkc,var(--text3));border-radius:13px;box-shadow:var(--shadow);padding:15px 17px}
+.bk-card-h{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--bkc,var(--text));margin-bottom:13px}
+.bk-card-metrics{display:flex;gap:8px}
+.bk-metric{flex:1;text-align:center}
+.bk-metric-l{font-size:10.5px;font-weight:700;color:var(--text3)}
+.bk-metric-v{font-family:var(--font-display);font-weight:800;font-size:19px;color:var(--text);margin-top:3px}
 /* ── Schedule cards (slim rectangular, dashboard theme) ── */
 .snap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:1040px;margin:4px auto 10px}
 @media(max-width:760px){.snap-grid{grid-template-columns:1fr}}
@@ -2171,6 +2198,10 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>
         Team Hub
       </div>
+      <div class="nav-item" onclick="show('booking',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Booking Volume
+      </div>
       <div class="nav-item" onclick="show('tasks',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         Daily Tasks
@@ -2720,6 +2751,31 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       </div>
     </div>
     <div id="perfBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
+  <!-- ── BOOKING VOLUME ── -->
+  <div id="tab-booking" class="tab-panel">
+    <div class="bk-head">
+      <div class="bk-modes">
+        <button class="bk-mode" data-m="daily" onclick="_bkMode('daily')">Daily</button>
+        <button class="bk-mode on" data-m="weekly" onclick="_bkMode('weekly')">Weekly</button>
+        <button class="bk-mode" data-m="monthly" onclick="_bkMode('monthly')">Monthly</button>
+        <button class="bk-mode" data-m="custom" onclick="_bkMode('custom')">Custom</button>
+      </div>
+      <div class="bk-navwrap">
+        <div class="bk-nav" id="bkNav">
+          <button class="bk-arrow" onclick="_bkNav(-1)">‹</button>
+          <span class="bk-range" id="bkRange">…</span>
+          <button class="bk-arrow" onclick="_bkNav(1)">›</button>
+        </div>
+        <div class="bk-custom" id="bkCustom" style="display:none">
+          <input type="date" id="bkFrom" onchange="_bkCustom()"><span class="bk-ar">→</span><input type="date" id="bkTo" onchange="_bkCustom()">
+        </div>
+        <span class="live-badge sm" id="bookStatus"><span class="live-dot"></span>…</span>
+        <button class="btn sm" onclick="loadBooking()" title="Refresh">↻</button>
+      </div>
+    </div>
+    <div id="bookBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── DAILY TASKS ── -->
@@ -3535,6 +3591,7 @@ const TAB_GROUPS={
   announcements:['announcements'],
   manager:['manager'],
   performance:['performance'],
+  booking:['booking'],
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
@@ -3543,6 +3600,7 @@ const TAB_GROUPS={
 function runLoader(id){
   if(id==='manager')loadManagerView();
   if(id==='performance')loadPerformance();
+  if(id==='booking')loadBooking();
   if(id==='tasks')loadTasks();
   if(id==='dayoff')loadDayOff();
   if(id==='vacation')loadVacation();
@@ -3938,6 +3996,85 @@ function _nf(n){return (+n||0).toLocaleString();}
 var PERF_BADGES={ghufran:'21270',raghad:'20149',faridah:'19837',reem:'23445',walaa:'25441',wafa:'36022',manal:'36071'};
 function _badgeFor(name){var n=(name||'').toLowerCase();for(var k in PERF_BADGES){if(n.indexOf(k)>=0)return PERF_BADGES[k];}return '';}
 function _pickStatus(stMap){var keys=Object.keys(stMap||{});if(!keys.length)return '';var non=keys.filter(function(k){return !/present|حاضر/i.test(k);});var pool=non.length?non:keys;pool.sort(function(a,b){return stMap[b]-stMap[a];});return pool[0];}
+/* ── BOOKING VOLUME (live gid 160917057) ── */
+var BOOK_GID='160917057',_BOOK=[],_BOOK_BRANDS=[],_BK={mode:'weekly',anchor:'',from:'',to:''};
+var _BK_META={nissan:{n:'Nissan',c:'var(--ni)'},stellantis:{n:'Stellantis',c:'var(--st)'},baic:{n:'BAIC',c:'var(--baic)'},foton:{n:'Foton',c:'#6d4ad8'},energy:{n:'Energy',c:'#16a34a'},national:{n:'National Oil',c:'#0e9f6e'},petromin:{n:'Petromin',c:'#e5891a'}};
+var _BK_ORDER=['petromin','baic','nissan','stellantis','foton','energy','national'];
+function _bkBrand(t){t=t.toLowerCase();return /nissan|نيسان/.test(t)?'nissan':/stellantis|ستلانت|ستيلانت/.test(t)?'stellantis':/baic|بايك/.test(t)?'baic':/foton|فوتون/.test(t)?'foton':/energy|طاقة/.test(t)?'energy':/national|الوطنية/.test(t)?'national':/petromin|بترومين/.test(t)?'petromin':'';}
+function _bookParse(rows){
+  rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
+  if(!rows.length)return {recs:[],brands:[]};
+  var hdr=(rows[0]||[]).map(function(c){return (c||'').trim();});
+  var H={date:-1,bk:{},inb:{}},bset={};
+  hdr.forEach(function(h,i){var t=h.toLowerCase();if(!t)return;
+    if(H.date<0&&/date|تاريخ|يوم/.test(t)){H.date=i;return;}
+    var b=_bkBrand(t);if(!b)return;bset[b]=1;
+    if(/inbound|وارد|مكالم|calls?/.test(t))H.inb[b]=i;else H.bk[b]=i;});
+  if(H.date<0)H.date=0;
+  var num=function(s){return +String(s||'').replace(/[^0-9.\-]/g,'')||0;};
+  var recs=[];
+  for(var i=1;i<rows.length;i++){var r=rows[i];var iso=_perfISO((r[H.date]||'').trim());if(!iso)continue;
+    var rec={date:iso,bk:{},inb:{}},any=false;
+    for(var k in H.bk){rec.bk[k]=num(r[H.bk[k]]);if(rec.bk[k])any=true;}
+    for(var k2 in H.inb){rec.inb[k2]=num(r[H.inb[k2]]);if(rec.inb[k2])any=true;}
+    rec._any=any;recs.push(rec);}
+  var brands=_BK_ORDER.filter(function(b){return bset[b];});
+  Object.keys(bset).forEach(function(b){if(brands.indexOf(b)<0)brands.push(b);});
+  return {recs:recs,brands:brands};
+}
+async function loadBooking(){
+  var st=document.getElementById('bookStatus');if(st)st.innerHTML='<span class="live-dot"></span>Updating…';
+  try{
+    var rows=await fetchSheet(BOOK_GID);
+    var p=_bookParse(rows);_BOOK=p.recs;_BOOK_BRANDS=p.brands;
+    if(!_BOOK.length)throw new Error('empty');
+    var dates=_BOOK.map(function(x){return x.date;}).sort();
+    if(!_BK.anchor)_BK.anchor=dates[dates.length-1];
+    if(!_BK.from){_BK.from=dates[0];_BK.to=dates[dates.length-1];}
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+    _bookRender();
+  }catch(e){var host=document.getElementById('bookBody');if(host)host.innerHTML='<div class="grid-empty">Could not load data from the sheet. Make sure the sheet is public.</div>';if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}}
+}
+function _bkISO(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function _bkNiceD(iso){var p=iso.split('-');return (+p[2])+' '+_MONS[+p[1]-1];}
+function _bkRangeLabel(from,to){if(_BK.mode==='daily')return _bkNiceD(from)+' '+from.slice(0,4);if(_BK.mode==='monthly')return _MONL[+from.slice(5,7)-1]+' '+from.slice(0,4);if(from===to)return _bkNiceD(from)+' '+from.slice(0,4);return _bkNiceD(from)+' – '+_bkNiceD(to)+' '+to.slice(0,4);}
+function _bkRange(){var m=_BK.mode,a=_BK.anchor;if(m==='custom')return {from:_BK.from||'',to:_BK.to||''};if(!a)return {from:'',to:''};var d=new Date(a+'T00:00:00');
+  if(m==='daily')return {from:a,to:a};
+  if(m==='weekly'){var s=new Date(d);s.setDate(d.getDate()-d.getDay());var e=new Date(s);e.setDate(s.getDate()+6);return {from:_bkISO(s),to:_bkISO(e)};}
+  var s2=new Date(d.getFullYear(),d.getMonth(),1),e2=new Date(d.getFullYear(),d.getMonth()+1,0);return {from:_bkISO(s2),to:_bkISO(e2)};}
+function _bkMode(m){_BK.mode=m;document.querySelectorAll('.bk-mode').forEach(function(b){b.classList.toggle('on',b.dataset.m===m);});
+  var nav=document.getElementById('bkNav'),cu=document.getElementById('bkCustom');
+  if(m==='custom'){if(nav)nav.style.display='none';if(cu){cu.style.display='flex';var f=document.getElementById('bkFrom'),t=document.getElementById('bkTo');if(f&&!f.value)f.value=_BK.from;if(t&&!t.value)t.value=_BK.to;}}
+  else{if(nav)nav.style.display='flex';if(cu)cu.style.display='none';}
+  _bookRender();}
+function _bkNav(dir){if(!_BK.anchor)return;var d=new Date(_BK.anchor+'T00:00:00');if(_BK.mode==='daily')d.setDate(d.getDate()+dir);else if(_BK.mode==='weekly')d.setDate(d.getDate()+dir*7);else d.setMonth(d.getMonth()+dir);_BK.anchor=_bkISO(d);_bookRender();}
+function _bkCustom(){_BK.from=(document.getElementById('bkFrom')||{}).value||'';_BK.to=(document.getElementById('bkTo')||{}).value||'';_bookRender();}
+function _bkTile(l,v,cls){return '<div class="bk-sum-tile"><div class="bk-sum-l">'+l+'</div><div class="bk-sum-v '+(cls||'')+'">'+v+'</div></div>';}
+function _bkMetric(l,v){return '<div class="bk-metric"><div class="bk-metric-l">'+l+'</div><div class="bk-metric-v">'+v+'</div></div>';}
+function _bookRender(){
+  var host=document.getElementById('bookBody');if(!host)return;
+  var rg=_bkRange();var lbl=document.getElementById('bkRange');if(lbl&&_BK.mode!=='custom')lbl.textContent=(rg.from?_bkRangeLabel(rg.from,rg.to):'—');
+  if(!rg.from||!rg.to){host.innerHTML='<div class="grid-empty">Select a date range</div>';return;}
+  var recs=_BOOK.filter(function(x){return x.date>=rg.from&&x.date<=rg.to;});
+  var brands=_BOOK_BRANDS,agg={};brands.forEach(function(b){agg[b]={bk:0,inb:0};});
+  var byDay={};
+  recs.forEach(function(x){var dt=0;brands.forEach(function(b){agg[b].bk+=(x.bk[b]||0);agg[b].inb+=(x.inb[b]||0);dt+=(x.bk[b]||0);});byDay[x.date]=(byDay[x.date]||0)+dt;});
+  var totBk=0,totInb=0;brands.forEach(function(b){totBk+=agg[b].bk;totInb+=agg[b].inb;});
+  var dayKeys=Object.keys(byDay).filter(function(d){return byDay[d]>0;});
+  var activeDays=dayKeys.length||0;
+  var avg=activeDays?Math.round(totBk/activeDays):0;
+  var best='—';if(dayKeys.length){var bd=dayKeys.sort(function(a,b){return byDay[b]-byDay[a];})[0];best=_bkNiceD(bd);}
+  var tiles='<div class="bk-sum">'+
+    _bkTile('Total Bookings',_nf(totBk),'c-st')+
+    _bkTile('Total Inbound',_nf(totInb),'')+
+    _bkTile('Daily Avg',_nf(avg),'c-green')+
+    _bkTile('Best Day',best,'c-amber')+'</div>';
+  var cards='<div class="bk-cards">'+brands.map(function(b){var a=agg[b];var share=totBk?Math.round(a.bk/totBk*100):0;var m=_BK_META[b]||{n:b,c:'var(--text3)'};
+    return '<div class="bk-card" style="--bkc:'+m.c+'"><div class="bk-card-h">'+_annEsc(m.n)+'</div><div class="bk-card-metrics">'+
+      _bkMetric('Bookings',_nf(a.bk))+_bkMetric('Inbound',_nf(a.inb))+_bkMetric('Share',share+'%')+
+    '</div></div>';}).join('')+'</div>';
+  host.innerHTML=tiles+cards;
+}
 function _perfRender(){
   var host=document.getElementById('perfBody');if(!host)return;
   var from=(document.getElementById('perfFrom')||{}).value||'';
