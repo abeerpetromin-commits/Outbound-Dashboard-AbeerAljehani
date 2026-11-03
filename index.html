@@ -643,6 +643,17 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-svc-pill{background:var(--green-bg,#e0f2eb);color:var(--green,#0a7a56);border:1px solid rgba(10,122,86,.28);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:.3px}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
 /* ── Team Performance leaderboard ── */
+/* ── Schedule cards (slim rectangular, dashboard theme) ── */
+.snap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:1040px;margin:4px auto 10px}
+@media(max-width:760px){.snap-grid{grid-template-columns:1fr}}
+.snap-card{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:7px 11px;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
+.snap-card:hover{transform:translateY(-1px);border-color:var(--border2)}
+.snap-ic{width:28px;height:28px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.snap-ic svg{width:15px;height:15px;color:#6d4ad8;stroke:#6d4ad8}
+.snap-body{flex:1;min-width:0;line-height:1.1}
+.snap-title{font-family:var(--font-display);font-weight:800;font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.snap-sub{font-size:9.5px;font-weight:700;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.snap-arrow{color:var(--text3);stroke:currentColor;flex-shrink:0;width:14px;height:14px}
 .perf-filters{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px 13px;max-width:1040px;margin:4px auto 12px}
 .perf-filters-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 .live-badge.sm{padding:3px 9px;font-size:10.5px}
@@ -673,6 +684,7 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .perf-who{flex:0 0 auto;min-width:168px}
 .perf-name{font-family:var(--font-display);font-weight:800;font-size:14.5px;color:var(--text)}
 .perf-badge{font-size:11px;color:var(--text3);margin-top:2px}
+.perf-stpill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:10px;font-weight:700;vertical-align:middle}
 .perf-stats{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0}
 @media(max-width:900px){.perf-stats{grid-template-columns:repeat(3,1fr)}.perf-who{min-width:130px}}
 @media(max-width:560px){.perf-stats{grid-template-columns:repeat(2,1fr)}.perf-row{flex-wrap:wrap}}
@@ -1284,9 +1296,11 @@ tr.row-baic:hover td{background:rgba(229,137,26,.10)}
 .brands-label-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px}
 .brands-label-row .nav-group-label{padding:0;margin:0}
 .ops-center{display:flex;align-items:center;justify-content:center;gap:8px;flex:1 1 auto}
-.brand-tabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
-.brand-tab{flex:0 0 auto;width:auto;gap:8px;padding:9px 13px}
-.brand-tabs-row2{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.brand-tabs{display:flex;flex-wrap:nowrap;gap:7px;align-items:center;justify-content:center;overflow-x:auto;padding-bottom:3px;scrollbar-width:thin}
+.brand-tabs::-webkit-scrollbar{height:5px}
+.brand-tabs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.brand-tab{flex:0 0 auto;width:auto;gap:7px;padding:8px 11px}
+@media(max-width:1100px){.brand-tabs{justify-content:flex-start}}
 
 /* ── Links button + Links & Systems panel ── */
 .links-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:none;
@@ -2134,18 +2148,10 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         </div>
         <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
-      <div class="brand-tabs-row2">
         <div class="brand-tab brand-perm" onclick="openPermissions(this)">
           <div class="brand-tab-info">
             <div class="brand-tab-name">🕐 Permissions</div>
             <div class="brand-tab-sub">Time-off requests</div>
-          </div>
-          <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
-        </div>
-        <div class="brand-tab brand-sched" onclick="openBrand('sched',this)">
-          <div class="brand-tab-info">
-            <div class="brand-tab-name">📅 Team Schedules</div>
-            <div class="brand-tab-sub">Day Off · Vacation</div>
           </div>
           <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
         </div>
@@ -2156,7 +2162,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
           </div>
           <svg class="brand-tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
         </div>
-      </div>
     </div>
   </div>
 
@@ -2164,7 +2169,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div class="ops-center">
       <div class="nav-item" onclick="show('performance',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>
-        Team Performance
+        Team Hub
       </div>
       <div class="nav-item" onclick="show('tasks',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -2688,6 +2693,23 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <!-- ── TEAM PERFORMANCE (leaderboard, live gid 1857953641) ── -->
   <div id="tab-performance" class="tab-panel">
     <span id="perfSub" style="display:none"></span>
+    <div class="snap-grid">
+      <div class="snap-card" onclick="_hubSched('dayoff','Daily Off Schedule')">
+        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></div>
+        <div class="snap-body"><div class="snap-title">Daily Off Schedule</div><div class="snap-sub">Weekly days off</div></div>
+        <svg class="snap-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="snap-card" onclick="_hubSched('vacation','Vacation Schedule')">
+        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/><path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"/><path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35"/><path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14"/></svg></div>
+        <div class="snap-body"><div class="snap-title">Vacation Schedule</div><div class="snap-sub">Annual vacations</div></div>
+        <svg class="snap-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="snap-card" onclick="_hubSched('social','Social Media Schedule')">
+        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+        <div class="snap-body"><div class="snap-title">Social Media Schedule</div><div class="snap-sub">Content calendar</div></div>
+        <svg class="snap-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+    </div>
     <div class="perf-filters">
       <div class="perf-fld"><span class="perf-fld-l">From</span><input type="date" id="perfFrom" onchange="_perfDate()"></div>
       <div class="perf-fld"><span class="perf-fld-l">To</span><input type="date" id="perfTo" onchange="_perfDate()"></div>
@@ -3913,6 +3935,9 @@ async function loadPerformance(){
   }
 }
 function _nf(n){return (+n||0).toLocaleString();}
+var PERF_BADGES={ghufran:'21270',raghad:'20149',faridah:'19837',reem:'23445',walaa:'25441',wafa:'36022',manal:'36071'};
+function _badgeFor(name){var n=(name||'').toLowerCase();for(var k in PERF_BADGES){if(n.indexOf(k)>=0)return PERF_BADGES[k];}return '';}
+function _pickStatus(stMap){var keys=Object.keys(stMap||{});if(!keys.length)return '';var non=keys.filter(function(k){return !/present|حاضر/i.test(k);});var pool=non.length?non:keys;pool.sort(function(a,b){return stMap[b]-stMap[a];});return pool[0];}
 function _perfRender(){
   var host=document.getElementById('perfBody');if(!host)return;
   var from=(document.getElementById('perfFrom')||{}).value||'';
@@ -3921,18 +3946,23 @@ function _perfRender(){
   if(_PERF_SEL){_perfDetailRender(host,_PERF_SEL,from,to);return;}
   var recs=_PERF.filter(function(x){if(agent&&x.name!==agent)return false;if(x.date){if(from&&x.date<from)return false;if(to&&x.date>to)return false;}return true;});
   var g={},order=[];
-  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{}};order.push(x.name);}
+  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{},stMap:{}};order.push(x.name);}
     var a=g[x.name];a.total+=x.total;a.connected+=x.connected;a.whatsapp+=x.whatsapp;a.bookings+=x.bookings;
     if(x.date&&(x.total||x.connected||x.bookings||/present|حاضر/i.test(x.status)))a.days[x.date]=1;
+    if((x.status||'').trim())a.stMap[x.status.trim()]=(a.stMap[x.status.trim()]||0)+1;
     if(!a.team&&x.team)a.team=x.team;if(!a.badge&&x.badge)a.badge=x.badge;});
-  var arr=order.map(function(n){var a=g[n];return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length};});
+  var arr=order.map(function(n){var a=g[n];var allZero=(a.total+a.connected+a.whatsapp+a.bookings)===0;
+    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):''};});
   arr.sort(function(x,y){return (y.bookings-x.bookings)||(y.connected-x.connected);});
   if(!arr.length){host.innerHTML='<div class="grid-empty">No data for the selected period</div>';return;}
   var medals=['🥇','🥈','🥉'];
   var listHtml='<div class="perf-list">'+arr.map(function(a,i){
     var rank=i<3?'<span class="perf-medal">'+medals[i]+'</span>':(i+1);
     var days=a.days||1;var dl=days===1?'1 Day':days+' Days';
-    var meta=(a.badge?'Badge '+_annEsc(a.badge):(a.team?_annEsc(a.team):''));meta=(meta?meta+' · ':'')+dl;
+    var bdg=a.badge||_badgeFor(a.name);
+    var pre=(bdg?'Badge '+_annEsc(bdg):(a.team?_annEsc(a.team):''));
+    var tail=a.status?('<span class="perf-stpill '+_perfStat(a.status).bg+'">'+_annEsc(a.status)+'</span>'):dl;
+    var meta=(pre?pre+' · ':'')+tail;
     return '<div class="perf-row clickable" onclick="_perfOpen('+JSON.stringify(a.name).replace(/"/g,'&quot;')+')" title="Click to view details">'+
       '<div class="perf-rank">'+rank+'</div>'+
       '<div class="perf-who"><div class="perf-name">'+_annEsc(a.name)+'</div><div class="perf-badge">'+meta+'</div></div>'+
@@ -3944,8 +3974,7 @@ function _perfRender(){
         '<div class="perf-tile book"><div class="perf-tile-l">Bookings</div><div class="perf-tile-v">'+_nf(a.bookings)+'</div></div>'+
       '</div><div class="perf-row-caret">›</div></div>';
   }).join('')+'</div>';
-  var cmp=_perfCompare();
-  host.innerHTML=cmp?('<div class="perf-layout">'+cmp+listHtml+'</div>'):('<div class="perf-single">'+listHtml+'</div>');
+  host.innerHTML='<div class="perf-single">'+listHtml+'</div>';
   var sub=document.getElementById('perfSub');if(sub)sub.textContent=arr.length+' agents'+((from||to)?(' · '+(from||'…')+' → '+(to||'…')):'');
 }
 /* ── Agent drill-down ── */
@@ -3972,6 +4001,7 @@ function _perfDetailRender(host,name,from,to){
   var recs=_PERF.filter(function(x){return x.name===name&&(!x.date||((!from||x.date>=from)&&(!to||x.date<=to)));});
   recs.sort(function(a,b){return (a.date||'').localeCompare(b.date||'');});
   var team='',badge='';recs.forEach(function(r){if(!team&&r.team)team=r.team;if(!badge&&r.badge)badge=r.badge;});
+  if(!badge)badge=_badgeFor(name);
   var ds=recs.map(function(r){return r.date;}).filter(Boolean);
   var yr=ds.length?ds[ds.length-1].slice(0,4):'';
   var metaBits=[];if(badge)metaBits.push('Badge '+_annEsc(badge));if(team)metaBits.push(_annEsc(team));if(ds.length)metaBits.push(_niceDate(ds[0])+' → '+_niceDate(ds[ds.length-1])+' '+yr);
@@ -5657,11 +5687,13 @@ function toggleRecall(i){
 function setBrandActive(brand){var map={stellantis:'brand-st',nissan:'brand-ni',baic:'brand-baic',sched:'brand-sched',dir:'brand-dir',esc:'brand-esc',recall:'brand-recall',perm:'brand-perm'};document.querySelectorAll('.brand-tab').forEach(function(b){b.classList.toggle('active',b.classList.contains(map[brand]));});}
 function _hidePanels(){document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});}
 function _scrollContent(){if(!_booted)return;setTimeout(function(){var ap=document.querySelector('.tab-panel.active');if(ap)ap.scrollIntoView({behavior:'smooth',block:'start'});},40);}
-function setCrumb(brand,title){var c=document.getElementById('crumb');if(!c)return;if(!brand){c.style.display='none';return;}var n={stellantis:'Stellantis',nissan:'Nissan',baic:'BAIC',sched:'Team Schedules'};var bc=brand==='stellantis'?'brand-st':brand==='nissan'?'brand-ni':brand==='sched'?'brand-sched':'brand-baic';c.className='crumb '+bc;c.style.display='flex';c.dataset.brand=brand;c.querySelector('.crumb-brand').textContent=n[brand]||brand;c.querySelector('.crumb-title').textContent=title||'';}
+function setCrumb(brand,title){var c=document.getElementById('crumb');if(!c)return;c.dataset.back='';if(!brand){c.style.display='none';return;}var n={stellantis:'Stellantis',nissan:'Nissan',baic:'BAIC',sched:'Team Schedules'};var bc=brand==='stellantis'?'brand-st':brand==='nissan'?'brand-ni':brand==='sched'?'brand-sched':'brand-baic';c.className='crumb '+bc;c.style.display='flex';c.dataset.brand=brand;c.querySelector('.crumb-brand').textContent=n[brand]||brand;c.querySelector('.crumb-title').textContent=title||'';}
 function openAnnouncements(el){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");document.querySelectorAll('.nav-item,.brand-tab').forEach(function(n){n.classList.remove('active');});if(el)el.classList.add('active');else{var c=document.querySelector('.brand-ann');if(c)c.classList.add('active');}var p=document.getElementById('tab-announcements');if(p)p.classList.add('active');document.body.setAttribute('data-brand','ann');if(typeof setCrumb==='function')setCrumb(null);try{loadAnnouncements();}catch(e){}if(typeof _scrollContent==='function')_scrollContent();}
 function openBrand(brand,el){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});setBrandActive(brand);var m=document.getElementById('tab-menu-'+brand);if(m)m.classList.add('active');document.body.setAttribute('data-brand',brand);setCrumb(null);_scrollContent();}
 function openRef(panelId,brand,title){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");var p=document.getElementById('tab-'+panelId);if(p)p.classList.add('active');document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});setBrandActive(brand);document.body.setAttribute('data-brand',brand);setCrumb(brand,title);setTimeout(function(){try{runLoader(panelId);}catch(e){console.warn(panelId,e);}},40);_scrollContent();}
-function crumbBack(){var c=document.getElementById('crumb');var brand=c&&c.dataset.brand?c.dataset.brand:'stellantis';openBrand(brand);}
+function crumbBack(){var c=document.getElementById('crumb');if(c&&c.dataset.back==='hub'){c.dataset.back='';_goHub();return;}var brand=c&&c.dataset.brand?c.dataset.brand:'stellantis';openBrand(brand);}
+function _hubSched(panelId,title){openRef(panelId,'sched',title);var c=document.getElementById('crumb');if(c){c.dataset.back='hub';var b=c.querySelector('.crumb-brand');if(b)b.textContent='Team Hub';}}
+function _goHub(){var nav=null;document.querySelectorAll('.nav-item').forEach(function(n){if(/Team Hub/.test(n.textContent))nav=n;});show('performance',nav);}
 function openLinks(el){var p=document.getElementById('tab-links');if(p&&p.classList.contains('active')){openBrand(document.body.getAttribute('data-brand')||'stellantis');return;}_hidePanels();document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});document.querySelectorAll('.brand-tab').forEach(function(b){b.classList.remove('active');});if(p)p.classList.add('active');if(el)el.classList.add('open');loadLinks();setCrumb(null);_scrollContent();}
 /* ── NISSAN REFERENCE (external sheet, excludes Nissan App 25-26) ── */
 var NISSAN_REF_SHEET='1lXDeN1iUosG_JSADgdWhnkT5J1t3hhwXoSJdbmb4B88';
