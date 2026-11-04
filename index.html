@@ -643,25 +643,20 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-svc-pill{background:var(--green-bg,#e0f2eb);color:var(--green,#0a7a56);border:1px solid rgba(10,122,86,.28);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:.3px}
 @media(max-width:620px){.pacd-d-mgrs{flex-direction:column;gap:18px}.pacd-d-vline{width:auto;height:1px;margin:0}}
 /* ── Team Performance leaderboard ── */
-/* ── Global target banner (ring) ── */
-.gtarget-wrap{max-width:1180px;margin:0 auto 16px}
-.gt-card{display:flex;align-items:center;gap:24px;background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--tc,var(--st));border-radius:16px;box-shadow:var(--shadow);padding:14px 24px;flex-wrap:wrap}
-.gt-ring{position:relative;width:100px;height:100px;flex:0 0 auto}
+/* ── Global target widget (no background, small, left of tabs) ── */
+.gtarget-wrap{flex:0 0 auto}
+.gt-card{display:inline-flex;align-items:center;gap:10px;background:none;border:none;box-shadow:none;padding:0}
+.gt-ring{position:relative;width:46px;height:46px;flex:0 0 auto}
 .gt-ring svg{transform:rotate(-90deg)}
-.gt-ring .gt-bg{fill:none;stroke:var(--surface3);stroke-width:10}
-.gt-ring .gt-fg{fill:none;stroke:var(--tc,var(--st));stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .7s cubic-bezier(.2,.7,.3,1)}
-.gt-ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.gt-p{font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--tc,var(--st));line-height:1}
-.gt-pl{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.05em;margin-top:2px}
-.gt-info{flex:1;min-width:200px}
-.gt-ttl{font-family:var(--font-display);font-weight:800;font-size:15.5px;color:var(--text);display:flex;align-items:center;gap:7px}
-.gt-stats{display:flex;gap:28px;margin-top:11px;flex-wrap:wrap}
-.gt-v{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--text)}
-.gt-v.b{color:var(--tc,var(--st))}
-.gt-k{font-size:10.5px;font-weight:700;color:var(--text3)}
-.gt-card.done{border-left-color:var(--green)}
+.gt-ring .gt-bg{fill:none;stroke:var(--surface3);stroke-width:6}
+.gt-ring .gt-fg{fill:none;stroke:var(--tc,var(--st));stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .7s cubic-bezier(.2,.7,.3,1)}
+.gt-ctr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.gt-p{font-family:var(--font-display);font-weight:800;font-size:12px;color:var(--tc,var(--st));line-height:1}
+.gt-ttl{font-family:var(--font-display);font-weight:800;font-size:12px;color:var(--text);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.gt-line{font-size:10.5px;font-weight:700;color:var(--text3);margin-top:2px;white-space:nowrap}
+.gt-line b{color:var(--tc,var(--st));font-size:12px}
 .gt-card.done .gt-fg{stroke:var(--green)}
-.gt-card.done .gt-p,.gt-card.done .gt-v.b{color:var(--green)}
+.gt-card.done .gt-p,.gt-card.done .gt-line b{color:var(--green)}
 /* ── Booking Volume ── */
 .bk-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1180px;margin:4px auto 14px}
 .bk-modes{display:flex;gap:3px;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:4px}
@@ -1251,8 +1246,10 @@ tr.row-baic:hover td{background:rgba(229,137,26,.10)}
 }
 
 /* ── Brand selector (each brand alone; click = all its info) ── */
-.brands-block{padding:18px 0 4px}
+.brands-block{padding:18px 0 4px;display:flex;align-items:center;gap:16px}
+.brands-block .brand-tabs{flex:1;min-width:0;justify-content:flex-end}
 .brands-block .nav-group-label{padding:0 2px 10px;font-size:11px;letter-spacing:.18em;color:var(--text3)}
+@media(max-width:820px){.brands-block{flex-direction:column;align-items:stretch}.brands-block .brand-tabs{justify-content:flex-start}}
 .brands-tagline{margin:-6px 2px 10px;font-size:11px;font-weight:600;color:var(--text3)}
 .brand-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .brand-tab{cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
@@ -2175,6 +2172,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <div class="motto-bar"><div class="motto-duo"><span class="motto-duo-a" id="mottoA">إنجازكم اليوم يصنع الفرق</span><span class="motto-duo-sep">⭐</span><span class="motto-duo-b" id="mottoB">نفخر بكم دائماً</span></div></div>
 
   <div class="brands-block">
+    <div id="globalTarget" class="gtarget-wrap" style="display:none"></div>
     <div class="brand-tabs">
       <div class="brand-tab brand-ann active" onclick="openAnnouncements(this)">
         <div class="brand-tab-info">
@@ -2261,7 +2259,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
 <!-- Main -->
 <div class="main" style="flex:1;min-width:0;overflow-x:hidden">
-  <div id="globalTarget" class="gtarget-wrap" style="display:none"></div>
   <div id="tab-announcements" class="tab-panel active">
   <!-- ── ANNOUNCEMENTS (always visible to the whole team) ── -->
   <div class="announce-bar">
@@ -4128,14 +4125,12 @@ function _renderGlobalTarget(){
   var pct=BK_TARGET_VAL?Math.min(100,Math.round(allOb/BK_TARGET_VAL*100)):0;
   var remain=Math.max(0,BK_TARGET_VAL-allOb),done=allOb>=BK_TARGET_VAL;
   var tm=_BK_META[BK_TARGET_BRAND]||{n:BK_TARGET_BRAND,c:'var(--st)'};
-  var R=42,CC=2*Math.PI*R,off=CC*(1-pct/100);
+  var R=20,CC=2*Math.PI*R,off=CC*(1-pct/100);
   el.style.display='';
   el.innerHTML='<div class="gt-card'+(done?' done':'')+'" style="--tc:'+tm.c+'">'+
-    '<div class="gt-ring"><svg width="100" height="100"><circle class="gt-bg" cx="50" cy="50" r="'+R+'"/><circle class="gt-fg" cx="50" cy="50" r="'+R+'" stroke-dasharray="'+CC.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg><div class="gt-ctr"><div class="gt-p">'+pct+'%</div><div class="gt-pl">'+(done?'DONE 🎉':'REACHED')+'</div></div></div>'+
-    '<div class="gt-info"><div class="gt-ttl">🎯 '+_annEsc(tm.n)+' Appointments Target</div>'+
-      '<div class="gt-stats"><div class="gt-stat"><div class="gt-v b">'+_nf(allOb)+'</div><div class="gt-k">Current</div></div>'+
-      '<div class="gt-stat"><div class="gt-v">'+_nf(BK_TARGET_VAL)+'</div><div class="gt-k">Target</div></div>'+
-      '<div class="gt-stat"><div class="gt-v">'+_nf(remain)+'</div><div class="gt-k">Left</div></div></div></div>'+
+    '<div class="gt-ring"><svg width="46" height="46"><circle class="gt-bg" cx="23" cy="23" r="'+R+'"/><circle class="gt-fg" cx="23" cy="23" r="'+R+'" stroke-dasharray="'+CC.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg><div class="gt-ctr"><div class="gt-p">'+pct+'%</div></div></div>'+
+    '<div class="gt-info"><div class="gt-ttl">🎯 '+_annEsc(tm.n)+' Target</div>'+
+      '<div class="gt-line"><b>'+_nf(allOb)+'</b> / '+_nf(BK_TARGET_VAL)+(done?' · 🎉':' · '+_nf(remain)+' left')+'</div></div>'+
   '</div>';
 }
 function _perfRender(){
