@@ -4162,7 +4162,8 @@ function _perfRender(){
     if((x.status||'').trim())a.stMap[x.status.trim()]=(a.stMap[x.status.trim()]||0)+1;
     if(!a.team&&x.team)a.team=x.team;if(!a.badge&&x.badge)a.badge=x.badge;});
   var arr=order.map(function(n){var a=g[n];var allZero=(a.total+a.connected+a.whatsapp+a.bookings)===0;
-    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):''};});
+    var absMap={};Object.keys(a.stMap).forEach(function(k){var s=_perfStat(k);if(s.k!=='work'){if(!absMap[s.l])absMap[s.l]={n:0,bg:s.bg};absMap[s.l].n+=a.stMap[k];}});
+    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap};});
   arr.sort(function(x,y){return (y.bookings-x.bookings)||(y.connected-x.connected);});
   if(!arr.length){host.innerHTML='<div class="grid-empty">No data for the selected period</div>';return;}
   var medals=['🥇','🥈','🥉'];
@@ -4171,7 +4172,12 @@ function _perfRender(){
     var days=a.days||1;var dl=days===1?'1 Day':days+' Days';
     var bdg=a.badge||_badgeFor(a.name);
     var pre=(bdg?'Badge '+_annEsc(bdg):(a.team?_annEsc(a.team):''));
-    var tail=a.status?('<span class="perf-stpill '+_perfStat(a.status).bg+'">'+_annEsc(a.status)+'</span>'):dl;
+    var absHtml=Object.keys(a.absences||{}).map(function(l){var o=a.absences[l];return '<span class="perf-stpill '+o.bg+'">'+o.n+' '+(o.n===1?'Day':'Days')+' '+_annEsc(l)+'</span>';}).join(' ');
+    var tail;
+    if(a.days>0)tail=dl+(absHtml?' '+absHtml:'');
+    else if(absHtml)tail=absHtml;
+    else if(a.status)tail='<span class="perf-stpill '+_perfStat(a.status).bg+'">'+_annEsc(a.status)+'</span>';
+    else tail=dl;
     var meta=(pre?pre+' · ':'')+tail;
     return '<div class="perf-row clickable" onclick="_perfOpen('+JSON.stringify(a.name).replace(/"/g,'&quot;')+')" title="Click to view details">'+
       '<div class="perf-rank">'+rank+'</div>'+
