@@ -751,7 +751,12 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .cmp-up{color:var(--green,#0a7a56);font-weight:800}
 .cmp-down{color:var(--red,#d11a3e);font-weight:800}
 .perf-list{display:flex;flex-direction:column;gap:9px}
-.perf-row{display:flex;align-items:center;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow);padding:11px 15px}
+.perf-row{display:flex;align-items:center;flex-wrap:wrap;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow);padding:11px 15px}
+.perf-appts{flex-basis:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:3px;padding-top:9px;border-top:1px solid var(--border)}
+.perf-ap{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--c);border-radius:7px;padding:4px 9px;display:flex;align-items:center;gap:7px}
+.perf-ap-n{font-size:9.5px;font-weight:800;color:var(--c);flex:1;white-space:nowrap}
+.perf-ap-v{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--text)}
+.perf-ap-p{font-size:9.5px;font-weight:700;color:var(--text3)}
 .perf-rank{flex:0 0 auto;width:26px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--text3)}
 .perf-medal{font-size:19px;line-height:1}
 .perf-who{flex:0 0 auto;min-width:168px}
@@ -761,15 +766,26 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .perf-stats{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0}
 @media(max-width:900px){.perf-stats{grid-template-columns:repeat(3,1fr)}.perf-who{min-width:130px}}
 @media(max-width:560px){.perf-stats{grid-template-columns:repeat(2,1fr)}.perf-row{flex-wrap:wrap}}
+/* calm pastel tiles */
 .perf-tile{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:8px 6px;text-align:center}
-.perf-tile.green{background:var(--green-bg)}
-.perf-tile.amber{background:var(--amber-bg)}
+.perf-tile.red{background:rgba(190,90,110,.08)}
+.perf-tile.green{background:rgba(90,160,125,.1)}
+.perf-tile.amber{background:rgba(200,150,80,.1)}
 .perf-tile-l{font-size:10.5px;font-weight:700;color:var(--text3);letter-spacing:.02em}
 .perf-tile-v{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text);margin-top:2px}
-.perf-tile.red .perf-tile-v{color:var(--red)}
-.perf-tile.book{background:linear-gradient(135deg,rgba(18,87,196,.14),rgba(18,87,196,.05));border-color:rgba(18,87,196,.4)}
-.perf-tile.book .perf-tile-v{color:var(--st)}
-.perf-tile.book .perf-tile-l{color:var(--st)}
+.perf-tile.red .perf-tile-v{color:#bd6474}
+.perf-tile.green .perf-tile-v{color:#5a9e78}
+.perf-tile.amber .perf-tile-v{color:#bf944a}
+.perf-tile.book{background:rgba(196,170,120,.18);border-color:rgba(196,170,120,.4)}
+.perf-tile.book .perf-tile-v{color:#a98a52}
+.perf-tile.book .perf-tile-l{color:#a98a52}
+/* appointments by brand */
+.pd-brand-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.pd-brand-row{grid-template-columns:1fr}}
+.pd-brand{background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--bc,var(--text3));border-radius:11px;padding:11px 10px;text-align:center}
+.pd-brand-n{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--bc,var(--text))}
+.pd-brand-v{font-family:var(--font-display);font-weight:800;font-size:23px;color:var(--text);margin-top:4px}
+.pd-brand-p{font-size:11px;font-weight:700;color:var(--text3);margin-top:2px}
 .perf-row.clickable{cursor:pointer;transition:transform .12s,box-shadow .12s}
 .perf-row.clickable:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(15,23,42,.08);border-color:var(--border2)}
 .perf-row-caret{color:var(--text3);font-size:14px;padding:0 1px;align-self:center}
@@ -3994,9 +4010,11 @@ function _perfISO(v){v=String(v||'').trim();if(!v)return '';
 function _perfParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(!rows.length)return [];
-  var H={name:-1,date:-1,team:-1,status:-1,total:-1,connected:-1,whatsapp:-1,pct:-1,bookings:-1,badge:-1};
+  var H={name:-1,date:-1,team:-1,status:-1,total:-1,connected:-1,whatsapp:-1,pct:-1,bookings:-1,badge:-1,app:{nissan:-1,stellantis:-1,baic:-1}};
   (rows[0]||[]).forEach(function(c,i){var t=(c||'').trim().toLowerCase();if(!t)return;
     if(H.badge<0&&/badge|بادج|الرقم الوظيفي|رقم الموظف|رقم وظيفي|employee\s*(id|no|number)|emp\s*id/.test(t)){H.badge=i;return;}
+    if(!/note|ملاحظ/.test(t)){var _br=/nissan|نيسان/.test(t)?'nissan':/stellantis|ستلانت|ستيلانت/.test(t)?'stellantis':/baic|بايك/.test(t)?'baic':'';
+      if(_br&&/\bapp\b|app\.|appoint|موعد|مواعيد/.test(t)&&H.app[_br]<0){H.app[_br]=i;return;}}
     if(H.pct<0&&/connect.*%|%|\bنسبة/.test(t)){H.pct=i;return;}
     if(/connected/.test(t)&&/whats|\+/.test(t))return; /* skip "Connected Calls + Whatsapp" combined column */
     if(H.connected<0&&/connected|موصول|متصل/.test(t)){H.connected=i;return;}
@@ -4015,7 +4033,8 @@ function _perfParse(rows){
   for(var i=1;i<rows.length;i++){var r=rows[i];var name=g(r,H.name);if(!name||/^total|grand|^اجمالي|المجموع/i.test(name))continue;
     out.push({name:name,date:_perfISO(g(r,H.date)),team:g(r,H.team),status:g(r,H.status),badge:g(r,H.badge),
       total:num(g(r,H.total)),connected:num(g(r,H.connected)),whatsapp:num(g(r,H.whatsapp)),
-      pct:parseFloat(String(g(r,H.pct)).replace(/[^0-9.]/g,''))||0,bookings:num(g(r,H.bookings))});
+      pct:parseFloat(String(g(r,H.pct)).replace(/[^0-9.]/g,''))||0,bookings:num(g(r,H.bookings)),
+      app:{nissan:num(g(r,H.app.nissan)),stellantis:num(g(r,H.app.stellantis)),baic:num(g(r,H.app.baic))}});
   }
   return out;
 }
@@ -4042,6 +4061,9 @@ async function loadPerformance(){
   }
 }
 function _nf(n){return (+n||0).toLocaleString();}
+function _perfBrandSplit(app){app=app||{};var ni=app.nissan||0,st=app.stellantis||0,ba=app.baic||0,tot=ni+st+ba;if(tot<=0)return '';
+  var box=function(n,v,c){return '<div class="perf-ap" style="--c:'+c+'"><span class="perf-ap-n">'+n+'</span><span class="perf-ap-v">'+_nf(v)+'</span><span class="perf-ap-p">'+Math.round(v/tot*100)+'%</span></div>';};
+  return '<div class="perf-appts">'+box('Nissan',ni,'var(--ni)')+box('Stellantis',st,'var(--st)')+box('BAIC',ba,'var(--baic)')+'</div>';}
 var PERF_BADGES={ghufran:'21270',raghad:'20149',faridah:'19837',reem:'23445',walaa:'25441',wafa:'36022',manal:'36071'};
 function _badgeFor(name){var n=(name||'').toLowerCase();for(var k in PERF_BADGES){if(n.indexOf(k)>=0)return PERF_BADGES[k];}return '';}
 function _pickStatus(stMap){var keys=Object.keys(stMap||{});if(!keys.length)return '';var non=keys.filter(function(k){return !/present|حاضر/i.test(k);});var pool=non.length?non:keys;pool.sort(function(a,b){return stMap[b]-stMap[a];});return pool[0];}
@@ -4156,14 +4178,15 @@ function _perfRender(){
   if(_PERF_SEL){_perfDetailRender(host,_PERF_SEL,from,to);return;}
   var recs=_PERF.filter(function(x){if(agent&&x.name!==agent)return false;if(x.date){if(from&&x.date<from)return false;if(to&&x.date>to)return false;}return true;});
   var g={},order=[];
-  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{},stMap:{}};order.push(x.name);}
+  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{},stMap:{},app:{nissan:0,stellantis:0,baic:0}};order.push(x.name);}
     var a=g[x.name];a.total+=x.total;a.connected+=x.connected;a.whatsapp+=x.whatsapp;a.bookings+=x.bookings;
+    if(x.app){a.app.nissan+=x.app.nissan||0;a.app.stellantis+=x.app.stellantis||0;a.app.baic+=x.app.baic||0;}
     if(x.date&&(x.total||x.connected||x.bookings||/present|حاضر/i.test(x.status)))a.days[x.date]=1;
     if((x.status||'').trim())a.stMap[x.status.trim()]=(a.stMap[x.status.trim()]||0)+1;
     if(!a.team&&x.team)a.team=x.team;if(!a.badge&&x.badge)a.badge=x.badge;});
   var arr=order.map(function(n){var a=g[n];var allZero=(a.total+a.connected+a.whatsapp+a.bookings)===0;
     var absMap={};Object.keys(a.stMap).forEach(function(k){var s=_perfStat(k);if(s.k!=='work'){if(!absMap[s.l])absMap[s.l]={n:0,bg:s.bg};absMap[s.l].n+=a.stMap[k];}});
-    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap};});
+    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap,app:a.app};});
   arr.sort(function(x,y){return (y.bookings-x.bookings)||(y.connected-x.connected);});
   if(!arr.length){host.innerHTML='<div class="grid-empty">No data for the selected period</div>';return;}
   var medals=['🥇','🥈','🥉'];
@@ -4188,7 +4211,7 @@ function _perfRender(){
         '<div class="perf-tile green"><div class="perf-tile-l">WhatsApp</div><div class="perf-tile-v">'+_nf(a.whatsapp)+'</div></div>'+
         '<div class="perf-tile amber"><div class="perf-tile-l">Connect %</div><div class="perf-tile-v">'+a.pct+'%</div></div>'+
         '<div class="perf-tile book"><div class="perf-tile-l">Bookings</div><div class="perf-tile-v">'+_nf(a.bookings)+'</div></div>'+
-      '</div><div class="perf-row-caret">›</div></div>';
+      '</div><div class="perf-row-caret">›</div>'+_perfBrandSplit(a.app)+'</div>';
   }).join('')+'</div>';
   host.innerHTML='<div class="perf-single">'+listHtml+'</div>';
   var sub=document.getElementById('perfSub');if(sub)sub.textContent=arr.length+' agents'+((from||to)?(' · '+(from||'…')+' → '+(to||'…')):'');
@@ -4232,21 +4255,27 @@ function _perfDetailRender(host,name,from,to){
   '</div>'+body;
   var sub=document.getElementById('perfSub');if(sub)sub.textContent=name;
 }
+function _pdBrand(n,v,den,c){var p=den?Math.round(v/den*100):0;return '<div class="pd-brand" style="--bc:'+c+'"><div class="pd-brand-n">'+n+'</div><div class="pd-brand-v">'+_nf(v)+'</div><div class="pd-brand-p">'+p+'% of total</div></div>';}
 function _perfDaily(recs){
-  var tot={total:0,connected:0,whatsapp:0,bookings:0},wd={};
+  var tot={total:0,connected:0,whatsapp:0,bookings:0},wd={},app={nissan:0,stellantis:0,baic:0};
   recs.forEach(function(r){tot.total+=r.total;tot.connected+=r.connected;tot.whatsapp+=r.whatsapp;tot.bookings+=r.bookings;
+    if(r.app){app.nissan+=r.app.nissan||0;app.stellantis+=r.app.stellantis||0;app.baic+=r.app.baic||0;}
     var s=_perfStat(r.status);if(r.date&&(s.k==='work'||r.total||r.connected||r.bookings))wd[r.date]=1;});
   var pct=tot.total?Math.round(tot.connected/tot.total*100):0;
   var tiles='<div class="pd-tiles">'+_pdTile('Total Calls',_nf(tot.total),'red')+_pdTile('Connected',_nf(tot.connected),'red')+
     _pdTile('WhatsApp',_nf(tot.whatsapp),'green')+_pdTile('Connect %',pct+'%','amber')+_pdTile('Bookings',_nf(tot.bookings),'book')+
     _pdTile('Working Days',Object.keys(wd).length,'')+'</div>';
+  var appDen=tot.bookings||(app.nissan+app.stellantis+app.baic);
+  var brandCard='<div class="pd-card"><div class="pd-card-t">📍 Appointments by Brand</div><div class="pd-brand-row">'+
+    _pdBrand('Nissan',app.nissan,appDen,'var(--ni)')+_pdBrand('Stellantis',app.stellantis,appDen,'var(--st)')+_pdBrand('BAIC',app.baic,appDen,'var(--baic)')+
+  '</div></div>';
   var rows=recs.map(function(r){var s=_perfStat(r.status),work=s.k==='work';var num=function(v){return work?_nf(v):'—';};
     var pc=work&&r.total?Math.round(r.connected/r.total*100)+'%':'—';
     return '<tr'+(work?'':' class="off-row"')+'><td>'+(r.date?_niceDate(r.date):'—')+'</td><td>'+(r.date?_wd(r.date):'')+'</td>'+
       '<td class="c-st"><span class="pd-pill '+s.bg+'">'+_annEsc(s.l)+'</span></td>'+
       '<td>'+num(r.total)+'</td><td>'+num(r.connected)+'</td><td>'+num(r.whatsapp)+'</td><td>'+pc+'</td><td>'+num(r.bookings)+'</td></tr>';}).join('');
   var totRow='<tr class="tot-row"><td>Total</td><td></td><td></td><td>'+_nf(tot.total)+'</td><td>'+_nf(tot.connected)+'</td><td>'+_nf(tot.whatsapp)+'</td><td>'+pct+'%</td><td>'+_nf(tot.bookings)+'</td></tr>';
-  return tiles+'<div class="pd-card"><div class="pd-card-t">📅 Daily Breakdown</div><div class="pd-tbl-wrap"><table class="pd-tbl">'+
+  return tiles+brandCard+'<div class="pd-card"><div class="pd-card-t">📅 Daily Breakdown</div><div class="pd-tbl-wrap"><table class="pd-tbl">'+
     '<thead><tr><th>Date</th><th>Day</th><th>Status</th><th>Total Calls</th><th>Connected</th><th>WhatsApp</th><th>Connect %</th><th>Bookings</th></tr></thead>'+
     '<tbody>'+rows+totRow+'</tbody></table></div></div>';
 }
