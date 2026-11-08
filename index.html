@@ -752,11 +752,16 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .cmp-down{color:var(--red,#d11a3e);font-weight:800}
 .perf-list{display:flex;flex-direction:column;gap:9px}
 .perf-row{display:flex;align-items:center;flex-wrap:wrap;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow);padding:11px 15px}
-.perf-appts{flex-basis:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:3px;padding-top:9px;border-top:1px solid var(--border)}
-.perf-ap{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--c);border-radius:7px;padding:4px 9px;display:flex;align-items:center;gap:7px}
-.perf-ap-n{font-size:9.5px;font-weight:800;color:var(--c);flex:1;white-space:nowrap}
-.perf-ap-v{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--text)}
-.perf-ap-p{font-size:9.5px;font-weight:700;color:var(--text3)}
+.perf-appts{flex-basis:100%;margin-top:3px;padding-top:9px;border-top:1px solid var(--border)}
+.perf-appts-ttl{font-size:10px;font-weight:800;color:var(--text3);letter-spacing:.02em;margin-bottom:6px}
+.perf-appts-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.perf-ap{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--c);border-radius:8px;padding:6px 10px}
+.perf-ap-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.perf-ap-n{font-size:10.5px;font-weight:800;color:var(--c);white-space:nowrap}
+.perf-ap-p{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text)}
+.perf-ap-sub{font-size:9.5px;font-weight:700;color:var(--text3);margin-top:2px}
+.perf-ap-sub b{color:var(--text);font-weight:800}
+.pd-brand-p b{color:var(--text);font-weight:800}
 .perf-rank{flex:0 0 auto;width:26px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--text3)}
 .perf-medal{font-size:19px;line-height:1}
 .perf-who{flex:0 0 auto;min-width:168px}
@@ -814,6 +819,7 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pd-tbl .c-st{font-weight:700}
 .pd-pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
 .att-work-bg{background:var(--green-bg);color:var(--green)}
+.att-remote-bg{background:rgba(45,127,240,.14);color:#2d7ff0}
 .att-vac-bg{background:rgba(234,138,10,.14);color:var(--amber)}
 .att-sick-bg{background:rgba(195,0,47,.12);color:var(--red)}
 .att-off-bg{background:var(--surface3);color:var(--text3)}
@@ -831,6 +837,7 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pd-cal-cell.empty{border:none;background:transparent}
 .pd-cal-cell .cd-b{font-size:9px;font-weight:700;margin-top:1px}
 .pd-cal-cell.att-work{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,.3)}
+.pd-cal-cell.att-remote{background:rgba(45,127,240,.12);color:#2d7ff0;border-color:rgba(45,127,240,.3)}
 .pd-cal-cell.att-vac{background:rgba(234,138,10,.12);color:var(--amber);border-color:rgba(234,138,10,.3)}
 .pd-cal-cell.att-sick{background:rgba(195,0,47,.1);color:var(--red);border-color:rgba(195,0,47,.3)}
 .pd-cal-cell.att-off{background:var(--surface2);color:var(--text3)}
@@ -4010,11 +4017,14 @@ function _perfISO(v){v=String(v||'').trim();if(!v)return '';
 function _perfParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(!rows.length)return [];
-  var H={name:-1,date:-1,team:-1,status:-1,total:-1,connected:-1,whatsapp:-1,pct:-1,bookings:-1,badge:-1,app:{nissan:-1,stellantis:-1,baic:-1}};
+  var H={name:-1,date:-1,team:-1,status:-1,total:-1,connected:-1,whatsapp:-1,pct:-1,bookings:-1,badge:-1,app:{nissan:-1,stellantis:-1,baic:-1},task:{nissan:-1,stellantis:-1,baic:-1}};
   (rows[0]||[]).forEach(function(c,i){var t=(c||'').trim().toLowerCase();if(!t)return;
     if(H.badge<0&&/badge|بادج|الرقم الوظيفي|رقم الموظف|رقم وظيفي|employee\s*(id|no|number)|emp\s*id/.test(t)){H.badge=i;return;}
     if(!/note|ملاحظ/.test(t)){var _br=/nissan|نيسان/.test(t)?'nissan':/stellantis|ستلانت|ستيلانت/.test(t)?'stellantis':/baic|بايك/.test(t)?'baic':'';
-      if(_br&&/\bapp\b|app\.|appoint|موعد|مواعيد/.test(t)&&H.app[_br]<0){H.app[_br]=i;return;}}
+      if(_br){
+        if(/task|مهام|مهمة/.test(t)&&H.task[_br]<0){H.task[_br]=i;return;}
+        if(/\bapp\b|app\.|appoint|موعد|مواعيد/.test(t)&&H.app[_br]<0){H.app[_br]=i;return;}
+      }}
     if(H.pct<0&&/connect.*%|%|\bنسبة/.test(t)){H.pct=i;return;}
     if(/connected/.test(t)&&/whats|\+/.test(t))return; /* skip "Connected Calls + Whatsapp" combined column */
     if(H.connected<0&&/connected|موصول|متصل/.test(t)){H.connected=i;return;}
@@ -4034,7 +4044,8 @@ function _perfParse(rows){
     out.push({name:name,date:_perfISO(g(r,H.date)),team:g(r,H.team),status:g(r,H.status),badge:g(r,H.badge),
       total:num(g(r,H.total)),connected:num(g(r,H.connected)),whatsapp:num(g(r,H.whatsapp)),
       pct:parseFloat(String(g(r,H.pct)).replace(/[^0-9.]/g,''))||0,bookings:num(g(r,H.bookings)),
-      app:{nissan:num(g(r,H.app.nissan)),stellantis:num(g(r,H.app.stellantis)),baic:num(g(r,H.app.baic))}});
+      app:{nissan:num(g(r,H.app.nissan)),stellantis:num(g(r,H.app.stellantis)),baic:num(g(r,H.app.baic))},
+      task:{nissan:num(g(r,H.task.nissan)),stellantis:num(g(r,H.task.stellantis)),baic:num(g(r,H.task.baic))}});
   }
   return out;
 }
@@ -4061,9 +4072,12 @@ async function loadPerformance(){
   }
 }
 function _nf(n){return (+n||0).toLocaleString();}
-function _perfBrandSplit(app){app=app||{};var ni=app.nissan||0,st=app.stellantis||0,ba=app.baic||0,tot=ni+st+ba;if(tot<=0)return '';
-  var box=function(n,v,c){return '<div class="perf-ap" style="--c:'+c+'"><span class="perf-ap-n">'+n+'</span><span class="perf-ap-v">'+_nf(v)+'</span><span class="perf-ap-p">'+Math.round(v/tot*100)+'%</span></div>';};
-  return '<div class="perf-appts">'+box('Nissan',ni,'var(--ni)')+box('Stellantis',st,'var(--st)')+box('BAIC',ba,'var(--baic)')+'</div>';}
+function _perfBrandSplit(app,task){app=app||{};task=task||{};
+  var defs=[['Nissan','nissan','var(--ni)'],['Stellantis','stellantis','var(--st)'],['BAIC','baic','var(--baic)']];
+  if(!defs.some(function(d){return (app[d[1]]||0)>0||(task[d[1]]||0)>0;}))return '';
+  var box=function(n,k,c){var v=app[k]||0,tk=task[k]||0,p=tk?Math.round(v/tk*100):0;
+    return '<div class="perf-ap" style="--c:'+c+'"><div class="perf-ap-top"><span class="perf-ap-n">'+n+'</span><span class="perf-ap-p">'+(tk?p+'%':'—')+'</span></div><div class="perf-ap-sub"><b>'+_nf(v)+'</b> appts · <b>'+_nf(tk)+'</b> tasks</div></div>';};
+  return '<div class="perf-appts"><div class="perf-appts-ttl">📍 Appointments · % of tasks</div><div class="perf-appts-row">'+box('Nissan','nissan','var(--ni)')+box('Stellantis','stellantis','var(--st)')+box('BAIC','baic','var(--baic)')+'</div></div>';}
 var PERF_BADGES={ghufran:'21270',raghad:'20149',faridah:'19837',reem:'23445',walaa:'25441',wafa:'36022',manal:'36071'};
 function _badgeFor(name){var n=(name||'').toLowerCase();for(var k in PERF_BADGES){if(n.indexOf(k)>=0)return PERF_BADGES[k];}return '';}
 function _pickStatus(stMap){var keys=Object.keys(stMap||{});if(!keys.length)return '';var non=keys.filter(function(k){return !/present|حاضر/i.test(k);});var pool=non.length?non:keys;pool.sort(function(a,b){return stMap[b]-stMap[a];});return pool[0];}
@@ -4178,15 +4192,16 @@ function _perfRender(){
   if(_PERF_SEL){_perfDetailRender(host,_PERF_SEL,from,to);return;}
   var recs=_PERF.filter(function(x){if(agent&&x.name!==agent)return false;if(x.date){if(from&&x.date<from)return false;if(to&&x.date>to)return false;}return true;});
   var g={},order=[];
-  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{},stMap:{},app:{nissan:0,stellantis:0,baic:0}};order.push(x.name);}
+  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{},stMap:{},app:{nissan:0,stellantis:0,baic:0},task:{nissan:0,stellantis:0,baic:0}};order.push(x.name);}
     var a=g[x.name];a.total+=x.total;a.connected+=x.connected;a.whatsapp+=x.whatsapp;a.bookings+=x.bookings;
     if(x.app){a.app.nissan+=x.app.nissan||0;a.app.stellantis+=x.app.stellantis||0;a.app.baic+=x.app.baic||0;}
-    if(x.date&&(x.total||x.connected||x.bookings||/present|حاضر/i.test(x.status)))a.days[x.date]=1;
+    if(x.task){a.task.nissan+=x.task.nissan||0;a.task.stellantis+=x.task.stellantis||0;a.task.baic+=x.task.baic||0;}
+    if(x.date&&(x.total||x.connected||x.bookings||/present|حاضر|remot|بعد/i.test(x.status)))a.days[x.date]=1;
     if((x.status||'').trim())a.stMap[x.status.trim()]=(a.stMap[x.status.trim()]||0)+1;
     if(!a.team&&x.team)a.team=x.team;if(!a.badge&&x.badge)a.badge=x.badge;});
   var arr=order.map(function(n){var a=g[n];var allZero=(a.total+a.connected+a.whatsapp+a.bookings)===0;
-    var absMap={};Object.keys(a.stMap).forEach(function(k){var s=_perfStat(k);if(s.k!=='work'){if(!absMap[s.l])absMap[s.l]={n:0,bg:s.bg};absMap[s.l].n+=a.stMap[k];}});
-    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap,app:a.app};});
+    var absMap={};Object.keys(a.stMap).forEach(function(k){var s=_perfStat(k);if(!_perfIsWork(s)){if(!absMap[s.l])absMap[s.l]={n:0,bg:s.bg};absMap[s.l].n+=a.stMap[k];}});
+    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,noAns:a.total?Math.round((a.total-a.connected)/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap,app:a.app,task:a.task};});
   arr.sort(function(x,y){return (y.bookings-x.bookings)||(y.connected-x.connected);});
   if(!arr.length){host.innerHTML='<div class="grid-empty">No data for the selected period</div>';return;}
   var medals=['🥇','🥈','🥉'];
@@ -4209,9 +4224,9 @@ function _perfRender(){
         '<div class="perf-tile red"><div class="perf-tile-l">Total Calls</div><div class="perf-tile-v">'+_nf(a.total)+'</div></div>'+
         '<div class="perf-tile red"><div class="perf-tile-l">Connected</div><div class="perf-tile-v">'+_nf(a.connected)+'</div></div>'+
         '<div class="perf-tile green"><div class="perf-tile-l">WhatsApp</div><div class="perf-tile-v">'+_nf(a.whatsapp)+'</div></div>'+
-        '<div class="perf-tile amber"><div class="perf-tile-l">Connect %</div><div class="perf-tile-v">'+a.pct+'%</div></div>'+
-        '<div class="perf-tile book"><div class="perf-tile-l">Bookings</div><div class="perf-tile-v">'+_nf(a.bookings)+'</div></div>'+
-      '</div><div class="perf-row-caret">›</div>'+_perfBrandSplit(a.app)+'</div>';
+        '<div class="perf-tile amber"><div class="perf-tile-l">No Answer %</div><div class="perf-tile-v">'+a.noAns+'%</div></div>'+
+        '<div class="perf-tile book"><div class="perf-tile-l">Total Bookings</div><div class="perf-tile-v">'+_nf(a.bookings)+'</div></div>'+
+      '</div><div class="perf-row-caret">›</div>'+_perfBrandSplit(a.app,a.task)+'</div>';
   }).join('')+'</div>';
   host.innerHTML='<div class="perf-single">'+listHtml+'</div>';
   var sub=document.getElementById('perfSub');if(sub)sub.textContent=arr.length+' agents'+((from||to)?(' · '+(from||'…')+' → '+(to||'…')):'');
@@ -4231,9 +4246,11 @@ function _wd(iso){if(!iso)return '';var d=new Date(iso+'T00:00:00');return isNaN
 function _perfStat(s){var t=(s||'').toLowerCase().trim();
   if(/sick|مرض/.test(t))return {k:'sick',c:'att-sick',bg:'att-sick-bg',l:'Sick Leave'};
   if(/vacation|annual|leave|إجاز|اجاز/.test(t))return {k:'vac',c:'att-vac',bg:'att-vac-bg',l:'Vacation'};
+  if(/remot|عن بعد|ريموت|بعد/.test(t))return {k:'remote',c:'att-remote',bg:'att-remote-bg',l:'Remotely',work:true};
   if(/off|عطل|راحة/.test(t))return {k:'off',c:'att-off',bg:'att-off-bg',l:'Off Day'};
   if(/absent|غائب|غياب/.test(t))return {k:'abs',c:'att-abs',bg:'att-abs-bg',l:'Absent'};
-  return {k:'work',c:'att-work',bg:'att-work-bg',l:(s&&s.trim())||'Present'};}
+  return {k:'work',c:'att-work',bg:'att-work-bg',l:(s&&s.trim())||'Present',work:true};}
+function _perfIsWork(s){return s.k==='work'||s.k==='remote';}
 function _pdTile(l,v,cls){return '<div class="perf-tile '+(cls||'')+'"><div class="perf-tile-l">'+l+'</div><div class="perf-tile-v">'+v+'</div></div>';}
 function _attTile(v,l,color){return '<div class="pd-att-tile"><div class="v">'+(v||0)+'</div><div class="l"><span class="pd-dot" style="background:'+color+'"></span>'+l+'</div></div>';}
 function _perfDetailRender(host,name,from,to){
@@ -4255,34 +4272,34 @@ function _perfDetailRender(host,name,from,to){
   '</div>'+body;
   var sub=document.getElementById('perfSub');if(sub)sub.textContent=name;
 }
-function _pdBrand(n,v,den,c){var p=den?Math.round(v/den*100):0;return '<div class="pd-brand" style="--bc:'+c+'"><div class="pd-brand-n">'+n+'</div><div class="pd-brand-v">'+_nf(v)+'</div><div class="pd-brand-p">'+p+'% of total</div></div>';}
+function _pdBrand(n,v,tk,c){var p=tk?Math.round(v/tk*100):0;return '<div class="pd-brand" style="--bc:'+c+'"><div class="pd-brand-n">'+n+'</div><div class="pd-brand-v">'+(tk?p+'%':'—')+'</div><div class="pd-brand-p"><b>'+_nf(v)+'</b> appts · <b>'+_nf(tk)+'</b> tasks</div></div>';}
 function _perfDaily(recs){
-  var tot={total:0,connected:0,whatsapp:0,bookings:0},wd={},app={nissan:0,stellantis:0,baic:0};
+  var tot={total:0,connected:0,whatsapp:0,bookings:0},wd={},app={nissan:0,stellantis:0,baic:0},task={nissan:0,stellantis:0,baic:0};
   recs.forEach(function(r){tot.total+=r.total;tot.connected+=r.connected;tot.whatsapp+=r.whatsapp;tot.bookings+=r.bookings;
     if(r.app){app.nissan+=r.app.nissan||0;app.stellantis+=r.app.stellantis||0;app.baic+=r.app.baic||0;}
-    var s=_perfStat(r.status);if(r.date&&(s.k==='work'||r.total||r.connected||r.bookings))wd[r.date]=1;});
-  var pct=tot.total?Math.round(tot.connected/tot.total*100):0;
+    if(r.task){task.nissan+=r.task.nissan||0;task.stellantis+=r.task.stellantis||0;task.baic+=r.task.baic||0;}
+    var s=_perfStat(r.status);if(r.date&&(_perfIsWork(s)||r.total||r.connected||r.bookings))wd[r.date]=1;});
+  var pct=tot.total?Math.round(tot.connected/tot.total*100):0;var noAns=tot.total?Math.round((tot.total-tot.connected)/tot.total*100):0;
   var tiles='<div class="pd-tiles">'+_pdTile('Total Calls',_nf(tot.total),'red')+_pdTile('Connected',_nf(tot.connected),'red')+
-    _pdTile('WhatsApp',_nf(tot.whatsapp),'green')+_pdTile('Connect %',pct+'%','amber')+_pdTile('Bookings',_nf(tot.bookings),'book')+
+    _pdTile('WhatsApp',_nf(tot.whatsapp),'green')+_pdTile('No Answer %',noAns+'%','amber')+_pdTile('Total Bookings',_nf(tot.bookings),'book')+
     _pdTile('Working Days',Object.keys(wd).length,'')+'</div>';
-  var appDen=tot.bookings||(app.nissan+app.stellantis+app.baic);
-  var brandCard='<div class="pd-card"><div class="pd-card-t">📍 Appointments by Brand</div><div class="pd-brand-row">'+
-    _pdBrand('Nissan',app.nissan,appDen,'var(--ni)')+_pdBrand('Stellantis',app.stellantis,appDen,'var(--st)')+_pdBrand('BAIC',app.baic,appDen,'var(--baic)')+
+  var brandCard='<div class="pd-card"><div class="pd-card-t">📍 Appointments · % of tasks</div><div class="pd-brand-row">'+
+    _pdBrand('Nissan',app.nissan,task.nissan,'var(--ni)')+_pdBrand('Stellantis',app.stellantis,task.stellantis,'var(--st)')+_pdBrand('BAIC',app.baic,task.baic,'var(--baic)')+
   '</div></div>';
-  var rows=recs.map(function(r){var s=_perfStat(r.status),work=s.k==='work';var num=function(v){return work?_nf(v):'—';};
-    var pc=work&&r.total?Math.round(r.connected/r.total*100)+'%':'—';
+  var rows=recs.map(function(r){var s=_perfStat(r.status),work=_perfIsWork(s);var num=function(v){return work?_nf(v):'—';};
+    var pc=work&&r.total?Math.round((r.total-r.connected)/r.total*100)+'%':'—';
     return '<tr'+(work?'':' class="off-row"')+'><td>'+(r.date?_niceDate(r.date):'—')+'</td><td>'+(r.date?_wd(r.date):'')+'</td>'+
       '<td class="c-st"><span class="pd-pill '+s.bg+'">'+_annEsc(s.l)+'</span></td>'+
       '<td>'+num(r.total)+'</td><td>'+num(r.connected)+'</td><td>'+num(r.whatsapp)+'</td><td>'+pc+'</td><td>'+num(r.bookings)+'</td></tr>';}).join('');
-  var totRow='<tr class="tot-row"><td>Total</td><td></td><td></td><td>'+_nf(tot.total)+'</td><td>'+_nf(tot.connected)+'</td><td>'+_nf(tot.whatsapp)+'</td><td>'+pct+'%</td><td>'+_nf(tot.bookings)+'</td></tr>';
+  var totRow='<tr class="tot-row"><td>Total</td><td></td><td></td><td>'+_nf(tot.total)+'</td><td>'+_nf(tot.connected)+'</td><td>'+_nf(tot.whatsapp)+'</td><td>'+noAns+'%</td><td>'+_nf(tot.bookings)+'</td></tr>';
   return tiles+brandCard+'<div class="pd-card"><div class="pd-card-t">📅 Daily Breakdown</div><div class="pd-tbl-wrap"><table class="pd-tbl">'+
-    '<thead><tr><th>Date</th><th>Day</th><th>Status</th><th>Total Calls</th><th>Connected</th><th>WhatsApp</th><th>Connect %</th><th>Bookings</th></tr></thead>'+
+    '<thead><tr><th>Date</th><th>Day</th><th>Status</th><th>Total Calls</th><th>Connected</th><th>WhatsApp</th><th>No Answer %</th><th>Total Bookings</th></tr></thead>'+
     '<tbody>'+rows+totRow+'</tbody></table></div></div>';
 }
 function _perfAtt(recs){
-  var cnt={work:0,vac:0,sick:0,off:0,abs:0},byDate={};
+  var cnt={work:0,remote:0,vac:0,sick:0,off:0,abs:0},byDate={};
   recs.forEach(function(r){if(!r.date)return;var s=_perfStat(r.status);byDate[r.date]=s;cnt[s.k]=(cnt[s.k]||0)+1;});
-  var sum='<div class="pd-att-sum">'+_attTile(cnt.work,'Present','#16a34a')+_attTile(cnt.vac,'Vacation','#ea8a0a')+
+  var sum='<div class="pd-att-sum">'+_attTile(cnt.work,'Office','#16a34a')+_attTile(cnt.remote,'Remotely','#2d7ff0')+_attTile(cnt.vac,'Vacation','#ea8a0a')+
     _attTile(cnt.sick,'Sick Leave','#c3002f')+_attTile(cnt.off,'Off Day','#94a3b8')+_attTile(cnt.abs,'Absent','#8a0014')+'</div>';
   var months={};Object.keys(byDate).forEach(function(d){var m=d.slice(0,7);(months[m]=months[m]||1);});
   var mk=Object.keys(months).sort();
@@ -4295,20 +4312,20 @@ function _calMonth(m,byDate){
   var dows=_DOW.map(function(d){return '<div class="pd-cal-dow">'+d+'</div>';}).join('');
   var cells='';for(var i=0;i<startDow;i++)cells+='<div class="pd-cal-cell empty"></div>';
   for(var d=1;d<=dim;d++){var iso=y+'-'+('0'+mo).slice(-2)+'-'+('0'+d).slice(-2);var s=byDate[iso];
-    var sh=s?(s.k==='vac'?'Vac':s.k==='sick'?'Sick':s.k==='off'?'Off':s.k==='abs'?'Abs':''):'';
+    var sh=s?(s.k==='vac'?'Vac':s.k==='sick'?'Sick':s.k==='off'?'Off':s.k==='abs'?'Abs':s.k==='remote'?'Rem':''):'';
     cells+='<div class="pd-cal-cell'+(s?' '+s.c:'')+'">'+d+(sh?'<span class="cd-b">'+sh+'</span>':'')+'</div>';}
   return '<div class="pd-cal"><div class="pd-cal-mo">'+_MONL[mo-1]+' '+y+'</div><div class="pd-cal-grid">'+dows+cells+'</div></div>';
 }
 function _perfMonthly(recs){
-  var months={};recs.forEach(function(r){if(!r.date)return;var m=r.date.slice(0,7);var o=months[m]=months[m]||{total:0,connected:0,whatsapp:0,bookings:0,work:0,vac:0,sick:0,off:0,abs:0,days:{}};
-    o.total+=r.total;o.connected+=r.connected;o.whatsapp+=r.whatsapp;o.bookings+=r.bookings;var s=_perfStat(r.status);o[s.k]=(o[s.k]||0)+1;if(s.k==='work')o.days[r.date]=1;});
+  var months={};recs.forEach(function(r){if(!r.date)return;var m=r.date.slice(0,7);var o=months[m]=months[m]||{total:0,connected:0,whatsapp:0,bookings:0,work:0,remote:0,vac:0,sick:0,off:0,abs:0,days:{}};
+    o.total+=r.total;o.connected+=r.connected;o.whatsapp+=r.whatsapp;o.bookings+=r.bookings;var s=_perfStat(r.status);o[s.k]=(o[s.k]||0)+1;if(_perfIsWork(s))o.days[r.date]=1;});
   var mk=Object.keys(months).sort().reverse();
   if(!mk.length)return '<div class="grid-empty">No data</div>';
-  return mk.map(function(m){var o=months[m];var pct=o.total?Math.round(o.connected/o.total*100):0;var nm=_MONL[+m.slice(5,7)-1]+' '+m.slice(0,4);
+  return mk.map(function(m){var o=months[m];var noAns=o.total?Math.round((o.total-o.connected)/o.total*100):0;var nm=_MONL[+m.slice(5,7)-1]+' '+m.slice(0,4);
     return '<div class="pd-card"><div class="pd-card-t">📊 '+nm+'</div><div class="pd-tiles">'+
       _pdTile('Total Calls',_nf(o.total),'red')+_pdTile('Connected',_nf(o.connected),'red')+_pdTile('WhatsApp',_nf(o.whatsapp),'green')+
-      _pdTile('Connect %',pct+'%','amber')+_pdTile('Bookings',_nf(o.bookings),'book')+_pdTile('Worked Days',Object.keys(o.days).length,'')+'</div>'+
-      '<div class="pd-att-sum">'+_attTile(o.work,'Present','#16a34a')+_attTile(o.vac,'Vacation','#ea8a0a')+
+      _pdTile('No Answer %',noAns+'%','amber')+_pdTile('Total Bookings',_nf(o.bookings),'book')+_pdTile('Worked Days',Object.keys(o.days).length,'')+'</div>'+
+      '<div class="pd-att-sum">'+_attTile(o.work,'Office','#16a34a')+_attTile(o.remote,'Remotely','#2d7ff0')+_attTile(o.vac,'Vacation','#ea8a0a')+
       _attTile(o.sick,'Sick Leave','#c3002f')+_attTile(o.off,'Off Day','#94a3b8')+_attTile(o.abs,'Absent','#8a0014')+'</div></div>';}).join('');
 }
 var _MONS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
