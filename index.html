@@ -703,7 +703,27 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .bk-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1180px;margin:0 auto}
 @media(max-width:860px){.bk-cards{grid-template-columns:1fr}}
 .bk-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--bkc,var(--text3));border-radius:13px;box-shadow:var(--shadow);padding:15px 17px}
-.bk-card-h{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--bkc,var(--text));margin-bottom:13px}
+.bk-card-h{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--bkc,var(--text));margin-bottom:13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.bk-card-h[onclick]{cursor:pointer}
+.bk-ch-caret{color:var(--text3);flex:0 0 auto;transition:transform .2s}
+.bk-card.open .bk-ch-caret{transform:rotate(180deg)}
+.bk-chart-wrap{display:none;margin-top:13px;border-top:1px solid var(--border);padding-top:11px}
+.bk-card.open .bk-chart-wrap{display:block}
+.bk-chart-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+.bk-chart-t{font-size:11px;font-weight:800;color:var(--text3)}
+.bk-chart-lg{display:flex;gap:12px;font-size:10px;font-weight:700;color:var(--text3)}
+.bk-chart-lg i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle}
+.bk-chart-lg .lo i{background:var(--bkc)}
+.bk-chart-lg .li i{background:var(--bkc);opacity:.35}
+.bk-chart{display:flex;align-items:flex-end;gap:5px;height:134px;overflow-x:auto;padding-bottom:2px}
+.bk-col{flex:1 0 24px;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:100%}
+.bk-bv{font-size:9.5px;font-weight:800;color:var(--text2)}
+.bk-bv.pk{color:var(--bkc)}
+.bk-bv.lo{color:var(--text3)}
+.bk-bar{width:70%;max-width:28px;border-radius:5px 5px 0 0;overflow:hidden;display:flex;flex-direction:column;flex:0 0 auto}
+.bk-bar .seg-in{background:var(--bkc);opacity:.32}
+.bk-bar .seg-out{background:var(--bkc)}
+.bk-bd{font-size:8.5px;font-weight:700;color:var(--text3);white-space:nowrap}
 .bk-card-metrics{display:flex;gap:8px}
 .bk-metric{flex:1;text-align:center}
 .bk-metric-l{font-size:10.5px;font-weight:700;color:var(--text3)}
@@ -4162,10 +4182,25 @@ function _bookRender(){
         drows.map(function(x){var o=x.bk[b]||0,ii=x.inb[b]||0,t2=o+ii,p=t2?Math.round(o/t2*100):0;
           return '<tr><td>'+_bkNiceD(x.date)+'</td><td>'+_nf(o)+'</td><td>'+_nf(ii)+'</td><td>'+_nf(t2)+'</td><td>'+p+'%</td></tr>';}).join('')+
         '</tbody></table></div>';}
-    return '<div class="bk-card" style="--bkc:'+m.c+'"><div class="bk-card-h">'+_annEsc(m.n)+'</div><div class="bk-card-metrics">'+
+    var chart=_bkBrandChart(b,recs);
+    return '<div class="bk-card" style="--bkc:'+m.c+'"><div class="bk-card-h"'+(chart?' onclick="this.parentNode.classList.toggle(\'open\')" title="اضغطي لعرض الرسم البياني"':'')+'>'+_annEsc(m.n)+(chart?'<svg class="bk-ch-caret" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m6 9 6 6 6-6"/></svg>':'')+'</div><div class="bk-card-metrics">'+
       _bkMetric('Outbound',_nf(a.bk))+_bkMetric('Inbound',_nf(a.inb))+_bkMetric('Total',_nf(tt))+_bkMetric('Outbound %',pct+'%')+
-    '</div>'+daily+'</div>';}).join('')+'</div>';
+    '</div>'+chart+daily+'</div>';}).join('')+'</div>';
   host.innerHTML=tiles+cards;
+}
+function _bkBrandChart(b,recs){
+  var d=(recs||[]).filter(function(x){return (x.bk[b]||0)||(x.inb[b]||0);}).sort(function(x,y){return x.date.localeCompare(y.date);});
+  if(d.length<2)return '';
+  var rows=d.map(function(x){var o=x.bk[b]||0,ii=x.inb[b]||0;return {lab:_bkNiceD(x.date),out:o,inb:ii,total:o+ii};});
+  var max=Math.max.apply(null,rows.map(function(r){return r.total;}))||1;
+  var min=Math.min.apply(null,rows.map(function(r){return r.total;}));
+  var H=96;
+  var cols=rows.map(function(r){var bh=Math.max(3,Math.round(r.total/max*H));var oh=r.total?Math.round(r.out/r.total*bh):0;var ih=bh-oh;
+    var cls=r.total===max?' pk':(r.total===min?' lo':'');
+    return '<div class="bk-col"><span class="bk-bv'+cls+'">'+_nf(r.total)+'</span>'+
+      '<div class="bk-bar" style="height:'+bh+'px"><div class="seg-in" style="height:'+ih+'px"></div><div class="seg-out" style="height:'+oh+'px"></div></div>'+
+      '<span class="bk-bd">'+r.lab+'</span></div>';}).join('');
+  return '<div class="bk-chart-wrap"><div class="bk-chart-head"><span class="bk-chart-t">📈 Daily Trend</span><span class="bk-chart-lg"><span class="lo"><i></i>Outbound</span><span class="li"><i></i>Inbound</span></span></div><div class="bk-chart">'+cols+'</div></div>';
 }
 function _renderGlobalTarget(){
   var el=document.getElementById('globalTarget');if(!el)return;
