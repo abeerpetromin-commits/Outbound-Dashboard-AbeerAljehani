@@ -737,7 +737,61 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .bk-daily td:first-child{color:var(--text3);font-weight:700;white-space:nowrap}
 .bk-daily td:nth-child(4){font-weight:800;color:var(--text)}
 /* ── Schedule cards (slim rectangular, dashboard theme) ── */
-.snap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:1040px;margin:4px auto 10px}
+.snap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:1040px;margin:4px auto 10px}
+.snap-grid.snap-one{display:flex;justify-content:flex-start;grid-template-columns:none}
+.snap-grid.snap-one .snap-card{width:auto;max-width:max-content;gap:8px;padding:6px 14px 6px 9px}
+.snap-grid.snap-one .snap-body{flex:0 0 auto}
+.snap-grid.snap-one .snap-arrow{margin-left:4px}
+/* ── Team Schedule (combined weekly grid) ── */
+.sch-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1180px;margin:4px auto 12px}
+.sch-wk{display:flex;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px 5px;box-shadow:var(--shadow)}
+.sch-arrow{border:none;background:transparent;color:var(--text3);font-size:18px;cursor:pointer;padding:1px 9px;border-radius:7px;line-height:1.2}
+.sch-arrow:hover{background:var(--surface2);color:var(--text)}
+.sch-wk-l{font-size:13px;font-weight:800;color:var(--text);min-width:150px;text-align:center}
+.sch-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10.5px;font-weight:700;color:var(--text3)}
+.sch-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:4px;vertical-align:middle;border:1px solid rgba(0,0,0,.06)}
+.sch-wrap{max-width:1180px;margin:0 auto;overflow-x:auto;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);background:var(--surface)}
+.sch-tbl{width:100%;border-collapse:collapse;font-size:12px;min-width:720px}
+.sch-tbl th,.sch-tbl td{border:1px solid var(--border);padding:7px 6px;text-align:center}
+.sch-tbl thead th{background:var(--surface2);color:var(--text3);font-weight:800;position:sticky;top:0}
+.sch-tbl thead th .d{font-size:10px;color:var(--text3);font-weight:700;margin-top:1px}
+.sch-tbl td.sch-name,.sch-tbl th.sch-name{text-align:left;font-weight:800;color:var(--text);white-space:nowrap;background:var(--surface);position:sticky;left:0;z-index:1;min-width:150px}
+.sch-cell{font-weight:700;font-size:11px}
+.sch-office{background:#e6f0fa;color:#4a73a0}
+.sch-off{background:#ece9f3;color:#716a90}
+.sch-remote{background:#fbf3d0;color:#9a8128}
+.sch-sick{background:#f9dde2;color:#b56472}
+.sch-vac{background:#dcecd3;color:#5f8c4e;font-size:14px}
+.sch-work{background:#f3e3cb;color:#9a6a34}
+.sch-sat{background:rgba(180,120,60,.05)}
+/* ── Today (daily attendance) ── */
+.td-top{display:flex;align-items:center;gap:12px;max-width:1240px;margin:2px auto 14px}
+.td-month{display:flex;align-items:center;gap:7px;font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text)}
+.td-today-btn{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:6px 13px;font-size:12.5px;font-weight:800;color:var(--red);cursor:pointer;box-shadow:var(--shadow)}
+.td-today-btn:hover{background:var(--surface2)}
+.td-strip{display:flex;align-items:stretch;gap:8px;max-width:1240px;margin:0 auto 16px;overflow-x:auto;padding-bottom:3px}
+.td-strip .td-nav{flex:0 0 auto;align-self:center;border:1px solid var(--border);background:var(--surface);border-radius:9px;color:var(--text3);font-size:17px;cursor:pointer;padding:7px 11px;line-height:1;box-shadow:var(--shadow)}
+.td-strip .td-nav:hover{background:var(--surface2);color:var(--text)}
+.td-day{flex:1 1 0;min-width:92px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:9px 6px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:border-color .12s}
+.td-day:hover{border-color:var(--border2)}
+.td-day.on{background:var(--surface3);border-color:var(--border2)}
+.td-day.today .td-dnum{color:var(--red)}
+.td-dname{font-size:10.5px;font-weight:800;color:var(--text3);letter-spacing:.04em}
+.td-dnum{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);margin-top:2px}
+.td-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;max-width:1240px;margin:0 auto}
+.td-col{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:0;overflow:hidden;display:flex;flex-direction:column}
+.td-col-h{text-align:center;padding:15px 10px 13px;border-bottom:1px solid var(--border);background:var(--surface2)}
+.td-col-n{font-family:var(--font-display);font-weight:800;font-size:30px;color:var(--text);line-height:1}
+.td-col-t{font-size:12px;font-weight:700;color:var(--text3);margin-top:6px;display:flex;align-items:center;justify-content:center;gap:6px}
+.td-col-t .ic{font-size:13px}
+.td-list{padding:9px 6px;display:flex;flex-direction:column}
+.td-item{padding:7px 10px;font-size:13px;font-weight:600;color:var(--text2);text-align:center;border-radius:7px;display:flex;align-items:center;justify-content:center;gap:8px}
+.td-item .tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;margin-left:auto}
+.td-item.away{justify-content:space-between;text-align:left}
+.td-col.col-office .td-col-n{color:var(--green)}
+.td-col.col-remote .td-col-n{color:#2d7ff0}
+.td-col.col-away .td-col-n{color:var(--amber)}
+.td-empty-col{font-size:12px;color:var(--text3);text-align:center;padding:16px 8px;font-weight:600}
 @media(max-width:760px){.snap-grid{grid-template-columns:1fr}}
 .snap-card{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:7px 11px;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
 .snap-card:hover{transform:translateY(-1px);border-color:var(--border2)}
@@ -1077,6 +1131,7 @@ body{
 body[data-brand="nissan"]{--aura1:rgba(195,0,47,.15);--aura2:rgba(195,0,47,.05)}
 body[data-brand="stellantis"]{--aura1:rgba(18,87,196,.16);--aura2:rgba(18,87,196,.06)}
 body[data-brand="baic"]{--aura1:rgba(250,179,65,.15);--aura2:rgba(250,179,65,.05)}
+body[data-brand="reference"]{--aura1:rgba(47,84,235,.12);--aura2:rgba(195,0,47,.06)}
 
 /* Signature: glowing animated seam at very top */
 /* page top/bottom frame removed per request */
@@ -1247,6 +1302,7 @@ tr.row-baic:hover td{background:rgba(229,137,26,.10)}
 .brand-st{--brand-fill:linear-gradient(180deg,rgba(18,87,196,.08),rgba(18,87,196,.02));--brand-line:rgba(18,87,196,.16)}
 .brand-ni{--brand-fill:linear-gradient(180deg,rgba(195,0,47,.08),rgba(195,0,47,.02));--brand-line:rgba(195,0,47,.16)}
 .brand-baic{--brand-fill:linear-gradient(180deg,rgba(250,179,65,.08),rgba(250,179,65,.02));--brand-line:rgba(250,179,65,.16)}
+.brand-ref{--brand-fill:linear-gradient(180deg,rgba(47,84,235,.08),rgba(47,84,235,.02));--brand-line:rgba(47,84,235,.16)}
 
 /* ═══════════════ HORIZONTAL LAUNCHER LAYOUT (home-style, all widths) ═══════════════ */
 .shell{flex-direction:column}
@@ -1296,7 +1352,7 @@ tr.row-baic:hover td{background:rgba(229,137,26,.10)}
 
 /* ── Brand selector (each brand alone; click = all its info) ── */
 .brands-block{padding:18px 0 4px;display:flex;align-items:center;gap:16px}
-.brands-block .brand-tabs{flex:1;min-width:0;justify-content:flex-end}
+.brands-block .brand-tabs{flex:1;min-width:0;justify-content:center}
 .brands-block .nav-group-label{padding:0 2px 10px;font-size:11px;letter-spacing:.18em;color:var(--text3)}
 @media(max-width:820px){.brands-block{flex-direction:column;align-items:stretch}.brands-block .brand-tabs{justify-content:flex-start}}
 .brands-tagline{margin:-6px 2px 10px;font-size:11px;font-weight:600;color:var(--text3)}
@@ -1314,6 +1370,7 @@ tr.row-baic:hover td{background:rgba(229,137,26,.10)}
 .brand-st{--brand-c:var(--st);--brand-fill:linear-gradient(135deg,rgba(18,87,196,.10),rgba(18,87,196,.025));--brand-line:rgba(18,87,196,.18)}
 .brand-ni{--brand-c:var(--ni);--brand-fill:linear-gradient(135deg,rgba(195,0,47,.10),rgba(195,0,47,.025));--brand-line:rgba(195,0,47,.18)}
 .brand-baic{--brand-c:var(--baic);--brand-fill:linear-gradient(135deg,rgba(250,179,65,.10),rgba(250,179,65,.025));--brand-line:rgba(250,179,65,.18)}
+.brand-ref{--brand-c:var(--accent);--brand-fill:linear-gradient(135deg,rgba(47,84,235,.10),rgba(47,84,235,.025));--brand-line:rgba(47,84,235,.18)}
 @media(max-width:760px){.brand-tabs{grid-template-columns:1fr}}
 
 /* ── Brand reference menu (small title cards) + breadcrumb ── */
@@ -1457,7 +1514,7 @@ body[data-brand="sched"]{--aura1:rgba(109,74,216,.15);--aura2:rgba(109,74,216,.0
 body[data-brand="sched"]::before{box-shadow:0 1px 16px 0 rgba(109,74,216,.45)}
 .schedtbl-wrap,.sheettbl-wrap{direction:rtl;overflow-x:auto;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);background:var(--surface)}
 .schedtbl,.sheettbl{width:100%;border-collapse:collapse;font-size:13px}
-.schedtbl thead th{background:linear-gradient(135deg,#6d4ad8,#5b3fc4);color:#fff;font-weight:700;padding:12px 14px;text-align:right;white-space:nowrap;font-family:var(--font-display)}
+.schedtbl thead th{background:linear-gradient(135deg,var(--purple),#5b3fc4);color:#fff;font-weight:700;padding:12px 14px;text-align:right;white-space:nowrap;font-family:var(--font-display)}
 .schedtbl tbody td{padding:11px 14px;border-top:1px solid var(--border);color:var(--text);text-align:right;white-space:nowrap}
 .schedtbl tbody tr:nth-child(even){background:rgba(109,74,216,.045)}
 .schedtbl tbody tr:hover{background:rgba(109,74,216,.09)}
@@ -1828,10 +1885,13 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .dayoff{width:100%;border-collapse:collapse;font-size:13px;direction:ltr}
 .dayoff td{padding:10px 14px;text-align:center;border:1px solid var(--border);white-space:nowrap}
 .do-namecell{text-align:left;font-weight:700;font-family:var(--font-display);color:var(--text);background:var(--surface);position:sticky;left:0;z-index:1;min-width:175px;box-shadow:1px 0 0 var(--border)}
-.do-datehdr{background:linear-gradient(135deg,#6d4ad8,#5b3fc4);color:#fff;font-weight:800;font-family:var(--font-display);border-color:rgba(255,255,255,.18)}
-.do-datehdr.do-namecell{background:linear-gradient(135deg,#6d4ad8,#5b3fc4);color:#fff;box-shadow:1px 0 0 rgba(255,255,255,.18)}
-.do-off{color:#d92d20;background:rgba(217,45,32,.10);font-weight:700}
-.do-work{color:#16a34a;background:rgba(22,163,74,.09);font-weight:600}
+.do-datehdr{background:linear-gradient(135deg,var(--purple),#5b3fc4);color:#fff;font-weight:800;font-family:var(--font-display);border-color:rgba(255,255,255,.18)}
+.do-datehdr.do-namecell{background:linear-gradient(135deg,var(--purple),#5b3fc4);color:#fff;box-shadow:1px 0 0 rgba(255,255,255,.18)}
+.do-off{color:#716a90;background:#ece9f3;font-weight:700}
+.do-work{color:#9a6a34;background:#f3e3cb;font-weight:700}
+.do-office{color:#4a73a0;background:#e6f0fa;font-weight:700}
+.do-remote{color:#9a8128;background:#fbf3d0;font-weight:700}
+.do-sick{color:#b56472;background:#f9dde2;font-weight:700}
 .dayoff-week{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px;background:var(--surface);box-shadow:var(--shadow)}
 .dayoff-week:last-child{margin-bottom:0}
 .dayoff-week-head{width:100%;display:flex;align-items:center;gap:11px;padding:13px 16px;background:var(--surface2);border:0;cursor:pointer;font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--text);text-align:start}
@@ -1842,7 +1902,7 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .dayoff-week-range{margin-inline-start:auto;font-family:var(--font-body);font-weight:700;font-size:11.5px;color:#6d4ad8;background:rgba(109,74,216,.12);padding:3px 11px;border-radius:999px;white-space:nowrap}
 .dayoff-week-body{padding:12px;border-top:1px solid var(--border)}
 .dayoff-week-body .dayoff-wrap{box-shadow:none}
-.do-vac{color:#0a8f57;background:rgba(16,163,74,.12);font-weight:800}
+.do-vac{color:#5f8c4e;background:#dcecd3;font-weight:800;font-size:15px}
 /* ── Daily Off week picker (current-week-only view + dropdown for other weeks) ── */
 .dow-picker{position:relative;display:inline-block;margin-bottom:14px}
 .dow-picker-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--red);background:var(--red-bg);border:1.5px solid var(--red);border-radius:11px;padding:9px 14px;cursor:pointer}
@@ -2221,7 +2281,6 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <div class="motto-bar"><div class="motto-duo"><span class="motto-duo-a" id="mottoA">إنجازكم اليوم يصنع الفرق</span><span class="motto-duo-sep">⭐</span><span class="motto-duo-b" id="mottoB">نفخر بكم دائماً</span></div></div>
 
   <div class="brands-block">
-    <div id="globalTarget" class="gtarget-wrap" style="display:none"></div>
     <div class="brand-tabs">
       <div class="brand-tab brand-ann active" onclick="openAnnouncements(this)">
         <div class="brand-tab-info">
@@ -2283,18 +2342,27 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   </div>
 
   <div class="nav-group">
+    <div id="globalTarget" class="gtarget-wrap" style="display:none"></div>
     <div class="ops-center">
-      <div class="nav-item" onclick="show('performance',this)">
+      <div class="nav-item nav-today" onclick="show('today',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 8 12 8 12s8-6.6 8-12a8 8 0 0 0-8-8z"/></svg>
+        Today
+      </div>
+      <div class="nav-item nav-hub" onclick="show('performance',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>
         Team Hub
       </div>
-      <div class="nav-item" onclick="show('booking',this)">
+      <div class="nav-item nav-book" onclick="show('booking',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
         Booking Volume
       </div>
-      <div class="nav-item" onclick="show('tasks',this)">
+      <div class="nav-item nav-tasks" onclick="show('tasks',this)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         Daily Tasks
+      </div>
+      <div class="nav-item nav-sched" onclick="show('schedule',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
+        Team Schedule
       </div>
     </div>
     <button class="links-btn" id="linksBtn" onclick="openLinks(this)">
@@ -2593,6 +2661,40 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div id="socialBody"></div>
   </div>
 
+  <!-- TEAM SCHEDULE (combined, live gid 2078071010) -->
+  <div id="tab-schedule" class="tab-panel">
+    <div class="page-header"><div>
+      <div class="page-eyebrow" style="color:#6d4ad8">Team Schedules</div>
+      <div class="page-title" style="color:#6d4ad8">Team Schedule</div>
+      <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px">Attendance · Day Off · Remote · Vacation · Saturday
+        <span class="live-badge" id="schedStatus"><span class="live-dot"></span>Loading…</span>
+      </div>
+    </div></div>
+    <div class="sch-head">
+      <div class="sch-wk"><button class="sch-arrow" onclick="_schNav(-1)">‹</button><span class="sch-wk-l" id="schWkLabel">…</span><button class="sch-arrow" onclick="_schNav(1)">›</button></div>
+      <div class="sch-legend">
+        <span><i style="background:var(--green-bg)"></i>Office</span>
+        <span><i style="background:rgba(45,127,240,.14)"></i>Remotely</span>
+        <span><i style="background:var(--surface3)"></i>Day Off</span>
+        <span><i style="background:rgba(109,74,216,.14)"></i>Vacation</span>
+        <span><i style="background:rgba(195,0,47,.12)"></i>Sick Leave</span>
+        <span><i style="background:rgba(180,120,60,.16)"></i>Sat Work</span>
+      </div>
+    </div>
+    <div id="schedBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
+  <!-- TODAY (daily attendance from gid 2078071010) -->
+  <div id="tab-today" class="tab-panel">
+    <div class="td-top">
+      <div class="td-month"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6d4ad8" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span id="tdMonth">…</span></div>
+      <button class="td-today-btn" onclick="_todayNow()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 8 12 8 12s8-6.6 8-12a8 8 0 0 0-8-8z"/></svg>Today</button>
+      <span class="live-badge sm" id="todayStatus" style="margin-left:auto"><span class="live-dot"></span>…</span>
+    </div>
+    <div class="td-strip" id="tdStrip"></div>
+    <div id="todayBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
   <!-- MENU stellantis -->
   <div id="tab-menu-stellantis" class="tab-panel active">
     <div class="page-header"><div>
@@ -2814,20 +2916,10 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
   <!-- ── TEAM PERFORMANCE (leaderboard, live gid 1857953641) ── -->
   <div id="tab-performance" class="tab-panel">
     <span id="perfSub" style="display:none"></span>
-    <div class="snap-grid">
-      <div class="snap-card" onclick="_hubSched('dayoff','Daily Off Schedule')">
-        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></div>
-        <div class="snap-body"><div class="snap-title">Daily Off Schedule</div><div class="snap-sub">Weekly days off</div></div>
-        <svg class="snap-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
-      </div>
-      <div class="snap-card" onclick="_hubSched('vacation','Vacation Schedule')">
-        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/><path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"/><path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35"/><path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14"/></svg></div>
-        <div class="snap-body"><div class="snap-title">Vacation Schedule</div><div class="snap-sub">Annual vacations</div></div>
-        <svg class="snap-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
-      </div>
-      <div class="snap-card" onclick="_hubSched('social','Social Media Schedule')">
-        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
-        <div class="snap-body"><div class="snap-title">Social Media Schedule</div><div class="snap-sub">Content calendar</div></div>
+    <div class="snap-grid snap-one">
+      <div class="snap-card" onclick="_hubSched('schedule','Team Schedule')">
+        <div class="snap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg></div>
+        <div class="snap-body"><div class="snap-title">Team Schedule</div><div class="snap-sub">Attendance · Day Off · Remote · Vacation · Saturday</div></div>
         <svg class="snap-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
       </div>
     </div>
@@ -3682,6 +3774,7 @@ const TAB_GROUPS={
   manager:['manager'],
   performance:['performance'],
   booking:['booking'],
+  today:['today'],
   tasks:['tasks'],
   nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
   stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
@@ -3691,10 +3784,12 @@ function runLoader(id){
   if(id==='manager')loadManagerView();
   if(id==='performance')loadPerformance();
   if(id==='booking')loadBooking();
+  if(id==='today')loadToday();
   if(id==='tasks')loadTasks();
   if(id==='dayoff')loadDayOff();
   if(id==='vacation')loadVacation();
   if(id==='social')loadSocial();
+  if(id==='schedule')loadSchedule();
   if(id==='warranty-nissan')loadWarrantyNissan();
   if(id==='nissan-ref')loadNissanRef();
   if(id==='nissan-smsloc')loadNissanSmsLoc();
@@ -4201,6 +4296,108 @@ function _bkBrandChart(b,recs){
       '<div class="bk-bar" style="height:'+bh+'px"><div class="seg-in" style="height:'+ih+'px"></div><div class="seg-out" style="height:'+oh+'px"></div></div>'+
       '<span class="bk-bd">'+r.lab+'</span></div>';}).join('');
   return '<div class="bk-chart-wrap"><div class="bk-chart-head"><span class="bk-chart-t">📈 Daily Trend</span><span class="bk-chart-lg"><span class="lo"><i></i>Outbound</span><span class="li"><i></i>Inbound</span></span></div><div class="bk-chart">'+cols+'</div></div>';
+}
+/* ── TEAM SCHEDULE (combined weekly grid, live gid 2078071010) ── */
+var SCHED_GID='2078071010',_SCHED=[],_SCHED_WK=0;
+function _schStat(s){var t=(s||'').toLowerCase().trim();if(!t)return {c:'',l:''};
+  if(/sick|مرض/.test(t))return {c:'sch-sick',l:s.trim()};
+  if(/vacation|إجاز|اجاز|annual/.test(t))return {c:'sch-vac',l:'🌴'};
+  if(/remot|عن بعد|بعد|ريموت/.test(t))return {c:'sch-remote',l:s.trim()};
+  if(/day\s*off|\boff\b|عطل|راحة/.test(t))return {c:'sch-off',l:s.trim()};
+  if(/work|سبت|عمل|شغل/.test(t))return {c:'sch-work',l:s.trim()};
+  if(/office|present|حاضر|دوام|مكتب/.test(t))return {c:'sch-office',l:s.trim()};
+  return {c:'sch-office',l:s.trim()};}
+function _schParse(rows){
+  rows=(rows||[]);var weeks=[],cur=null;
+  for(var i=0;i<rows.length;i++){var r=rows[i];var a=(r[0]||'').trim();
+    var rest=r.slice(1).map(function(c){return (c||'').trim();});
+    var hasRest=rest.some(function(c){return c!=='';});
+    if(/^week\b/i.test(a)||/أسبوع|اسبوع/.test(a)){cur={label:a,days:[],dates:[],agents:[]};weeks.push(cur);continue;}
+    if(!cur)continue;
+    if(/^agent$|^الموظف|^اسم|^name$/i.test(a)){cur.days=rest;continue;}
+    if(!a&&hasRest){ /* dates row */ if(!cur.dates.length)cur.dates=rest; continue;}
+    if(a&&hasRest){cur.agents.push({name:a,cells:rest});continue;}
+  }
+  return weeks.filter(function(w){return w.agents.length;});
+}
+var _SCH_MON={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+function _schDateVal(s){if(!s)return null;var m=s.toLowerCase().match(/(\d{1,2})\s*[-\/ ]\s*([a-z]{3})/);if(!m)return null;var mo=_SCH_MON[m[2]];if(mo==null)return null;var y=(new Date()).getFullYear();return new Date(y,mo,+m[1]);}
+async function loadSchedule(){
+  var st=document.getElementById('schedStatus');if(st)st.innerHTML='<span class="live-dot"></span>Updating…';
+  try{
+    var rows=await fetchSheet(SCHED_GID);
+    _SCHED=_schParse(rows);
+    if(!_SCHED.length)throw new Error('empty');
+    /* default to week containing today, else last week */
+    var today=new Date();today.setHours(0,0,0,0);var idx=-1;
+    _SCHED.forEach(function(w,wi){var ds=w.dates.map(_schDateVal).filter(Boolean);if(ds.length){var mn=ds[0],mx=ds[ds.length-1];if(today>=mn&&today<=mx)idx=wi;}});
+    _SCHED_WK=idx>=0?idx:_SCHED.length-1;
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+    _schRender();
+  }catch(e){var host=document.getElementById('schedBody');if(host)host.innerHTML='<div class="grid-empty">تعذّر تحميل البيانات من الشيت. تأكدي أن الورقة عامة.</div>';if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}}
+}
+function _schNav(d){if(!_SCHED.length)return;_SCHED_WK=Math.max(0,Math.min(_SCHED.length-1,_SCHED_WK+d));_schRender();}
+function _schRender(){
+  var host=document.getElementById('schedBody');if(!host)return;
+  if(!_SCHED.length){host.innerHTML='<div class="grid-empty">لا توجد بيانات</div>';return;}
+  var w=_SCHED[_SCHED_WK];var lbl=document.getElementById('schWkLabel');
+  if(lbl){var rng='';var ds=w.dates.filter(Boolean);if(ds.length)rng=ds[0]+' → '+ds[ds.length-1];lbl.textContent=(w.label||'Week')+(rng?' · '+rng:'');}
+  var nday=Math.max(w.days.length,w.dates.length,(w.agents[0]||{cells:[]}).cells.length);
+  var head='<tr><th class="sch-name">Agent</th>';
+  for(var i=0;i<nday;i++){var dn=w.days[i]||'',dt=w.dates[i]||'';var sat=/sat|سبت/i.test(dn);
+    head+='<th'+(sat?' class="sch-sat"':'')+'>'+_annEsc(dn)+(dt?'<div class="d">'+_annEsc(dt)+'</div>':'')+'</th>';}
+  head+='</tr>';
+  var body=w.agents.map(function(ag){var tds='';
+    for(var i=0;i<nday;i++){var v=ag.cells[i]||'';var s=_schStat(v);var sat=/sat|سبت/i.test(w.days[i]||'');
+      tds+='<td class="sch-cell '+(s.c||(sat?'sch-sat':''))+'">'+_annEsc(s.l)+'</td>';}
+    return '<tr><td class="sch-name">'+_annEsc(ag.name)+'</td>'+tds+'</tr>';}).join('');
+  host.innerHTML='<div class="sch-wrap"><table class="sch-tbl"><thead>'+head+'</thead><tbody>'+body+'</tbody></table></div>';
+}
+/* ── TODAY (daily attendance view) ── */
+var _TD={wk:0,day:0};
+function _schCat(s){var t=(s||'').toLowerCase().trim();if(!t)return null;
+  if(/sick|مرض/.test(t))return {grp:'away',l:'Sick Leave',bg:'att-sick-bg'};
+  if(/vacation|إجاز|اجاز|annual/.test(t))return {grp:'away',l:'Vacation',bg:'att-vac-bg'};
+  if(/absent|غائب|غياب/.test(t))return {grp:'away',l:'Absent',bg:'att-abs-bg'};
+  if(/day\s*off|\boff\b|عطل|راحة/.test(t))return {grp:'away',l:'Off',bg:'att-off-bg'};
+  if(/remot|عن بعد|بعد|ريموت/.test(t))return {grp:'present',key:'remote',l:'Work Remotely',ic:'🏠'};
+  if(/office|present|حاضر|دوام|مكتب/.test(t))return {grp:'present',key:'office',l:'Office',ic:'🏢'};
+  if(/work|سبت|عمل|شغل/.test(t))return {grp:'present',key:'work',l:'Saturday Work',ic:'📅'};
+  return {grp:'present',key:t,l:s.trim(),ic:'🔹'};}
+async function loadToday(){
+  var st=document.getElementById('todayStatus');if(st)st.innerHTML='<span class="live-dot"></span>Updating…';
+  try{
+    if(!_SCHED.length){var rows=await fetchSheet(SCHED_GID);_SCHED=_schParse(rows);}
+    if(!_SCHED.length)throw new Error('empty');
+    _todayNow();
+    if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}
+  }catch(e){var host=document.getElementById('todayBody');if(host)host.innerHTML='<div class="grid-empty">تعذّر تحميل البيانات من الشيت. تأكدي أن الورقة عامة.</div>';if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}}
+}
+function _todayNow(){var today=new Date();today.setHours(0,0,0,0);var fw=-1,fd=-1;
+  _SCHED.forEach(function(w,wi){w.dates.forEach(function(ds,di){var d=_schDateVal(ds);if(d&&d.getTime()===today.getTime()){fw=wi;fd=di;}});});
+  if(fw<0){fw=_SCHED.length-1;fd=0;}_TD={wk:fw,day:fd};_todayRender();}
+function _todayPickDay(i){_TD.day=i;_todayRender();}
+function _todayNavWk(d){_TD.wk=Math.max(0,Math.min(_SCHED.length-1,_TD.wk+d));_TD.day=0;_todayRender();}
+function _todayRender(){
+  var host=document.getElementById('todayBody');if(!host||!_SCHED.length)return;
+  var w=_SCHED[_TD.wk];var nday=Math.max(w.days.length,w.dates.length);
+  var sel=_schDateVal(w.dates[_TD.day]);var mL=document.getElementById('tdMonth');
+  if(mL)mL.textContent=sel?(_MONL[sel.getMonth()]+' '+sel.getFullYear()):(w.label||'');
+  var todayD=new Date();todayD.setHours(0,0,0,0);
+  var strip='<button class="td-nav" onclick="_todayNavWk(-1)">‹</button>';
+  for(var i=0;i<nday;i++){var dn=w.days[i]||'',dt=w.dates[i]||'';var dv=_schDateVal(dt);var isT=dv&&dv.getTime()===todayD.getTime();
+    strip+='<div class="td-day'+(i===_TD.day?' on':'')+(isT?' today':'')+'" onclick="_todayPickDay('+i+')"><div class="td-dname">'+_annEsc((dn||'').slice(0,3).toUpperCase())+'</div><div class="td-dnum">'+_annEsc((dt||'').replace(/[^0-9]/g,''))+'</div></div>';}
+  strip+='<button class="td-nav" onclick="_todayNavWk(1)">›</button>';
+  var se=document.getElementById('tdStrip');if(se)se.innerHTML=strip;
+  var present={},order=[],away=[];
+  w.agents.forEach(function(ag){var v=ag.cells[_TD.day]||'';var c=_schCat(v);if(!c)return;
+    if(c.grp==='away'){away.push({name:ag.name,l:c.l,bg:c.bg});}
+    else{if(!present[c.key]){present[c.key]={l:c.l,ic:c.ic,names:[]};order.push(c.key);}present[c.key].names.push(ag.name);}});
+  order.sort(function(a,b){var pr={office:0,remote:1,work:2};var pa=pr[a]==null?3:pr[a],pb=pr[b]==null?3:pr[b];return pa-pb;});
+  var cols=order.map(function(k){var p=present[k];var cls=k==='office'?'col-office':k==='remote'?'col-remote':'';
+    return '<div class="td-col '+cls+'"><div class="td-col-h"><div class="td-col-n">'+p.names.length+'</div><div class="td-col-t"><span class="ic">'+p.ic+'</span>'+_annEsc(p.l)+'</div></div><div class="td-list">'+p.names.map(function(n){return '<div class="td-item">'+_annEsc(n)+'</div>';}).join('')+'</div></div>';}).join('');
+  if(away.length)cols+='<div class="td-col col-away"><div class="td-col-h"><div class="td-col-n">'+away.length+'</div><div class="td-col-t"><span class="ic">🗓️</span>Off · Sick · Vacation</div></div><div class="td-list">'+away.map(function(a){return '<div class="td-item away">'+_annEsc(a.name)+'<span class="tag '+a.bg+'">'+_annEsc(a.l)+'</span></div>';}).join('')+'</div></div>';
+  host.innerHTML='<div class="td-cols">'+(cols||'<div class="grid-empty">لا توجد بيانات لهذا اليوم</div>')+'</div>';
 }
 function _renderGlobalTarget(){
   var el=document.getElementById('globalTarget');if(!el)return;
@@ -6641,6 +6838,9 @@ function _schedGrid(id,rows,cls){
 }
 function _isOff(v){return /^off$/i.test((v||'').trim());}
 function _isWork(v){return /^work$/i.test((v||'').trim());}
+function _isSick(v){return /sick|مرض/i.test((v||'').trim());}
+function _isRemote(v){return /remot|عن بعد|بعد|ريموت/i.test((v||'').trim());}
+function _isOffice(v){return /office|present|حاضر|دوام|مكتب/i.test((v||'').trim());}
 function _isDate(v){v=(v||'').trim();return /^\d{4}-\d{1,2}-\d{1,2}$/.test(v)||/^\d{1,2}[\/-]\d{1,2}([\/-]\d{2,4})?$/.test(v)||/^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*[-\s\/]?\d{1,2}$/i.test(v)||/^\d{1,2}[-\s\/]?(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i.test(v);}
 function _doWeekMeta(dateRow,others){
   function norm(mn){mn=(mn||'').toLowerCase();
@@ -6703,7 +6903,7 @@ function _dowTable(w){
   w.agents.forEach(function(r){
     var nm=(r[_DOW_NAMECOL]||'').trim();
     var cells='<td class="do-namecell">'+_annEsc(nm)+'</td>';
-    _DOW_OTHERS.forEach(function(c){var v=(r[c]||'').trim();var cls=_isVac(v)?'do-vac':_isOff(v)?'do-off':_isWork(v)?'do-work':'';cells+='<td class="'+cls+'">'+_annEsc(v)+'</td>';});
+    _DOW_OTHERS.forEach(function(c){var v=(r[c]||'').trim();var cls=_isVac(v)?'do-vac':(_isOff(v)||/day\s*off|عطل|راحة/i.test(v))?'do-off':_isWork(v)?'do-work':_isSick(v)?'do-sick':_isRemote(v)?'do-remote':_isOffice(v)?'do-office':'';var disp=_isVac(v)?'🌴':v;cells+='<td class="'+cls+'">'+_annEsc(disp)+'</td>';});
     tbl+='<tr>'+cells+'</tr>';
   });
   tbl+='</table></div>';
