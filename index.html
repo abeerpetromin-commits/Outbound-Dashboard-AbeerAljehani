@@ -4307,15 +4307,32 @@ function _schStat(s){var t=(s||'').toLowerCase().trim();if(!t)return {c:'',l:''}
   if(/work|سبت|عمل|شغل/.test(t))return {c:'sch-work',l:s.trim()};
   if(/office|present|حاضر|دوام|مكتب/.test(t))return {c:'sch-office',l:s.trim()};
   return {c:'sch-office',l:s.trim()};}
+function _schSplitDayDate(rest){
+  /* split combined headers like "Sun - 8-Nov" into day="Sun", date="8-Nov" */
+  var days=[],dates=[];
+  rest.forEach(function(c){var m=c.match(/^(.*?)(\d.*)$/);
+    if(m&&m[2]){days.push(m[1].replace(/[-–·|\s]+$/,'').trim());dates.push(m[2].trim());}
+    else{days.push(c);dates.push('');}});
+  return {days:days,dates:dates};
+}
 function _schParse(rows){
   rows=(rows||[]);var weeks=[],cur=null;
   for(var i=0;i<rows.length;i++){var r=rows[i];var a=(r[0]||'').trim();
     var rest=r.slice(1).map(function(c){return (c||'').trim();});
     var hasRest=rest.some(function(c){return c!=='';});
+    /* explicit "Week N" header starts a new week */
     if(/^week\b/i.test(a)||/أسبوع|اسبوع/.test(a)){cur={label:a,days:[],dates:[],agents:[]};weeks.push(cur);continue;}
+    /* an "Agent" header row: fill the pending week, or start a new one (handles sheets without Week rows) */
+    if(/^agent$|^الموظف|^اسم|^name$/i.test(a)){
+      var sd=_schSplitDayDate(rest);
+      if(cur&&!cur.agents.length&&!cur.days.length){cur.days=sd.days;cur.dates=sd.dates;}
+      else{cur={label:'',days:sd.days,dates:sd.dates,agents:[]};weeks.push(cur);}
+      continue;
+    }
     if(!cur)continue;
-    if(/^agent$|^الموظف|^اسم|^name$/i.test(a)){cur.days=rest;continue;}
-    if(!a&&hasRest){ /* dates row */ if(!cur.dates.length)cur.dates=rest; continue;}
+    /* a standalone dates row (no name in col 0) */
+    if(!a&&hasRest){if(!cur.dates.length||cur.dates.every(function(x){return !x;}))cur.dates=rest;continue;}
+    /* an agent data row */
     if(a&&hasRest){cur.agents.push({name:a,cells:rest});continue;}
   }
   return weeks.filter(function(w){return w.agents.length;});
@@ -4357,7 +4374,7 @@ function _schRender(){
 var _TD={wk:0,day:0};
 function _schCat(s){var t=(s||'').toLowerCase().trim();if(!t)return null;
   if(/sick|مرض/.test(t))return {grp:'away',l:'Sick Leave',bg:'att-sick-bg'};
-  if(/vacation|إجاز|اجاز|annual/.test(t))return {grp:'away',l:'Vacation',bg:'att-vac-bg'};
+  if(/vacation|إجاز|اجاز|annual/.test(t))return {grp:'away',l:'🌴 Vacation',bg:'att-vac-bg'};
   if(/absent|غائب|غياب/.test(t))return {grp:'away',l:'Absent',bg:'att-abs-bg'};
   if(/day\s*off|\boff\b|عطل|راحة/.test(t))return {grp:'away',l:'Off',bg:'att-off-bg'};
   if(/remot|عن بعد|بعد|ريموت/.test(t))return {grp:'present',key:'remote',l:'Work Remotely',ic:'🏠'};
