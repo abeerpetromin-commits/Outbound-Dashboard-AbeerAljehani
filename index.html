@@ -5920,7 +5920,7 @@ const CS_CFG={
 function _csIsTitle(v){ v=(v||'').trim(); if(!v)return false;
   if(/^الموظفة|^\s*\(|^\s*إذا|^\s*اذا|:\s*$/.test(v))return false;
   if(v.length>70)return false; /* dialogue lines are long; titles are short headings */
-  return /customers?|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b|follow[\s-]?up|bj\s*40|\b1k(m)?\b|\b10k(m)?\b|\b14\s*days?\b|lost|d\s*\+\s*1/i.test(v); }
+  return /customers?|script|reminder|recall|website|salesforce|\bpms\b|offer|\bsnd\b|follow[\s-]?up|win\s*back|bj\s*40|\b1k(m)?\b|\b10k(m)?\b|\b14\s*days?\b|lost|d\s*\+\s*1/i.test(v); }
 function _csIsLabel(v){ return /:\s*$/.test(v)||/^\s*\(/.test(v)||/^الموظفة/.test(v); }
 function _csParse(rows){
   rows=rows||[]; var maxc=0; rows.forEach(function(r){if(r&&r.length>maxc)maxc=r.length;});
@@ -5937,29 +5937,14 @@ function _csParse(rows){
   }
   return scripts.filter(function(s){return s.lines.length;});
 }
-var WINBACK_ST={title:'Win back — تغيير الموعد + حجز موعد جديد',lines:[
-  {text:'الموظفة:',label:true},
-  {text:'السلام عليكم أستاذ/أستاذة [اسم العميل]، معك عبير من بترومين ستيلانتس، يعطيك العافية.',label:false},
-  {text:'حبيت أذكّرك بالموعد اللي حجزته للاستفادة من العرض الخاص فيك 40% على خدمات الصيانة، وحبيت أنبّهك إن العرض متاح إلى نهاية شهر نوفمبر.',label:false},
-  {text:'حابين نتأكد منك إذا موعدك لا يزال مناسب لك، أو تحتاج نساعدك في تغيير الموعد؟',label:false},
-  {text:'🌟 نتمنى لك تجربة مميزة معنا، وما يفوتك العرض قبل انتهائه.',label:false},
-  {text:'إذا العميل يبغى يكنسل الموعد نسأل عن السبب',label:false},
-  {text:'إذا وافق على إعادة الجدولة: أكيد، ابشر، متى الوقت المناسب عشان نحجز لك الموعد؟',label:false},
-  {text:'إذا رفض اعادة الجدولة: ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل',label:false},
-  {text:'في حالة تم حجز الموعد: شكراً لوقتك راح توصلك رسالة بتفاصيل الموعد عن طريق الرسائل النصية، هل حاب نساعدك بأي شيء آخر؟',label:false},
-  {text:'الموظفة ختام المحادثة:',label:true},
-  {text:'شكراً لك استاذ (فلان) على وقتك. إذا احتجت أي شيء، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.',label:false},
-  {text:'يومك سعيد!',label:false}
-]};
 function _csRender(elId,rows,brand){
   var el=document.getElementById(elId); if(!el)return;
   el.className='cs-acc cs-'+(brand||'ni');
   var scripts=_csParse(rows);
-  if(brand==='st'&&!scripts.some(function(s){return /win\s*back/i.test(s.title||'');}))scripts.push(WINBACK_ST);
   if(!scripts.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   el.innerHTML=scripts.map(function(s){
     var body=s.lines.map(function(l){return '<div class="'+(l.label?'cs-label':'cs-line')+'">'+_baicEsc(l.text)+'</div>';}).join('');
-    return '<div class="cs-acc-item" data-open="0"><button type="button" class="cs-acc-head" onclick="_csAccToggle(this)"><span>'+_baicEsc(s.title||'Script')+'</span><span class="cs-acc-chev">▾</span></button><div class="cs-acc-body">'+body+'</div></div>';
+    return '<div class="cs-acc-item" data-open="0"><button type="button" class="cs-acc-head" onclick="_csAccToggle(this)"><span dir="auto">'+_baicEsc(s.title||'Script')+'</span><span class="cs-acc-chev">▾</span></button><div class="cs-acc-body">'+body+'</div></div>';
   }).join('');
 }
 function _csAccToggle(btn){
