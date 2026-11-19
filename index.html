@@ -871,15 +871,24 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .perf-tile.green .perf-tile-v{color:#5a9e78}
 .perf-tile.amber .perf-tile-v{color:#bf944a}
 .perf-tile.book{background:rgba(196,170,120,.18);border-color:rgba(196,170,120,.4)}
+.perf-tile.t-st{background:rgba(37,99,201,.08)}
+.perf-tile.t-st .perf-tile-v{color:#2563c9}
+.perf-tile.t-ni{background:rgba(209,26,62,.07)}
+.perf-tile.t-ni .perf-tile-v{color:#d11a3e}
+.perf-tile.t-baic{background:rgba(224,161,7,.1)}
+.perf-tile.t-baic .perf-tile-v{color:#bf944a}
+.pd-tiles-appt .perf-tile{padding:4px 4px}
+.pd-tiles-appt .perf-tile-l{font-size:8px}
+.pd-tiles-appt .perf-tile-v{font-size:12.5px}
 .perf-tile.book .perf-tile-v{color:#a98a52}
 .perf-tile.book .perf-tile-l{color:#a98a52}
 /* appointments by brand */
 .pd-brand-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media(max-width:560px){.pd-brand-row{grid-template-columns:1fr}}
-.pd-brand{background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--bc,var(--text3));border-radius:11px;padding:11px 10px;text-align:center}
-.pd-brand-n{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--bc,var(--text))}
-.pd-brand-v{font-family:var(--font-display);font-weight:800;font-size:23px;color:var(--text);margin-top:4px}
-.pd-brand-p{font-size:11px;font-weight:700;color:var(--text3);margin-top:2px}
+.pd-brand{background:var(--surface2);border:1px solid var(--border);border-top:2px solid var(--bc,var(--text3));border-radius:9px;padding:7px 8px;text-align:center}
+.pd-brand-n{font-family:var(--font-display);font-weight:800;font-size:11px;color:var(--bc,var(--text))}
+.pd-brand-v{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text);margin-top:2px}
+.pd-brand-p{font-size:9.5px;font-weight:700;color:var(--text3);margin-top:1px}
 .perf-row.clickable{cursor:pointer;transition:transform .12s,box-shadow .12s}
 .perf-row.clickable:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(15,23,42,.08);border-color:var(--border2)}
 .perf-row-caret{color:var(--text3);font-size:14px;padding:0 1px;align-self:center}
@@ -891,10 +900,11 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pd-id{flex:1;min-width:140px}
 .pd-name{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--text)}
 .pd-meta{font-size:12px;color:var(--text3);margin-top:2px}
-.pd-subtabs{display:flex;gap:4px;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:4px}
-.pd-subtab{border:none;background:transparent;border-radius:8px;padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--text3);cursor:pointer;white-space:nowrap}
+.pd-subtabs{display:inline-flex;gap:3px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:2px}
+.pd-subtab{border:none;background:transparent;border-radius:6px;padding:4px 9px;font-size:10.5px;font-weight:700;color:var(--text3);cursor:pointer;white-space:nowrap}
 .pd-subtab.on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(15,23,42,.1)}
 .pd-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:9px;margin-bottom:14px}
+.pd-tiles-appt{margin-top:12px;margin-bottom:0}
 .pd-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px}
 .pd-card-t{font-family:var(--font-display);font-weight:800;font-size:14.5px;color:var(--text);margin-bottom:11px;display:flex;align-items:center;gap:7px}
 .pd-tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
@@ -4749,9 +4759,13 @@ function _perfDaily(recs){
   var tiles='<div class="pd-tiles">'+_pdTile('Total Calls',_nf(tot.total),'red')+_pdTile('Connected',_nf(tot.connected),'red')+
     _pdTile('WhatsApp',_nf(tot.whatsapp),'green')+_pdTile('No Answer %',noAns+'%','amber')+_pdTile('Total Bookings',_nf(tot.bookings),'book')+
     _pdTile('Working Days',Object.keys(wd).length,'')+'</div>';
+  var apptTiles='<div class="pd-tiles pd-tiles-appt">'+
+    _pdTile('Stellantis Tasks',_nf(task.stellantis),'t-st')+_pdTile('Stellantis Appts',_nf(app.stellantis),'t-st')+
+    _pdTile('Nissan Tasks',_nf(task.nissan),'t-ni')+_pdTile('Nissan Appts',_nf(app.nissan),'t-ni')+
+    _pdTile('BAIC Tasks',_nf(task.baic),'t-baic')+_pdTile('BAIC Appts',_nf(app.baic),'t-baic')+'</div>';
   var brandCard='<div class="pd-card"><div class="pd-card-t">📍 Appointments · % of tasks</div><div class="pd-brand-row">'+
     _pdBrand('Nissan',app.nissan,task.nissan,'var(--ni)')+_pdBrand('Stellantis',app.stellantis,task.stellantis,'var(--st)')+_pdBrand('BAIC',app.baic,task.baic,'var(--baic)')+
-  '</div></div>';
+  '</div>'+apptTiles+'</div>';
   var rows=recs.map(function(r){var s=_perfStat(r.status),work=_perfIsWork(s);var num=function(v){return work?_nf(v):'—';};
     var pc=work&&r.total?Math.round((r.total-r.connected)/r.total*100)+'%':'—';
     return '<tr'+(work?'':' class="off-row"')+'><td>'+(r.date?_niceDate(r.date):'—')+'</td><td>'+(r.date?_wd(r.date):'')+'</td>'+
@@ -5937,10 +5951,30 @@ function _csParse(rows){
   }
   return scripts.filter(function(s){return s.lines.length;});
 }
+var ST_EXTRA_SCRIPTS=[
+  {title:'Stellantis Campaign 40% Spare parts',lines:[
+    {text:'الموظفة:',label:true},
+    {text:'السلام عليكم أستاذ/أستاذة [اسم العميل]، معك عبير من بترومين ستيلانتس، يعطيك العافية.',label:false},
+    {text:'لاحظنا إنك تواصلت معنا عن طريق السوشيال ميديا بخصوص عرض عبر موبر، وحبيت أتواصل معك وأوضح لك تفاصيل العرض.',label:false},
+    {text:'حاليًا عندنا عرض مميز يشمل خصم 40% على قطع الغيار، بالإضافة إلى فحص مجاني لسيارتك في مراكز خدمة بترومين ستيلانتس.',label:false},
+    {text:'حبيت أعرف إذا ما زلت مهتم بالعرض، ونقدر نساعدك في حجز موعد مناسب لك للاستفادة منه.',label:false},
+    {text:'ولا يهمك أبدًا، حابين نوضح لك أن العرض لا يزال متاحًا حتى نهاية شهر نوفمبر. هل تحب أساعدك في حجز موعد والاستفادة من العرض قبل انتهائه؟',label:false},
+    {text:'في حال العميل مهتم:',label:true},
+    {text:'يسعدنا خدمتك، ممكن أعرف نوع وموديل سيارتك؟ وأي فرع يناسبك عشان ننسق لك الموعد؟',label:false},
+    {text:'في حال العميل متردد:',label:true},
+    {text:'العرض فرصة للاستفادة من خصم 40% على قطع الغيار مع فحص مجاني لسيارتك، وحابين نساعدك تستفيد منه قبل انتهاء فترة العرض.',label:false},
+    {text:'إذا رفض اعادة الجدولة: ما في مشكلة أبدًا، بس إذا ممكن، حابين نعرف السبب عشان نقدر نحسن من خدماتنا أو نساعدك بشكل أفضل في المستقبل',label:false},
+    {text:'في حالة تم حجز الموعد: شكراً لوقتك راح توصلك رسالة بتفاصيل الموعد عن طريق الرسائل النصية، هل حاب أساعدك بأي شي آخر؟',label:false},
+    {text:'الموظفة ختام المحادثة:',label:true},
+    {text:'شكراً لك استاذ (فلان) على وقتك. إذا احتجت أي شيء، تقدر تتواصل معنا اتصال او على الواتساب مباشرة.',label:false},
+    {text:'يومك سعيد',label:false}
+  ]}
+];
 function _csRender(elId,rows,brand){
   var el=document.getElementById(elId); if(!el)return;
   el.className='cs-acc cs-'+(brand||'ni');
   var scripts=_csParse(rows);
+  if(brand==='st'){ST_EXTRA_SCRIPTS.forEach(function(ex){var t=(ex.title||'').toLowerCase();if(!scripts.some(function(s){return (s.title||'').toLowerCase()===t;}))scripts.push(ex);});}
   if(!scripts.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
   el.innerHTML=scripts.map(function(s){
     var body=s.lines.map(function(l){return '<div class="'+(l.label?'cs-label':'cs-line')+'">'+_baicEsc(l.text)+'</div>';}).join('');
