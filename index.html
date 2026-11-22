@@ -596,6 +596,7 @@ html[data-theme="dark"] tr.row-done td{opacity:.45}
 .pacd-wrap{--acc:var(--st);--accbg:var(--st-bg);display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
 @media(max-width:820px){.pacd-wrap{grid-template-columns:1fr}}
 .pacd-wrap.pacd-baic{--acc:var(--baic);--accbg:var(--baic-bg)}
+.pacd-wrap.pacd-ni{--acc:var(--ni);--accbg:var(--ni-bg)}
 .pacd-left{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px;max-height:620px;display:flex;flex-direction:column;overflow:hidden}
 .pacd-search{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:9px 12px;margin-bottom:10px}
 .pacd-search-ic{font-size:14px;opacity:.6}
@@ -1997,9 +1998,11 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .sf-table .sf-slot{font-weight:800;color:var(--text);white-space:nowrap;text-align:start;background:var(--surface2)}
 .sf-table td.sf-col-today{background:#fffaf0}
 .sf-table td.sf-live{background:#eafaf0;box-shadow:inset 0 0 0 2px #16a34a;border-radius:6px}
-.sf-ag{font-weight:700;color:var(--text);line-height:1.5}
-.sf-ag .sep{color:var(--text3);margin:0 3px;font-weight:400}
-.sf-ag.me{color:#0b7a3b}
+.sf-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center}
+.sf-chip{display:inline-block;font-size:11.5px;font-weight:700;color:var(--text2);background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 12px;line-height:1.45;white-space:nowrap}
+.sf-chip.me{color:#0b7a3b;background:#e9f8ef;border-color:#bfe8cf;font-weight:800}
+html[data-theme="dark"] .sf-chip{background:#242d3d;border-color:var(--border);color:var(--text2)}
+html[data-theme="dark"] .sf-chip.me{background:#12331f;border-color:#265b3a;color:#7fe0a3}
 .sf-ag-empty{color:var(--text3)}
 html[data-theme="dark"] .sf-alertbar{background:#241f14;border-color:#40361f}
 html[data-theme="dark"] .sf-table thead th.sf-today{background:#2c2514;color:#e8dcc2}
@@ -2392,6 +2395,9 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 @media(max-width:620px){.stbr-mail{flex-direction:column}.stbr-mail-div{width:auto;height:1px}}
 .stbr-mail.baic-mail{border-color:var(--baic);box-shadow:0 10px 26px -18px var(--baic)}
 .stbr-mail.baic-mail .stbr-mail-chip{color:var(--baic);background:var(--baic-bg)}
+.stbr-mail.sp-compact .stbr-mail-chip{font-size:9.5px;padding:2px 8px}
+.stbr-mail.sp-compact .stbr-mail-row{gap:5px;margin-top:3px}
+.stbr-mail.sp-compact .stbr-mail-k{font-size:10px;min-width:20px}
 
 .sp-emk{display:inline-block;font-size:11px;font-weight:800;color:var(--text3);background:var(--surface2);border-radius:7px;padding:2px 10px;margin:8px 0 4px}
 </style>
@@ -3780,26 +3786,17 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="page-sub" style="margin-top:4px"><span id="baicBranchCount">21</span> Branches · Sat–Thu 8:00 AM – 9:00 PM · Closed Friday</div>
       </div>
     </div>
-    <div class="stbr-mail baic-mail" style="flex-direction:column;align-items:stretch">
+    <div class="stbr-mail baic-mail sp-compact" style="flex-direction:column;align-items:stretch;padding:7px 12px;margin:0 auto 10px;max-width:760px">
       <div class="stbr-mail-col" style="flex:1 1 100%">
-        <div class="page-eyebrow" style="text-align:center;color:var(--baic-muted);margin-bottom:3px">SPARE PARTS</div>
-        <div class="stbr-mail-h">✉️ Request</div>
-        <div class="stbr-mail-row"><span class="stbr-mail-k">TO</span><span class="stbr-mail-chip">Manager Branch</span><span class="stbr-mail-chip">rayan.alghamdi@petromin.com</span></div>
-        <div class="stbr-mail-row"><span class="stbr-mail-k">CC</span><span class="stbr-mail-chip">Regional Manager</span><span class="stbr-mail-chip">cs.agent@petromin.com</span><span class="stbr-mail-chip">m.bintalib@petrominautocare.com</span><span class="stbr-mail-chip">f.barnawi@petrominautocare.com</span><span class="stbr-mail-chip">donya.binlaswad@petrominautocare.com</span><span class="stbr-mail-chip">Abeer.aljehani@petromin.com</span></div>
+        <div style="text-align:center;color:var(--baic-muted);font-size:8px;font-weight:800;letter-spacing:.14em;margin-bottom:1px">SPARE PARTS</div>
+        <div class="stbr-mail-h" style="font-size:11px;margin-bottom:4px">✉️ Request</div>
+        <div class="stbr-mail-row" style="margin-top:4px"><span class="stbr-mail-k">TO</span><span class="stbr-mail-chip">Manager Branch</span><span class="stbr-mail-chip">rayan.alghamdi@petromin.com</span></div>
+        <div class="stbr-mail-row" style="margin-top:4px"><span class="stbr-mail-k">CC</span><span class="stbr-mail-chip">Regional Manager</span><span class="stbr-mail-chip">cs.agent@petromin.com</span><span class="stbr-mail-chip">m.bintalib@petrominautocare.com</span><span class="stbr-mail-chip">f.barnawi@petrominautocare.com</span><span class="stbr-mail-chip">donya.binlaswad@petrominautocare.com</span><span class="stbr-mail-chip">Abeer.aljehani@petromin.com</span></div>
       </div>
     </div>
-    <div class="card" style="background:var(--baic-bg);border-color:var(--baic);margin-bottom:16px">
-      <div style="display:flex;align-items:center;gap:10px;color:var(--baic)">
-        <span style="font-size:20px">🕗</span>
-        <div>
-          <div style="font-size:13px;font-weight:700">Working Hours</div>
-          <div style="font-size:13px;color:var(--text2);margin-top:2px">Sat – Thu &nbsp;·&nbsp; 8:00 AM – 9:00 PM &nbsp;·&nbsp; Closed Friday</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:1px;direction:rtl;text-align:right;font-family:'Tajawal','IBM Plex Sans Arabic',sans-serif">من السبت إلى الخميس من الساعة 8:00 صباحًا حتى 9:00 مساءً · مغلق يوم الجمعة</div>
-        </div>
-      </div>
-    </div>
-    <div class="hotline-bar">
-      <div class="hotline-card"><div class="hotline-label">Petromin Express</div><div class="hotline-num"><a href="tel:8004420020">8004420020</a></div></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--text3);margin-bottom:12px">
+      <span>🕗 <b style="color:var(--baic-muted);font-weight:700">Working Hours</b> · Sat–Thu · 8:00 AM – 9:00 PM · Closed Friday</span>
+      <span style="direction:rtl;font-family:'Tajawal','IBM Plex Sans Arabic',sans-serif">السبت–الخميس · 8:00ص–9:00م · مغلق الجمعة</span>
     </div>
     <div class="card">
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
@@ -4242,7 +4239,7 @@ function _sfNotifOn(){try{return localStorage.getItem('sfNotif')==='1'&&('Notifi
 function _sfCell(pair,me){
   var n=(pair||[]).map(function(x){return (x||'').trim();}).filter(Boolean);
   if(!n.length)return '<span class="sf-ag-empty">—</span>';
-  return n.map(function(x){return '<span class="sf-ag'+(me&&_sfSame(x,me)?' me':'')+'">'+_annEsc(x)+'</span>';}).join('<span class="sep">·</span>');
+  return '<div class="sf-chips">'+n.map(function(x){return '<span class="sf-chip'+(me&&_sfSame(x,me)?' me':'')+'">'+_annEsc(x)+'</span>';}).join('')+'</div>';
 }
 function _sfJoin(pair){var n=(pair||[]).map(function(x){return (x||'').trim();}).filter(Boolean);return n.length?_annEsc(n.join(' · ')):'—';}
 function _sfTable(brand){
@@ -5970,11 +5967,43 @@ function _spParse(raw){
       mgr:g(r,ci.mgr>=0?ci.mgr:5), toEmails:to, ccEmails:cc};
   }).filter(Boolean);
 }
+function _spRegionFromCity(c){
+  c=(c||'').toLowerCase();
+  if(/jeddah|jiddah|madinah|madina|makk|mecca|taif|جدة|المدينة|مكة|الطائف/.test(c))return 'West';
+  if(/riyadh|qassim|buraidah|kharj|الرياض|القصيم|بريدة/.test(c))return 'Central';
+  if(/dammam|khobar|dhahran|jubail|hofuf|hassa|ahsa|qatif|الدمام|الخبر|الجبيل|الاحساء|القطيف/.test(c))return 'East';
+  if(/hail|tabuk|jouf|حائل|تبوك/.test(c))return 'North';
+  if(/jizan|jazan|abha|najran|khamis|جازان|جيزان|ابها|نجران/.test(c))return 'South';
+  return c?c:'Other';
+}
+// Stellantis Spare Parts sheet: A Branch · B City · C Street(Ar) · D Hours · E Advisor(s) · F Email(s) · G Map ; + per-branch CC block at bottom
+function _spStParse(raw){
+  if(!raw||!raw.length)return [];
+  var g=function(r,i){return ((r[i]||'')+'').trim();};
+  var start=0;
+  if(/branch\s*name|advisor|working|email|city/i.test((raw[0]||[]).join(' ').toLowerCase()))start=1;
+  function isLabel(r){var a=g(r,0).toLowerCase(),b=g(r,1).toLowerCase();return /^(to\b|cc\b|cc for|for\s|for complaint|for request)/.test(a)||/^(for complaint|for request)$/.test(b);}
+  var mailStart=-1,i;
+  for(i=start;i<raw.length;i++){if(isLabel(raw[i])){mailStart=i;break;}}
+  var dataEnd=mailStart<0?raw.length:mailStart;
+  var ccMap={};
+  if(mailStart>=0){for(i=mailStart;i<raw.length;i++){var bn=g(raw[i],1),cem=g(raw[i],2);if(bn&&cem&&cem.indexOf('@')>=0)ccMap[bn.toLowerCase()]=_spEmails(cem);}}
+  var out=[];
+  for(i=start;i<dataEnd;i++){
+    var r=raw[i],name=g(r,0);
+    if(!name||isLabel(r))continue;
+    var city=g(r,1);
+    out.push({region:_spRegionFromCity(city), city:city, code:'', name:name,
+      district:g(r,2), hours:g(r,3).replace(/\s*[\r\n]+\s*/g,' | ')||'Saturday to Thursday 8 AM – 5 PM | Fridays closed',
+      map:g(r,6), mgr:g(r,4), toEmails:_spEmails(g(r,5)), ccEmails:ccMap[name.toLowerCase()]||[]});
+  }
+  return out;
+}
 function _spRender(list){_PACD.sp.list=list||[];_pacdRender('sp', _PACD.sp.list);}
 async function loadSpareParts(){
   var st=document.getElementById('sparePartsStatus');
   if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
-  try{var raw=await fetchSheetFrom(STELL_REF_SHEET,SP_GID);var list=_spParse(raw);if(!list.length)throw new Error('empty');_spRender(list);if(st){st.innerHTML='<span class="live-dot"></span>Live \u2713';st.style.background='var(--green-bg)';st.style.color='var(--green)';}}
+  try{var raw=await fetchSheetFrom(STELL_REF_SHEET,SP_GID);var list=_spStParse(raw);if(!list.length)throw new Error('empty');_spRender(list);if(st){st.innerHTML='<span class="live-dot"></span>Live \u2713';st.style.background='var(--green-bg)';st.style.color='var(--green)';}}
   catch(e){var el=document.getElementById('sparePartsBody');if(el)el.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a</div>';if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}}
 }
 // ── NISSAN SPARE PARTS (live Nissan Reference, gid 1600462399) ──
@@ -5998,7 +6027,7 @@ function _nspParse(raw){
       district:g(r,3),
       hours:hrs||'Saturday to Thursday 8 AM – 5 PM | Fridays closed',
       map:'',
-      mgr:g(r,5), mgrPhone:g(r,4), mgrEmail:g(r,6), mgrLabel:'Advisor',
+      mgr:g(r,5), mgrPhone:g(r,4), mgrEmail:g(r,6), mgrLabel:'Branch Manager',
       rm:'', rmPhone:'', rmEmail:''});
   }
   return out;
@@ -7240,7 +7269,7 @@ var _PACD={
   st:{list:[],sel:'',el:'stPacBody',cls:''},
   stbr:{list:[],sel:'',el:'stBranchesBody',cls:''},
   sp:{list:[],sel:'',el:'sparePartsBody',cls:''},
-  nsp:{list:[],sel:'',el:'nissanSpareBody',cls:''},
+  nsp:{list:[],sel:'',el:'nissanSpareBody',cls:'pacd-ni'},
   baic:{list:[],sel:'',el:'baicBranchesBody',cls:'pacd-baic'}
 };
 function _pacdKey(b){return (b.code||'')+'|'+(b.name||'')+'|'+(b.city||'');}
