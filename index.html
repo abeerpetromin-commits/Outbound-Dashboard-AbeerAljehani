@@ -89,6 +89,7 @@ body{font-family:'Tajawal','IBM Plex Sans Arabic',sans-serif;background:var(--bg
   text-transform:uppercase;letter-spacing:1px;
   padding:0 8px 6px;
 }
+.nav-item,.brand-tab,.hdr-btn,.pd-subtab,.cs-acc-head,.ref-card,.td-day,.dayoff-week-head,.script-trigger,.sms-trigger,.recall-trigger,.links-btn,.ft-credit,.page-eyebrow,.pd-brand,.perf-tile,.pd-card-t{-webkit-user-select:none;-moz-user-select:none;user-select:none}
 .nav-item{
   display:flex;align-items:center;gap:9px;
   padding:7px 10px;border-radius:var(--r);
@@ -4348,7 +4349,7 @@ function _perfISO(v){v=String(v||'').trim();if(!v)return '';
 function _perfParse(rows){
   rows=(rows||[]).filter(function(r){return r.some(function(c){return (c||'').trim()!=='';});});
   if(!rows.length)return [];
-  var H={name:-1,date:-1,team:-1,status:-1,total:-1,connected:-1,whatsapp:-1,pct:-1,bookings:-1,badge:-1,app:{nissan:-1,stellantis:-1,baic:-1},task:{nissan:-1,stellantis:-1,baic:-1}};
+  var H={name:-1,date:-1,team:-1,status:-1,total:-1,connected:-1,whatsapp:-1,pct:-1,noans:-1,bookings:-1,badge:-1,app:{nissan:-1,stellantis:-1,baic:-1},task:{nissan:-1,stellantis:-1,baic:-1}};
   (rows[0]||[]).forEach(function(c,i){var t=(c||'').trim().toLowerCase();if(!t)return;
     if(H.badge<0&&/badge|بادج|الرقم الوظيفي|رقم الموظف|رقم وظيفي|employee\s*(id|no|number)|emp\s*id/.test(t)){H.badge=i;return;}
     if(!/note|ملاحظ/.test(t)){var _br=/nissan|نيسان/.test(t)?'nissan':/stellantis|ستلانت|ستيلانت/.test(t)?'stellantis':/baic|بايك/.test(t)?'baic':'';
@@ -4356,6 +4357,7 @@ function _perfParse(rows){
         if(/task|مهام|مهمة/.test(t)&&H.task[_br]<0){H.task[_br]=i;return;}
         if(/\bapp\b|app\.|appoint|موعد|مواعيد/.test(t)&&H.app[_br]<0){H.app[_br]=i;return;}
       }}
+    if(H.noans<0&&/no\s*answer|عدم\s*الرد|لم\s*يرد|بدون\s*رد|no\s*ans/.test(t)){H.noans=i;return;}
     if(H.pct<0&&/connect.*%|%|\bنسبة/.test(t)){H.pct=i;return;}
     if(/connected/.test(t)&&/whats|\+/.test(t))return; /* skip "Connected Calls + Whatsapp" combined column */
     if(H.connected<0&&/connected|موصول|متصل/.test(t)){H.connected=i;return;}
@@ -4374,7 +4376,7 @@ function _perfParse(rows){
   for(var i=1;i<rows.length;i++){var r=rows[i];var name=g(r,H.name);if(!name||/^total|grand|^اجمالي|المجموع/i.test(name))continue;
     out.push({name:name,date:_perfISO(g(r,H.date)),team:g(r,H.team),status:g(r,H.status),badge:g(r,H.badge),
       total:num(g(r,H.total)),connected:num(g(r,H.connected)),whatsapp:num(g(r,H.whatsapp)),
-      pct:parseFloat(String(g(r,H.pct)).replace(/[^0-9.]/g,''))||0,bookings:num(g(r,H.bookings)),
+      pct:parseFloat(String(g(r,H.pct)).replace(/[^0-9.]/g,''))||0,noans:parseFloat(String(g(r,H.noans)).replace(/[^0-9.]/g,''))||0,hasNoans:(H.noans>=0&&g(r,H.noans)!==''),bookings:num(g(r,H.bookings)),
       app:{nissan:num(g(r,H.app.nissan)),stellantis:num(g(r,H.app.stellantis)),baic:num(g(r,H.app.baic))},
       task:{nissan:num(g(r,H.task.nissan)),stellantis:num(g(r,H.task.stellantis)),baic:num(g(r,H.task.baic))}});
   }
@@ -4668,8 +4670,9 @@ function _perfRender(){
   if(_PERF_SEL){_perfDetailRender(host,_PERF_SEL,from,to);return;}
   var recs=_PERF.filter(function(x){if(agent&&x.name!==agent)return false;if(x.date){if(from&&x.date<from)return false;if(to&&x.date>to)return false;}return true;});
   var g={},order=[];
-  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,days:{},stMap:{},app:{nissan:0,stellantis:0,baic:0},task:{nissan:0,stellantis:0,baic:0}};order.push(x.name);}
+  recs.forEach(function(x){if(!g[x.name]){g[x.name]={name:x.name,team:x.team,badge:x.badge,total:0,connected:0,whatsapp:0,bookings:0,naSum:0,naWt:0,naPlain:0,naCnt:0,naHas:false,days:{},stMap:{},app:{nissan:0,stellantis:0,baic:0},task:{nissan:0,stellantis:0,baic:0}};order.push(x.name);}
     var a=g[x.name];a.total+=x.total;a.connected+=x.connected;a.whatsapp+=x.whatsapp;a.bookings+=x.bookings;
+    if(x.hasNoans){a.naHas=true;a.naSum+=x.noans*x.total;a.naWt+=x.total;a.naPlain+=x.noans;a.naCnt++;}
     if(x.app){a.app.nissan+=x.app.nissan||0;a.app.stellantis+=x.app.stellantis||0;a.app.baic+=x.app.baic||0;}
     if(x.task){a.task.nissan+=x.task.nissan||0;a.task.stellantis+=x.task.stellantis||0;a.task.baic+=x.task.baic||0;}
     if(x.date&&(x.total||x.connected||x.bookings||/present|حاضر|remot|بعد/i.test(x.status)))a.days[x.date]=1;
@@ -4677,7 +4680,7 @@ function _perfRender(){
     if(!a.team&&x.team)a.team=x.team;if(!a.badge&&x.badge)a.badge=x.badge;});
   var arr=order.map(function(n){var a=g[n];var allZero=(a.total+a.connected+a.whatsapp+a.bookings)===0;
     var absMap={};Object.keys(a.stMap).forEach(function(k){var s=_perfStat(k);if(!_perfIsWork(s)){if(!absMap[s.l])absMap[s.l]={n:0,bg:s.bg};absMap[s.l].n+=a.stMap[k];}});
-    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,noAns:a.total?Math.round((a.total-a.connected)/a.total*100):0,days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap,app:a.app,task:a.task};});
+    return {name:a.name,team:a.team,badge:a.badge,total:a.total,connected:a.connected,whatsapp:a.whatsapp,bookings:a.bookings,pct:a.total?Math.round(a.connected/a.total*100):0,noAns:a.naHas?(a.naWt>0?Math.round(a.naSum/a.naWt):Math.round(a.naPlain/a.naCnt)):(a.total?Math.round((a.total-a.connected)/a.total*100):0),days:Object.keys(a.days).length,status:allZero?_pickStatus(a.stMap):'',absences:absMap,app:a.app,task:a.task};});
   arr.sort(function(x,y){return (y.bookings-x.bookings)||(y.connected-x.connected);});
   if(!arr.length){host.innerHTML='<div class="grid-empty">No data for the selected period</div>';return;}
   var medals=['🥇','🥈','🥉'];
@@ -4750,12 +4753,13 @@ function _perfDetailRender(host,name,from,to){
 }
 function _pdBrand(n,v,tk,c){var p=tk?Math.round(v/tk*100):0;return '<div class="pd-brand" style="--bc:'+c+'"><div class="pd-brand-n">'+n+'</div><div class="pd-brand-v">'+(tk?p+'%':'—')+'</div><div class="pd-brand-p"><b>'+_nf(v)+'</b> appts · <b>'+_nf(tk)+'</b> tasks</div></div>';}
 function _perfDaily(recs){
-  var tot={total:0,connected:0,whatsapp:0,bookings:0},wd={},app={nissan:0,stellantis:0,baic:0},task={nissan:0,stellantis:0,baic:0};
+  var tot={total:0,connected:0,whatsapp:0,bookings:0},wd={},app={nissan:0,stellantis:0,baic:0},task={nissan:0,stellantis:0,baic:0};var _naSum=0,_naWt=0,_naPlain=0,_naCnt=0,_naHas=false;
   recs.forEach(function(r){tot.total+=r.total;tot.connected+=r.connected;tot.whatsapp+=r.whatsapp;tot.bookings+=r.bookings;
+    if(r.hasNoans){_naHas=true;_naSum+=r.noans*r.total;_naWt+=r.total;_naPlain+=r.noans;_naCnt++;}
     if(r.app){app.nissan+=r.app.nissan||0;app.stellantis+=r.app.stellantis||0;app.baic+=r.app.baic||0;}
     if(r.task){task.nissan+=r.task.nissan||0;task.stellantis+=r.task.stellantis||0;task.baic+=r.task.baic||0;}
     var s=_perfStat(r.status);if(r.date&&(_perfIsWork(s)||r.total||r.connected||r.bookings))wd[r.date]=1;});
-  var pct=tot.total?Math.round(tot.connected/tot.total*100):0;var noAns=tot.total?Math.round((tot.total-tot.connected)/tot.total*100):0;
+  var pct=tot.total?Math.round(tot.connected/tot.total*100):0;var noAns=_naHas?(_naWt>0?Math.round(_naSum/_naWt):Math.round(_naPlain/_naCnt)):(tot.total?Math.round((tot.total-tot.connected)/tot.total*100):0);
   var tiles='<div class="pd-tiles">'+_pdTile('Total Calls',_nf(tot.total),'red')+_pdTile('Connected',_nf(tot.connected),'red')+
     _pdTile('WhatsApp',_nf(tot.whatsapp),'green')+_pdTile('No Answer %',noAns+'%','amber')+_pdTile('Total Bookings',_nf(tot.bookings),'book')+
     _pdTile('Working Days',Object.keys(wd).length,'')+'</div>';
@@ -4767,7 +4771,7 @@ function _perfDaily(recs){
     _pdBrand('Nissan',app.nissan,task.nissan,'var(--ni)')+_pdBrand('Stellantis',app.stellantis,task.stellantis,'var(--st)')+_pdBrand('BAIC',app.baic,task.baic,'var(--baic)')+
   '</div>'+apptTiles+'</div>';
   var rows=recs.map(function(r){var s=_perfStat(r.status),work=_perfIsWork(s);var num=function(v){return work?_nf(v):'—';};
-    var pc=work&&r.total?Math.round((r.total-r.connected)/r.total*100)+'%':'—';
+    var pc=r.hasNoans?(r.noans+'%'):(work&&r.total?Math.round((r.total-r.connected)/r.total*100)+'%':'—');
     return '<tr'+(work?'':' class="off-row"')+'><td>'+(r.date?_niceDate(r.date):'—')+'</td><td>'+(r.date?_wd(r.date):'')+'</td>'+
       '<td class="c-st"><span class="pd-pill '+s.bg+'">'+_annEsc(s.l)+'</span></td>'+
       '<td>'+num(r.total)+'</td><td>'+num(r.connected)+'</td><td>'+num(r.whatsapp)+'</td><td>'+pc+'</td><td>'+num(r.bookings)+'</td></tr>';}).join('');
@@ -4797,11 +4801,11 @@ function _calMonth(m,byDate){
   return '<div class="pd-cal"><div class="pd-cal-mo">'+_MONL[mo-1]+' '+y+'</div><div class="pd-cal-grid">'+dows+cells+'</div></div>';
 }
 function _perfMonthly(recs){
-  var months={};recs.forEach(function(r){if(!r.date)return;var m=r.date.slice(0,7);var o=months[m]=months[m]||{total:0,connected:0,whatsapp:0,bookings:0,work:0,remote:0,vac:0,sick:0,off:0,abs:0,days:{}};
-    o.total+=r.total;o.connected+=r.connected;o.whatsapp+=r.whatsapp;o.bookings+=r.bookings;var s=_perfStat(r.status);o[s.k]=(o[s.k]||0)+1;if(_perfIsWork(s))o.days[r.date]=1;});
+  var months={};recs.forEach(function(r){if(!r.date)return;var m=r.date.slice(0,7);var o=months[m]=months[m]||{total:0,connected:0,whatsapp:0,bookings:0,naSum:0,naWt:0,naPlain:0,naCnt:0,naHas:false,work:0,remote:0,vac:0,sick:0,off:0,abs:0,days:{}};
+    o.total+=r.total;o.connected+=r.connected;o.whatsapp+=r.whatsapp;o.bookings+=r.bookings;if(r.hasNoans){o.naHas=true;o.naSum+=r.noans*r.total;o.naWt+=r.total;o.naPlain+=r.noans;o.naCnt++;}var s=_perfStat(r.status);o[s.k]=(o[s.k]||0)+1;if(_perfIsWork(s))o.days[r.date]=1;});
   var mk=Object.keys(months).sort().reverse();
   if(!mk.length)return '<div class="grid-empty">No data</div>';
-  return mk.map(function(m){var o=months[m];var noAns=o.total?Math.round((o.total-o.connected)/o.total*100):0;var nm=_MONL[+m.slice(5,7)-1]+' '+m.slice(0,4);
+  return mk.map(function(m){var o=months[m];var noAns=o.naHas?(o.naWt>0?Math.round(o.naSum/o.naWt):Math.round(o.naPlain/o.naCnt)):(o.total?Math.round((o.total-o.connected)/o.total*100):0);var nm=_MONL[+m.slice(5,7)-1]+' '+m.slice(0,4);
     return '<div class="pd-card"><div class="pd-card-t">📊 '+nm+'</div><div class="pd-tiles">'+
       _pdTile('Total Calls',_nf(o.total),'red')+_pdTile('Connected',_nf(o.connected),'red')+_pdTile('WhatsApp',_nf(o.whatsapp),'green')+
       _pdTile('No Answer %',noAns+'%','amber')+_pdTile('Total Bookings',_nf(o.bookings),'book')+_pdTile('Worked Days',Object.keys(o.days).length,'')+'</div>'+
