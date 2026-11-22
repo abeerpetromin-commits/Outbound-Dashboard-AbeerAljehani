@@ -1960,6 +1960,61 @@ body[data-brand="dir"]::before{box-shadow:0 1px 16px 0 rgba(194,69,110,.45)}
 .perm-stat-amber{border-color:rgba(138,90,8,.28)}
 .perm-header-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px 16px;text-align:center;max-width:900px;margin:6px auto 12px}
 .perm-title-pill{display:inline-block;background:var(--red-bg);color:var(--red);border:1px solid rgba(209,26,62,.25);border-radius:12px;padding:9px 22px;font-weight:800;font-size:19px;font-family:var(--font-display)}
+/* ── Salesforce rotation schedule ── */
+.sf-alertbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#fff8ec,#fef3df);border:1px solid #efdfbe;border-radius:16px;padding:12px 16px;margin:0 0 14px}
+.sf-alert-left{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;color:#8a6d1f}
+.sf-alert-left svg{color:#c79415;flex:0 0 auto}
+.sf-select{font-family:inherit;font-weight:700;font-size:13px;color:var(--text);background:var(--surface);border:1px solid #e4d7c2;border-radius:11px;padding:8px 14px;cursor:pointer;min-width:150px}
+.sf-bellbtn{font-family:inherit;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(135deg,#d7a721,#c08b16);border:none;border-radius:11px;padding:9px 16px;cursor:pointer;box-shadow:0 6px 16px -8px rgba(192,139,22,.7);transition:transform .15s,filter .15s}
+.sf-bellbtn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.sf-bellbtn.on{background:linear-gradient(135deg,#2e9e5b,#1f8048);box-shadow:0 6px 16px -8px rgba(31,128,72,.7)}
+.pacd-d-mgrs.one{justify-content:center;text-align:center}
+.pacd-d-mgrs.one .pacd-d-mcol{flex:0 1 auto;align-items:center}
+.sf-now{margin:0 0 16px}
+.sf-now-card{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-left:4px solid #16a34a;border-radius:14px;padding:13px 18px;box-shadow:var(--shadow)}
+.sf-now-card.idle{border-left-color:#c7ccd6}
+.sf-now-dot{width:10px;height:10px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.16);flex:0 0 auto;animation:sfpulse 1.8s infinite}
+.sf-now-card.idle .sf-now-dot{background:#c7ccd6;box-shadow:none;animation:none}
+@keyframes sfpulse{0%,100%{opacity:1}50%{opacity:.45}}
+.sf-now-lbl{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+.sf-now-slot{font-weight:800;font-size:14px;color:var(--text)}
+.sf-now-brands{display:flex;gap:10px;flex-wrap:wrap;margin-inline-start:auto}
+.sf-now-brand{display:flex;flex-direction:column;gap:2px;background:var(--surface2);border-radius:11px;padding:7px 13px;min-width:120px}
+.sf-now-brand .bk{font-size:10.5px;font-weight:800;letter-spacing:.04em}
+.sf-now-brand.ni .bk{color:#c3002f}.sf-now-brand.st .bk{color:#17408b}
+.sf-now-brand .bv{font-weight:700;font-size:13px;color:var(--text)}
+.sf-brand-h{display:flex;align-items:center;gap:9px;margin:20px 0 10px;font-family:var(--font-display);font-weight:800;font-size:16px;letter-spacing:-.01em}
+.sf-brand-h .dot{width:12px;height:12px;border-radius:4px;flex:0 0 auto}
+.sf-brand-h.ni .dot{background:#c3002f}.sf-brand-h.ni{color:#c3002f}
+.sf-brand-h.st .dot{background:#17408b}.sf-brand-h.st{color:#17408b}
+.sf-tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.sf-table{border-collapse:collapse;width:100%;min-width:620px;font-size:12.5px}
+.sf-table th,.sf-table td{padding:10px 12px;text-align:center;border-bottom:1px solid var(--border);border-inline-end:1px solid var(--border)}
+.sf-table th:last-child,.sf-table td:last-child{border-inline-end:none}
+.sf-table tr:last-child td{border-bottom:none}
+.sf-table thead th{background:var(--surface2);font-weight:800;font-size:11.5px;color:var(--text2);letter-spacing:.02em;position:sticky;top:0}
+.sf-table thead th.sf-today{background:#fdf1d8;color:#8a6d1f}
+.sf-table .sf-slot{font-weight:800;color:var(--text);white-space:nowrap;text-align:start;background:var(--surface2)}
+.sf-table td.sf-col-today{background:#fffaf0}
+.sf-table td.sf-live{background:#eafaf0;box-shadow:inset 0 0 0 2px #16a34a;border-radius:6px}
+.sf-ag{font-weight:700;color:var(--text);line-height:1.5}
+.sf-ag .sep{color:var(--text3);margin:0 3px;font-weight:400}
+.sf-ag.me{color:#0b7a3b}
+.sf-ag-empty{color:var(--text3)}
+html[data-theme="dark"] .sf-alertbar{background:#241f14;border-color:#40361f}
+html[data-theme="dark"] .sf-table thead th.sf-today{background:#2c2514;color:#e8dcc2}
+html[data-theme="dark"] .sf-table td.sf-col-today{background:#231f16}
+html[data-theme="dark"] .sf-table td.sf-live{background:#12331f}
+@media(max-width:620px){.sf-alert-left{flex:1 1 100%}.sf-now-brands{margin-inline-start:0}}
+.team-subnav{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:16px auto 4px;padding:0 8px}
+.team-subtab{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:9px 17px;font-family:inherit;font-weight:700;font-size:13px;color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:transform .16s,box-shadow .18s,background .18s,color .18s,border-color .18s;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.team-subtab svg{width:15px;height:15px;opacity:.6}
+.team-subtab:hover{transform:translateY(-1px);border-color:var(--border2);color:var(--text);box-shadow:0 6px 16px -10px rgba(16,24,40,.4)}
+.team-subtab.on{background:#f3ece0;color:#6b5636;border-color:#e4d7c2;box-shadow:0 4px 12px -8px rgba(107,86,54,.5)}
+.team-subtab.on svg{opacity:.9}
+html[data-theme="dark"] .team-subtab{background:#1d2636;border-color:var(--border)}
+html[data-theme="dark"] .team-subtab.on{background:#2c2a3a;color:#e8dcc2;border-color:#4a4330}
+@media(max-width:620px){.team-subtab{padding:8px 13px;font-size:12px}}
 .perm-subtabs{display:flex;justify-content:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .perm-subtab{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:9px 18px;font-weight:700;font-size:13px;color:var(--text2);cursor:pointer;font-family:inherit}
 .perm-subtab.active{background:var(--red-bg);color:var(--red);border-color:var(--red-bg)}
@@ -2324,6 +2379,21 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 .opi-results div{background:#f6f3f0;border:1px solid #ece6df;border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.8}
 .opi-results div::before{content:"✓ ";font-weight:800;color:#5a4030}
 @media(max-width:900px){.opi-grid2,.opi-results{grid-template-columns:1fr}.opi-card{grid-template-columns:1fr;grid-template-areas:"t" "l" "i" "k"}}
+
+.stbr-pricepill{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);color:var(--st);font-weight:800;font-size:12.5px;padding:6px 14px;border-radius:999px;text-decoration:none}
+.stbr-pricepill:hover{background:var(--surface3)}
+.stbr-mail{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px 18px;margin-bottom:14px;gap:16px}
+.stbr-mail-col{flex:1 1 0;min-width:0}
+.stbr-mail-div{width:1px;background:var(--border);flex:0 0 auto}
+.stbr-mail-h{text-align:center;font-weight:800;font-size:13.5px;color:var(--text);margin-bottom:8px}
+.stbr-mail-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;justify-content:center}
+.stbr-mail-k{font-size:11px;font-weight:800;color:var(--text3);min-width:26px}
+.stbr-mail-chip{font-size:11.5px;font-weight:700;color:var(--st);background:var(--st-bg,rgba(37,99,201,.08));border:1px solid var(--border);border-radius:8px;padding:3px 10px}
+@media(max-width:620px){.stbr-mail{flex-direction:column}.stbr-mail-div{width:auto;height:1px}}
+.stbr-mail.baic-mail{border-color:var(--baic);box-shadow:0 10px 26px -18px var(--baic)}
+.stbr-mail.baic-mail .stbr-mail-chip{color:var(--baic);background:var(--baic-bg)}
+
+.sp-emk{display:inline-block;font-size:11px;font-weight:800;color:var(--text3);background:var(--surface2);border-radius:7px;padding:2px 10px;margin:8px 0 4px}
 </style>
 </head>
 <body data-brand="stellantis">
@@ -2403,25 +2473,13 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 8 12 8 12s8-6.6 8-12a8 8 0 0 0-8-8z"/></svg>
         Today
       </div>
-      <div class="nav-item nav-hub" onclick="show('performance',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>
-        Team Hub
+      <div class="nav-item nav-team" onclick="showTeam(this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Team
       </div>
-      <div class="nav-item nav-book" onclick="show('booking',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        Booking Volume
-      </div>
-      <div class="nav-item nav-tasks" onclick="show('tasks',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        Daily Tasks
-      </div>
-      <div class="nav-item nav-sched" onclick="show('schedule',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
-        Team Schedule
-      </div>
-      <div class="nav-item nav-plan" onclick="show('plan',this)">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
-        Performance Plan
+      <div class="nav-item nav-sf" onclick="show('salesforce',this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1.3-8.8A6 6 0 0 0 4.9 12 3.5 3.5 0 0 0 6 19z"/></svg>
+        Salesforce
       </div>
     </div>
     <button class="links-btn" id="linksBtn" onclick="openLinks(this)">
@@ -2435,6 +2493,7 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
 <!-- Main -->
 <div class="main" style="flex:1;min-width:0;overflow-x:hidden">
+  <div class="team-subnav" id="teamSubnav" style="display:none"></div>
   <div id="tab-announcements" class="tab-panel">
   <!-- ── ANNOUNCEMENTS (always visible to the whole team) ── -->
   <div class="announce-bar">
@@ -2741,6 +2800,27 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
     <div id="schedBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
+  <!-- SALESFORCE ROTATION (live gid 2110701492) -->
+  <div id="tab-salesforce" class="tab-panel">
+    <div class="page-header"><div>
+      <div class="page-eyebrow" style="color:#b8860b">Salesforce</div>
+      <div class="page-title" style="color:#1a1a1a">Salesforce Schedule</div>
+      <div class="page-sub" style="margin-top:4px;display:flex;align-items:center;gap:8px">Team Salesforce rota · Nissan &amp; Stellantis
+        <span class="live-badge" id="sfStatus"><span class="live-dot"></span>Loading…</span>
+      </div>
+    </div></div>
+    <div class="sf-alertbar">
+      <div class="sf-alert-left">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span>Shift reminder — pick your name:</span>
+      </div>
+      <select id="sfWho" class="sf-select" onchange="_sfSaveWho()"><option value="">— Your name —</option></select>
+      <button type="button" id="sfBell" class="sf-bellbtn" onclick="_sfEnableNotif()">Enable alerts 🔔</button>
+    </div>
+    <div class="sf-now" id="sfNow"></div>
+    <div id="sfBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
   <!-- PERFORMANCE PLAN (Outbound Handling) -->
   <div id="tab-plan" class="tab-panel">
     <div class="opi-wrap" id="opiPlan">
@@ -2954,6 +3034,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="ref-card-body"><div class="ref-card-title">Branches</div><div class="ref-card-count">9 branches</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
+      <div class="ref-card brand-st" onclick="openRef('spareparts-stellantis','stellantis','Spare Parts')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">Spare Parts</div><div class="ref-card-count">Showrooms · Live</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
       <div class="ref-card brand-st" onclick="openRef('pac-branches-stellantis','stellantis','PAC Branches')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">PAC Branches</div><div class="ref-card-count">Live · Auto Care</div></div>
@@ -3017,6 +3102,11 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
       <div class="ref-card brand-ni" onclick="openRef('branches-nissan','nissan','PMS Branches')">
         <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
         <div class="ref-card-body"><div class="ref-card-title">PMS Branches</div><div class="ref-card-count">16 branches</div></div>
+        <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+      <div class="ref-card brand-ni" onclick="openRef('spareparts-nissan','nissan','Spare Parts')">
+        <div class="ref-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/></svg></div>
+        <div class="ref-card-body"><div class="ref-card-title">Spare Parts</div><div class="ref-card-count">Showrooms · Live</div></div>
         <svg class="ref-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
       <div class="ref-card brand-ni" onclick="openRef('body-paint-nissan','nissan','Body & Paint')">
@@ -3388,20 +3478,55 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
 
   <!-- ── BRANCHES STELLANTIS ── -->
   <div id="tab-branches-stellantis" class="tab-panel">
-    <div class="page-header">
-      <div>
-        <div class="page-eyebrow" style="color:var(--st-muted)">Stellantis · Branches</div>
-        <div class="page-title stellantis">Service Centers</div>
-        <div class="page-sub" style="margin-top:4px">Mopar Authorized Service Centers · 9 Branches</div>
+    <div style="display:flex;justify-content:center;margin-bottom:12px">
+      <a class="stbr-pricepill" href="https://docs.google.com/spreadsheets/d/1c3n-4Lek4LgmBgV1LooFCynDtAIug5JbrBqR5PQViR0/edit?usp=sharing" target="_blank" rel="noopener">🏷️ Price List ↗</a>
+    </div>
+    <div class="stbr-mail">
+      <div class="stbr-mail-col">
+        <div class="stbr-mail-h">✉️ Request</div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">TO</span><span class="stbr-mail-chip">Manager Branch</span></div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">CC</span><span class="stbr-mail-chip">Abeer.aljehani@petromin.com</span><span class="stbr-mail-chip">cs.agent@petromin.com</span></div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
-        <span>All Branches</span>
-        <span class="live-badge" id="stBranchesStatus"><span class="live-dot"></span>Loading...</span>
-      </div>
-      <div id="stBranchesBody" class="brn-regions"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+      <span class="live-badge" id="stBranchesStatus"><span class="live-dot"></span>Loading...</span>
     </div>
+    <div id="stBranchesBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
+  <div id="tab-spareparts-stellantis" class="tab-panel">
+    <div style="display:flex;justify-content:center;margin-bottom:12px">
+      <a class="stbr-pricepill" href="https://docs.google.com/spreadsheets/d/1c3n-4Lek4LgmBgV1LooFCynDtAIug5JbrBqR5PQViR0/edit?usp=sharing" target="_blank" rel="noopener">🏷️ Price List ↗</a>
+    </div>
+    <div class="stbr-mail">
+      <div class="stbr-mail-col">
+        <div class="stbr-mail-h">✉️ Request</div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">TO</span><span class="stbr-mail-chip">Manager Branch</span></div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">CC</span><span class="stbr-mail-chip">Abeer.aljehani@petromin.com</span><span class="stbr-mail-chip">cs.agent@petromin.com</span></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+      <span class="live-badge" id="sparePartsStatus"><span class="live-dot"></span>Loading...</span>
+    </div>
+    <div id="sparePartsBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
+  </div>
+
+  <!-- SPARE PARTS NISSAN (live gid 1600462399) -->
+  <div id="tab-spareparts-nissan" class="tab-panel">
+    <div style="display:flex;justify-content:center;margin-bottom:12px">
+      <a class="stbr-pricepill" style="color:var(--ni)" href="https://docs.google.com/spreadsheets/d/1AWxsnTpbu4mYyPeKcSQOWRwVj9luQInPnIGJv4W32_g/edit?gid=721210659#gid=721210659" target="_blank" rel="noopener">🏷️ Price List ↗</a>
+    </div>
+    <div class="stbr-mail">
+      <div class="stbr-mail-col">
+        <div class="stbr-mail-h">✉️ Request</div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">TO</span><span class="stbr-mail-chip">Manager Branch</span></div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">CC</span><span class="stbr-mail-chip">Abeer.aljehani@petromin.com</span><span class="stbr-mail-chip">o.alghamdi@petromin.com</span><span class="stbr-mail-chip">cs.agent@petromin.com</span></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+      <span class="live-badge" id="nissanSpareStatus"><span class="live-dot"></span>Loading...</span>
+    </div>
+    <div id="nissanSpareBody"><div class="grid-empty">Loading data from Google Sheets…</div></div>
   </div>
 
   <!-- ── BRANCHES NISSAN ── -->
@@ -3653,6 +3778,14 @@ body[data-brand="esc"]::before{box-shadow:0 1px 16px 0 rgba(217,83,79,.45)}
         <div class="page-eyebrow" style="color:var(--baic-muted)">BAIC · Branches</div>
         <div class="page-title" style="color:var(--baic)">Autocare Branches</div>
         <div class="page-sub" style="margin-top:4px"><span id="baicBranchCount">21</span> Branches · Sat–Thu 8:00 AM – 9:00 PM · Closed Friday</div>
+      </div>
+    </div>
+    <div class="stbr-mail baic-mail" style="flex-direction:column;align-items:stretch">
+      <div class="stbr-mail-col" style="flex:1 1 100%">
+        <div class="page-eyebrow" style="text-align:center;color:var(--baic-muted);margin-bottom:3px">SPARE PARTS</div>
+        <div class="stbr-mail-h">✉️ Request</div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">TO</span><span class="stbr-mail-chip">Manager Branch</span><span class="stbr-mail-chip">rayan.alghamdi@petromin.com</span></div>
+        <div class="stbr-mail-row"><span class="stbr-mail-k">CC</span><span class="stbr-mail-chip">Regional Manager</span><span class="stbr-mail-chip">cs.agent@petromin.com</span><span class="stbr-mail-chip">m.bintalib@petrominautocare.com</span><span class="stbr-mail-chip">f.barnawi@petrominautocare.com</span><span class="stbr-mail-chip">donya.binlaswad@petrominautocare.com</span><span class="stbr-mail-chip">Abeer.aljehani@petromin.com</span></div>
       </div>
     </div>
     <div class="card" style="background:var(--baic-bg);border-color:var(--baic);margin-bottom:16px">
@@ -3995,8 +4128,8 @@ const TAB_GROUPS={
   booking:['booking'],
   today:['today'],
   tasks:['tasks'],
-  nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
-  stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
+  nissan:['nissan-ref','nissan-smsloc','pac-branches-nissan','vehicles-nissan','warranty-nissan','branches-nissan','spareparts-nissan','body-paint-nissan','script-nissan','lost-offer-nissan','whatsapp-nissan','sms-nissan'],
+  stellantis:['instruction-stellantis','sales-stellantis','appt-sms-stellantis','vehicles-stellantis','branches-stellantis','spareparts-stellantis','pac-branches-stellantis','body-paint','script-stellantis','whatsapp-stellantis','sms-stellantis'],
   baic:['instruction-baic','appt-loc-sms-baic','vehicles-baic','branches-baic','baic-location','script-baic','sms-baic']
 };
 function runLoader(id){
@@ -4009,6 +4142,7 @@ function runLoader(id){
   if(id==='vacation')loadVacation();
   if(id==='social')loadSocial();
   if(id==='schedule')loadSchedule();
+  if(id==='salesforce')loadSalesforce();
   if(id==='warranty-nissan')loadWarrantyNissan();
   if(id==='nissan-ref')loadNissanRef();
   if(id==='nissan-smsloc')loadNissanSmsLoc();
@@ -4027,7 +4161,9 @@ function runLoader(id){
   if(id==='script-baic')loadCallScript('baic');
   if(id==='whatsapp-nissan')loadD1Script('ni');
   if(id==='branches-stellantis')loadStBranches();
+  if(id==='spareparts-stellantis')loadSpareParts();
   if(id==='branches-nissan')loadNiBranches();
+  if(id==='spareparts-nissan')loadNissanSpareParts();
   if(id==='branches-baic')loadBaicBranches();
   if(id==='baic-location')loadBaicLocation();
   if(id==='whatsapp-baic')loadD1Script('baic');
@@ -4039,6 +4175,7 @@ function runLoader(id){
 var _booted=false;
 function show(tab,el,brand){
   var ids=TAB_GROUPS[tab]||[tab];
+  var _tsb=document.getElementById('teamSubnav');if(_tsb)_tsb.style.display='none';
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item,.brand-tab').forEach(n=>n.classList.remove('active'));
   ids.forEach(function(id){var p=document.getElementById('tab-'+id);if(p)p.classList.add('active');});
@@ -4047,6 +4184,139 @@ function show(tab,el,brand){
   if(typeof setCrumb==='function')setCrumb(null);
   if(_booted){setTimeout(function(){var ap=document.querySelector('.tab-panel.active');if(ap)ap.scrollIntoView({behavior:'smooth',block:'start'});},40);}
   setTimeout(function(){ids.forEach(function(id){try{runLoader(id);}catch(e){console.warn('loader',id,e);}});},50);
+}
+
+// ── TEAM (grouped sub-tabs) ──
+var TEAM_SUBS=[
+  {k:'performance',l:'Team Hub',i:'<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>'},
+  {k:'booking',l:'Booking Volume',i:'<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>'},
+  {k:'tasks',l:'Daily Tasks',i:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'},
+  {k:'schedule',l:'Team Schedule',i:'<path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/>'},
+  {k:'plan',l:'Performance Plan',i:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/>'}
+];
+function _teamPills(active){
+  var bar=document.getElementById('teamSubnav');if(!bar)return;
+  bar.innerHTML=TEAM_SUBS.map(function(s){
+    return '<button type="button" class="team-subtab'+(s.k===active?' on':'')+'" onclick="showTeam(null,\''+s.k+'\')">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+s.i+'</svg>'+s.l+'</button>';
+  }).join('');
+}
+function showTeam(navEl,sub){
+  sub=sub||'performance';
+  var ids=TAB_GROUPS[sub]||[sub];
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item,.brand-tab').forEach(n=>n.classList.remove('active'));
+  var tn=document.querySelector('.nav-team');if(tn)tn.classList.add('active');
+  ids.forEach(function(id){var p=document.getElementById('tab-'+id);if(p)p.classList.add('active');});
+  document.body.setAttribute('data-brand','team');
+  if(typeof setCrumb==='function')setCrumb(null);
+  var bar=document.getElementById('teamSubnav');if(bar){bar.style.display='';_teamPills(sub);}
+  if(_booted){setTimeout(function(){var ap=document.querySelector('.tab-panel.active');if(ap)ap.scrollIntoView({behavior:'smooth',block:'start'});},40);}
+  setTimeout(function(){ids.forEach(function(id){try{runLoader(id);}catch(e){console.warn('loader',id,e);}});},50);
+}
+
+// ── SALESFORCE ROTATION (live gid 2110701492) ──
+var SF_GID='2110701492',_SF=null,_sfTick=null,_sfRenderedKey='init',_sfLastFired='';
+var SF_DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday'];
+var SF_SHORT={Sunday:'Sun',Monday:'Mon',Tuesday:'Tue',Wednesday:'Wed',Thursday:'Thu'};
+function _sfNow(){
+  var p={};new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Riyadh',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value;});
+  var wd={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday];var hh=parseInt(p.hour,10);if(hh===24)hh=0;
+  return {d:wd,m:hh*60+parseInt(p.minute,10)};
+}
+function _sfT(s){var mt=(s||'').trim().match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM|ص|م)?/i);if(!mt)return null;var h=parseInt(mt[1],10),mn=mt[2]?parseInt(mt[2],10):0,ap=(mt[3]||'').toUpperCase();if((ap==='PM'||ap==='م')&&h<12)h+=12;if((ap==='AM'||ap==='ص')&&h===12)h=0;return h*60+mn;}
+function _sfParseSlot(t){var m=(t||'').split(/[-–—]/);if(m.length<2)return null;var a=_sfT(m[0]),b=_sfT(m[1]);if(a==null||b==null)return null;return {s:a,e:b};}
+function _sfDayKey(s){s=(s||'').toLowerCase();for(var i=0;i<SF_DAYS.length;i++)if(SF_DAYS[i].toLowerCase()===s)return SF_DAYS[i];return /sun|أحد|احد/.test(s)?'Sunday':/mon|اثن|إثن/.test(s)?'Monday':/tue|ثلاث/.test(s)?'Tuesday':/wed|أربع|اربع/.test(s)?'Wednesday':/thu|خميس/.test(s)?'Thursday':null;}
+function _sfParse(rows){
+  var byDay={};SF_DAYS.forEach(function(d){byDay[d]=[];});var slots=[];
+  (rows||[]).forEach(function(r){
+    var dk=_sfDayKey((r[0]||'').trim());if(!dk)return;var slot=(r[1]||'').trim();if(!slot||!/\d/.test(slot))return;
+    byDay[dk].push({slot:slot,ni:[(r[2]||'').trim(),(r[3]||'').trim()],st:[(r[4]||'').trim(),(r[5]||'').trim()]});
+    if(slots.indexOf(slot)<0)slots.push(slot);
+  });
+  return {byDay:byDay,slots:slots};
+}
+function _sfSame(a,b){return (a||'').trim().toLowerCase()===(b||'').trim().toLowerCase();}
+function _sfWho(){try{return localStorage.getItem('sfWho')||'';}catch(e){return '';}}
+function _sfNotifOn(){try{return localStorage.getItem('sfNotif')==='1'&&('Notification'in window)&&Notification.permission==='granted';}catch(e){return false;}}
+function _sfCell(pair,me){
+  var n=(pair||[]).map(function(x){return (x||'').trim();}).filter(Boolean);
+  if(!n.length)return '<span class="sf-ag-empty">—</span>';
+  return n.map(function(x){return '<span class="sf-ag'+(me&&_sfSame(x,me)?' me':'')+'">'+_annEsc(x)+'</span>';}).join('<span class="sep">·</span>');
+}
+function _sfJoin(pair){var n=(pair||[]).map(function(x){return (x||'').trim();}).filter(Boolean);return n.length?_annEsc(n.join(' · ')):'—';}
+function _sfTable(brand){
+  var me=_sfWho(),nd=_sfNow(),today=SF_DAYS[nd.d];
+  var head='<tr><th class="sf-slot">Time</th>'+SF_DAYS.map(function(d){return '<th class="'+(d===today?'sf-today':'')+'">'+SF_SHORT[d]+'</th>';}).join('')+'</tr>';
+  var body=_SF.slots.map(function(slot){
+    var sp=_sfParseSlot(slot);
+    var tds=SF_DAYS.map(function(d){
+      var rec=null;_SF.byDay[d].forEach(function(x){if(x.slot===slot)rec=x;});
+      var pair=rec?rec[brand]:['',''];var live=(d===today&&sp&&nd.m>=sp.s&&nd.m<sp.e);
+      var cls=[];if(d===today)cls.push('sf-col-today');if(live)cls.push('sf-live');
+      return '<td class="'+cls.join(' ')+'">'+_sfCell(pair,me)+'</td>';
+    }).join('');
+    return '<tr><td class="sf-slot">'+_annEsc(slot)+'</td>'+tds+'</tr>';
+  }).join('');
+  return '<div class="sf-tablewrap"><table class="sf-table"><thead>'+head+'</thead><tbody>'+body+'</tbody></table></div>';
+}
+function _sfNowBanner(){
+  var el=document.getElementById('sfNow');if(!el||!_SF)return;
+  var nd=_sfNow(),today=SF_DAYS[nd.d];
+  if(!today){el.innerHTML='<div class="sf-now-card idle"><span class="sf-now-dot"></span><div><div class="sf-now-lbl">Weekend</div><div class="sf-now-slot">Fri/Sat — no Salesforce shift</div></div></div>';return;}
+  var cur=null;_SF.byDay[today].forEach(function(x){var sp=_sfParseSlot(x.slot);if(sp&&nd.m>=sp.s&&nd.m<sp.e)cur=x;});
+  if(!cur){el.innerHTML='<div class="sf-now-card idle"><span class="sf-now-dot"></span><div><div class="sf-now-lbl">Now · '+SF_SHORT[today]+'</div><div class="sf-now-slot">No active shift right now</div></div></div>';return;}
+  el.innerHTML='<div class="sf-now-card"><span class="sf-now-dot"></span>'+
+    '<div><div class="sf-now-lbl">On shift now · '+SF_SHORT[today]+'</div><div class="sf-now-slot">'+_annEsc(cur.slot)+'</div></div>'+
+    '<div class="sf-now-brands"><div class="sf-now-brand ni"><span class="bk">NISSAN</span><span class="bv">'+_sfJoin(cur.ni)+'</span></div>'+
+    '<div class="sf-now-brand st"><span class="bk">STELLANTIS</span><span class="bv">'+_sfJoin(cur.st)+'</span></div></div></div>';
+}
+function _sfFillWho(){
+  var sel=document.getElementById('sfWho');if(!sel||!_SF)return;var set={};
+  SF_DAYS.forEach(function(d){_SF.byDay[d].forEach(function(x){x.ni.concat(x.st).forEach(function(n){n=(n||'').trim();if(n)set[n.toLowerCase()]=n;});});});
+  var names=Object.keys(set).map(function(k){return set[k];}).sort();var cur=_sfWho();
+  sel.innerHTML='<option value="">— Your name —</option>'+names.map(function(n){return '<option'+(_sfSame(n,cur)?' selected':'')+'>'+_annEsc(n)+'</option>';}).join('');
+}
+function _sfSaveWho(){var sel=document.getElementById('sfWho');try{localStorage.setItem('sfWho',sel.value||'');}catch(e){}_sfRenderedKey='force';_sfRender();}
+function _sfRender(){
+  var body=document.getElementById('sfBody');if(!body||!_SF)return;
+  body.innerHTML='<div class="sf-brand-h ni"><span class="dot"></span>Nissan Salesforce</div>'+_sfTable('ni')+
+                 '<div class="sf-brand-h st"><span class="dot"></span>Stellantis Salesforce</div>'+_sfTable('st');
+  _sfNowBanner();
+}
+function _sfSyncBell(){var btn=document.getElementById('sfBell');if(btn&&_sfNotifOn()){btn.classList.add('on');btn.textContent='Alerts on ✓';}}
+function _sfEnableNotif(){
+  var btn=document.getElementById('sfBell');
+  if(!('Notification'in window)){alert('Notifications are not supported in this browser');return;}
+  Notification.requestPermission().then(function(p){
+    if(p==='granted'){try{localStorage.setItem('sfNotif','1');}catch(e){}
+      if(btn){btn.classList.add('on');btn.textContent='Alerts on ✓';}
+      try{new Notification('Alerts enabled ✓',{body:"You'll be notified 5 min before your shift"});}catch(e){}
+      _sfStartClock();
+    }else if(btn){btn.textContent='Alerts blocked';}
+  });
+}
+function _sfOnTick(){
+  if(!_SF)return;var nd=_sfNow(),today=SF_DAYS[nd.d]||'';var slotNow='';
+  if(today)_SF.byDay[today].forEach(function(x){var sp=_sfParseSlot(x.slot);if(sp&&nd.m>=sp.s&&nd.m<sp.e)slotNow=x.slot;});
+  var key=today+'|'+slotNow;
+  if(key!==_sfRenderedKey){_sfRenderedKey=key;_sfRender();}else{_sfNowBanner();}
+  if(!_sfNotifOn())return;var me=_sfWho();if(!me||!today)return;
+  _SF.byDay[today].forEach(function(x){
+    if(!x.ni.concat(x.st).some(function(n){return _sfSame(n,me);}))return;
+    var sp=_sfParseSlot(x.slot);if(!sp)return;var diff=sp.s-nd.m;
+    if(diff>=0&&diff<=5){var k=today+'|'+x.slot;if(_sfLastFired!==k){_sfLastFired=k;
+      var brand=x.ni.some(function(n){return _sfSame(n,me);})?'Nissan':'Stellantis';
+      try{new Notification('⏰ Your Salesforce shift',{body:me+' — '+brand+' · '+x.slot+(diff<=0?' (now)':' (in '+diff+' min)')});}catch(e){}
+    }}
+  });
+}
+function _sfStartClock(){if(_sfTick)return;_sfTick=setInterval(_sfOnTick,30000);}
+async function loadSalesforce(){
+  var b=document.getElementById('sfStatus');
+  try{var rows=await fetchSheet(SF_GID);_SF=_sfParse(rows);_sfFillWho();_sfRenderedKey='force';_sfRender();_sfSyncBell();
+    if(b)b.innerHTML='<span class="live-dot"></span>Live ✓';_sfStartClock();
+  }catch(e){if(b)b.innerHTML='<span class="live-dot"></span>Cached';console.warn('sf',e);}
 }
 
 // ── CSV ──
@@ -5645,42 +5915,100 @@ const ST_BR_FALLBACK=[
   {region:'East',branch:'902 - Khobar',svc:'PMS - Recall - Suspension , ( No Rams Accepted )',addr:'الخبر - الراكة الشمالية بعد الهيئة العامة للنقل بالمنطقة الشرقية',phone:'',mgr:'Mustafa Hassan',email:'m.alqumbari@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://goo.gl/maps/HSs7SEpQJHicRzTFA'},
   {region:'East',branch:'903 - Jubail',svc:'',addr:'الطريق السريع، قسم عبد اللطيف جميل.1، الجبيل 35514',phone:'533049485',mgr:'Islam Nasrallah',email:'i.nasrallah@petromin.com',hours:'Saturday to Thursday 8AM - 12PM / 1PM - 5PM ❌ Fridays closed',map:'https://goo.gl/maps/pRHxZAT3K52kd6Pa9'},
 ];
+function _stbrCity(branch){
+  var C=[["Jeddah",/jeddah|جدة/i],["Makkah",/makk|mecca|مكة|مكه/i],["Madinah",/madin|medina|المدينة/i],["Riyadh",/riyadh|riyad|الرياض/i],["Dammam",/dammam|الدمام/i],["Alkhobar",/khobar|الخبر/i],["Hail",/\bhail\b|حائل/i],["Qassim",/qassim|buraid|القصيم|بريدة/i],["Yanbu",/yanbu|ينبع/i],["Taif",/taif|الطائف/i],["Tabuk",/tabuk|تبوك/i],["Jubail",/jubail|الجبيل/i],["Hassa",/hasa|ahsa|الاحساء|الأحساء/i],["Abha",/abha|ابها/i],["Khamis",/khamis|خميس/i],["Jizan",/jizan|jazan|جازان/i],["Najran",/najran|نجران/i]];
+  var b=branch||"";for(var i=0;i<C.length;i++){if(C[i][1].test(b))return C[i][0];}return "";
+}
 function _stbrParse(raw){
   if(!raw||!raw.length)return [];
-  return raw.filter(function(r){return r && /^\s*\d/.test((r[1]||''));}).map(function(r){
-    return {region:(r[0]||'').trim(), branch:(r[1]||'').trim().replace(/\s{2,}/g,' '),
-            svc:(r[2]||'').trim(), addr:(r[3]||'').trim(), phone:(r[4]||'').trim(),
-            mgr:(r[5]||'').trim(), email:(r[6]||'').trim(), hours:(r[7]||'').trim(), map:(r[8]||'').trim()};
+  var out=[];
+  for(var i=0;i<raw.length;i++){var r=raw[i]||[];var nm=(r[1]||"").trim();
+    if(!nm)continue;
+    if(i===0 && /^(branch|name|service|region|الفرع|المنطقة|الاسم)/i.test(nm))continue;
+    out.push({region:(r[0]||"").trim(), branch:nm.replace(/\s{2,}/g," "),
+      svc:(r[2]||"").trim(), addr:(r[3]||"").trim(), phone:(r[4]||"").trim(),
+      mgr:(r[5]||"").trim(), email:(r[6]||"").trim(), hours:(r[7]||"").trim(), map:(r[8]||"").trim()});
+  }
+  return out;
+}
+function _stbrToPacd(list){
+  return (list||[]).map(function(b){
+    return {region:b.region, city:_stbrCity(b.branch)||(_stRegionMeta(b.region).label), code:"", name:b.branch,
+      district:b.addr, hours:b.hours, mgr:b.mgr, mgrPhone:b.phone, mgrEmail:b.email,
+      rm:"", rmPhone:"", rmEmail:"", map:b.map, services:b.svc};
   });
 }
 function _stbrRender(list){
-  var el=document.getElementById('stBranchesBody'); if(!el)return;
-  if(!list||!list.length){el.innerHTML='<div class="grid-empty">لا توجد بيانات بعد</div>';return;}
-  var rank={West:1,Western:1,Central:2,Center:2,East:3,Eastern:3,North:4,South:5}, groups={};
-  list.forEach(function(b){var k=b.region||'Other'; if(!groups[k])groups[k]=[]; groups[k].push(b);});
-  var keys=Object.keys(groups).sort(function(a,b){return (rank[a]||9)-(rank[b]||9);});
-  el.innerHTML=keys.map(function(k){
-    var items=groups[k];
-    var hc={}, def='', best=0;
-    items.forEach(function(b){if(b.hours){hc[b.hours]=(hc[b.hours]||0)+1; if(hc[b.hours]>best){best=hc[b.hours];def=b.hours;}}});
-    var cards=items.map(function(b){
-      var svc=b.svc?'<div class="brn-svc">'+_baicEsc(b.svc)+'</div>':'';
-      var addr=b.addr?'<div class="brn-addr">'+_BRN_PIN+'<span>'+_baicEsc(b.addr)+'</span></div>':'';
-      var mgr=b.mgr?'<div class="brn-mgr">'+_BRN_PERSON+'<span>'+_baicEsc(b.mgr)+'</span></div>':'';
-      var ph=b.phone?'<div class="brn-phone">'+_BRN_PHONE+'<a href="tel:'+_baicEsc(b.phone.replace(/\s/g,''))+'">'+_baicEsc(b.phone)+'</a></div>':'';
-      var emails=b.email?b.email.split(',').map(function(e){e=e.trim();return (e.indexOf('@')>0)?'<a class="brn-email" href="mailto:'+_baicEsc(e)+'">'+_baicEsc(e)+'</a>':'';}).join(''):'';
-      var loc=b.map?'<a class="brn-loc" href="'+_baicEsc(b.map)+'" target="_blank" rel="noopener">'+_BRN_LOC+'<span>Location</span></a>':'';
-      var hrs=(b.hours&&b.hours!==def)?'<div class="brn-hours">'+_BRN_CLOCK+'<span>'+_baicEsc(b.hours)+'</span></div>':'';
-      return '<div class="brn-card"><div class="brn-card-head">'+_baicEsc(b.branch)+'</div>'+addr+
-             '<div class="brn-card-body">'+svc+mgr+ph+emails+loc+hrs+'</div></div>';
-    }).join('');
-    var hHead=def?'<span class="brn-region-hours">'+_BRN_CLOCK+'<span>'+_baicEsc(def)+'</span></span>':'';
-    return '<div class="brn-region" data-open="1" style="--rc:var(--st);--rcbg:var(--st-bg)">'+
-      '<button type="button" class="brn-region-head" onclick="_brnToggle(this)">'+
-        '<span class="brn-region-title">'+_baicEsc(k)+' <span class="brn-region-count">('+items.length+')</span></span>'+
-        '<span class="brn-region-right">'+hHead+'<span class="brn-chev">▾</span></span></button>'+
-      '<div class="brn-grid">'+cards+'</div></div>';
-  }).join('');
+  _PACD.stbr.list=_stbrToPacd(list);
+  _pacdRender('stbr', _PACD.stbr.list);
+}
+var SP_GID='748141236';
+function _spEmails(v){return (v||'').split(/[,;\n\r]+|\s{2,}/).map(function(x){return x.trim();}).filter(function(x){return x.indexOf('@')>0;});}
+function _spParse(raw){
+  if(!raw||!raw.length)return [];
+  var head=(raw[0]||[]).map(function(c){return (c||'').trim().toLowerCase();});
+  function find(re){for(var i=0;i<head.length;i++){if(re.test(head[i]))return i;}return -1;}
+  var hasHeader=/region|branch|manager|address|\u0627\u0644\u0641\u0631\u0639|\u0627\u0644\u0645\u0646\u0637\u0642\u0629|\u0627\u0644\u0639\u0646\u0648\u0627\u0646/.test(head.join(' '));
+  var ci={region:find(/region|\u0627\u0644\u0645\u0646\u0637\u0642\u0629/),branch:find(/branch|name|\u0627\u0644\u0641\u0631\u0639|\u0627\u0644\u0627\u0633\u0645/),
+    city:find(/city|\u0627\u0644\u0645\u062f\u064a\u0646\u0629/),addr:find(/address|location text|\u0627\u0644\u0639\u0646\u0648\u0627\u0646/),
+    hours:find(/hour|time|\u062f\u0648\u0627\u0645|\u0627\u0644\u062f\u0648\u0627\u0645/),map:find(/map|google|link|\u0631\u0627\u0628\u0637|\u0645\u0648\u0642\u0639/),
+    mgr:find(/manager|\u0645\u062f\u064a\u0631/),to:find(/^to\b|to email|\bto\b/),cc:find(/^cc\b|cc email|\bcc\b/)};
+  var body=hasHeader?raw.slice(1):raw;
+  var g=function(r,i){return i>=0?((r[i]||'').trim()):'';};
+  return body.map(function(r){
+    var nm=g(r,ci.branch>=0?ci.branch:1);
+    if(!nm)return null;
+    var to=ci.to>=0?_spEmails(g(r,ci.to)):[];
+    var cc=ci.cc>=0?_spEmails(g(r,ci.cc)):[];
+    if(!to.length&&!cc.length){ // fallback: gather all email cells -> first=TO rest=CC
+      var all=[];for(var j=0;j<r.length;j++){var es=_spEmails(r[j]);for(var k=0;k<es.length;k++)all.push(es[k]);}
+      if(all.length){to=[all[0]];cc=all.slice(1);}
+    }
+    var region=g(r,ci.region>=0?ci.region:0);
+    return {region:region, city:(ci.city>=0?g(r,ci.city):'')||_stbrCity(nm)||_stRegionMeta(region).label, code:'', name:nm,
+      district:g(r,ci.addr>=0?ci.addr:3), hours:g(r,ci.hours>=0?ci.hours:7), map:g(r,ci.map>=0?ci.map:8),
+      mgr:g(r,ci.mgr>=0?ci.mgr:5), toEmails:to, ccEmails:cc};
+  }).filter(Boolean);
+}
+function _spRender(list){_PACD.sp.list=list||[];_pacdRender('sp', _PACD.sp.list);}
+async function loadSpareParts(){
+  var st=document.getElementById('sparePartsStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{var raw=await fetchSheetFrom(STELL_REF_SHEET,SP_GID);var list=_spParse(raw);if(!list.length)throw new Error('empty');_spRender(list);if(st){st.innerHTML='<span class="live-dot"></span>Live \u2713';st.style.background='var(--green-bg)';st.style.color='var(--green)';}}
+  catch(e){var el=document.getElementById('sparePartsBody');if(el)el.innerHTML='<div class="grid-empty">\u062a\u0639\u0630\u0651\u0631 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a</div>';if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}}
+}
+// ── NISSAN SPARE PARTS (live Nissan Reference, gid 1600462399) ──
+var NSP_GID='1600462399';
+// Sheet layout: A Regions · B City · C "Code - Branch" · D District · E Phone# · F Advisor's Name · G Email TO · H Working hours
+function _nspParse(raw){
+  if(!raw||!raw.length)return [];
+  var g=function(r,i){return ((r[i]||'')+'').trim();};
+  var start=0;
+  if(/region|branch|city|phone|advisor|email|working/i.test((raw[0]||[]).join(' ').toLowerCase()))start=1;
+  var out=[];
+  for(var i=start;i<raw.length;i++){
+    var r=raw[i]||[];
+    var cb=g(r,2);                       // "101 - Automall"
+    if(!cb)continue;                     // skips the mail-info rows (empty col C)
+    var code='',name=cb,mm=cb.match(/^\s*([0-9]+)\s*[-–—]\s*(.+)$/);
+    if(mm){code=mm[1];name=mm[2].trim();}
+    var region=g(r,0);
+    var hrs=g(r,7).replace(/\s*[\r\n]+\s*/g,' | ');
+    out.push({region:region, city:g(r,1)||_stRegionMeta(region).label, code:code, name:name,
+      district:g(r,3),
+      hours:hrs||'Saturday to Thursday 8 AM – 5 PM | Fridays closed',
+      map:'',
+      mgr:g(r,5), mgrPhone:g(r,4), mgrEmail:g(r,6), mgrLabel:'Advisor',
+      rm:'', rmPhone:'', rmEmail:''});
+  }
+  return out;
+}
+function _nspRender(list){_PACD.nsp.list=list||[];_pacdRender('nsp', _PACD.nsp.list);}
+async function loadNissanSpareParts(){
+  var st=document.getElementById('nissanSpareStatus');
+  if(st)st.innerHTML='<span class="live-dot"></span>Updating...';
+  try{var raw=await fetchSheetFrom(NISSAN_REF_SHEET,NSP_GID);var list=_nspParse(raw);if(!list.length)throw new Error('empty');_nspRender(list);if(st){st.innerHTML='<span class="live-dot"></span>Live ✓';st.style.background='var(--green-bg)';st.style.color='var(--green)';}}
+  catch(e){var el=document.getElementById('nissanSpareBody');if(el)el.innerHTML='<div class="grid-empty">تعذّر تحميل البيانات</div>';if(st){st.innerHTML='<span class="live-dot"></span>Cached';st.style.background='var(--amber-bg)';st.style.color='var(--amber)';}console.warn('nsp',e);}
 }
 async function loadStBranches(){
   var statusEl=document.getElementById('stBranchesStatus');
@@ -6460,7 +6788,7 @@ function openBrand(brand,el){_hidePanels();var _lb=document.getElementById("link
 function openRef(panelId,brand,title){_hidePanels();var _lb=document.getElementById("linksBtn");if(_lb)_lb.classList.remove("open");var p=document.getElementById('tab-'+panelId);if(p)p.classList.add('active');document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});setBrandActive(brand);document.body.setAttribute('data-brand',brand);setCrumb(brand,title);setTimeout(function(){try{runLoader(panelId);}catch(e){console.warn(panelId,e);}},40);_scrollContent();}
 function crumbBack(){var c=document.getElementById('crumb');if(c&&c.dataset.back==='hub'){c.dataset.back='';_goHub();return;}var brand=c&&c.dataset.brand?c.dataset.brand:'stellantis';openBrand(brand);}
 function _hubSched(panelId,title){openRef(panelId,'sched',title);var c=document.getElementById('crumb');if(c){c.dataset.back='hub';var b=c.querySelector('.crumb-brand');if(b)b.textContent='Team Hub';}}
-function _goHub(){var nav=null;document.querySelectorAll('.nav-item').forEach(function(n){if(/Team Hub/.test(n.textContent))nav=n;});show('performance',nav);}
+function _goHub(){showTeam(null,'performance');}
 function openLinks(el){var p=document.getElementById('tab-links');if(p&&p.classList.contains('active')){openBrand(document.body.getAttribute('data-brand')||'stellantis');return;}_hidePanels();document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});document.querySelectorAll('.brand-tab').forEach(function(b){b.classList.remove('active');});if(p)p.classList.add('active');if(el)el.classList.add('open');loadLinks();setCrumb(null);_scrollContent();}
 /* ── NISSAN REFERENCE (external sheet, excludes Nissan App 25-26) ── */
 var NISSAN_REF_SHEET='1lXDeN1iUosG_JSADgdWhnkT5J1t3hhwXoSJdbmb4B88';
@@ -6901,6 +7229,7 @@ function _stPhone(p){var x=(p||'').replace(/[^0-9+]/g,'');if(x&&x.charAt(0)!=='+
 function _stRegionMeta(region){
   var t=(region||'').trim().toLowerCase();
   if(/west|غرب|wr/.test(t))return{label:'West',rank:1};
+  if(/makk|مكة|مكه/.test(t))return{label:'Makkah',rank:1.5};
   if(/cent|وسط|cr/.test(t))return{label:'Central',rank:2};
   if(/east|شرق|er/.test(t))return{label:'East',rank:3};
   if(/north|شمال|nr/.test(t))return{label:'North',rank:4};
@@ -6909,6 +7238,9 @@ function _stRegionMeta(region){
 }
 var _PACD={
   st:{list:[],sel:'',el:'stPacBody',cls:''},
+  stbr:{list:[],sel:'',el:'stBranchesBody',cls:''},
+  sp:{list:[],sel:'',el:'sparePartsBody',cls:''},
+  nsp:{list:[],sel:'',el:'nissanSpareBody',cls:''},
   baic:{list:[],sel:'',el:'baicBranchesBody',cls:'pacd-baic'}
 };
 function _pacdKey(b){return (b.code||'')+'|'+(b.name||'')+'|'+(b.city||'');}
@@ -6981,15 +7313,15 @@ function _pacdDetail(id){
   var hrs=b.hours?'<div class="pacd-d-hours">'+_baicEsc(b.hours)+'</div>':'';
   function col(label,name,phone,email){
     if(!name&&!phone&&!email)return '';
-    var ph=_stPhone(phone);
+    var ph=/^[0-9+]+$/.test((phone||'').trim())?_stPhone(phone):(phone||'').trim();
     var phline=ph?'<div class="pacd-d-ph">'+_BRN_PHONE+'<span>'+_baicEsc(ph)+'</span>'+_cpBtn(ph)+'</div>':'';
     var emline=(email&&email.indexOf("@")>0)?'<div class="pacd-d-em">'+_MAIL_IC+'<a href="mailto:'+_baicEsc(email)+'">'+_baicEsc(email)+'</a>'+_cpBtn(email)+'</div>':'';
     return '<div class="pacd-d-mcol"><div class="pacd-d-mlabel">'+label+'</div>'+
       '<div class="pacd-d-mname">'+_baicEsc(name||'—')+'</div>'+phline+emline+'</div>';
   }
-  var bm=col('Branch Manager',b.mgr,b.mgrPhone,b.mgrEmail);
-  var rm=col('Regional Manager',b.rm,b.rmPhone,b.rmEmail);
-  var mgrRow=(bm||rm)?'<div class="pacd-d-mgrs">'+bm+(bm&&rm?'<div class="pacd-d-vline"></div>':'')+rm+'</div>':'';
+  var bm=col(b.mgrLabel||'Branch Manager',b.mgr,b.mgrPhone,b.mgrEmail);
+  var rm=col(b.rmLabel||'Regional Manager',b.rm,b.rmPhone,b.rmEmail);
+  var mgrRow=(bm||rm)?'<div class="pacd-d-mgrs'+((bm&&rm)?'':' one')+'">'+bm+(bm&&rm?'<div class="pacd-d-vline"></div>':'')+rm+'</div>':'';
   var svc='';
   if(b.services){
     var parts=b.services.split(/\s*[-–—,\/]\s*/).map(function(x){return x.trim();}).filter(Boolean);
@@ -6997,7 +7329,13 @@ function _pacdDetail(id){
   }
   el.innerHTML='<div class="pacd-d-head"><div class="pacd-d-title">'+title+'</div>'+dist+
       '<div class="pacd-d-actions">'+loc+cpMap+'</div></div>'+
-      (hrs?'<div class="pacd-d-hoursbar">'+hrs+'</div>':'')+mgrRow+svc;
+      (hrs?'<div class="pacd-d-hoursbar">'+hrs+'</div>':'')+(((b.toEmails&&b.toEmails.length)||(b.ccEmails&&b.ccEmails.length))?_spMgrCard(b):mgrRow)+svc;
+}
+function _spMgrCard(b){
+  function emlist(label,arr){if(!arr||!arr.length)return '';var rows=arr.map(function(e){e=(e||'').trim();if(e.indexOf('@')<0)return '';return '<div class="pacd-d-em">'+_MAIL_IC+'<a href="mailto:'+_baicEsc(e)+'">'+_baicEsc(e)+'</a>'+_cpBtn(e)+'</div>';}).join('');if(!rows)return '';return '<div class="sp-emk">'+label+'</div>'+rows;}
+  return '<div class="pacd-d-mgrs"><div class="pacd-d-mcol" style="text-align:center;flex:1 1 100%">'+
+    '<div class="pacd-d-mlabel">Branch Manager</div>'+(b.mgr?'<div class="pacd-d-mname">'+_baicEsc(b.mgr)+'</div>':'')+
+    emlist('TO',b.toEmails)+emlist('CC',b.ccEmails)+'</div></div>';
 }
 function _stPacRender(list){return _pacdRender('st',list);}
 function _bdRender(list){return _pacdRender('baic',list);}
